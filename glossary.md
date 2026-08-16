@@ -44,7 +44,7 @@ The task of estimating how urgently a message should be reviewed or acted upon.
 
 ### Named Entity Recognition (NER)
 
-The task of identifying words or phrases that belong to defined entity categories, such as locations, people, organizations, resources, or disaster-related terms. In the example tweet, Marikina is a location. Lolo provides context about who is at risk and is not treated as a named entity simply because it refers to a person.
+The task of identifying words or phrases that belong to defined entity categories, such as locations, people, organizations, resources, or disaster-related terms. In the example tweet, Marikina is a location and lolo is a person, so both are named entities. Baha is not an entity, because it describes the disaster-related condition and belongs to the urgency output.
 
 ### Task
 
@@ -62,6 +62,10 @@ The results produced when the trained encoder and its task components analyze a 
 
 The application goal of the study. The system analyzes one tweet for intent, urgency, and named entities at the same time so that responders receive several useful signals for review and prioritization.
 
+### Taglish Disaster Triage Application
+
+The software artifact of the study. It processes incoming tweets with the trained system, so responders can run the triage locally. UR2 ends with the release of the annotated dataset, the trained system, and the code.
+
 ### Multi-Task Learning
 
 A training approach in which one shared multilingual Transformer encoder learns several related tasks at the same time.
@@ -74,9 +78,57 @@ The process of controlling how much influence each task has while the shared enc
 
 A multi-task balancing approach that adjusts task influence during training instead of keeping the task contributions fixed.
 
+### Balancing Methods
+
+The family name used in the script for the methods that control task influence during training. The benchmark compares the established ones, such as Uncertainty Weighting and PCGrad, and the newer ones, such as CAGrad, IMTL, Nash-MTL, and FAMO. Each method replaces line 5 of the training loop with its own rule.
+
+### Static Equal Weights
+
+The simplest balancing method, used as a baseline. It gives the three losses the same influence at every training step. It does not adjust during training.
+
+### Loss
+
+The number that measures how wrong one task's predictions are on the current batch. Each task produces its own loss, and the balancing method decides how hard each loss pulls on the shared encoder.
+
+### Task Heads
+
+The three small components that sit on top of the shared encoder and produce the three outputs. The intent head reads what the person needs, the urgency head reads how urgent the situation is, and the NER head reads the named entities.
+
+### Subwords and Subword Tokenizer
+
+The tokenizer splits each tweet into small pieces called subwords. In Taglish, the split can break one word into pieces that come from both languages. For example, "ma-evacuate" splits at the hyphen, which sits between the Tagalog prefix and the English stem.
+
+### Continued Pre-Training
+
+The first goal of the training procedure. The encoder keeps training on unlabeled Taglish disaster tweets as part of the same procedure, so it adapts to the fragmented code-switched text. Gururangan and colleagues showed that this step helps in low-resource settings (2020.acl-main.740).
+
 ### Benchmarking
 
-Conducting a controlled comparison of different methods using the same data, model setting, training conditions, and evaluation measures.
+Conducting a controlled comparison of different methods using the same data, encoder setting, training conditions, and evaluation measures.
+
+### Event Split
+
+The dataset split for evaluation. Each method trains on past disaster events and tests on events it has never seen. TREC Incident Streams follows the same rule. Random splits inflate the scores, because event-specific words leak between the training and the test sets.
+
+### Single-Task Baseline
+
+The score of one task when it is trained alone. Negative transfer measures how far an output falls below its single-task baseline, and the weakest-output rule compares each output against it.
+
+### Per-Output Score
+
+One score for each output, reported separately. One averaged number can hide the imbalance among the three outputs, so the study reports all three.
+
+### Language Switch Points
+
+The words and phrases where Filipino and English meet, such as "ma-evacuate" from the example tweet. The evaluation scores the outputs at these points, because they are the hardest part of the Taglish text.
+
+### Statistical Significance
+
+A test of whether the difference between two methods is real, and not random variation from the seeds and splits. The repeated runs provide the data for this test.
+
+### Latency and Throughput
+
+The deployment cost metrics. Latency is the time one tweet takes on the laptops, and throughput is the number of tweets the system processes per second.
 
 ### Resource-Constrained Deployment
 
@@ -88,15 +140,23 @@ A situation in which training several tasks together makes one task perform wors
 
 ### Task Interference
 
-The mechanism behind negative transfer: updates that improve one task make another task worse. In this study, NER is token-level while intent and urgency are tweet-level, so their training signals can conflict.
+The mechanism behind negative transfer: updates that improve one task make another task worse. In this study, NER is token-level while intent and urgency are sequence-level, so their training signals can conflict.
 
 ### Task Weighting (Loss Weighting)
 
 The general approach of assigning an importance weight to each task's loss during training. Multi-task balancing methods, including the ones compared in this study, are task weighting methods.
 
+### Consistently Weakest Output
+
+The output whose per-output score falls the most below its single-task baseline, and the loss repeats across the repeated runs and the event splits. The comparison identifies this output, and the targeted method is designed to prevent it from degrading.
+
+### Targeted Adaptation
+
+What the study designs. It is a targeted change to an existing balancing method, built from the measured weakness. It is not a new general-purpose algorithm.
+
 ### Uncertainty Weighting
 
-A task weighting method proposed by Kendall and colleagues in 2018. It learns each task's weight from the model's uncertainty about that task. It is a standard baseline in multi-task balancing studies.
+A task weighting method proposed by Kendall and colleagues in 2018. It learns each task's weight from the network's own uncertainty about that task. It is a standard baseline in multi-task balancing studies.
 
 ### GradNorm
 
@@ -113,6 +173,22 @@ A task balancing method proposed by Yu and colleagues in 2020. It removes confli
 ### NTK-MTL
 
 A task balancing method proposed by Navon and colleagues in 2022. It explains task imbalance using the neural tangent kernel and rebalances task losses accordingly.
+
+### CAGrad
+
+A task balancing method proposed by Liu and colleagues in 2021. It finds one update direction that improves all the tasks together and avoids conflicts between their gradients.
+
+### IMTL
+
+A task balancing method proposed by Liu and colleagues in 2021. It finds the update direction that treats all task losses impartially, so no task's loss dominates.
+
+### Nash-MTL
+
+A task balancing method proposed by Navon and colleagues in 2022. It views task balancing as a bargaining game and uses the Nash solution as the update direction.
+
+### FAMO
+
+A task balancing method proposed by Liu and colleagues in 2023. It combines all task losses into one fast adaptive number, so balancing stays practical when the task count grows.
 
 ### Main Task
 
@@ -144,4 +220,8 @@ A language with little labeled data and few available NLP resources. Tagalog and
 
 ### Token-Level and Sequence-Level Tasks
 
-Token-level tasks predict a label for each word in the tweet, such as NER. Sequence-level tasks predict one label for the whole tweet, such as intent classification and urgency prediction. The difference is one reason the tasks interfere.
+Token-level tasks predict a label for each word in the tweet, such as NER. Sequence-level tasks predict one label for the whole tweet, such as intent classification and urgency prediction. The difference is one reason the tasks interfere. The script calls the sequence-level tasks sentence-level tasks.
+
+### UR1 and UR2
+
+The two research semesters. UR1 covers the first three chapters, the annotation, and the first training runs. UR2 covers the comparison, the targeted method, the remaining two chapters, the software artifact, and the public release.
