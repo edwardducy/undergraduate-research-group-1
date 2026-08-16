@@ -1,0 +1,8 @@
+# Downloaded paper PDFs, extracted figures, and Marker metadata.
+# These are copyrighted publications kept locally only.
+*.pdf
+*_meta.json
+_page_*
+
+# OS files
+.DS_Store
