@@ -11,7 +11,7 @@
 
 # Vale
 
-- Check the user-written Markdown files with pnpm vale *.md.
+- Check the user-written Markdown files with pnpm exec vale *.md.
 - Do not check the automatically generated files, such as the extracted paper notes in literature/.
 
 # Marker

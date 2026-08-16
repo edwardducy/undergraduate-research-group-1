@@ -4,11 +4,16 @@
   "description": "Title defense materials, literature notes, and prose-lint setup for the undergraduate research project.",
   "private": true,
   "scripts": {
-    "vale": "vale"
+    "slides": "slidev slides/title-defense-slides.md",
+    "slides:build": "slidev build slides/title-defense-slides.md",
+    "slides:export": "slidev export slides/title-defense-slides.md"
   },
   "license": "UNLICENSED",
   "type": "module",
   "devDependencies": {
-    "@vvago/vale": "^3.17.1"
+    "@slidev/cli": "^52.19.0",
+    "@slidev/theme-default": "^0.25.0",
+    "@vvago/vale": "^3.17.1",
+    "playwright-chromium": "^1.62.1"
   }
 }
