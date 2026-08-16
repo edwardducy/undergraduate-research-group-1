@@ -6,3 +6,5 @@ _page_*
 
 # OS files
 .DS_Store
+.venv/
+node_modules/

@@ -146,3 +146,10 @@ DDR5
 UR1
 UR2
 delimitations
+PDF
+PDFs
+subfolder
+subfolders
+uv
+venv
+pnpm

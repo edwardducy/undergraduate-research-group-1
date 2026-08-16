@@ -1,0 +1,14 @@
+{
+  "name": "undergraduate-research",
+  "version": "1.0.0",
+  "description": "Title defense materials, literature notes, and prose-lint setup for the undergraduate research project.",
+  "private": true,
+  "scripts": {
+    "vale": "vale"
+  },
+  "license": "UNLICENSED",
+  "type": "module",
+  "devDependencies": {
+    "@vvago/vale": "^3.17.1"
+  }
+}
