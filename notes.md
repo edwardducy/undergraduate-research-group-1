@@ -95,7 +95,7 @@ The study asks whether one shared multilingual Transformer encoder can process T
 
 The question has no answer yet. Existing studies have developed disaster tweet benchmarks, Taglish resources, and general multi-task balancing methods, but these areas remain disconnected. No study has tested a dynamic multi-task balancing method on Taglish disaster tweets. The few multi-task studies on code-switched text report conditional results and do not use balancing methods. The gaps leave responders with a choice they cannot validate: separate encoders with higher cost, or a shared encoder with an unknown balancing method. Because of these gaps, there is no established baseline for this setting. The study provides that benchmark, and the next part describes how.
 
-#### Part 3: Proposed CS Methodology and Architecture
+#### Part 3: Proposed CS Methodology and Pipeline
 
 The study provides the benchmark with a training procedure that pursues two goals. The first goal is to adapt the shared encoder to the fragmented code-switched text. The second goal is to balance the three outputs so that no output dominates or gets lost. The comparison of balancing methods runs under a controlled protocol and identifies the consistently weakest output. The team then designs a balancing method that prevents it from degrading, and benchmarks that method against the existing ones. The design of the method is evidence-led: it does not start from a formula, it starts from the measured weakness.
 

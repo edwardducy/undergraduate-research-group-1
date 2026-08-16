@@ -64,11 +64,11 @@ Because of these gaps, there is currently no established baseline or unified wor
 
 The next section explains our methodology.
 
-## Part 3: Proposed Methodology and Architecture
+## Part 3: Proposed Methodology and Pipeline
 
 Estimated speaking time: 5 to 7 minutes
 
-The benchmark has three pieces: the system architecture, the training procedure with its two goals, and the plan that turns the comparison into a method designed from the measurement. We explain each piece in turn.
+The benchmark has three pieces: the system pipeline, the training procedure with its two goals, and the plan that turns the comparison into a method designed from the measurement. We explain each piece in turn.
 
 The system has one shared multilingual Transformer encoder and three task heads. The encoder processes the tweet once, and that single pass provides the basis for all three outputs.
 
