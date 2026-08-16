@@ -153,3 +153,4 @@ subfolders
 uv
 venv
 pnpm
+dotfiles

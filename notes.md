@@ -181,3 +181,16 @@ Two conditions:
 
 - Terminology: use continued pre-training or domain-adaptive pre-training, not pre-finetuning. Pre-finetuning is the embedding literature term (E5 and REZE).
 - The staging is the apparatus, not the novelty. The novelty must be the balancing method designed for the output imbalance as it appears after the pre-training stage.
+
+## Git Commit Messages
+
+August 2026
+
+The repository follows Conventional Commits with one format for all commits:
+
+- docs: for content changes. Examples: the script, the glossary, the notes, the literature corpus.
+- chore: for tooling and configuration. Examples: pnpm, uv, vale, the dotfiles.
+- fix: for corrections to content or tooling.
+- The summary is a lowercase imperative sentence. Example: docs: polish the script narrative, add the public release, and expand the glossary.
+
+The three existing commits were rewritten to this format and force-pushed. The repository has no other contributors, so history rewrites stay safe while the commit count is small.
