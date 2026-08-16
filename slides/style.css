@@ -1,0 +1,130 @@
+/* Claude design system tokens, applied to the title defense deck.
+   Source: voltagent/awesome-design-md design-md/claude/DESIGN.md */
+
+:root {
+  --c-primary: #cc785c;
+  --c-primary-active: #a9583e;
+  --c-ink: #141413;
+  --c-body: #3d3d3a;
+  --c-body-strong: #252523;
+  --c-muted: #6c6a64;
+  --c-muted-soft: #8e8b82;
+  --c-hairline: #e6dfd8;
+  --c-hairline-soft: #ebe6df;
+  --c-canvas: #faf9f5;
+  --c-surface-soft: #f5f0e8;
+  --c-surface-cream-strong: #e8e0d2;
+  --c-surface-dark: #181715;
+  --c-surface-dark-elevated: #252320;
+  --c-on-dark: #faf9f5;
+  --c-on-dark-soft: #a09d96;
+}
+
+/* Base: layout, body text, bullets, links */
+
+.slidev-layout {
+  background-color: var(--c-canvas);
+  color: var(--c-body);
+}
+
+li::marker {
+  color: var(--c-primary);
+}
+
+a {
+  color: var(--c-primary);
+  text-decoration: none;
+}
+
+/* 1. Slide labels — the ## headings */
+
+.slidev-layout h2 {
+  font-family: var(--slidev-font-sans);
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--c-muted);
+  margin-bottom: 2.5rem;
+}
+
+/* 2. Part pills */
+
+.pill {
+  display: inline-block;
+  font-family: var(--slidev-font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--c-primary);
+  margin-bottom: 2rem;
+}
+
+/* 3. Serif statements — cover title, research question, closing,
+   and the example-tweet quote */
+
+.statement {
+  font-family: var(--slidev-font-serif);
+  font-size: 2.2rem;
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: -0.5px;
+  color: var(--c-ink);
+  max-width: 30ch;
+  text-align: center;
+  margin: 3rem auto;
+}
+
+/* The cover kicker under the title follows type 1 */
+
+.statement + div {
+  margin-top: 0;
+  font-family: var(--slidev-font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--c-muted);
+}
+
+/* 4. The training-loop code lines */
+
+.code {
+  max-width: 44rem;
+}
+
+.code pre {
+  margin: 0;
+  font-family: var(--slidev-font-mono);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.code span {
+  color: var(--c-primary);
+}
+
+/* 5. The mermaid node labels — colors live in the init directive
+   at the top of the mermaid block, not here */
+
+/* 6. Tables — full muted grid, headers same as body but bolder */
+
+.slidev-layout table {
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.slidev-layout th,
+.slidev-layout td {
+  border: 1px solid var(--c-muted);
+  padding: 0.6rem 1rem;
+  text-align: left;
+  vertical-align: top;
+  font-size: 1rem;
+  color: var(--c-body);
+}
+
+.slidev-layout th {
+  font-weight: 700;
+}
