@@ -2,78 +2,91 @@
 
 Date: August 2026
 
-The advisor asked for a revised proposal based on the first of the three submitted titles. The proposal was too vague. The advisor asked four questions and set one requirement for the final system deliverable. This file records the questions, the grounded answers, and the open decisions.
+## Research Title
+
+**Old:** Benchmarking Dynamic Multi-Task Loss Balancing in a Lightweight Transformer Encoder for Joint Intent, Urgency, and Named Entity Recognition on Code-Switched Emergency Comments
+
+**New:** Benchmarking Dynamic Multi-Task Balancing in a Multilingual Encoder for Joint Triage of Taglish Disaster Tweets
+
+Why we replaced "lightweight encoder" with "multilingual encoder":
+
+- The new term reflects both the language and the resource requirements of the research.
+- An English-only encoder does not understand Tagalog, so it would make errors from a language gap rather than from the balancing methods themselves.
+- A multilingual encoder supports both English and Tagalog, but it still struggles with informal, code-switched Taglish disaster tweets.
+- We removed the word "lightweight" because modern base encoders can already run on consumer laptops.
+
+Why we replaced "Code-Switched Emergency Comments" with "Taglish Disaster Tweets":
+
+- The new term clarifies the target language and the domain.
+- "Code-switched" applies broadly to any language combination, while "Taglish" specifies the exact mix of Tagalog and English that the research evaluates.
+- "Disaster tweets" clarifies the disaster-response context.
+- It specifies social media posts, and it distinguishes our data from general comment sections on video platforms or blogs.
 
 ## The Advisor's Questions
+
+The advisor asked four questions:
 
 1. Is there an existing, open-source dataset of code-switched emergency comments annotated for Intent, Urgency, and NER, or will we have to manually label thousands of posts ourselves?
 2. Which specific multi-task loss balancing techniques are we comparing?
 3. Which base encoder are we using, and what are our baseline memory and latency constraints?
 4. How do we evaluate success? How do we measure overall multi-task performance?
 
-## Question 1: Is There an Existing Dataset?
+## The Advisor's Requirement
 
-No public dataset combines Taglish, the disaster domain, and joint intent, urgency, and NER annotations, so we must build our own dataset.
+The final deliverable must be a fully functional emergency management and triage pipeline:
 
-We will manually label our own dataset, but not from zero. We will use a tool to pre-annotate the tweets, and then we will review the labels by hand.
+- The pipeline consumes emergency data and applies the trained model in a realistic deployment context.
+- A single-page testing dashboard, such as Streamlit or Gradio, is not enough.
+- A full social media platform is not required.
 
-We have not yet decided on the size of the dataset.
+## Decisions
 
-## Question 2: Which Balancing Techniques?
+### Question 1: Existing Dataset
 
-We will compare loss-balancing and gradient-balancing methods such as Uncertainty Weighting (UW), PCGrad, GradNorm, CAGrad, IMTL, Nash-MTL, and FAMO. The two baselines are static equal weights and three separate encoders, one for each task. This list is not yet final, because we are still deciding on the selection criteria. Most of these techniques were originally applied to computer-vision multi-task benchmarks, and not to informal, code-switched text that carries more than one annotation.
+- No public dataset combines Taglish, the disaster domain, and joint intent, urgency, and NER annotations.
+- We build our own dataset.
+- A tool pre-annotates the tweets, and then we review the labels by hand.
 
-## Question 3: Which Base Encoder and Which Constraints?
+### Question 2: Balancing Techniques
 
-We have not yet made the final decision on the base encoder. We decided on Multilingual ModernBERT as the leading candidate, but we are still deciding. We will first run an initial test on a Taglish sample, and then we will decide on the encoder and set the baseline memory and latency constraints.
+- We compare loss-balancing and gradient-balancing methods: Uncertainty Weighting (UW), PCGrad, GradNorm, CAGrad, IMTL, Nash-MTL, and FAMO.
+- Baseline 1: static equal weights.
+- Baseline 2: three separate encoders, one for each task.
+- Most of these techniques were originally applied to computer-vision multi-task benchmarks, not to informal, code-switched text that carries more than one annotation.
+- The list is not yet final, and we are still choosing the selection criteria.
 
-## Question 4: How Is Success Evaluated?
+### Question 3: Base Encoder and Constraints
 
-- Per output: Intent Macro-F1, Urgency Macro-F1, and token-level NER span F1 with exact boundaries. We report the three scores separately, because one averaged number hides which output lost.
-- Overall multi-task performance: the average of the three scores, plus the standard multi-task aggregate from the Taskonomy and Standley line of work. That aggregate is the mean relative improvement of each shared-encoder output over its single-task baseline. It answers whether sharing helped overall.
-- Negative transfer: we measure each output against its single-task baseline, so a drop is visible per output.
-- Rigor: event-based splits (the TREC Incident Streams precedent), repeated seeds, significance tests, naive baselines, and scoring at language switch points.
-- Success criteria: first, the shared encoder reaches parity with or beats the three separate encoders on every output. Second, our balancing method raises the consistently weakest output above the best existing method without significant cost to the other two. Third, the latency, memory, and throughput constraints hold on the laptops.
+- Multilingual ModernBERT is the leading candidate.
+- An initial test on a Taglish sample decides the encoder.
+- The same test sets the baseline memory and latency constraints.
 
-## The System Deliverable Requirement
+### Question 4: Evaluation
 
-The advisor's requirement, in plain words:
+- We score each of the three tasks separately.
+- A single overall average would hide a weakness in one area.
+- We compare the shared encoder directly against three separate standalone encoders.
+- The comparison confirms that combining the tasks does not degrade performance.
 
-- A single-page testing dashboard such as Streamlit or Gradio is not enough for the final system deliverable.
-- We are not expected to build a full social media platform.
-- We must build a fully functional emergency management and triage pipeline system that consumes emergency data and applies the trained model in a realistic deployment context.
+## The System Deliverable
 
-The system must have three parts:
+The system has three parts:
 
-1. Database and backend API: real-time processing and logging of incoming code-switched comments.
-2. Operational interface: a functional responder dashboard, an interactive map visualization based on parsed NER locations, or a mobile or bot integration.
-3. Workflow state: the ability for an operator to view, filter, and update the status of incoming alerts based on the model's intent and urgency classifications.
+1. **Database and backend API:** a FastAPI service with SQLite or PostgreSQL.
+   - One endpoint receives tweets from a simulated live stream of a held-out event.
+   - The endpoint also receives tweets from manual entry.
+   - The service runs the trained encoder and logs every tweet with its predictions and timestamps.
+2. **Operational interface:** a web responder dashboard with an interactive map.
+   - Each tweet becomes an alert card that shows intent, urgency, and entities.
+   - Each NER location becomes a map pin.
+3. **Workflow state:** every alert carries a status of New, Acknowledged, Responding, or Resolved.
+   - The operator filters by intent, urgency, location, or status.
+   - The operator updates statuses, and the system logs every change.
 
-Our plan follows the Humaid-Ner precedent of a real-time web dashboard:
+The plan follows the Humaid-Ner precedent of a real-time web dashboard.
 
-- Backend and database: a FastAPI service with SQLite or PostgreSQL. One endpoint receives tweets from a simulated live stream of a held-out event, plus manual entry. The service runs the trained encoder and logs every tweet with its predictions and timestamps.
-- Operational interface: a web responder dashboard with an interactive map. Each tweet becomes an alert card that shows intent, urgency, and entities. Each NER location becomes a map pin.
-- Workflow state: every alert carries a status of New, Acknowledged, Responding, or Resolved. The operator filters by intent, urgency, location, or status, updates statuses, and the system logs every change.
+### Defense Demo
 
-Defense demo: a live feed of held-out Taglish tweets flows through the pipeline. The dashboard and the map update in real time. The operator moves one alert through the whole workflow, from New to Resolved. This shows the trained model inside a realistic deployment context with no social platform.
-
-## Open Decisions
-
-Four numbers wait for our confirmation before the answers enter the proposal:
-
-1. Dataset scale: 6,000 tweets across 6 Philippine disaster events.
-2. Primary encoder: Multilingual ModernBERT (leading candidate, pending confirmation from the initial Taglish sample test).
-3. Constraints: 1.5 GB of memory, one second of latency per tweet, and 2 tweets per second of throughput.
-4. The method list: UW, PCGrad, GradNorm, CAGrad, IMTL, Nash-MTL, and FAMO, plus the two baselines.
-
-We must also confirm that the first of the three submitted titles is the locked title, Benchmarking Dynamic Multi-Task Balancing in a Multilingual Encoder for Joint Triage of Taglish Disaster Tweets.
-
-## Integration Plan
-
-Where each answer lands in the proposal:
-
-- Part 2: add Humaid-Ner as the closest dataset precedent and as the annotation-pipeline precedent. The script already cites TweetTaglish, Batayan, and CALCS 2020.
-- Part 3: name the seven methods and the two baselines. Add the encoder-selection measurement.
-- Part 4: add the overall relative-improvement aggregate and the concrete constraint numbers.
-- Part 5: replace the artifact sentence with the three-part pipeline system and the defense demo.
-- notes.md: record the scale, encoder, constraint, and system decisions.
+- A live feed of held-out Taglish tweets flows through the pipeline.
+- The dashboard and the map update in real time.
+- The operator moves one alert from New to Resolved.
