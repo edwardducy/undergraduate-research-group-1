@@ -1,5 +1,3 @@
-<!-- vale off -->
-
 # Research Notes
 
 Living notes for the Taglish Disaster Tweets MTL paper.
@@ -9,11 +7,17 @@ These notes are separate from original-proposal.md, which stays a clean referenc
 
 The title is final and cannot change: Benchmarking Dynamic Multi-Task Balancing in a Multilingual Encoder for Joint Triage of Taglish Disaster Tweets.
 
-- We dropped "Lightweight," because "lightweight encoder" is hard to define. The gap statement already defines the constraint as "<100M parameters." If the constraint appears in a title again, "sub-100M" is more precise. The concept may still appear in the abstract.
+- We dropped "Lightweight," because "lightweight encoder" is hard to define.
 - No task list in the title. The full list, "Joint Intent, Urgency, and Named Entity Recognition," made the title too long. "Triage" is a signal, not a definition: it points at urgency, but not at NER or intent. The abstract's first sentence must name all three heads: NER, intent classification, and urgency scoring.
 - No CPU or efficiency claim in the title. Any small model can run on CPU with ONNX or quantization, and a latency table on one machine is engineering, not science. CPU remains in the paper as motivation for local deployment by Philippine emergency responders. Sub-RQ 2, covering latency, memory, and throughput, remains as a secondary deployment-context section.
 - What carries the paper: the new Taglish disaster tweet MTL dataset is the strongest novelty, and the dynamic loss-balancing comparison is the methodological contribution.
 - The title explains the study in five parts: benchmarking means a controlled comparison, dynamic multi-task balancing is the optimization problem, multilingual encoder is the model setting, joint triage is the combined prediction goal, and Taglish disaster tweets is the domain.
+
+## Encoder Selection Strategy
+
+- We disregard arbitrary parameter thresholds (such as "<100M parameters" or "sub-100M") because fixed numerical boundaries create unnecessary defense liabilities.
+- Instead, the study tests a candidate list of multilingual encoders (such as Multilingual ModernBERT, mBERT, and XLM-RoBERTa) to determine empirically which backbone is the most effective and computationally viable on CPU hardware.
+- Evaluating multiple candidate encoders confirms that the dynamic multi-task balancing findings and the targeted adaptation generalize across different multilingual architectures, rather than being tied to one specific model.
 
 ## Advisor Expectation and Scope
 
@@ -42,5 +46,3 @@ The golden thread: code-switched Taglish text fragments meaning, so the shared e
 - Part 4 (evaluation): per-output scores for intent, urgency, and NER, overall performance, negative transfer, latency, memory use, and throughput. The baselines are static equal weights and three separate encoders.
 - Part 5 (expected contribution): the dataset with joint triage annotations, the benchmark under a controlled protocol, the balancing adaptation that prevents the weakest output from degrading, and the software artifact, a Taglish disaster triage application.
 - The defense presents the study as an evidence-driven investigation, not as a claim that dynamic balancing is already superior.
-
-<!-- vale on -->
