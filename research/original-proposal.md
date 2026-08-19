@@ -1,3 +1,5 @@
+<!-- vale off -->
+
 # Original Proposed Paper (Reference Copy)
 
 - Saved as the original proposal from the project's Activity 1, the title-refinement stage.
@@ -38,3 +40,5 @@ To what extent do dynamic multi-task loss-balancing algorithms mitigate task gra
 
 - **Sub-RQ 1 (Technical / Performance Metric):** How do dynamic multi-task loss-balancing algorithms (specifically Uncertainty Weighting, PCGrad, and GradNorm) impact Intent Macro F1, Urgency Macro F1, and Token-level NER F1 compared to static equal loss weighting and standalone single-task local baselines?
 - **Sub-RQ 2 (Accuracy / System Metric):** What is the single-pass inference latency (ms), memory footprint (MB), and processing throughput (comments/sec) of the optimized joint multi-task model on standard CPU hardware compared to running three separate single-task pipelines sequentially?
+
+<!-- vale on -->

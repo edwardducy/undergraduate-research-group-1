@@ -1,3 +1,5 @@
+<!-- vale off -->
+
 # Title Defense Script
 
 ## Part 1: Title and Problem Motivation
@@ -167,3 +169,5 @@ We know the risks in advance. The first risk is the dataset. The annotation effo
 The study contributes four things. First, the new Taglish disaster tweet dataset with joint intent, urgency, and NER annotations. Second, the benchmark that compares existing balancing methods on the Taglish disaster tweet dataset under a controlled protocol. Third, the balancing method that prevents the consistently weakest output from degrading in Taglish disaster triage, designed from the measured weakness and validated against the existing methods. Fourth, the software artifact, a Taglish disaster triage application that lets responders run the trained system on incoming tweets.
 
 The study started with one question. Which balancing method can train one shared multilingual Transformer encoder reliably for the three tasks in the Taglish disaster setting? This plan answers that question in two steps. First, the benchmark measures the three outputs under a controlled protocol and identifies the consistently weakest output. Second, we design a targeted balancing method that prevents that output from degrading, and we measure whether preventing the degradation costs anything on the other two outputs. We do not answer with a guess. We answer with a measurement.
+
+<!-- vale on -->

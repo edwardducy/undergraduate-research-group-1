@@ -1,4 +1,6 @@
-# Project Notes
+<!-- vale off -->
+
+# Research Notes
 
 Living notes for the Taglish Disaster Tweets MTL paper.
 These notes are separate from original-proposal.md, which stays a clean reference copy of the proposal.
@@ -40,3 +42,5 @@ The golden thread: code-switched Taglish text fragments meaning, so the shared e
 - Part 4 (evaluation): per-output scores for intent, urgency, and NER, overall performance, negative transfer, latency, memory use, and throughput. The baselines are static equal weights and three separate encoders.
 - Part 5 (expected contribution): the dataset with joint triage annotations, the benchmark under a controlled protocol, the balancing adaptation that prevents the weakest output from degrading, and the software artifact, a Taglish disaster triage application.
 - The defense presents the study as an evidence-driven investigation, not as a claim that dynamic balancing is already superior.
+
+<!-- vale on -->

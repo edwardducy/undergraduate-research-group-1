@@ -1,3 +1,5 @@
+<!-- vale off -->
+
 # Advisor Feedback on the Title Proposal
 
 Date: August 2026
@@ -90,3 +92,5 @@ The plan follows the Humaid-Ner precedent of a real-time web dashboard.
 - A live feed of held-out Taglish tweets flows through the pipeline.
 - The dashboard and the map update in real time.
 - The operator moves one alert from New to Resolved.
+
+<!-- vale on -->

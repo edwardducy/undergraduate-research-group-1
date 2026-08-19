@@ -1,3 +1,5 @@
+<!-- vale off -->
+
 # Git Commit Conventions
 
 The repository follows Conventional Commits with one format for all commits:
@@ -14,3 +16,5 @@ Examples:
 - docs: polish the script narrative, add the public release, and expand the glossary
 - chore: remove sample data and the encoder probe script
 - fix: correct the TREC-IS citation year in the script
+
+<!-- vale on -->

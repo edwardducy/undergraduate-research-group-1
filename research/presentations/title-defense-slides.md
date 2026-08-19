@@ -5,7 +5,7 @@ info: Title Defense
 class: text-left
 paginate: true
 colorSchema: light
-css: style.css
+css: title-defense-styles.css
 fonts:
   sans: Inter
   serif: Newsreader
