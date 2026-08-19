@@ -20,7 +20,7 @@ jobs:
         env:
           RCLONE_CONFIG_GDRIVE_TYPE: drive
           RCLONE_CONFIG_GDRIVE_SCOPE: drive
-          RCLONE_CONFIG_GDRIVE_SERVICE_ACCOUNT_CREDENTIALS: ${{ secrets.GDRIVE_SA_KEY }}
+          RCLONE_CONFIG_GDRIVE_TOKEN: ${{ secrets.GDRIVE_TOKEN }}
           RCLONE_CONFIG_GDRIVE_ROOT_FOLDER_ID: ${{ secrets.GDRIVE_FOLDER_ID }}
         run: |
           rclone sync . gdrive: \
