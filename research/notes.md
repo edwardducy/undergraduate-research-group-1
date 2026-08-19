@@ -7,42 +7,53 @@ These notes are separate from original-proposal.md, which stays a clean referenc
 
 The title is final and cannot change: Benchmarking Dynamic Multi-Task Balancing in a Multilingual Encoder for Joint Triage of Taglish Disaster Tweets.
 
-- We dropped "Lightweight," because "lightweight encoder" is hard to define.
-- No task list in the title. The full list, "Joint Intent, Urgency, and Named Entity Recognition," made the title too long. "Triage" is a signal, not a definition: it points at urgency, but not at NER or intent. The abstract's first sentence must name all three heads: NER, intent classification, and urgency scoring.
-- No CPU or efficiency claim in the title. Any small model can run on CPU with ONNX or quantization, and a latency table on one machine is engineering, not science. CPU remains in the paper as motivation for local deployment by Philippine emergency responders. Sub-RQ 2, covering latency, memory, and throughput, remains as a secondary deployment-context section.
-- What carries the paper: the new Taglish disaster tweet MTL dataset is the strongest novelty, and the dynamic loss-balancing comparison is the methodological contribution.
-- The title explains the study in five parts: benchmarking means a controlled comparison, dynamic multi-task balancing is the optimization problem, multilingual encoder is the model setting, joint triage is the combined prediction goal, and Taglish disaster tweets is the domain.
+- **Lightweight dropped:** Dropped "Lightweight" because the term lacks a precise definition.
+- **Task list omitted:** Omitted the full task list from the title to keep the title concise. The abstract must name all three heads: Named Entity Recognition, intent classification, and urgency scoring.
+- **CPU claim omitted:** Omitted CPU and efficiency claims from the title because small models running on CPU via ONNX or quantization represent engineering rather than science. CPU execution remains as motivation for local deployment by Philippine emergency responders. Sub-RQ 2, covering latency, memory, and throughput, remains as a secondary deployment-context section.
+- **Core novelty and method:** The curated Taglish disaster tweet multi-task dataset represents the primary novelty, and the dynamic multi-task balancing comparison represents the methodological contribution.
+- **Title components:** The title explains the study in five parts: benchmarking defines the controlled comparison, dynamic multi-task balancing defines the optimization problem, multilingual encoder defines the architecture, joint triage defines the combined prediction goal, and Taglish disaster tweets defines the domain.
 
 ## Encoder Selection Strategy
 
-- We disregard arbitrary parameter thresholds (such as "<100M parameters" or "sub-100M") because fixed numerical boundaries create unnecessary defense liabilities.
-- Instead, the study tests a candidate list of multilingual encoders (such as Multilingual ModernBERT, mBERT, and XLM-RoBERTa) to determine empirically which backbone is the most effective and computationally viable on CPU hardware.
-- Evaluating multiple candidate encoders confirms that the dynamic multi-task balancing findings and the targeted adaptation generalize across different multilingual architectures, rather than being tied to one specific model.
+- **Disregard parameter thresholds:** Disregard arbitrary parameter thresholds (such as "<100M parameters" or "sub-100M") because fixed numerical boundaries create unnecessary defense liabilities.
+- **Candidate encoder evaluation:** Test a candidate list of multilingual encoders (such as Multilingual ModernBERT, mBERT, and XLM-RoBERTa) to determine empirically which backbone is the most effective and computationally viable on CPU hardware.
+- **Generalization:** Evaluate multiple candidate encoders to confirm that dynamic multi-task balancing findings and the targeted adaptation generalize across different multilingual architectures.
 
-## Advisor Expectation and Scope
+## Advisor Guidance and Algorithmic Scope
 
-August 2026
+- **Algorithmic expectation:** The advisor approved and expects an adapted dynamic multi-task balancing algorithm rather than only a passive benchmark of existing methods.
+- **Artifact scope:** The planned research artifact is an adaptation of existing balancing methods tailored to code-switched text, rather than a universal general-purpose algorithm. A universal optimization method requires doctoral scope to outperform standard baselines across diverse benchmarks.
+- **Scope distinction:** The advisor noted that the project scope exceeds standard benchmarking because the research actively designs a targeted optimization artifact.
+- **Targeted protection:** The benchmark systematically identifies the consistently weakest output head, and the team designs an adapted balancing method to prevent that specific head from degrading.
+- **Manuscript framing:** The approved defense title retains the term "Benchmarking," while the manuscript text highlights the designed algorithmic adaptation as a core technical contribution.
 
-- The advisor expects a new MTL optimization: a dynamic balancing algorithm of our own, not only a benchmark of existing methods.
-- The deliverable is an adaptation of an existing balancing method, not a novel algorithm. The "new method" wording in earlier notes no longer applies.
-- A novel general-purpose MTL optimization is doctoral scope, not undergraduate thesis scope. A general method must beat UW, GradNorm, PCGrad, and similar methods across many settings.
-- The dataset remains the strongest contribution, and it is acceptable as the primary contribution if the evidence does not justify a new method.
-- The comparison identifies the consistently weakest output, and the team designs a balancing method that prevents it from degrading. The commitment is unconditional, because one output is always the weakest, so the method always exists.
+## Candidate Terms for the Proposed Algorithm
+
+- **Adaptive Dynamic Multi-Task Balancing:** Highlights dynamic weight adjustment guided by training feedback.
+- **Weak-Task-Aware Dynamic Optimization:** Emphasizes explicit protection of the lowest-performing triage head.
+- **Targeted Dynamic Balancing Adaptation:** Emphasizes evidence-led modification of universal loss or gradient balancing methods.
+- **Hybrid Gradient-Loss Balancing Strategy:** Describes combining loss scaling with gradient surgery.
+
+## Refined Four-Part Contribution Hierarchy
+
+- **Dataset Artifact:** The first public multi-task Taglish disaster tweet corpus with joint annotations for intent, urgency, and named entities.
+- **Algorithmic Artifact:** An adapted dynamic multi-task balancing algorithm designed to prevent weak-output degradation on code-switched text.
+- **Empirical Evaluation:** A controlled experimental benchmark comparing the proposed algorithm against universal MTL methods across disaster event splits.
+- **Software Artifact:** A functional, offline-capable disaster triage application executing on edge CPU hardware.
 
 ## Method Design Principles
 
-- The method is evidence-led: compare the existing methods first, observe where they fail, and then design the targeted fix. The novelty is the connection between the observed problem and the solution, not an arbitrary combination of existing techniques.
-- We must not assume that Taglish creates task conflict or that dynamic balancing is automatically better. Both claims require evidence.
-- Measurement follows published metrics: per-task gradient magnitudes (GradNorm), conflict angles (PCGrad), and which output degrades (the Humaid-Ner pattern).
-- If the existing methods already work well, the study still checks whether preventing the weakest output's degradation costs anything on the other outputs. A small gain is still an honest published result, and the dataset and the benchmark can stand alone as the contribution.
+- **Evidence-led design:** Compare existing methods first, observe where they fail, and design the targeted fix based on observed data.
+- **Empirical validation:** Avoid assuming that Taglish creates task conflict or that dynamic balancing is automatically superior; both claims require empirical evidence.
+- **Standardized metrics:** Measure per-task gradient magnitudes (GradNorm), conflict angles (PCGrad), and per-output score degradation.
+- **Honest reporting:** If existing methods perform well, verify whether preventing weak-output degradation harms other outputs; small gains remain honest published results.
 
 ## Defense Structure
 
-The golden thread: code-switched Taglish text fragments meaning, so the shared encoder must balance three tasks that pull it in different directions, and no study has shown which balancing method prevents all three outputs from degrading. The study finds the consistently weakest output and designs a balancing method that prevents it from degrading.
+The central thesis: code-switched Taglish text causes representation difficulties, requiring a shared encoder that balances three competing triage tasks. The study identifies the consistently weakest output and designs a balancing method that prevents that output from degrading.
 
-- Part 1 (title and problem motivation): one shared multilingual encoder processes Taglish disaster tweets and supports intent classification, urgency prediction, and NER. The question is which balancing method trains that encoder reliably for the three tasks in the Taglish disaster setting.
-- Part 2 (background and research gap): disaster tweet benchmarks, Taglish resources, and general balancing methods exist, but they remain disconnected. No study has tested dynamic balancing on Taglish disaster tweets.
-- Part 3 (methodology): adapt the shared encoder to the fragmented code-switched text, balance the three outputs under a controlled protocol, and let the comparison identify the consistently weakest output.
-- Part 4 (evaluation): per-output scores for intent, urgency, and NER, overall performance, negative transfer, latency, memory use, and throughput. The baselines are static equal weights and three separate encoders.
-- Part 5 (expected contribution): the dataset with joint triage annotations, the benchmark under a controlled protocol, the balancing adaptation that prevents the weakest output from degrading, and the software artifact, a Taglish disaster triage application.
-- The defense presents the study as an evidence-driven investigation, not as a claim that dynamic balancing is already superior.
+- **Part 1 (Title and Problem Motivation):** One shared multilingual encoder processes Taglish disaster tweets for intent classification, urgency prediction, and NER. The study evaluates which balancing method trains the encoder reliably for all three tasks.
+- **Part 2 (Background and Research Gap):** Disaster tweet benchmarks, Taglish resources, and general balancing methods exist separately. No published study evaluates dynamic balancing on Taglish disaster tweets.
+- **Part 3 (Methodology):** Adapt the shared encoder to code-switched text, balance the three outputs under a controlled protocol, and identify the consistently weakest output.
+- **Part 4 (Evaluation):** Measure per-output scores for intent, urgency, and NER, overall performance, negative transfer, latency, memory use, and throughput against static equal weights and separate single-task encoders.
+- **Part 5 (Expected Contributions):** Deliver the joint triage dataset, the empirical benchmark, the targeted balancing adaptation, and the local edge triage software application.
