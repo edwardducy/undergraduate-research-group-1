@@ -1,20 +1,21 @@
-# Markdown
+# Raw Markdown Guidelines
 
-- Keep every Markdown file readable in raw form.
+- Structure all Markdown files so that readers can understand them easily in raw text form.
+- Limit formatting syntax strictly to section headings, bulleted lists, and bold text.
 
-# Writing
+# Writing Guidelines
 
-- Write for an audience whose first language is not English.
-- Make the content easy to translate.
-- Avoid obscure terms.
-- Include explicit conjunctions and relative pronouns.
+- Write for an audience that speaks English as a second language.
+- Keep sentences short, direct, and easy to translate.
+- Use active voice and explicit conjunctions.
+- Avoid obscure terms, idioms, and contractions.
 
-# Vale
+# Vale Guidelines
 
-- Check the user-written Markdown files with pnpm exec vale *.md.
-- Do not check the automatically generated files, such as the extracted paper notes in literature/.
+- Check user-written Markdown files across the repository with pnpm exec vale .
 
-# Marker
+# Marker Guidelines
 
-- Keep one subfolder per paper in literature/. Save the extracted Markdown and the meta file there. The source PDFs stay local only.
-- When a paper is unavailable, record it in literature/not-found.md instead of forcing a note.
+- Keep one subfolder per paper in research/literature/ for the extracted markdown and metadata file.
+- Keep source PDF files local and never commit them.
+- Record unavailable papers in research/literature/not-found.md instead of creating a note.
