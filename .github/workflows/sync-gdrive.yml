@@ -1,0 +1,29 @@
+name: Sync Repository to Google Drive
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  sync-to-gdrive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Rclone
+        run: curl https://rclone.org/install.sh | sudo bash
+
+      - name: Sync to Google Drive
+        env:
+          RCLONE_CONFIG_GDRIVE_TYPE: drive
+          RCLONE_CONFIG_GDRIVE_SCOPE: drive
+          RCLONE_CONFIG_GDRIVE_SERVICE_ACCOUNT_CREDENTIALS: ${{ secrets.GDRIVE_SA_KEY }}
+          RCLONE_CONFIG_GDRIVE_ROOT_FOLDER_ID: ${{ secrets.GDRIVE_FOLDER_ID }}
+        run: |
+          rclone sync . gdrive: \
+            --exclude ".git/**" \
+            --exclude ".github/**" \
+            --verbose
