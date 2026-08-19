@@ -8,6 +8,7 @@ This document provides the thematic writing outline for Chapter 1 of the undergr
 - **Core Research Domain:** Multi-task optimization and crisis natural language processing for low-resource code-switched text.
 - **Core Concepts:**
   - *Dynamic Multi-Task Balancing:* The optimization mechanism under evaluation.
+  - *Targeted Algorithmic Adaptation:* The designed dynamic balancing optimization formulation tailored to mitigate weak-output degradation on code-switched text.
   - *Multilingual Encoder:* The shared backbone architecture evaluated across candidate multilingual encoders (such as Multilingual ModernBERT, mBERT, and XLM-RoBERTa) to ensure generalizability.
   - *Joint Triage:* The concurrent prediction of intent, urgency, and named entities.
   - *Taglish Disaster Tweets:* The target domain of informal Filipino-English code-switched text.
@@ -33,7 +34,7 @@ Establish the crisis response problem, define the three triage tasks, explain th
   - *Shared Multi-Task Encoder:* Running one shared encoder processes each message once, enabling practical edge CPU execution.
   - *Optimization Conflict:* Sentence-level tasks (intent, urgency) require holistic semantic representations across languages, while token-level NER requires exact subword representations. During joint training, task gradients conflict, causing dominant tasks to degrade auxiliary tasks.
 - **Proposed Research Contribution:**
-  - Controlled benchmarking of dynamic multi-task balancing algorithms across candidate multilingual encoders to identify and resolve the weakest output degradation on Taglish disaster data.
+  - Design of an adapted dynamic multi-task balancing algorithm tailored for code-switched disaster triage, and controlled empirical benchmarking against universal multi-task learning baselines across candidate multilingual encoders on edge CPU hardware.
 
 ## 3. Background of the Study
 
@@ -50,7 +51,7 @@ Establish the research gap using the Macro-Meso-Micro funnel model, supported by
   - *Loss-Balancing Methods:* Uncertainty Weighting (Kendall et al., 2018) and GradNorm (Chen et al., 2018).
   - *Gradient Surgery and Multi-Objective Methods:* PCGrad (Yu et al., 2020), CAGrad (Liu et al., 2021), and Nash-MTL.
 - **The Macro Gap:**
-  - No published study systematically benchmarks dynamic multi-task balancing algorithms on code-switched disaster triage text.
+  - Universal dynamic balancing algorithms lack adaptations for the severe gradient conflict created by mixed sentence-level and token-level tasks on code-switched text, and no published study designs an adapted dynamic balancing strategy for crisis triage.
 
 ### 3.2 Meso Level: Philippine Infrastructure, Linguistic Context, and Edge Constraints
 - **Linguistic Bottleneck in Crisis Text:**
@@ -122,6 +123,7 @@ Automated emergency triage of Taglish disaster tweets requires extracting intent
 - **Edge Model Optimization:** Optimizing the final checkpoint for local CPU inference execution.
 
 ### Output
+- **Algorithmic Artifact:** Adapted dynamic multi-task balancing optimization formulation designed to prevent weak-output degradation on code-switched text.
 - **Model Checkpoint:** Trained shared multilingual encoder artifact optimized for Taglish disaster triage.
 - **Software Artifact:** Functional local disaster triage pipeline and web responder dashboard.
 - **Empirical Metrics:**
@@ -157,6 +159,7 @@ Automated emergency triage of Taglish disaster tweets requires extracting intent
   - Accelerates situational awareness and resource allocation during active disasters without recurring cloud API fees.
 - **Secondary Beneficiaries (Computer Science and NLP Researchers):**
   - Delivers the first public Taglish disaster tweet multi-task dataset with joint intent, urgency, and named entity annotations.
+  - Contributes an adapted dynamic multi-task balancing formulation tailored to mitigate gradient conflict and negative transfer on code-switched text.
   - Establishes empirical evidence on dynamic multi-task gradient balancing behavior on informal code-switched text.
 - **Tertiary Beneficiaries (Disaster-Affected Communities):**
   - Enables faster emergency dispatch and rescue coordination during disaster events.
