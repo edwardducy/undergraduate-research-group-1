@@ -5,10 +5,10 @@
 
 # Writing Guidelines
 
-- To support an audience that speaks English as a second language, write clear and accessible text.
-- To keep text easy to translate, write short and direct sentences.
-- To convey meaning clearly, use active voice and explicit conjunctions.
-- To prevent ambiguity, avoid obscure terms, idioms, and contractions.
+- To support non-native English readers, pair demonstrative pronouns with explicit nouns instead of using standalone pronouns such as "this" or "it" without referents.
+- To keep text easy to translate, write syntactically clear and direct sentences.
+- To express logical relationships clearly, use active voice and explicit conjunctions.
+- To prevent ambiguity, use literal language and avoid idioms, metaphors, and contractions.
 
 # Vale Guidelines
 
