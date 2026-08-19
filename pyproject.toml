@@ -2,14 +2,8 @@
 name = "undergraduate-research"
 version = "0.1.0"
 requires-python = ">=3.12"
-dependencies = [
-    "marker-pdf>=2.0.0",
-]
 
-[dependency-groups]
-dev = [
-    "sentencepiece>=0.2.2",
-    "tiktoken>=0.13.0",
-    "tokenizers>=0.22.2",
-    "transformers>=5.15.0",
+[project.optional-dependencies]
+marker = [
+    "marker-pdf>=2.0.0",
 ]
