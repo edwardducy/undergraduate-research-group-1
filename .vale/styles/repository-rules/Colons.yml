@@ -1,0 +1,7 @@
+extends: existence
+message: "Do not use colons."
+level: error
+scope: sentence
+nonword: true
+tokens:
+  - ':'
