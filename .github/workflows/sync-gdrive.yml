@@ -24,6 +24,6 @@ jobs:
           RCLONE_CONFIG_GDRIVE_ROOT_FOLDER_ID: ${{ secrets.GDRIVE_FOLDER_ID }}
         run: |
           rclone sync . gdrive: \
+            --checksum \
             --exclude ".git/**" \
-            --exclude ".github/**" \
             --verbose
