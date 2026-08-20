@@ -1,0 +1,111 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LiteratureExtractionSchema",
+  "description": "A flat standardized academic schema for extracting literature metadata, methodology, findings, boundaries, and research gaps.",
+  "type": "object",
+  "required": [
+    "title",
+    "authors",
+    "year",
+    "venue",
+    "publication_type",
+    "problem_statement",
+    "domain",
+    "theoretical_framework",
+    "methodology",
+    "datasets",
+    "evaluation",
+    "key_findings",
+    "scope_and_delimitations",
+    "limitations",
+    "generalizability_gap",
+    "methodological_gap",
+    "future_work"
+  ],
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "The complete formal title of the paper."
+    },
+    "authors": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "The list of author names."
+    },
+    "year": {
+      "type": ["integer", "null"],
+      "description": "The publication year."
+    },
+    "venue": {
+      "type": ["string", "null"],
+      "description": "The publication venue, conference, journal, or repository name."
+    },
+    "publication_type": {
+      "type": "string",
+      "description": "The genre of the publication (e.g., empirical study, systematic survey, benchmark dataset, system paper, theoretical analysis)."
+    },
+    "problem_statement": {
+      "type": "string",
+      "description": "The central research question, problem, or phenomenon investigated."
+    },
+    "domain": {
+      "type": "string",
+      "description": "The target domain, operational setting, language environment, or subject area."
+    },
+    "theoretical_framework": {
+      "type": ["string", "null"],
+      "description": "Underlying theories, conceptual frameworks, or foundational assumptions, or null if unstated."
+    },
+    "methodology": {
+      "type": "string",
+      "description": "The primary approach, algorithmic design, qualitative framework, or analytical method."
+    },
+    "datasets": {
+      "type": ["string", "array", "null"],
+      "items": { "type": "string" },
+      "description": "Datasets, corpora, participants, or artifacts analyzed, or null if non-empirical."
+    },
+    "evaluation": {
+      "type": ["string", "array", "object", "null"],
+      "description": "Evaluation metrics, benchmark scores, statistical tests, or qualitative evaluation procedures, or null if non-empirical."
+    },
+    "key_findings": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Primary quantitative results, qualitative findings, or theoretical conclusions."
+    },
+    "scope_and_delimitations": {
+      "type": ["string", "array", "null"],
+      "items": { "type": "string" },
+      "description": "Deliberate boundary choices, parameter constraints, and operational scope set by the authors."
+    },
+    "limitations": {
+      "type": "object",
+      "description": "Explicit limitations acknowledged by the authors.",
+      "required": ["verbatim_excerpt", "summary"],
+      "properties": {
+        "verbatim_excerpt": {
+          "type": ["string", "null"],
+          "description": "A direct quote from the paper acknowledging the limitation."
+        },
+        "summary": {
+          "type": "string",
+          "description": "A concise synthesis of the acknowledged limitations."
+        }
+      }
+    },
+    "generalizability_gap": {
+      "type": ["string", "null"],
+      "description": "Unexamined populations, untested languages, alternative environments, or differing operational scales not covered."
+    },
+    "methodological_gap": {
+      "type": ["string", "null"],
+      "description": "Measurement constraints, unaddressed variables, missing baseline comparisons, or architectural limitations."
+    },
+    "future_work": {
+      "type": ["array", "null"],
+      "items": { "type": "string" },
+      "description": "Explicit future research trajectories and open challenges recommended by the authors."
+    }
+  }
+}
