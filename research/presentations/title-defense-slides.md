@@ -12,6 +12,8 @@ fonts:
   mono: JetBrains Mono
 ---
 
+<!-- vale off -->
+
 <div class="pill">Title &amp; Problem Motivation</div>
 
 ## Title Defense
