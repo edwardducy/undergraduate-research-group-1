@@ -1,6 +1,8 @@
 # Chapter 1: The Problem and Its Background (Drafting Outline and Guide)
 
-This document provides the thematic writing outline for Chapter 1 of the undergraduate research proposal. It translates the approved title defense script and department rubric into an actionable technical roadmap organized by core arguments, concepts, and evidence.
+**Note:** This draft outline is old and out of sync with the current research.
+
+This document provides the outline for Chapter 1 of the undergraduate research proposal. This outline translates the approved title defense script and department rubric into an actionable technical roadmap organized by core arguments, concepts, and evidence.
 
 ## 1. Title Page and Research Title
 
@@ -16,7 +18,7 @@ This document provides the thematic writing outline for Chapter 1 of the undergr
 ## 2. Introduction to the Study
 
 ### Purpose
-Establish the crisis response problem, define the three triage tasks, explain the linguistic properties of Taglish, and motivate the need for a balanced multi-task shared encoder on local hardware.
+This section establishes the crisis response problem, defines the three triage tasks, explains the linguistic properties of Taglish, and motivates the need for a balanced multi-task shared encoder on local hardware.
 
 ### Thematic Core Arguments
 - **Emergency Crisis Response Context:**
@@ -39,7 +41,7 @@ Establish the crisis response problem, define the three triage tasks, explain th
 ## 3. Background of the Study
 
 ### Purpose
-Establish the research gap using the Macro-Meso-Micro funnel model, supported by published literature, infrastructural realities, and local hardware constraints.
+This section establishes the research gap using the Macro-Meso-Micro funnel model, and this section supports the argument with published literature, infrastructural realities, and local hardware constraints.
 
 ### 3.1 Macro Level: Global Trends in Multi-Task Optimization and Crisis NLP
 - **Viability of Joint Crisis NLP:**
@@ -66,7 +68,7 @@ Establish the research gap using the Macro-Meso-Micro funnel model, supported by
 ### 3.3 Micro Level: Dataset Scarcity, Hardware Testbed, and Baseline Deficits
 - **Scarcity of Joint Disaster Annotations:**
   - Existing Philippine language datasets (such as TweetTaglish by Herrera et al., 2022 and Batayan by Montalan et al., 2025) lack disaster triage annotations.
-  - Existing Philippine disaster studies focus on single-task analysis without NER or joint triage (Imperial and Orosco, 2019; Ermino et al., 2021; Barba et al., 2021; Livelo and Cheng, 2018).
+  - Existing Philippine disaster studies focus on single-task analysis without NER or joint triage (Imperial and Orosco, 2019, Ermino et al., 2021, Barba et al., 2021, and Livelo and Cheng, 2018).
 - **Hardware Testbed Specifications:**
   - The local testbed consists of two consumer laptops equipped with Intel Core i5-13500HX processors and 32 GB DDR5 RAM running Python on CPU.
 - **Baseline Architectural Definitions:**
@@ -89,20 +91,20 @@ Automated emergency triage of Taglish disaster tweets requires extracting intent
 
 ### Declarative Objectives Mapped to DSR Phases
 - **Phase 1: Baseline Analysis (Paired with SOP 1):**
-  - To measure and establish quantitative baseline performance benchmarks (Intent Macro F1, Urgency Macro F1, NER Span F1) and edge computational profiles (latency in milliseconds, memory in megabytes, throughput in tweets per second) using standalone single-task encoders and a static equally weighted multi-task baseline on Taglish disaster tweets.
+  - The study measures and establishes quantitative baseline performance benchmarks (Intent Macro F1, Urgency Macro F1, NER Span F1) and edge computational profiles (latency in milliseconds, memory in megabytes, throughput in tweets per second) using standalone single-task encoders and a static equally weighted multi-task baseline on Taglish disaster tweets.
 - **Phase 2: Design and Artifact Creation (Paired with SOP 2):**
-  - To construct an annotated Taglish disaster tweet multi-task dataset labeled jointly for intent, urgency, and named entities, and to build a unified multi-task training framework evaluating dynamic loss and gradient balancing algorithms across candidate multilingual encoders.
+  - The study constructs an annotated Taglish disaster tweet multi-task dataset labeled jointly for intent, urgency, and named entities, and the study builds a unified multi-task training framework that evaluates dynamic loss and gradient balancing algorithms across candidate multilingual encoders.
 - **Phase 3: Empirical Benchmarking (Paired with SOP 3):**
-  - To execute controlled empirical benchmarking of dynamic multi-task balancing methods across disaster event splits, recording per-task macro scores, gradient conflict angles, and negative transfer metrics under an identical training protocol.
+  - The study executes controlled empirical benchmarking of dynamic multi-task balancing methods across disaster event splits, and the study records per-task macro scores, gradient conflict angles, and negative transfer metrics under an identical training protocol.
 - **Phase 4: Comparative Validation (Paired with SOP 4):**
-  - To design a targeted multi-task balancing adaptation that prevents the consistently weakest output from degrading, test the improvement through statistical significance testing (p < 0.05), and benchmark execution efficiency within a functional local disaster triage application on edge CPU hardware.
+  - The study designs a targeted multi-task balancing adaptation that prevents the consistently weakest output from degrading, tests the improvement through statistical significance testing (p < 0.05), and benchmarks execution efficiency within a functional local disaster triage application on edge CPU hardware.
 
 ## 6. Theoretical Framework
 
 ### Theoretical Anchors
 - **Design Science Research Methodology (Peffers et al., 2007):**
   - Guides the structured iteration from problem identification and artifact creation (dataset, training framework, triage application) to empirical evaluation and validation.
-- **Multi-Task Optimization and Pareto Optimality Theory (Sener and Koltun, 2018; Chen et al., 2018):**
+- **Multi-Task Optimization and Pareto Optimality Theory (Sener and Koltun, 2018, Chen et al., 2018):**
   - Frames multi-task training as a multi-objective optimization problem where task gradients may point in conflicting directions (cosine similarity < 0).
   - Defines balance as reaching Pareto-stationary points where no task head can improve without degrading another.
 - **Computational Complexity and Resource Allocation Theory:**

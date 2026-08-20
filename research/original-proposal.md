@@ -2,6 +2,8 @@
 
 # Original Proposed Paper (Reference Copy)
 
+**Note:** This draft outline is old and out of sync with the current research.
+
 - Saved as the original proposal from the project's Activity 1, the title-refinement stage.
 - This file is the reference baseline, and we track later revisions against it.
 
