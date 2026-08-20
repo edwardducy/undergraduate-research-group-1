@@ -1,5 +1,5 @@
 extends: existence
-message: "Do not use semicolons. Use a new sentence instead."
+message: "Do not use semicolons."
 level: error
 scope: sentence
 nonword: true
