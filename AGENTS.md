@@ -21,3 +21,9 @@
 - To extract digital papers efficiently, run Marker in fast mode with OCR turned off.
 - To prevent accidental commits, keep source PDF files local, and never commit them.
 - To track missing sources, record unavailable papers in research/literature-not-found.md instead of creating a note.
+
+# Commit Guidelines
+
+- To structure Git commits properly, follow the formatting rules and types defined in docs/commit-conventions.md.
+- To maintain a uniform repository history, inspect the last 5 to 10 commits with git log and match their style.
+
