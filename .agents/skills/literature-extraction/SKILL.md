@@ -44,8 +44,8 @@ description: >-
   - **future_work**: Array of future research directions recommended by the authors, or null.
 
 ### 3. Subagent Invocation Strategy
-- **Subagent Delegation**: The primary agent invokes a subagent for each target paper using the `invoke_subagent` tool.
-- **Subagent Role**: Set the subagent role to `Literature Data Extractor`.
+- **Subagent Delegation**: The primary agent invokes a generic subagent for each target paper using `invoke_subagent` (Antigravity, native) or `subagent` (Pi with `pi-subagents` extension via `pi install npm:pi-subagents`).
+- **Subagent Role**: Set the subagent role to `Literature Data Extractor` (provide this as the role description in the subagent prompt, not as a custom agent name).
 - **Subagent Prompt Instructions**:
   - Provide the path to the paper markdown file.
   - Provide the path to `research/literature-extraction-schema.json`.
