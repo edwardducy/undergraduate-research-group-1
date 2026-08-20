@@ -1,0 +1,1981 @@
+{
+  "table_of_contents": [
+    {
+      "title": "R E V I E W",
+      "heading_level": null,
+      "page_id": 0,
+      "polygon": [
+        [
+          48.79607470149657,
+          94.13293946182101
+        ],
+        [
+          107.79093170166016,
+          94.13293946182101
+        ],
+        [
+          107.79093170166016,
+          107.72674560546875
+        ],
+        [
+          48.79607470149657,
+          107.72674560546875
+        ]
+      ]
+    },
+    {
+      "title": "Deep multi-task learning: a review of concepts,\nmethods, and cross-domain applications",
+      "heading_level": null,
+      "page_id": 0,
+      "polygon": [
+        [
+          48.85247272328105,
+          113.0631823382628
+        ],
+        [
+          536.2838411499331,
+          113.0631823382628
+        ],
+        [
+          536.2838411499331,
+          159.8133544921875
+        ],
+        [
+          48.85247272328105,
+          159.8133544921875
+        ]
+      ]
+    },
+    {
+      "title": "Abstract",
+      "heading_level": null,
+      "page_id": 0,
+      "polygon": [
+        [
+          48.15647142539997,
+          228.96303921815866
+        ],
+        [
+          95.26107788085938,
+          228.96303921815866
+        ],
+        [
+          95.26107788085938,
+          242.9617919921875
+        ],
+        [
+          48.15647142539997,
+          242.9617919921875
+        ]
+      ]
+    },
+    {
+      "title": "",
+      "heading_level": null,
+      "page_id": 0,
+      "polygon": [
+        [
+          48.38562561342638,
+          472.5680170781041
+        ],
+        [
+          119.04160906505824,
+          472.5680170781041
+        ],
+        [
+          119.04160906505824,
+          485.18714933318955
+        ],
+        [
+          48.38562561342638,
+          485.18714933318955
+        ]
+      ]
+    },
+    {
+      "title": "1 Introduction",
+      "heading_level": null,
+      "page_id": 0,
+      "polygon": [
+        [
+          48.39068814909428,
+          491.2947871954655
+        ],
+        [
+          200.11231994628906,
+          491.2947871954655
+        ],
+        [
+          200.11231994628906,
+          514.4232788085938
+        ],
+        [
+          48.39068814909428,
+          514.4232788085938
+        ]
+      ]
+    },
+    {
+      "title": "single model to handle multiple tasks at once,\nfor example, it",
+      "heading_level": null,
+      "page_id": 2,
+      "polygon": [
+        [
+          49.12115935894944,
+          51.227181615515256
+        ],
+        [
+          524.7725055223748,
+          51.227181615515256
+        ],
+        [
+          524.7725055223748,
+          98.0633544921875
+        ],
+        [
+          49.12115935894944,
+          98.0633544921875
+        ]
+      ]
+    },
+    {
+      "title": "123 77 Page 2 of 26 International Journal of\nData Science and Analytics (2026) 21:77",
+      "heading_level": null,
+      "page_id": 2,
+      "polygon": [
+        [
+          48.40404889085131,
+          111.06181581383396
+        ],
+        [
+          500.1060449710721,
+          111.06181581383396
+        ],
+        [
+          500.1060449710721,
+          158.7232666015625
+        ],
+        [
+          48.40404889085131,
+          158.7232666015625
+        ]
+      ]
+    },
+    {
+      "title": "2 Foundational concepts of MTL",
+      "heading_level": null,
+      "page_id": 3,
+      "polygon": [
+        [
+          48.34301784717166,
+          133.02751530607364
+        ],
+        [
+          378.4383239746094,
+          133.02751530607364
+        ],
+        [
+          378.4383239746094,
+          154.98822021484375
+        ],
+        [
+          48.34301784717166,
+          154.98822021484375
+        ]
+      ]
+    },
+    {
+      "title": "123 International Journal of Data Science and\nAnalytics (2026) 21:77 Page 3 of 26 77",
+      "heading_level": null,
+      "page_id": 3,
+      "polygon": [
+        [
+          48.36244905024992,
+          249.21160481046164
+        ],
+        [
+          518.7543334960938,
+          249.21160481046164
+        ],
+        [
+          518.7543334960938,
+          296.87322998046875
+        ],
+        [
+          48.36244905024992,
+          296.87322998046875
+        ]
+      ]
+    },
+    {
+      "title": "3 Quantitative analysis of multi-task learning\nresearch",
+      "heading_level": null,
+      "page_id": 3,
+      "polygon": [
+        [
+          49.54792997038334,
+          672.8745867218805
+        ],
+        [
+          517.1702880859375,
+          672.8745867218805
+        ],
+        [
+          517.1702880859375,
+          720.9082794189453
+        ],
+        [
+          49.54792997038334,
+          720.9082794189453
+        ]
+      ]
+    },
+    {
+      "title": "123 77 Page 4 of 26 International Journal of\nData Science and Analytics (2026) 21:77",
+      "heading_level": null,
+      "page_id": 4,
+      "polygon": [
+        [
+          49.27647153916827,
+          362.11840428991815
+        ],
+        [
+          499.1505314517081,
+          362.11840428991815
+        ],
+        [
+          499.1505314517081,
+          410.1383056640625
+        ],
+        [
+          49.27647153916827,
+          410.1383056640625
+        ]
+      ]
+    },
+    {
+      "title": "4 MTL common approaches",
+      "heading_level": null,
+      "page_id": 4,
+      "polygon": [
+        [
+          48.932356558158354,
+          501.78865020018225
+        ],
+        [
+          331.350341796875,
+          501.78865020018225
+        ],
+        [
+          331.350341796875,
+          524.3983154296875
+        ],
+        [
+          48.932356558158354,
+          524.3983154296875
+        ]
+      ]
+    },
+    {
+      "title": "123 International Journal of Data Science and\nAnalytics (2026) 21:77 Page 5 of 26 77",
+      "heading_level": null,
+      "page_id": 4,
+      "polygon": [
+        [
+          48.28995857911386,
+          579.609309562486
+        ],
+        [
+          518.7543334960938,
+          579.609309562486
+        ],
+        [
+          518.7543334960938,
+          627.8083038330078
+        ],
+        [
+          48.28995857911386,
+          627.8083038330078
+        ]
+      ]
+    },
+    {
+      "title": "4.1 Hard parameter sharing",
+      "heading_level": null,
+      "page_id": 4,
+      "polygon": [
+        [
+          48.1921611564886,
+          663.6350357449702
+        ],
+        [
+          274.6418762207031,
+          663.6350357449702
+        ],
+        [
+          274.6418762207031,
+          683.5841522216797
+        ],
+        [
+          48.1921611564886,
+          683.5841522216797
+        ]
+      ]
+    },
+    {
+      "title": "4.1.1 Mathematical definition",
+      "heading_level": null,
+      "page_id": 5,
+      "polygon": [
+        [
+          48.48629218805347,
+          48.86765841639477
+        ],
+        [
+          195.0534210205078,
+          48.86765841639477
+        ],
+        [
+          195.0534210205078,
+          63.0767822265625
+        ],
+        [
+          48.48629218805347,
+          63.0767822265625
+        ]
+      ]
+    },
+    {
+      "title": "123 77 Page 6 of 26 International Journal of\nData Science and Analytics (2026) 21:77",
+      "heading_level": null,
+      "page_id": 5,
+      "polygon": [
+        [
+          48.43697828009387,
+          115.60024796143665
+        ],
+        [
+          499.273681640625,
+          115.60024796143665
+        ],
+        [
+          499.273681640625,
+          162.1883544921875
+        ],
+        [
+          48.43697828009387,
+          162.1883544921875
+        ]
+      ]
+    },
+    {
+      "title": "4.2 Soft parameter sharing",
+      "heading_level": null,
+      "page_id": 5,
+      "polygon": [
+        [
+          47.97571198585952,
+          429.2378494928484
+        ],
+        [
+          269.028076171875,
+          429.2378494928484
+        ],
+        [
+          269.028076171875,
+          448.33917236328125
+        ],
+        [
+          47.97571198585952,
+          448.33917236328125
+        ]
+      ]
+    },
+    {
+      "title": "5 Categories of MTL architectures",
+      "heading_level": null,
+      "page_id": 6,
+      "polygon": [
+        [
+          48.802362783129325,
+          94.15577508887327
+        ],
+        [
+          399.1203918457031,
+          94.15577508887327
+        ],
+        [
+          399.1203918457031,
+          116.51318359375
+        ],
+        [
+          48.802362783129325,
+          116.51318359375
+        ]
+      ]
+    },
+    {
+      "title": "5.1 Single-domain architectures",
+      "heading_level": null,
+      "page_id": 6,
+      "polygon": [
+        [
+          48.10653329075734,
+          280.8278736851625
+        ],
+        [
+          307.3960876464844,
+          280.8278736851625
+        ],
+        [
+          307.3960876464844,
+          300.5391845703125
+        ],
+        [
+          48.10653329075734,
+          300.5391845703125
+        ]
+      ]
+    },
+    {
+      "title": "5.1.1 Computer vision multi-task architectures",
+      "heading_level": null,
+      "page_id": 6,
+      "polygon": [
+        [
+          48.45021875799453,
+          310.79796384979545
+        ],
+        [
+          276.70172119140625,
+          310.79796384979545
+        ],
+        [
+          276.70172119140625,
+          325.40179443359375
+        ],
+        [
+          48.45021875799453,
+          325.40179443359375
+        ]
+      ]
+    },
+    {
+      "title": "123 International Journal of Data Science and\nAnalytics (2026) 21:77 Page 7 of 26 77",
+      "heading_level": null,
+      "page_id": 6,
+      "polygon": [
+        [
+          48.39648372160097,
+          526.6145463028022
+        ],
+        [
+          518.7543334960938,
+          526.6145463028022
+        ],
+        [
+          518.7543334960938,
+          574.1382446289062
+        ],
+        [
+          48.39648372160097,
+          574.1382446289062
+        ]
+      ]
+    },
+    {
+      "title": "5.1.2 NLP multi-task architectures",
+      "heading_level": null,
+      "page_id": 7,
+      "polygon": [
+        [
+          48.55556989616951,
+          142.28276291640867
+        ],
+        [
+          216.89280700683594,
+          142.28276291640867
+        ],
+        [
+          216.89280700683594,
+          157.126708984375
+        ],
+        [
+          48.55556989616951,
+          157.126708984375
+        ]
+      ]
+    },
+    {
+      "title": "123 77 Page 8 of 26 International Journal of\nData Science and Analytics (2026) 21:77",
+      "heading_level": null,
+      "page_id": 7,
+      "polygon": [
+        [
+          48.63209779676922,
+          281.50536875669593
+        ],
+        [
+          498.9964294433594,
+          281.50536875669593
+        ],
+        [
+          498.9964294433594,
+          328.9132080078125
+        ],
+        [
+          48.63209779676922,
+          328.9132080078125
+        ]
+      ]
+    },
+    {
+      "title": "5.1.3 Reinforcement learning architectures",
+      "heading_level": null,
+      "page_id": 7,
+      "polygon": [
+        [
+          48.44692581907027,
+          430.6142566167979
+        ],
+        [
+          259.2796325683594,
+          430.6142566167979
+        ],
+        [
+          259.2796325683594,
+          445.3117980957031
+        ],
+        [
+          48.44692581907027,
+          445.3117980957031
+        ]
+      ]
+    },
+    {
+      "title": "5.2 Multimodal architectures",
+      "heading_level": null,
+      "page_id": 7,
+      "polygon": [
+        [
+          48.546240857025836,
+          537.2761756577665
+        ],
+        [
+          282.64495849609375,
+          537.2761756577665
+        ],
+        [
+          282.64495849609375,
+          556.6392211914062
+        ],
+        [
+          48.546240857025836,
+          556.6392211914062
+        ]
+      ]
+    },
+    {
+      "title": "123 International Journal of Data Science and\nAnalytics (2026) 21:77 Page 9 of 26 77",
+      "heading_level": null,
+      "page_id": 7,
+      "polygon": [
+        [
+          48.08644349989422,
+          636.7321043617472
+        ],
+        [
+          518.7543334960938,
+          636.7321043617472
+        ],
+        [
+          518.7543334960938,
+          684.8882446289062
+        ],
+        [
+          48.08644349989422,
+          684.8882446289062
+        ]
+      ]
+    },
+    {
+      "title": "5.3 Learned architectures",
+      "heading_level": null,
+      "page_id": 8,
+      "polygon": [
+        [
+          48.28054936406594,
+          50.24496363489519
+        ],
+        [
+          258.2158203125,
+          50.24496363489519
+        ],
+        [
+          258.2158203125,
+          68.73419189453125
+        ],
+        [
+          48.28054936406594,
+          68.73419189453125
+        ]
+      ]
+    },
+    {
+      "title": "123 77 Page 10 of 26 International Journal of\nData Science and Analytics (2026) 21:77",
+      "heading_level": null,
+      "page_id": 8,
+      "polygon": [
+        [
+          48.66058887702692,
+          188.04047435240776
+        ],
+        [
+          511.52435302734375,
+          188.04047435240776
+        ],
+        [
+          511.52435302734375,
+          235.45831298828125
+        ],
+        [
+          48.66058887702692,
+          235.45831298828125
+        ]
+      ]
+    },
+    {
+      "title": "5.4 Conditional architectures",
+      "heading_level": null,
+      "page_id": 8,
+      "polygon": [
+        [
+          48.30040435406663,
+          332.5866300289055
+        ],
+        [
+          283.9889221191406,
+          332.5866300289055
+        ],
+        [
+          283.9889221191406,
+          352.03411865234375
+        ],
+        [
+          48.30040435406663,
+          352.03411865234375
+        ]
+      ]
+    },
+    {
+      "title": "6 MTL VS transfer learning",
+      "heading_level": null,
+      "page_id": 8,
+      "polygon": [
+        [
+          48.61841062454492,
+          433.5260965240288
+        ],
+        [
+          327.9363708496094,
+          433.5260965240288
+        ],
+        [
+          327.9363708496094,
+          455.9832763671875
+        ],
+        [
+          48.61841062454492,
+          455.9832763671875
+        ]
+      ]
+    },
+    {
+      "title": "7 Applications across diverse domains",
+      "heading_level": null,
+      "page_id": 9,
+      "polygon": [
+        [
+          48.809824869074205,
+          51.52509159077944
+        ],
+        [
+          444.19232177734375,
+          51.52509159077944
+        ],
+        [
+          444.19232177734375,
+          73.7633056640625
+        ],
+        [
+          48.809824869074205,
+          73.7633056640625
+        ]
+      ]
+    },
+    {
+      "title": "123 International Journal of Data Science and\nAnalytics (2026) 21:77 Page 11 of 26 77",
+      "heading_level": null,
+      "page_id": 9,
+      "polygon": [
+        [
+          49.01309369373081,
+          155.91514031672625
+        ],
+        [
+          518.7543334960938,
+          155.91514031672625
+        ],
+        [
+          518.7543334960938,
+          202.82330322265625
+        ],
+        [
+          49.01309369373081,
+          202.82330322265625
+        ]
+      ]
+    },
+    {
+      "title": "123 77 Page 12 of 26 International Journal of\nData Science and Analytics (2026) 21:77",
+      "heading_level": null,
+      "page_id": 10,
+      "polygon": [
+        [
+          49.31816300937451,
+          208.71703634151686
+        ],
+        [
+          511.72513701393257,
+          208.71703634151686
+        ],
+        [
+          511.72513701393257,
+          256.23822021484375
+        ],
+        [
+          49.31816300937451,
+          256.23822021484375
+        ]
+      ]
+    },
+    {
+      "title": "123 International Journal of Data Science and\nAnalytics (2026) 21:77 Page 13 of 26 77",
+      "heading_level": null,
+      "page_id": 11,
+      "polygon": [
+        [
+          48.7357537872545,
+          310.91443012403994
+        ],
+        [
+          518.7543334960938,
+          310.91443012403994
+        ],
+        [
+          518.7543334960938,
+          358.8382568359375
+        ],
+        [
+          48.7357537872545,
+          358.8382568359375
+        ]
+      ]
+    },
+    {
+      "title": "8 Advantages and limitations",
+      "heading_level": null,
+      "page_id": 12,
+      "polygon": [
+        [
+          48.91449451206313,
+          171.18564217789088
+        ],
+        [
+          352.87835693359375,
+          171.18564217789088
+        ],
+        [
+          352.87835693359375,
+          193.46331787109375
+        ],
+        [
+          48.91449451206313,
+          193.46331787109375
+        ]
+      ]
+    },
+    {
+      "title": "8.1 Advantages of MTL",
+      "heading_level": null,
+      "page_id": 12,
+      "polygon": [
+        [
+          48.31382236432668,
+          242.70729517405942
+        ],
+        [
+          235.24258422851562,
+          242.70729517405942
+        ],
+        [
+          235.24258422851562,
+          262.06414794921875
+        ],
+        [
+          48.31382236432668,
+          262.06414794921875
+        ]
+      ]
+    },
+    {
+      "title": "123 77 Page 14 of 26 International Journal of\nData Science and Analytics (2026) 21:77",
+      "heading_level": null,
+      "page_id": 12,
+      "polygon": [
+        [
+          48.92616583298075,
+          457.44149636245686
+        ],
+        [
+          511.52435302734375,
+          457.44149636245686
+        ],
+        [
+          511.52435302734375,
+          505.73828125
+        ],
+        [
+          48.92616583298075,
+          505.73828125
+        ]
+      ]
+    },
+    {
+      "title": "123 International Journal of Data Science and\nAnalytics (2026) 21:77 Page 15 of 26 77",
+      "heading_level": null,
+      "page_id": 13,
+      "polygon": [
+        [
+          48.91824559901163,
+          51.02656330981641
+        ],
+        [
+          518.7543334960938,
+          51.02656330981641
+        ],
+        [
+          518.7543334960938,
+          98.0633544921875
+        ],
+        [
+          48.91824559901163,
+          98.0633544921875
+        ]
+      ]
+    },
+    {
+      "title": "123 77 Page 16 of 26 International Journal of\nData Science and Analytics (2026) 21:77",
+      "heading_level": null,
+      "page_id": 13,
+      "polygon": [
+        [
+          48.77709019274195,
+          375.9073476001607
+        ],
+        [
+          511.749143970403,
+          375.9073476001607
+        ],
+        [
+          511.749143970403,
+          424.7232666015625
+        ],
+        [
+          48.77709019274195,
+          424.7232666015625
+        ]
+      ]
+    },
+    {
+      "title": "123 International Journal of Data Science and\nAnalytics (2026) 21:77 Page 17 of 26 77",
+      "heading_level": null,
+      "page_id": 14,
+      "polygon": [
+        [
+          49.22771313568807,
+          51.10419986551612
+        ],
+        [
+          518.7543334960938,
+          51.10419986551612
+        ],
+        [
+          518.7543334960938,
+          98.0633544921875
+        ],
+        [
+          49.22771313568807,
+          98.0633544921875
+        ]
+      ]
+    },
+    {
+      "title": "123 77 Page 18 of 26 International Journal of\nData Science and Analytics (2026) 21:77",
+      "heading_level": null,
+      "page_id": 14,
+      "polygon": [
+        [
+          49.03806848790243,
+          440.6101748159923
+        ],
+        [
+          512.4625262589539,
+          440.6101748159923
+        ],
+        [
+          512.4625262589539,
+          488.8482971191406
+        ],
+        [
+          49.03806848790243,
+          488.8482971191406
+        ]
+      ]
+    },
+    {
+      "title": "123 International Journal of Data Science and\nAnalytics (2026) 21:77 Page 19 of 26 77",
+      "heading_level": null,
+      "page_id": 15,
+      "polygon": [
+        [
+          48.80590197661662,
+          99.00848312581742
+        ],
+        [
+          518.7543334960938,
+          99.00848312581742
+        ],
+        [
+          518.7543334960938,
+          146.03826904296875
+        ],
+        [
+          48.80590197661662,
+          146.03826904296875
+        ]
+      ]
+    },
+    {
+      "title": "123 77 Page 20 of 26 International Journal of\nData Science and Analytics (2026) 21:77",
+      "heading_level": null,
+      "page_id": 15,
+      "polygon": [
+        [
+          49.57487480105921,
+          476.2401140438905
+        ],
+        [
+          512.3576561762043,
+          476.2401140438905
+        ],
+        [
+          512.3576561762043,
+          523.9982299804688
+        ],
+        [
+          49.57487480105921,
+          523.9982299804688
+        ]
+      ]
+    },
+    {
+      "title": "123 International Journal of Data Science and\nAnalytics (2026) 21:77 Page 21 of 26 77",
+      "heading_level": null,
+      "page_id": 16,
+      "polygon": [
+        [
+          48.643517136273516,
+          98.915424513371
+        ],
+        [
+          518.7543334960938,
+          98.915424513371
+        ],
+        [
+          518.7543334960938,
+          146.03826904296875
+        ],
+        [
+          48.643517136273516,
+          146.03826904296875
+        ]
+      ]
+    },
+    {
+      "title": "8.2 Disadvantages and limitations of MTL",
+      "heading_level": null,
+      "page_id": 16,
+      "polygon": [
+        [
+          48.7250617577387,
+          233.6388512303122
+        ],
+        [
+          382.33544921875,
+          233.6388512303122
+        ],
+        [
+          382.33544921875,
+          253.1141357421875
+        ],
+        [
+          48.7250617577387,
+          253.1141357421875
+        ]
+      ]
+    },
+    {
+      "title": "8.3 Future trends and approaches",
+      "heading_level": null,
+      "page_id": 16,
+      "polygon": [
+        [
+          48.34531431414318,
+          634.8339100240705
+        ],
+        [
+          322.72552490234375,
+          634.8339100240705
+        ],
+        [
+          322.72552490234375,
+          654.3541717529297
+        ],
+        [
+          48.34531431414318,
+          654.3541717529297
+        ]
+      ]
+    },
+    {
+      "title": "123 77 Page 22 of 26 International Journal of\nData Science and Analytics (2026) 21:77",
+      "heading_level": null,
+      "page_id": 17,
+      "polygon": [
+        [
+          49.02462184339086,
+          246.6919519249499
+        ],
+        [
+          511.52435302734375,
+          246.6919519249499
+        ],
+        [
+          511.52435302734375,
+          294.7132568359375
+        ],
+        [
+          49.02462184339086,
+          294.7132568359375
+        ]
+      ]
+    },
+    {
+      "title": "9 Conclusion",
+      "heading_level": null,
+      "page_id": 17,
+      "polygon": [
+        [
+          48.70792702163197,
+          428.00815784050116
+        ],
+        [
+          184.54234313964844,
+          428.00815784050116
+        ],
+        [
+          184.54234313964844,
+          450.77325439453125
+        ],
+        [
+          48.70792702163197,
+          450.77325439453125
+        ]
+      ]
+    },
+    {
+      "title": "Declarations",
+      "heading_level": null,
+      "page_id": 18,
+      "polygon": [
+        [
+          48.30538098697998,
+          160.54913658896197
+        ],
+        [
+          153.55543518066406,
+          160.54913658896197
+        ],
+        [
+          153.55543518066406,
+          178.67913818359375
+        ],
+        [
+          48.30538098697998,
+          178.67913818359375
+        ]
+      ]
+    },
+    {
+      "title": "References",
+      "heading_level": null,
+      "page_id": 18,
+      "polygon": [
+        [
+          48.65772545187539,
+          327.9181400614982
+        ],
+        [
+          168.50433349609375,
+          327.9181400614982
+        ],
+        [
+          168.50433349609375,
+          351.02825927734375
+        ],
+        [
+          48.65772545187539,
+          351.02825927734375
+        ]
+      ]
+    },
+    {
+      "title": "123 International Journal of Data Science and\nAnalytics (2026) 21:77 Page 23 of 26 77",
+      "heading_level": null,
+      "page_id": 18,
+      "polygon": [
+        [
+          49.45906643423085,
+          565.5571158622273
+        ],
+        [
+          518.7543334960938,
+          565.5571158622273
+        ],
+        [
+          518.7543334960938,
+          613.5632781982422
+        ],
+        [
+          49.45906643423085,
+          613.5632781982422
+        ]
+      ]
+    },
+    {
+      "title": "123 77 Page 24 of 26 International Journal of\nData Science and Analytics (2026) 21:77",
+      "heading_level": null,
+      "page_id": 20,
+      "polygon": [
+        [
+          48.741280197796954,
+          170.04676676178659
+        ],
+        [
+          511.5513156535343,
+          170.04676676178659
+        ],
+        [
+          511.5513156535343,
+          217.7633056640625
+        ],
+        [
+          48.741280197796954,
+          217.7633056640625
+        ]
+      ]
+    },
+    {
+      "title": "123 International Journal of Data Science and\nAnalytics (2026) 21:77 Page 25 of 26 77",
+      "heading_level": null,
+      "page_id": 21,
+      "polygon": [
+        [
+          48.17250087939822,
+          489.7140950230966
+        ],
+        [
+          518.7543334960938,
+          489.7140950230966
+        ],
+        [
+          518.7543334960938,
+          538.3883056640625
+        ],
+        [
+          48.17250087939822,
+          538.3883056640625
+        ]
+      ]
+    },
+    {
+      "title": "123",
+      "heading_level": null,
+      "page_id": 23,
+      "polygon": [
+        [
+          48.89245186524667,
+          80.47176583239995
+        ],
+        [
+          90.49174841585327,
+          80.47176583239995
+        ],
+        [
+          90.49174841585327,
+          103.6883544921875
+        ],
+        [
+          48.89245186524667,
+          103.6883544921875
+        ]
+      ]
+    }
+  ],
+  "page_stats": [
+    {
+      "page_id": 0,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          67
+        ],
+        [
+          "Line",
+          34
+        ],
+        [
+          "Text",
+          6
+        ],
+        [
+          "SectionHeader",
+          5
+        ],
+        [
+          "PageHeader",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 1,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          58
+        ],
+        [
+          "Line",
+          30
+        ],
+        [
+          "Text",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 2,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          101
+        ],
+        [
+          "Line",
+          52
+        ],
+        [
+          "SectionHeader",
+          2
+        ],
+        [
+          "Text",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 3,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          97
+        ],
+        [
+          "Line",
+          49
+        ],
+        [
+          "Text",
+          4
+        ],
+        [
+          "SectionHeader",
+          3
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 4,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          90
+        ],
+        [
+          "Line",
+          46
+        ],
+        [
+          "Text",
+          6
+        ],
+        [
+          "SectionHeader",
+          4
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 5,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          80
+        ],
+        [
+          "Line",
+          41
+        ],
+        [
+          "Text",
+          23
+        ],
+        [
+          "SectionHeader",
+          3
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 6,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          97
+        ],
+        [
+          "Line",
+          49
+        ],
+        [
+          "Text",
+          5
+        ],
+        [
+          "SectionHeader",
+          4
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 7,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          85
+        ],
+        [
+          "Line",
+          43
+        ],
+        [
+          "Text",
+          8
+        ],
+        [
+          "SectionHeader",
+          5
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 8,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          85
+        ],
+        [
+          "Line",
+          45
+        ],
+        [
+          "Text",
+          5
+        ],
+        [
+          "SectionHeader",
+          4
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 9,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          101
+        ],
+        [
+          "Line",
+          52
+        ],
+        [
+          "Text",
+          3
+        ],
+        [
+          "SectionHeader",
+          2
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 10,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          104
+        ],
+        [
+          "Line",
+          54
+        ],
+        [
+          "Text",
+          2
+        ],
+        [
+          "SectionHeader",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 11,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          105
+        ],
+        [
+          "Line",
+          54
+        ],
+        [
+          "Text",
+          2
+        ],
+        [
+          "SectionHeader",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 12,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          93
+        ],
+        [
+          "Line",
+          47
+        ],
+        [
+          "Text",
+          4
+        ],
+        [
+          "SectionHeader",
+          3
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 13,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          94
+        ],
+        [
+          "Line",
+          48
+        ],
+        [
+          "SectionHeader",
+          2
+        ],
+        [
+          "Text",
+          2
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 14,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          99
+        ],
+        [
+          "Line",
+          51
+        ],
+        [
+          "SectionHeader",
+          2
+        ],
+        [
+          "Text",
+          2
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 15,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          96
+        ],
+        [
+          "Line",
+          50
+        ],
+        [
+          "Text",
+          3
+        ],
+        [
+          "SectionHeader",
+          2
+        ],
+        [
+          "PageHeader",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 16,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          95
+        ],
+        [
+          "Line",
+          49
+        ],
+        [
+          "Text",
+          4
+        ],
+        [
+          "SectionHeader",
+          3
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 17,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          99
+        ],
+        [
+          "Line",
+          51
+        ],
+        [
+          "Text",
+          5
+        ],
+        [
+          "SectionHeader",
+          2
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 18,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          95
+        ],
+        [
+          "Line",
+          49
+        ],
+        [
+          "Text",
+          6
+        ],
+        [
+          "SectionHeader",
+          3
+        ],
+        [
+          "ListItem",
+          2
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 19,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          110
+        ],
+        [
+          "Line",
+          56
+        ],
+        [
+          "Text",
+          4
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 20,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          104
+        ],
+        [
+          "Line",
+          54
+        ],
+        [
+          "Text",
+          3
+        ],
+        [
+          "SectionHeader",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 21,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          102
+        ],
+        [
+          "Line",
+          54
+        ],
+        [
+          "Text",
+          4
+        ],
+        [
+          "ListItem",
+          2
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 22,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          108
+        ],
+        [
+          "Line",
+          55
+        ],
+        [
+          "Text",
+          3
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 23,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          5
+        ],
+        [
+          "Line",
+          3
+        ],
+        [
+          "Text",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    }
+  ],
+  "debug_data_path": "debug_data/abdelsamie_2026"
+}

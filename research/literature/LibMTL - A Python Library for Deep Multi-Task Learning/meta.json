@@ -1,0 +1,609 @@
+{
+  "table_of_contents": [
+    {
+      "title": "LibMTL: A Python Library for Deep Multi-Task Learning",
+      "heading_level": null,
+      "page_id": 0,
+      "polygon": [
+        [
+          95.97463989257812,
+          97.92240142822266
+        ],
+        [
+          514.4276733398438,
+          97.92240142822266
+        ],
+        [
+          514.4276733398438,
+          115.6492919921875
+        ],
+        [
+          95.97463989257812,
+          115.6492919921875
+        ]
+      ]
+    },
+    {
+      "title": "Abstract",
+      "heading_level": null,
+      "page_id": 0,
+      "polygon": [
+        [
+          277.90113830566406,
+          272.43038177490234
+        ],
+        [
+          331.65753173828125,
+          272.43038177490234
+        ],
+        [
+          331.65753173828125,
+          286.8263854980469
+        ],
+        [
+          277.90113830566406,
+          286.8263854980469
+        ]
+      ]
+    },
+    {
+      "title": "1. Introduction",
+      "heading_level": null,
+      "page_id": 0,
+      "polygon": [
+        [
+          86.55128860473633,
+          443.21607971191406
+        ],
+        [
+          180.87472915649414,
+          443.21607971191406
+        ],
+        [
+          180.87472915649414,
+          457.3582763671875
+        ],
+        [
+          86.55128860473633,
+          457.3582763671875
+        ]
+      ]
+    },
+    {
+      "title": "2. Settings and Approaches in MTL",
+      "heading_level": null,
+      "page_id": 1,
+      "polygon": [
+        [
+          87.50764274597168,
+          197.48057556152344
+        ],
+        [
+          302.9211730957031,
+          197.48057556152344
+        ],
+        [
+          302.9211730957031,
+          211.734130859375
+        ],
+        [
+          87.50764274597168,
+          211.734130859375
+        ]
+      ]
+    },
+    {
+      "title": "3. The LibMTL Library",
+      "heading_level": null,
+      "page_id": 2,
+      "polygon": [
+        [
+          87.16986465454102,
+          91.39655113220215
+        ],
+        [
+          218.99264526367188,
+          91.39655113220215
+        ],
+        [
+          218.99264526367188,
+          104.47509765625
+        ],
+        [
+          87.16986465454102,
+          104.47509765625
+        ]
+      ]
+    },
+    {
+      "title": "3.1 Supported MTL Methods",
+      "heading_level": null,
+      "page_id": 2,
+      "polygon": [
+        [
+          86.46171569824219,
+          238.0334243774414
+        ],
+        [
+          254.83058166503906,
+          238.0334243774414
+        ],
+        [
+          254.83058166503906,
+          251.33148193359375
+        ],
+        [
+          86.46171569824219,
+          251.33148193359375
+        ]
+      ]
+    },
+    {
+      "title": "3.2 The Modular Design of LibMTL",
+      "heading_level": null,
+      "page_id": 2,
+      "polygon": [
+        [
+          87.28175926208496,
+          477.58428955078125
+        ],
+        [
+          280.8274383544922,
+          477.58428955078125
+        ],
+        [
+          280.8274383544922,
+          492.43499755859375
+        ],
+        [
+          87.28175926208496,
+          492.43499755859375
+        ]
+      ]
+    },
+    {
+      "title": "3.3 Performance Comparison",
+      "heading_level": null,
+      "page_id": 3,
+      "polygon": [
+        [
+          86.60029792785645,
+          460.3308563232422
+        ],
+        [
+          252.11922454833984,
+          460.3308563232422
+        ],
+        [
+          252.11922454833984,
+          473.7874450683594
+        ],
+        [
+          86.60029792785645,
+          473.7874450683594
+        ]
+      ]
+    },
+    {
+      "title": "3.4 Comparison with Related Libraries",
+      "heading_level": null,
+      "page_id": 3,
+      "polygon": [
+        [
+          86.59663009643555,
+          576.4250335693359
+        ],
+        [
+          306.22938537597656,
+          576.4250335693359
+        ],
+        [
+          306.22938537597656,
+          590.1464538574219
+        ],
+        [
+          86.59663009643555,
+          590.1464538574219
+        ]
+      ]
+    },
+    {
+      "title": "4. Conclusion",
+      "heading_level": null,
+      "page_id": 4,
+      "polygon": [
+        [
+          87.89159774780273,
+          526.8330688476562
+        ],
+        [
+          170.78370666503906,
+          526.8330688476562
+        ],
+        [
+          170.78370666503906,
+          540.9593353271484
+        ],
+        [
+          87.89159774780273,
+          540.9593353271484
+        ]
+      ]
+    },
+    {
+      "title": "Acknowledgments",
+      "heading_level": null,
+      "page_id": 4,
+      "polygon": [
+        [
+          87.77337455749512,
+          658.5754852294922
+        ],
+        [
+          195.83589935302734,
+          658.5754852294922
+        ],
+        [
+          195.83589935302734,
+          673.0950546264648
+        ],
+        [
+          87.77337455749512,
+          673.0950546264648
+        ]
+      ]
+    },
+    {
+      "title": "References",
+      "heading_level": null,
+      "page_id": 5,
+      "polygon": [
+        [
+          86.89759826660156,
+          89.72895812988281
+        ],
+        [
+          153.62487030029297,
+          89.72895812988281
+        ],
+        [
+          153.62487030029297,
+          104.140380859375
+        ],
+        [
+          86.89759826660156,
+          104.140380859375
+        ]
+      ]
+    }
+  ],
+  "page_stats": [
+    {
+      "page_id": 0,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          145
+        ],
+        [
+          "Line",
+          41
+        ],
+        [
+          "Text",
+          11
+        ],
+        [
+          "SectionHeader",
+          3
+        ],
+        [
+          "PageHeader",
+          2
+        ],
+        [
+          "Footnote",
+          2
+        ],
+        [
+          "PageFooter",
+          2
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 1,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          250
+        ],
+        [
+          "Line",
+          62
+        ],
+        [
+          "Text",
+          4
+        ],
+        [
+          "Reference",
+          2
+        ],
+        [
+          "PageHeader",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "Diagram",
+          1
+        ],
+        [
+          "Caption",
+          1
+        ],
+        [
+          "PageFooter",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 2,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          238
+        ],
+        [
+          "Line",
+          43
+        ],
+        [
+          "Text",
+          4
+        ],
+        [
+          "SectionHeader",
+          3
+        ],
+        [
+          "Reference",
+          2
+        ],
+        [
+          "PageHeader",
+          1
+        ],
+        [
+          "PageFooter",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 3,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          206
+        ],
+        [
+          "Line",
+          68
+        ],
+        [
+          "Text",
+          4
+        ],
+        [
+          "Reference",
+          3
+        ],
+        [
+          "SectionHeader",
+          2
+        ],
+        [
+          "PageHeader",
+          1
+        ],
+        [
+          "Diagram",
+          1
+        ],
+        [
+          "Caption",
+          1
+        ],
+        [
+          "PageFooter",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 4,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          128
+        ],
+        [
+          "Line",
+          43
+        ],
+        [
+          "SectionHeader",
+          2
+        ],
+        [
+          "Text",
+          2
+        ],
+        [
+          "PageHeader",
+          1
+        ],
+        [
+          "Table",
+          1
+        ],
+        [
+          "Caption",
+          1
+        ],
+        [
+          "PageFooter",
+          1
+        ],
+        [
+          "TableGroup",
+          1
+        ],
+        [
+          "Reference",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 5,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          107
+        ],
+        [
+          "Line",
+          38
+        ],
+        [
+          "Reference",
+          12
+        ],
+        [
+          "PageHeader",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ],
+        [
+          "PageFooter",
+          1
+        ],
+        [
+          "Text",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 6,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          112
+        ],
+        [
+          "Line",
+          40
+        ],
+        [
+          "Reference",
+          15
+        ],
+        [
+          "PageHeader",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ],
+        [
+          "PageFooter",
+          1
+        ],
+        [
+          "Text",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    }
+  ],
+  "debug_data_path": "debug_data/libmtl"
+}

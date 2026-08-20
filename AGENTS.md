@@ -18,5 +18,6 @@
 # Marker Guidelines
 
 - To organize extracted papers, keep one subfolder per paper in research/literature/ for the extracted markdown and metadata file.
-- To prevent accidental commits, keep source PDF files local and never commit them.
-- To track missing sources, record unavailable papers in research/literature/not-found.md instead of creating a note.
+- To extract digital papers efficiently, run Marker in fast mode with OCR turned off.
+- To prevent accidental commits, keep source PDF files local, and never commit them.
+- To track missing sources, record unavailable papers in research/literature-not-found.md instead of creating a note.
