@@ -6,7 +6,7 @@
     "Mayank Singh"
   ],
   "year": 2025,
-  "venue": null,
+  "venue": "Findings of the Association for Computational Linguistics: EMNLP 2025",
   "publication_type": "benchmark dataset",
   "problem_statement": "The lack of large-scale, high-quality, human-annotated datasets and standardized benchmarks for Hindi-English (Hinglish) code-mixing across both Devanagari and Roman scripts and diverse core NLP tasks, which limits the training, evaluation, and diagnostic error analysis of multilingual large language models on complex code-mixed text.",
   "domain": "Multilingual Natural Language Processing (NLP), Code-Mixing / Code-Switching, Hindi-English (Hinglish) across Roman and Devanagari scripts from social media, news portals, and digital archives.",

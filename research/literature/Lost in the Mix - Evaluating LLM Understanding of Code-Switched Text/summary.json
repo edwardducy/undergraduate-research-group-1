@@ -6,8 +6,8 @@
     "Michalis Vazirgiannis",
     "Guokan Shang"
   ],
-  "year": 2025,
-  "venue": null,
+  "year": 2026,
+  "venue": "Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
   "publication_type": "empirical study",
   "problem_statement": "How Large Language Models (LLMs) comprehend and reason over code-switched (mixed-language) text across different switching directions, language pairs, and linguistic constraints, and whether multilingual proficiency reflects genuine semantic comprehension or superficial pattern matching.",
   "domain": "Natural Language Processing, Large Language Models, Code-Switching and Code-Mixing, Multilingual Language Understanding, Reading Comprehension, Multi-Domain Reasoning, Natural Language Inference",

@@ -10,7 +10,7 @@
     "Kainat Mustafa"
   ],
   "year": 2026,
-  "venue": null,
+  "venue": "Computers, Materials & Continua (CMC)",
   "publication_type": "empirical study",
   "problem_statement": "During crisis events, social media posts on X (formerly Twitter) provide critical situational information for emergency responders; however, the brevity, informality, high noise, and lexical sparsity of tweets impede automated classification. Existing machine learning methods produce high-dimensional sparse representations that struggle with noisy data, whereas deep learning and graph neural network approaches typically model either statistical term importance or relational dependencies in isolation rather than integrating both representations across multi-tiered disaster classification tasks.",
   "domain": "Crisis Informatics, Disaster Response, Social Media Natural Language Processing (Twitter/X Disaster Tweet Classification in English), Graph Neural Networks, Multi-Task Learning",

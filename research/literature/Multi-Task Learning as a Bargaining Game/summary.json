@@ -1,0 +1,75 @@
+{
+  "title": "Multi-Task Learning as a Bargaining Game",
+  "authors": [
+    "Aviv Navon",
+    "Aviv Shamsian",
+    "Idan Achituve",
+    "Haggai Maron",
+    "Kenji Kawaguchi",
+    "Gal Chechik",
+    "Ethan Fetaya"
+  ],
+  "year": 2022,
+  "venue": "International Conference on Machine Learning (ICML)",
+  "publication_type": "empirical study",
+  "problem_statement": "Multi-task learning by joint training often underperforms single-task models because per-task gradients conflict in direction and magnitude, and existing aggregation heuristics (MGDA, PCGrad, CAGrad) lack a principled axiomatic foundation and may converge to arbitrary Pareto points or be dominated by large-gradient tasks, raising the need for a proportionally fair, scale-invariant gradient combination method.",
+  "domain": "Multi-Task Learning across vision (NYUv2, CityScapes), molecular property regression (QM9, 11 tasks), and reinforcement learning (Meta-World MT10)",
+  "theoretical_framework": "Cooperative bargaining game where each task is a player with linear utility u_i(Δθ)=g_i^T Δθ for update Δθ in ball B centered at 0; Nash Bargaining Solution uniquely satisfies Pareto optimality, symmetry, independence of irrelevant alternatives, and invariance to affine transformations, yielding proportionally fair direction α solving G^T G α = 1/α with G the gradient matrix.",
+  "methodology": "Nash-MTL: at each step compute task gradients g_i = ∇ℓ_i(θ), form G, solve G^T G α = 1/α (α>0) via sequence of convex surrogates. Define β_i(α)=g_i^T Gα and φ_i(α)=log α_i+log β_i; original concave-constrained problem min Σφ_i s.t. -φ_i≤0 is approximated by convex surrogate min Σ β_i s.t. -φ_i≤0 (often exact), then improved via concave-convex procedure (CCP) adding linearized φ and iterating ≤20 steps (Proposition 3.2 monotonic decrease). Update θ ← θ - η Gα. Practical speedup updates α every T steps instead of every iteration (feature-level gradients were found to degrade performance).",
+  "datasets": [
+    "QM9 — ~130K molecules as graphs with 11 quantum chemical property regression targets, split 110K train / 10K validation / 10K test, targets normalized to zero mean unit variance, trained with message-passing GNN (Gilmer et al.) + set2set pooling for 300 epochs with early stopping on validation Δm",
+    "NYUv2 — 1,449 RGB-D indoor images with 13-class semantic segmentation, depth, and surface normal labels, resized for MTAN, evaluated for 200 epochs",
+    "CityScapes — 5,000 street-view images at 128×256 (from 2048×1024) for 7-class segmentation and depth, evaluated for 200 epochs",
+    "Meta-World MT10 — 10 simulated robotic manipulation tasks (e.g., button press, window open) with Soft Actor-Critic, trained for 2M steps and averaged over 10 seeds"
+  ],
+  "evaluation": {
+    "metrics": [
+      "Per-task metrics: mIoU and Pix Acc for segmentation, Abs/Rel Error for depth, Mean/Median angle distance and within 11.25°/22.5°/30° for normals, mean squared error for QM9 properties, success rate for RL",
+      "Overall MTL metrics: Mean Rank (MR) across tasks (lower better) and average per-task performance drop Δm % = (1/K) Σ (-1)^{δ_k}(M_{m,k}-M_{b,k})/M_{b,k} versus single-task baseline (STL), where δ_k=1 if higher is better",
+      "Runtime per episode / per epoch and sensitivity to α-update frequency T"
+    ],
+    "baselines": [
+      "Single-Task Learning (STL) — independent model per task (upper bound)",
+      "Linear scalarization (LS) — Σ ℓ_k",
+      "Scale-Invariant (SI) — Σ log ℓ_k (invariant to positive rescaling)",
+      "Random Loss Weighting (RLW) — normally sampled random weights",
+      "Dynamic Weight Average (DWA)",
+      "Uncertainty Weighting (UW, Kendall et al.)",
+      "Multiple Gradient Descent Algorithm (MGDA, Sener & Koltun)",
+      "PCGrad (Yu et al.)",
+      "GradDrop",
+      "Conflict-Averse Gradient Descent (CAGrad, Liu et al.)",
+      "Impartial MTL via Gradient (IMTL-G, Liu et al., 2021b) applied at feature level"
+    ],
+    "architectures": [
+      "GNN with message-passing layers + Vinyals pooling for QM9 (from Fey & Lenssen PyTorch Geometric)",
+      "Multi-Task Attention Network (MTAN) on SegNet for NYUv2 and CityScapes (Adam 1e-4, halved after 100 epochs) with STL SegNet baseline",
+      "Shared backbone + task-specific heads for MT10 with SAC"
+    ]
+  },
+  "key_findings": [
+    "Nash-MTL achieves state-of-the-art overall trade-off: on QM9 MR 2.5 and Δm 62.0% ±1.4 versus next best SI 4.0/77.2% and IMTL-G 4.7/77.2%, with LS 6.8/177.6% and CAGrad 5.7/112.8%; most MTL methods fall behind simple scale-invariant baseline due to varying loss scales, demonstrating Nash-MTL’s affine invariance benefit; per-task results in appendix confirm balanced gains.",
+    "On NYUv2 Nash-MTL attains 40.13 mIoU / 65.93 Pix Acc / 0.5261 Abs depth / 25.26 Mean angle with MR 1.55 and Δm -4.04% (improvement over STL), outperforming CAGrad (39.79/26.31, Δm 0.20%, MR 3.77) and IMTL-G (39.35, Δm -0.76%, MR 3.11) and dominating MGDA which collapses to 30.47 mIoU while over-optimizing normals.",
+    "On CityScapes (2 tasks) where Nash solution reduces to equally weighted normalized gradients, Nash-MTL gets 75.41 mIoU / 0.0129 Abs Err with MR 1.75 and Δm 6.82%, best overall versus IMTL-G 3.62/11.10%, CAGrad 5.37/11.64%, and SI 8.00/14.11%, showing scale-invariant normalized sum is strong yet still below Nash for >2 tasks.",
+    "On MT10 Nash-MTL reaches 0.91 ±0.031 success, the only MTL method matching STL SAC (0.90), ahead of CAGrad 0.83, PCGrad 0.72, CARE (which uses language metadata) 0.84, and Soft Modularization 0.73; visualization shows Nash trajectories are balanced across Pareto front while LS/PCGrad/CAGrad are dominated by large-gradient task.",
+    "Update direction analysis on three gradients shows Nash yields most balanced projections onto each task gradient; theoretical analysis proves convergence to Pareto stationary point under linear independence (Assumption 5.1), L-smoothness, and boundedness, and to Pareto optimal if losses convex, with step size µ(t)=min_i 1/(L K α_i(t)); α update every 50–100 steps gives 3.7×–9.8× speedup on QM9 and ~10× on MT10 (≈40.7→7.9) with small degradation (e.g., MT10 0.91→0.87) approaching LS/STL runtime.",
+    "Ablation of CCP improvements shows single-step surrogate often suffices; using feature-level instead of shared-parameter gradients dramatically degrades performance, so Nash-MTL keeps shared-parameter gradients and sparsifies α updates for efficiency."
+  ],
+  "scope_and_delimitations": [
+    "Evaluated on modest task counts (K=2 for CityScapes, 3 for NYUv2, 10 for MT10, 11 for QM9) and not on hundreds of tasks; QM9 targets normalized but still limited to molecular graphs.",
+    "Used fixed MTAN/SegNet and GNN architectures and fixed training schedules (300 epochs QM9, 200 epochs NYUv2/CityScapes, 2M RL steps) with Adam/SAC hyperparameters, not exhaustive architecture search.",
+    "Required solving K-dimensional convex problem per α update (20 CCP iterations standard, 1 step for MT10) and assumed gradients linearly independent when not Pareto stationary; did not test on language, code-switched, or noisy low-resource text.",
+    "Compared at feature-vs-parameter gradient level for speedup and chose parameter-level with infrequent updates; did not evaluate fully asynchronous or distributed MTL."
+  ],
+  "limitations": {
+    "verbatim_excerpt": "We note that the computational cost of that approximation is critical because this approximation is executed for each gradient update.",
+    "summary": "Authors note per-step bargaining solution cost is critical for frequent updates and that feature-level surrogate degrades performance, so they resort to infrequent α updates; implicit limitations include dependence on linear-independence assumption, bounded K, and not handling identical-task degeneracy without additional assumptions."
+  },
+  "generalizability_gap": "Not evaluated on code-switched NLP, disaster tweet, or multilingual language model multi-task settings that dominate this repository’s survey; nor on transformer-based large language models, multi-modal vision-language, or code generation domains.",
+  "methodological_gap": "Relies on linear utilities and ball B around zero, requiring convex compact payoff set; does not compare to recent second-order or adaptive curvature methods beyond first-order gradients, and CCP approximation lacks exactness guarantee for all α despite monotonic objective decrease.",
+  "future_work": [
+    "Extending Nash bargaining to other cooperative game solutions and to alternative disagreement points beyond zero.",
+    "Scaling to many-task MTL via more efficient α solvers and exploring per-layer or per-component bargaining.",
+    "Applying Nash-MTL to language, multi-modal, and federated multi-task settings and analyzing task grouping under proportional fairness."
+  ]
+}

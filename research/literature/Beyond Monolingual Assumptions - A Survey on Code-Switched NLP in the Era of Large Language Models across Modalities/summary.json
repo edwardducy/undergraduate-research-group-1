@@ -7,8 +7,8 @@
     "Himanshu Beniwal",
     "Mayank Singh"
   ],
-  "year": 2025,
-  "venue": null,
+  "year": 2026,
+  "venue": "Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
   "publication_type": "systematic survey",
   "problem_statement": "How Large Language Models handle code-switched inputs across text, speech, and vision-language modalities, why multilingual pre-training fails to guarantee robust code-switching performance, and how existing architectural designs, dataset shortages, and evaluation biases restrict effective deployment in multilingual societies.",
   "domain": "Natural Language Processing, Large Language Models, Code-Switching and Code-Mixing, Multilingual Computing, Multimodal AI (Speech and Vision-Language Processing), Low-Resource Languages",
