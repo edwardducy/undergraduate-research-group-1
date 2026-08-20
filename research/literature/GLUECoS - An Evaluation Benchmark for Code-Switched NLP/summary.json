@@ -1,0 +1,65 @@
+{
+  "title": "GLUECoS: An Evaluation Benchmark for Code-Switched NLP",
+  "authors": [
+    "Simran Khanuja",
+    "Sandipan Dandapat",
+    "Anirudh Srinivasan",
+    "Sunayana Sitaram",
+    "Monojit Choudhury"
+  ],
+  "year": 2020,
+  "venue": "Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics (ACL 2020)",
+  "publication_type": "benchmark dataset",
+  "problem_statement": "The lack of standardized datasets and comprehensive multi-task evaluation benchmarks for code-switched natural language processing, hindering rigorous comparison across different representation methods (cross-lingual embeddings vs. pre-trained multilingual language models) on varied linguistic tasks.",
+  "domain": "Multilingual Natural Language Processing (NLP), Code-Switching / Code-Mixing across English-Hindi (En-Hi; Roman and Devanagari scripts) and English-Spanish (En-Es; Roman script) from social media, chat, search queries, and conversational transcripts.",
+  "theoretical_framework": "Linguistic theories of grammatical code-switching (including Equivalence Constraint and Switch Point Fraction for synthetic generation) alongside quantitative code-mixing metrics (Code-Mixing Index [CMI], Switch-Point Average [SP Avg], Multilingual Index [M-index], Probability of Switching [I-index], Burstiness, Language Entropy [LE], and Span Entropy [SE]).",
+  "methodology": "The authors introduce GLUECoS, a standardized evaluation benchmark spanning six NLP tasks (Language Identification, Part-of-Speech Tagging, Named Entity Recognition, Sentiment Analysis, Question Answering, and a newly curated conversational Natural Language Inference task) across English-Hindi and English-Spanish. They standardize datasets into balanced 8:1:1 train:dev:test splits and evaluate five representation paradigms: (1) baseline monolingual word embeddings, (2) cross-lingual embeddings (unsupervised and supervised MUSE, BiCVM, BiSkip), (3) synthetic code-switched skip-gram embeddings (GCM), (4) pre-trained Multilingual BERT (mBERT), and (5) Modified mBERT fine-tuned via masked language modeling on a curriculum of synthetic code-switched data (gCM) followed by real code-switched data (rCM). Tasks are evaluated using task-specific architectures including BiLSTM-CRF for word-level sequence labeling, BiLSTM for sentence classification, and BiDAF/Transformers for QA and NLI.",
+  "datasets": [
+    "FIRE 2013 (FIRE LID) - English-Hindi word-level Language Identification (Devanagari script; 3,537 sentences)",
+    "EMNLP 2014 - English-Spanish word-level Language Identification (14,413 sentences)",
+    "UD POS (Bhat et al., 2018) - English-Hindi Universal Dependency POS tagging (Devanagari script; 1,814 sentences)",
+    "FG POS (ICON 2016 / Jamatia et al., 2016) - English-Hindi fine-grained POS tagging (Roman script; 2,631 sentences)",
+    "Bangor Miami Corpus (Bangor POS) - English-Spanish POS tagging (2,758 sentences)",
+    "IIITH NER (Singh et al., 2018) - English-Hindi Twitter Named Entity Recognition (Roman script; 3,084 sentences)",
+    "CALCS 2018 (Aguilar et al., 2019) - English-Spanish Twitter Named Entity Recognition (34,208 sentences)",
+    "SAIL 2017 (Patra et al., 2018) - English-Hindi social media Sentiment Analysis (Roman script; 12,601 sentences)",
+    "Vilares et al. (2016) - English-Spanish Twitter Sentiment Analysis (2,103 sentences)",
+    "Chandu et al. (2018a) / DrQA - English-Hindi Question Answering (313 question-answer-context triples)",
+    "Khanuja et al. (2020) - English-Hindi Conversational Natural Language Inference (Roman script; 1,300 sentence pairs)",
+    "Pre-training Corpora: IIT Bombay English-Hindi parallel corpus (10M GCM / 2M gCM), Twitter English-Spanish parallel corpus (4.5M), Pratapa et al. (2018a) English-Spanish synthetic corpus (8M), Chandu et al. (2018b) En-Hi real code-mixed corpus (93k), Rijhwani et al. (2017) En-Es real code-mixed corpus (93k)"
+  ],
+  "evaluation": {
+    "metrics": "Token-level F1 for LID, NER, and Sentiment Analysis; F1 and Accuracy for POS tagging; F1 for QA; Accuracy for NLI",
+    "lid_performance": "Modified mBERT achieves top performance (FIRE En-Hi F1: 96.60 vs mBERT 95.87, Sup MUSE 94.92; EMNLP En-Es F1: 96.24 vs mBERT 95.97, Sup MUSE 93.39)",
+    "pos_tagging_performance": "Modified mBERT achieves top results among embedding methods (UD En-Hi F1: 88.06 vs mBERT 87.16, SOTA 90.53; Bangor En-Es F1: 93.62 vs mBERT 93.33, SOTA 95.39; FG En-Hi F1: 63.31 vs mBERT 63.42, SOTA 80.80)",
+    "ner_performance": "Modified mBERT significantly outperforms baseline and cross-lingual models (IIITH En-Hi F1: 78.21 vs mBERT 74.96, baseline 71.52; CALCS En-Es F1: 61.77 vs mBERT 59.69, baseline 47.90)",
+    "sentiment_analysis_performance": "Modified mBERT reaches highest F1 scores (SAIL En-Hi F1: 59.35 vs mBERT 58.24, baseline 50.44; En-Es Sentiment F1: 69.31 vs mBERT 66.03, baseline 50.62)",
+    "qa_and_nli_performance": "mBERT achieves highest score on En-Hi QA (F1: 71.96 vs Modified mBERT 68.01, BiSkip 65.56); on Conversational NLI, Modified mBERT outperforms standard mBERT but both perform only slightly above chance"
+  },
+  "key_findings": [
+    "Pre-trained multilingual contextual language models (mBERT) significantly outperform static cross-lingual word embedding techniques (MUSE, BiCVM, BiSkip) across all evaluated code-switching tasks and language pairs.",
+    "Fine-tuning mBERT on synthetically generated code-switched data (gCM) paired with a small portion (<5%) of real code-mixed text (rCM) on masked language modeling further improves downstream performance across most tasks.",
+    "Models consistently perform better on English-Spanish than English-Hindi, reflecting syntactic similarities between English and Spanish (word order preservation), the absence of script variation noise, and higher domain alignment in training data.",
+    "Word-level tasks like Language Identification (F1 > 96%) and POS tagging are relatively tractable, whereas semantic and discourse-level reasoning tasks (QA and NLI) remain far from solved, with NLI performance hovering near chance levels.",
+    "Static cross-lingual word embeddings underperform in code-switched contexts because bilingual lexicon induction objectives fail to model the non-linear semantic and distributional shifts characteristic of mixed discourse."
+  ],
+  "scope_and_delimitations": [
+    "Restricted to two code-switched language pairs: English-Hindi (typologically distinct language family with script variation) and English-Spanish (typologically closer pair in Roman script).",
+    "Delimited to six specific NLP tasks: Language Identification (LID), Part-of-Speech (POS) Tagging, Named Entity Recognition (NER), Sentiment Analysis, Question Answering (QA), and Natural Language Inference (NLI).",
+    "Focuses strictly on textual modalities (social media, microblogs, chats, and Wikipedia text), excluding spoken code-switching.",
+    "Evaluates models in individual task setups rather than a joint multi-task learning architecture.",
+    "Employs synthetic code-switching generation using linguistic constraints (Switch Point Fraction) for pre-training, supplemented with less than 5% real code-switched data."
+  ],
+  "limitations": {
+    "verbatim_excerpt": "The results using mBERT cannot be directly compared to the cross-lingual models because of the difference in the magnitude of data involved in training. Also, due to the fact that mBERT is trained on 104 languages together, with massive amounts of data for a large number of epochs, it learns several common features better providing for a well represented common embedding space. The training data used for training the cross-lingual embeddings is restricted to Twitter and query logs, while mBERT is trained on the entire wiki dump.\n\nOverall, the cross-lingual and mBERT models perform better for *English-Spanish* as compared to *English-Hindi*. This could be due to several reasons.\n\n- English and Spanish are similar languages, with both mostly retaining individual word order while code-switching, which is not the case for English and Hindi.\n- Romanized Hindi does not use standardized spellings, and errors made by the transliterator could have influenced the results.\n- We use Twitter and social media data to train cross lingual word embeddings for *English-Spanish* which are similar in domain to the task datasets, while we use the IITB and query-based parallel corpora for *English-Hindi* which is generic in domain, constrained by the available resources at hand.\n\nWe find that accuracies vary across tasks in the GLUECoS benchmark, and except in the case of LID, code-switched NLP is far from solved. This is particularly stark in the case of Sentiment and NLI, which are three and two way classification tasks respectively. Modified mBERT performs only a little over chance, which shows that we are still in the early days of solving NLI for code-switched languages, and also indicates that our models are far from truly being able to understand code-switched language.",
+    "summary": "The authors acknowledge several major limitations: (1) direct comparison between cross-lingual word embeddings and mBERT is confounded by large differences in training data scale and pre-training domains (social media/query logs vs. Wikipedia dump); (2) performance on English-Hindi is hindered by non-standard Romanized spelling, transliterator errors, syntactic differences in word order, and generic pre-training data; (3) evaluation is conducted on single-task pipelines rather than a multi-task learning framework; and (4) performance on complex semantic reasoning tasks like NLI and Sentiment Analysis remains low, demonstrating that current models do not yet truly understand code-switched language."
+  },
+  "generalizability_gap": "The benchmark is limited to only two language pairs (English-Hindi and English-Spanish) in written social media and conversational domains. It leaves unexamined other code-switched language families (e.g., non-Indo-European pairs, low-resource African or Southeast Asian languages), spoken code-switching contexts, and domains beyond social media and chat.",
+  "methodological_gap": "The benchmark evaluates models on isolated tasks using standard task-specific heads rather than utilizing a unified multi-task learning architecture to facilitate cross-task transfer for data-scarce code-switched tasks. Additionally, processing Romanized Hindi relies on external off-the-shelf transliteration and language identification tools rather than end-to-end normalization.",
+  "future_work": [
+    "Implementing and benchmarking models in a multi-task learning setup to allow data-scarce code-switched tasks to benefit from resource-rich tasks.",
+    "Adding more diverse tasks and language pairs to subsequent versions of the GLUECoS benchmark.",
+    "Pre-training dedicated language models from scratch on code-switched and constituent monolingual corpora rather than solely fine-tuning pre-existing multilingual models.",
+    "Releasing the new code-switched conversational Natural Language Inference (NLI) dataset for broader research community use."
+  ]
+}

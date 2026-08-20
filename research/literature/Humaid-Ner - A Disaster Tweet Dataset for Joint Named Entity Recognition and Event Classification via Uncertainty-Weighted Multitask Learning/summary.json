@@ -1,0 +1,93 @@
+{
+  "title": "Humaid-Ner: A Disaster Tweet Dataset for Joint Named Entity Recognition and Event Classification Via Uncertainty-Weighted Multitask Learning",
+  "authors": [
+    "Aijaz Ali",
+    "Nazish Basir",
+    "Sarfaraz Nawaz",
+    "Danish Nazir Arain",
+    "Haris Ali"
+  ],
+  "year": 2026,
+  "venue": "The Asian Bulletin of Big Data Management",
+  "publication_type": "benchmark dataset",
+  "problem_statement": "Disaster-related social media benchmarks provide document-level category annotations but lack span-level entity labels (such as location, casualties, displaced counts, or requested supplies) required for operational humanitarian response coordination. Additionally, joint multi-task training of dense token-level named entity recognition and single sentence-level event classification leads to severe gradient asymmetry and task conflict (2,688 NER token signals vs. 1 classification signal per example), causing classification macro-F1 to progressively degrade under fixed-weight multi-task learning.",
+  "domain": "Crisis Informatics, Disaster Response, Social Media NLP (Twitter/X Disaster Tweets in English), Multitask Learning, Named Entity Recognition",
+  "theoretical_framework": "Homoscedastic uncertainty-based multi-task loss weighting (Kendall et al., 2018) derived from a probabilistic log-likelihood formulation with learnable task variance parameters, coupled with the hierarchical representation learning hypothesis (Liu et al., 2019 / MT-DNN) positing that lower transformer layers capture universal linguistic representations while upper layers encode task-specific patterns.",
+  "methodology": "Constructed the HUMAID-NER dataset by extending 60,000 English tweets from the HumAID benchmark across 19 disaster events into 10 operationally motivated entity types (yielding 21 BIO classes) via a three-stage hybrid auto-labelling pipeline combining a spaCy transformer backbone (en_core_web_trf), domain-specific EntityRuler patterns, and regular expressions with priority- and length-based overlap resolution. Designed a joint multitask architecture using a shared RoBERTa-large encoder (24 layers, 355M parameters) with a linear token projection head for sequence labeling and a dual-pooled classification head concatenating the [CLS] embedding and mean non-padding token representations (2,048 dimensions). Trained the model using homoscedastic uncertainty loss weighting with learnable task log-variance parameters (s_NER, s_CLS) and a two-stage training schedule: Stage 1 (epochs 1–7) jointly trains all 24 encoder layers; Stage 2 (epochs 8–15) freezes the bottom 18 layers (reducing active parameters from 355M to 47M) to specialize upper layers and task heads. Developed and deployed a real-time web dashboard for simultaneous single-forward-pass inference.",
+  "datasets": [
+    "HUMAID-NER (60,000 English tweets from 19 natural disaster events between 2016 and 2019 sampled from HumAID, annotated with ~175,000 entity spans across 10 disaster-specific types in BIO format; partitioned into 72% train [43,200 tweets], 14% validation [8,400 tweets], and 14% test [8,400 tweets] stratified by 10 humanitarian categories)",
+    "HumAID benchmark (77,637 English tweets from 19 natural disaster events labelled across 10 humanitarian categories)"
+  ],
+  "evaluation": {
+    "metrics": [
+      "Entity-level span micro-F1 via seqeval (exact entity type and span boundary match required)",
+      "Macro-averaged F1 across 10 humanitarian categories for event classification",
+      "Balanced validation combined score: Score_val = 0.5 * F1_NER + 0.5 * F1_CLS",
+      "Classification-first deployment policy (prioritizing classification macro-F1 with combined score breaking ties)"
+    ],
+    "ablation_results": {
+      "Row A (BERT-large + Fixed Weights)": {
+        "NER_span_micro_F1": 0.873,
+        "CLS_macro_F1": 0.736,
+        "combined_score": 0.805
+      },
+      "Row B (RoBERTa-large + Fixed Weights)": {
+        "NER_span_micro_F1": 0.863,
+        "CLS_macro_F1": 0.749,
+        "combined_score": 0.806
+      },
+      "Row C (RoBERTa-large + Kendall Weighting)": {
+        "NER_span_micro_F1": 0.866,
+        "CLS_macro_F1": 0.745,
+        "combined_score": 0.806
+      },
+      "Row D (RoBERTa-large + Kendall + Two-Stage / Proposed)": {
+        "NER_span_micro_F1": 0.841,
+        "CLS_macro_F1": 0.761,
+        "combined_score": 0.801
+      }
+    },
+    "benchmark_comparisons": {
+      "HumAID BERT-base (Single-task)": {
+        "NER_F1": null,
+        "CLS_F1": "0.700 - 0.730"
+      },
+      "HumAID RoBERTa-large (Single-task)": {
+        "NER_F1": null,
+        "CLS_F1": "0.730 - 0.750"
+      },
+      "Proposed Joint RoBERTa-large (Row D)": {
+        "NER_F1": 0.841,
+        "CLS_F1": 0.761
+      }
+    }
+  },
+  "key_findings": [
+    "Introduced HUMAID-NER, the first disaster-domain named entity recognition dataset extending HumAID with 60,000 tweets and ~175,000 entity spans across 10 operational entity types (LOCATION, CASUALTY, DISPLACED, REQUEST, RESOURCE, RESCUE, DISASTER_TYPE, ORGANIZATION, PERSON, NUMBER) mapped to 21 BIO classes.",
+    "Empirically identified task conflict and gradient asymmetry under fixed-weight joint training, where dense token-level NER supervision (up to 2,688 signals/sample) dominated sentence-level classification (1 signal/sample), causing classification macro-F1 to peak at epoch 3 (0.748) and degrade by 1.4 points to 0.734 by epoch 15 despite monotonic reduction in training loss.",
+    "Demonstrated that Kendall homoscedastic uncertainty weighting dynamically balances task losses via learnable log-variance parameters, preventing classification degradation and stabilizing multitask training dynamics.",
+    "Found that two-stage layer-freezing training (freezing layers 1–18 in Stage 2) produced the largest classification gain (+1.6 macro-F1 points, reaching 0.761) by reducing active parameters from 355M to 47M and enabling task-head and upper-layer specialization without eroding shared representations.",
+    "The proposed joint RoBERTa-large framework achieved 0.841 NER span micro-F1 and 0.761 classification macro-F1 concurrently on the validation split, matching or exceeding single-task RoBERTa-large baselines (0.730–0.750) without incurring classification performance penalties while delivering full entity extraction capabilities.",
+    "Demonstrated operational viability via a real-time web dashboard capable of extracting typed entity spans and predicting humanitarian event categories simultaneously in a single forward pass without task-specific inference latency overhead."
+  ],
+  "scope_and_delimitations": [
+    "Text corpus restricted to English-language disaster tweets sampled from 19 natural disaster events between 2016 and 2019 in the HumAID benchmark.",
+    "Dataset size delimited to a balanced 60,000-tweet subset across 10 humanitarian categories rather than the complete 77,637 HumAID corpus.",
+    "Entity taxonomy delimited to 10 operationally motivated humanitarian entity types (21 BIO classes) excluding generic newswire categories.",
+    "Empirical evaluation delimited to the held-out validation split (8,400 tweets) to intentionally reserve the test set against overfitting.",
+    "Hardware constraints on TPU v3-8 restricted experimental ablations to single-run point estimates without multi-seed variance analysis."
+  ],
+  "limitations": {
+    "verbatim_excerpt": "Limitations include no human inter-annotator validation of the auto-labelled annotations, English-only coverage (2016–2019), validation-split-only reporting (testset evaluation reserved to prevent overfitting), and single-run point estimates for all ablation results (multi-seed variance analysis was precluded by TPU compute budget and is left for future work).",
+    "summary": "The dataset relies on an automated three-stage hybrid labelling pipeline without human inter-annotator agreement verification; the corpus is restricted to English tweets from 2016–2019 across a 60,000-tweet subset; evaluation reports only validation split results with test set evaluation reserved; ablations are single-run point estimates lacking multi-seed variance analysis due to TPU compute limits; and direct empirical gradient conflict diagnostics were not collected."
+  },
+  "generalizability_gap": "The dataset and joint framework are limited to English-language tweets from 19 natural disaster events (2016–2019), leaving unexamined non-English and multilingual disaster communications, low-resource regional dialects, multimodal crisis streams (paired text and imagery), and non-natural disaster domains such as industrial accidents, armed conflicts, or public health emergencies.",
+  "methodological_gap": "The auto-labelling pipeline lacks formal human inter-annotator agreement metrics (such as Cohen's or Fleiss' Kappa) to quantify pseudo-label noise; direct gradient diagnostics (such as gradient cosine similarity or conflicting gradient norm tracking across shared layers) were not measured to provide direct mechanistic proof of gradient interference; and the ablation study lacks multi-seed statistical variance bounds.",
+  "future_work": [
+    "Combine PCGrad gradient surgery with Kendall homoscedastic uncertainty weighting to eliminate destructive gradient interference without excessive computational overhead.",
+    "Scale the three-stage auto-annotation pipeline to annotate the remaining tweets in the full 77,637-tweet HumAID corpus and new disaster events.",
+    "Extend the joint multitask architecture to multilingual crisis tweet analysis using XLM-RoBERTa paired with soft gazetteers.",
+    "Conduct direct empirical gradient tracking across encoder layers during multitask training to evaluate gradient conflict dynamics.",
+    "Perform multi-seed variance analysis across all model configurations to establish statistical significance bounds."
+  ]
+}

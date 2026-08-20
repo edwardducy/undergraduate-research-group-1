@@ -1,0 +1,94 @@
+{
+  "title": "Code-Switched Named Entity Recognition with Embedding Attention",
+  "authors": [
+    "Changhan Wang",
+    "Kyunghyun Cho",
+    "Douwe Kiela"
+  ],
+  "year": 2018,
+  "venue": "Proceedings of the Third Workshop on Computational Approaches to Linguistic Code-Switching (CALCS 2018)",
+  "publication_type": "system paper",
+  "problem_statement": "Standard natural language processing pipelines experience severe performance deterioration on code-switched text, creating a need for effective named entity recognition models capable of handling noisy, multilingual social media data across diverse language pairs.",
+  "domain": "Natural Language Processing (NLP), Named Entity Recognition (NER), Linguistic Code-Switching, Social Media (Twitter), Multilingual Representation Learning",
+  "theoretical_framework": "Neural sequence labeling integrating pre-trained multi-source word embeddings, character-level recurrent representations, self-attention mechanisms for dynamic modality fusion, shortcut-stacked recurrent sentence encoding, and Conditional Random Fields (CRFs) for structured output prediction.",
+  "methodology": "An end-to-end neural sequence tagging architecture comprising four main components: (1) multi-level representations integrating language-specific FastText embeddings trained on Common Crawl and Wikipedia, character-level BiLSTMs with max-pooling, and explicit capitalization embeddings; (2) an embedding-level self-attention mechanism that computes dynamic task-specific weights across multilingual and character-level embeddings without contextual dependencies; (3) multi-layer shortcut-stacked bidirectional LSTM sentence encoders with residual skip connections; and (4) linear-chain Conditional Random Fields (CRFs) comparing unigram and bigram emission/transition potential scoring functions. Preprocessing normalizes noisy Twitter tokens (URLs, user mentions, hashtags, punctuation, numbers, dates, times, emojis) and strips leading/trailing punctuation for Arabic tokens.",
+  "datasets": [
+    "CALCS 2018 Shared Task MSA-EGY: Modern Standard Arabic-Egyptian Arabic tweets (10,102 train / 1,122 validation / 1,110 test)",
+    "CALCS 2018 Shared Task ENG-SPA: English-Spanish tweets (50,757 train / 832 validation / 15,634 test)",
+    "FastText pre-trained crawl and Wikipedia word vectors for Arabic, Egyptian Arabic, English, and Spanish"
+  ],
+  "evaluation": {
+    "metrics": [
+      "Precision",
+      "Recall",
+      "Entity F1"
+    ],
+    "results": {
+      "MSA_EGY": {
+        "overall": {
+          "Precision": 73.95,
+          "Recall": 69.42,
+          "Entity_F1": 71.62
+        },
+        "per_category_f1": {
+          "EVENT": 68.80,
+          "GROUP": 73.17,
+          "LOC": 71.78,
+          "ORG": 66.67,
+          "OTHER": 100.00,
+          "PER": 73.21,
+          "PROD": 77.61,
+          "TIME": 67.92,
+          "TITLE": 41.38
+        },
+        "best_configuration": "4-layer shortcut-stacked BiLSTM [64, 64, 128, 128] with unigram CRF",
+        "competition_rank": "1st place"
+      },
+      "ENG_SPA": {
+        "overall": {
+          "Precision": 70.62,
+          "Recall": 55.88,
+          "Entity_F1": 62.39
+        },
+        "per_category_f1": {
+          "EVENT": 29.51,
+          "GROUP": 42.86,
+          "LOC": 69.98,
+          "ORG": 37.93,
+          "OTHER": 3.08,
+          "PER": 72.09,
+          "PROD": 54.46,
+          "TIME": 43.24,
+          "TITLE": 33.83
+        },
+        "best_single_configuration": "3-layer shortcut-stacked BiLSTM [128, 128, 128] with bigram CRF",
+        "ensemble_f1": 62.67,
+        "competition_rank": "3rd place"
+      }
+    }
+  },
+  "key_findings": [
+    "The embedding attention neural architecture achieved 1st place on the CALCS 2018 Modern Standard Arabic-Egyptian task (71.62 Entity F1) and 3rd place on the English-Spanish task (62.39 Entity F1, 62.67 with ensembling), outperforming standard concatenation baselines.",
+    "Specialized token preprocessing for social media noise (normalizing numbers, dates, times, emojis, and Arabic punctuation) substantially boosted performance on temporal and event categories (EVENT and TIME).",
+    "Explicit capitalization embeddings improved recognition accuracy for PERSON, LOCATION, and ORGANIZATION entities.",
+    "Recognition performance varied across entity types: TITLE was consistently challenging across both language pairs (33.83 F1 for ENG-SPA, 41.38 F1 for MSA-EGY), whereas OTHER scored 100.00 F1 on MSA-EGY but only 3.08 F1 on ENG-SPA.",
+    "Optimal CRF and hidden layer architectures differed between tasks: a 4-layer stacked BiLSTM with unigram CRF performed best for MSA-EGY, whereas a 3-layer stacked BiLSTM with bigram CRF performed best for ENG-SPA."
+  ],
+  "scope_and_delimitations": [
+    "Evaluated on two code-switched language pairs: Modern Standard Arabic-Egyptian (closely related varieties) and English-Spanish (distinct languages) using Twitter data.",
+    "Deliberately excluded contextual dependencies from the embedding attention mechanism to ensure computational efficiency within competition deadlines.",
+    "Kept pre-trained FastText word embeddings frozen during neural training, restricting parameter updates to character BiLSTMs and capitalization embeddings.",
+    "Deliberately avoided external gazetteers or complex hand-crafted features to maintain a generalizable neural architecture."
+  ],
+  "limitations": {
+    "verbatim_excerpt": "The dev set for this task was very small (832, versus a test set of 15.6k), which explains the discrepancy between dev set and test set performance—this discrepancy also made it difficult to tune hyperparameters properly for this task. We also tried a very simple ensembling strategy, where we took our top three models and randomly sampled a response, which only marginally improved test score performance to 62.67. We did not pursue proper ensembling due to time constraints.",
+    "summary": "The authors acknowledge several constraints: (1) a severe validation set size imbalance in the English-Spanish dataset (832 development tokens versus 15.6k test tokens) hindered reliable hyperparameter tuning; (2) tight competition deadlines prevented the implementation of contextual dependencies in the attention mechanism and proper ensemble methods; and (3) the model operated without gazetteers, which may have limited performance on difficult low-resource categories such as titles."
+  },
+  "generalizability_gap": "The architecture was evaluated strictly on Twitter social media data across two specific language combinations (MSA-EGY and ENG-SPA). The performance of the model remains unexamined on other language families (such as Indic or Austronesian code-switched pairs), non-Twitter textual genres (such as conversational transcripts, clinical text, or formal news), and higher degrees of intra-word morphological mixing.",
+  "methodological_gap": "The embedding attention module operates without contextual dependency across sentence tokens, relying on static pre-trained word vectors rather than contextualized multilingual language representations (such as multilingual BERT or XLM-RoBERTa). Additionally, the system lacks qualitative attention attribution to determine whether the model dynamically attends to language switch points.",
+  "future_work": [
+    "Analyze the learned attention weights to determine whether the model learns to identify and adapt to code-switching points dynamically via embedding attention.",
+    "Incorporate contextual dependencies into the embedding attention mechanism.",
+    "Explore sophisticated model ensembling strategies and examine the integration of external lexical gazetteers without compromising the flexibility of the neural architecture."
+  ]
+}

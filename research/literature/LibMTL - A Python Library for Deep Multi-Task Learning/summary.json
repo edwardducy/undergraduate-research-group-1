@@ -1,0 +1,57 @@
+{
+  "title": "LibMTL: A Python Library for Deep Multi-Task Learning",
+  "authors": [
+    "Baijiong Lin",
+    "Yu Zhang"
+  ],
+  "year": 2023,
+  "venue": "Journal of Machine Learning Research (JMLR)",
+  "publication_type": "system paper",
+  "problem_statement": "Most state-of-the-art multi-task learning models are implemented across fragmented codebases with divergent experimental protocols or lack public implementations entirely, which creates barriers to reproducible benchmarking, complicates the development of novel multi-task algorithms, and impedes the practical deployment of multi-task learning systems in real-world applications.",
+  "domain": "Deep Multi-Task Learning, Computer Vision, and Machine Learning Systems",
+  "theoretical_framework": "Multi-task learning formalization with shared parameters theta and task-specific parameters psi for T tasks under single-input and multi-input settings, structured on an orthogonal decomposition between neural network architecture design and multi-objective loss or gradient balancing optimization strategies.",
+  "methodology": "LibMTL provides a modular, extensible PyTorch library structured into decoupled functional modules. The library includes LibMTL.config for command-line parameter handling, Dataloader for single-input and multi-input batch loading, LibMTL.model for backbone networks such as ResNet, LibMTL.architecture for 8 multi-task architectures (Hard Parameter Sharing, Cross-stitch Networks, MMoE, MTAN, CGC, PLE, Learning to Branch, and DSelect-k), LibMTL.loss for task loss definitions, LibMTL.weighting for 13 loss-balancing and gradient-balancing optimization strategies (Equal Weighting, GradNorm, Uncertainty Weights, MGDA, Dynamic Weight Average, Geometric Loss Strategy, PCGrad, GradDrop, IMTL, Gradient Vaccine, CAGrad, Nash-MTL, and Random Loss Weighting) supporting exact parameter gradients and representation gradient approximations, LibMTL.metrics for evaluation tracking, LibMTL.Trainer for unified execution, and LibMTL.utils for auxiliary training routines.",
+  "datasets": [
+    "NYUv2 (indoor scene understanding benchmark containing 3 dense prediction tasks: 13-class semantic segmentation, depth estimation, and surface normal prediction)"
+  ],
+  "evaluation": {
+    "metrics": [
+      "Mean Intersection over Union (mIoU) and Pixel Accuracy (PAcc) for semantic segmentation",
+      "Absolute Error (AErr) and Relative Error (RErr) for depth estimation",
+      "Mean angle distance, Median angle distance (MED), and percentage of pixels within 11.25°, 22.5°, and 30° error thresholds for surface normal prediction"
+    ],
+    "baselines": [
+      "13 optimization strategies evaluated on the Hard Parameter Sharing architecture: Equal Weighting (EW), GradNorm, Uncertainty Weights (UW), MGDA, Dynamic Weight Average (DWA), Geometric Loss Strategy (GLS), Projecting Conflicting Gradient (PCGrad), GradDrop, Impartial Multi-Task Learning (IMTL), Gradient Vaccine (GradVac), Conflict-Averse Gradient descent (CAGrad), Nash-MTL, and Random Loss Weighting (RLW)",
+      "8 neural network architectures evaluated under the Equal Weighting strategy: Hard Parameter Sharing (HPS), Cross-stitch Networks, Multi-gate Mixture-of-Experts (MMoE), Multi-Task Attention Network (MTAN), Customized Gate Control (CGC), Progressive Layered Extraction (PLE), Learning to Branch (LTB), and DSelect-k",
+      "Qualitative comparative analysis against existing multi-task learning toolkits including RMTL and MTLV"
+    ],
+    "architectures": [
+      "ResNet backbone feature extractor combined with multi-task parameter sharing heads and task-specific decoders for indoor scene understanding"
+    ]
+  },
+  "key_findings": [
+    "LibMTL provides a unified, extensible PyTorch library that supports 13 optimization strategies and 8 deep architectures, and allows flexible combinations across single-input and multi-input multi-task learning paradigms.",
+    "On the NYUv2 benchmark using the Hard Parameter Sharing architecture, the Geometric Loss Strategy achieves the highest semantic segmentation performance (54.59 mIoU, 76.06% PAcc) and lowest depth estimation errors (0.3785 AErr, 0.1555 RErr), while CAGrad achieves the lowest surface normal errors (22.47° Mean, 15.71° MED, 37.77% within 11.25°).",
+    "On the NYUv2 benchmark using the Equal Weighting strategy, MTAN achieves the highest semantic segmentation performance (54.64 mIoU, 75.99% PAcc) and lowest depth errors (0.3771 AErr, 0.1557 RErr), whereas Progressive Layered Extraction (PLE) and Customized Gate Control (CGC) achieve the lowest surface normal prediction errors (PLE reaches 22.10° Mean, 15.34° MED; CGC reaches 22.14° Mean, 15.33° MED).",
+    "The modular design cleanly decouples data loaders, loss functions, metrics, configurations, model backbones, parameter sharing architectures, and gradient weighting strategies, which allows researchers to implement new algorithms or apply existing methods to new applications with minimal code overhead.",
+    "Comparative analysis shows that LibMTL provides broader deep neural network support, more contemporary gradient-balancing algorithms, and greater task configuration flexibility than earlier specialized libraries such as RMTL and MTLV."
+  ],
+  "scope_and_delimitations": [
+    "Implemented specifically for deep multi-task learning using the PyTorch framework.",
+    "Evaluated benchmark performance exclusively on the NYUv2 indoor scene understanding dataset across 3 dense prediction tasks (semantic segmentation, depth estimation, surface normal prediction) with a ResNet backbone.",
+    "Restricted empirical benchmark tables to testing individual optimization algorithms on Hard Parameter Sharing and testing individual architectures under Equal Weighting, rather than running full combinatorial matrices across all strategies and architectures.",
+    "Focused on supervised multi-task learning under single-input and multi-input formulations, excluding reinforcement learning and unsupervised multi-task setups."
+  ],
+  "limitations": {
+    "verbatim_excerpt": "Moreover, gradient balancing methods need to calculate the gradients of the task-shared parameters θ for every task, which may be computationally intensive when the number of shared parameters or tasks is large.",
+    "summary": "The authors acknowledge that exact gradient balancing methods demand substantial computation when models contain large numbers of shared parameters or tasks, which requires using representation gradient approximations. Furthermore, the library initially did not include transformer backbones or natural language tokenization models, and empirical benchmark evaluations were restricted to a single computer vision dataset."
+  },
+  "generalizability_gap": "The empirical benchmark in the paper is restricted to a single indoor RGB-D computer vision dataset (NYUv2); the authors did not evaluate the performance, memory footprint, and scaling properties of the library on large-scale natural language processing corpora, recommender systems, speech processing, tabular data, or multimodal foundation models.",
+  "methodological_gap": "The benchmark experiments evaluate optimization strategies only on the standard Hard Parameter Sharing architecture and evaluate architectures only under naive Equal Weighting, leaving the empirical interaction effects between advanced architectures (such as MTAN or PLE) and advanced gradient balancing methods (such as CAGrad or Nash-MTL) unexplored; additionally, exact gradient computation methods scale poorly in memory and time when the parameter count or task count increases without feature-level gradient approximations.",
+  "future_work": [
+    "Continuously maintaining and updating the library to incorporate newly proposed multi-task learning architectures and optimization strategies.",
+    "Updating the documentation and providing expanded user tutorials for complex multi-task workflows.",
+    "Adding multi-task learning application examples and benchmark suites from diverse domains beyond computer vision.",
+    "Providing additional neural network backbone models such as Vision Transformers and N-gram language representations."
+  ]
+}

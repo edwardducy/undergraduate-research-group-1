@@ -1,0 +1,63 @@
+{
+  "title": "Leveraging Multi-Task Learning in Code-Switched setting",
+  "authors": [
+    "Mithun Kumar S R",
+    "Omkar Pitale",
+    "Aruna Malapati"
+  ],
+  "year": 2023,
+  "venue": "Research Square",
+  "publication_type": "empirical study",
+  "problem_statement": "Developing reliable natural language processing models for code-switched text is difficult due to the scarcity of annotated transcriptions and training data. This study investigates whether multi-task learning with shared representations between related token classification tasks (Language Identification and Named Entity Recognition) can leverage auxiliary training signals to improve model generalizability and task performance in code-switched environments.",
+  "domain": "Natural Language Processing (NLP), Code-Switching / Code-Mixing (specifically Hindi-English / Hinglish token classification)",
+  "theoretical_framework": "Multi-task learning using hard parameter sharing and homoscedastic uncertainty loss weighting for joint representation learning across related token classification tasks.",
+  "methodology": "The authors designed a stacked neural architecture consisting of a pre-trained multilingual transformer encoder (mBERT, XLM-RoBERTa base, or XLM-RoBERTa large), a bidirectional Long Short-Term Memory (BiLSTM) network, and shared Multi-Layer Perceptron (MLP) layers. The shared representations feed into task-specific heads composed of MLP layers with GELU activations and Layer Normalization coupled with Conditional Random Field (CRF) sequence decoders. The framework is trained jointly for Named Entity Recognition (NER) and Language Identification (LID) using an adaptive multi-task loss function weighted by homoscedastic uncertainty.",
+  "datasets": [
+    "LinCE (Linguistic Code-Switching Evaluation) benchmark for Hindi-English (Named Entity Recognition and Language Identification tasks)"
+  ],
+  "evaluation": {
+    "method": "10-fold cross-validation with early stopping, learning rate scheduling, and paired Student's t-test for statistical significance validation.",
+    "metrics": {
+      "NER_average_F1": {
+        "mBERT": 71.37,
+        "XLM-RoBERTa_base": 77.41,
+        "XLM-RoBERTa_large": 82.92
+      },
+      "LID_average_F1": {
+        "mBERT": 80.648,
+        "XLM-RoBERTa_base": 88.154,
+        "XLM-RoBERTa_large": 88.557
+      },
+      "paired_t_test_p_values": {
+        "mBERT": 0.297,
+        "XLM-RoBERTa_base": 0.392,
+        "XLM-RoBERTa_large": 1.0
+      }
+    }
+  },
+  "key_findings": [
+    "Multi-task learning with hard parameter sharing outperforms single-task baselines by providing an implicit data augmentation effect that improves model generalizability in code-switched settings.",
+    "Joint training of Named Entity Recognition (NER) and Language Identification (LID) allows the NER task to benefit from representations learned during the LID task, yielding substantial performance gains.",
+    "XLM-RoBERTa large achieves the highest average F1 score for both NER (82.92%) and LID (88.557%), substantially outperforming mBERT (71.37% NER, 80.648% LID) and XLM-RoBERTa base (77.41% NER, 88.154% LID).",
+    "Adaptive loss weighting based on homoscedastic uncertainty prevents performance degradation across tasks compared to simple loss summation.",
+    "Paired Student's t-test analysis confirms that variations across cross-validation splits are not statistically divergent (p > 0.05)."
+  ],
+  "scope_and_delimitations": [
+    "The study restricts its empirical evaluation to two token classification tasks: Named Entity Recognition (NER) and Language Identification (LID).",
+    "The evaluation focuses exclusively on Hindi-English (Hinglish) code-switched text from the LinCE benchmark.",
+    "The model backbone comparisons are confined to mBERT, XLM-RoBERTa base, and XLM-RoBERTa large encoders stacked with BiLSTM and CRF layers.",
+    "Sentence lengths are fixed at a maximum of 64 tokens with a batch size of 32."
+  ],
+  "limitations": {
+    "verbatim_excerpt": "We are yet to experiment on GLUECoS dataset and try out more optimizations in order to achieve much better results than the existing ones.",
+    "summary": "The authors evaluated the framework exclusively on the LinCE Hindi-English dataset without conducting empirical validations on the broader GLUECoS benchmark or on other language pairs. Additionally, naive loss summation caused performance imbalances across tasks, necessitating uncertainty-weighted loss tuning."
+  },
+  "generalizability_gap": "The proposed multi-task architecture has only been evaluated on Hindi-English code-switched text for NER and LID token classification. Its performance and generalizability across other code-switched language pairs (such as Spanish-English, Modern Standard Arabic-Egyptian Arabic, or Nepali-English), other benchmarks like GLUECoS, and higher-level NLP tasks (such as sentiment analysis, question answering, and natural language inference) remain unverified.",
+  "methodological_gap": "The study limits its architectural design to hard parameter sharing with BiLSTM-CRF sequence classification heads, without examining soft parameter sharing mechanisms, cross-task attention, generative transformer architectures, or the empirical effects of pairing dissimilar tasks.",
+  "future_work": [
+    "Evaluate the multi-task framework on the GLUECoS benchmark dataset.",
+    "Implement and test additional optimization strategies to improve downstream task metrics.",
+    "Analyze specific task combinations to determine which task pairs optimize shared representations and improve generalizability.",
+    "Investigate the effects of implicit data augmentation from multi-task learning when training on similar versus dissimilar tasks."
+  ]
+}

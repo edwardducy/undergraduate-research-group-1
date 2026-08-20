@@ -1,0 +1,91 @@
+{
+  "title": "Sentiment Analysis of Typhoon Related Tweets using Standard and Bidirectional Recurrent Neural Networks",
+  "authors": [
+    "Joseph Marvin R. Imperial",
+    "Jeyrome A. Orosco",
+    "Shiela Mae O. Mazo",
+    "Lany L. Maceda"
+  ],
+  "year": 2019,
+  "venue": "arXiv",
+  "publication_type": "empirical study",
+  "problem_statement": "Identifying and analyzing the underlying sentiments expressed in tweets posted by Filipino citizens before, during, and after Typhoon Yolanda (Haiyan) to understand social involvement, public empathy, and disaster-related communication patterns using standard and bidirectional recurrent neural networks.",
+  "domain": "Crisis informatics, disaster response, and social media NLP (Twitter) in the Philippines during Typhoon Yolanda (Haiyan), focusing on English and Filipino sentiment classification.",
+  "theoretical_framework": "Supervised sequential modeling and sentiment analysis using recurrent neural architectures (standard RNN with truncated BPTT and bidirectional RNN with full BPTT) operating over continuous Word2Vec vector space word embeddings.",
+  "methodology": "A supervised sentiment classification pipeline comprising data collection via Twitter search for disaster hashtags (#YolandaPH, #BangonPH, #BangonPilipinas) between November 2013 and January 2014 (92,040 raw tweets), text preprocessing (deduplication, removal of usernames, URLs, retweets, emojis, stopwords, infrequent words, short words, and special characters leaving 39,867 tweets), continuous word representation using Word2Vec embeddings, balanced manual ground-truth annotation of 3,900 tweets across three classes (positive, negative, neutral; 1,300 per class), an 80/20 train/test split, hyperparameter tuning across batch sizes (64, 128), dropout rates (0.0, 0.5), and backpropagation through time configurations (truncated BPTT vs. full BPTT) for both standard and bidirectional RNNs on fine-grained and binary classification tasks, followed by corpus-wide inference on the remaining 35,967 unlabeled tweets.",
+  "datasets": [
+    "39,867 preprocessed Typhoon Yolanda tweets collected between November 1, 2013, and January 31, 2014, filtered from an initial corpus of 92,040 tweets gathered using the hashtags #YolandaPH, #BangonPH, and #BangonPilipinas",
+    "A manually annotated ground-truth benchmark of 3,900 balanced tweets (1,300 positive, 1,300 negative, and 1,300 neutral) split into an 80% training set (3,120 tweets) and a 20% test set (780 tweets)",
+    "35,967 unannotated disaster tweets classified during corpus-level sentiment distribution inference"
+  ],
+  "evaluation": {
+    "fine_grained_classification": {
+      "classes": [
+        "positive",
+        "negative",
+        "neutral"
+      ],
+      "best_model": "Standard RNN",
+      "best_hyperparameters": {
+        "batch_size": 64,
+        "dropout": 0.5,
+        "bptt_type": "truncated BPTT (tBPTT, value=50)",
+        "learning_rate": "1.80E"
+      },
+      "best_accuracy": 0.8179,
+      "best_f1_score": 0.8176,
+      "bidirectional_rnn_best_accuracy": 0.8141,
+      "bidirectional_rnn_best_f1_score": 0.8135
+    },
+    "binary_classification": {
+      "classes": [
+        "positive",
+        "negative"
+      ],
+      "best_model": "Bidirectional RNN",
+      "best_hyperparameters": {
+        "batch_size": 64,
+        "dropout": 0.0,
+        "bptt_type": "Full BPTT",
+        "learning_rate": "1.80E"
+      },
+      "best_accuracy": 0.8769,
+      "best_f1_score": 0.876,
+      "standard_rnn_best_accuracy": 0.8712,
+      "standard_rnn_best_f1_score": 0.8699
+    },
+    "corpus_inference_distribution": {
+      "total_inferred_tweets": 35967,
+      "positive_sentiment_count": 18395,
+      "positive_sentiment_percentage": 0.511,
+      "neutral_sentiment_count": 10441,
+      "neutral_sentiment_percentage": 0.29,
+      "negative_sentiment_count": 7131,
+      "negative_sentiment_percentage": 0.198
+    }
+  },
+  "key_findings": [
+    "The standard RNN model configured with a batch size of 64, dropout rate of 0.5, and truncated BPTT achieved the highest accuracy of 81.79% and F1 score of 0.8176 for fine-grained 3-class sentiment classification.",
+    "The bidirectional RNN model configured with a batch size of 64, no dropout, and full BPTT achieved the highest accuracy of 87.69% and F1 score of 0.8760 for binary sentiment classification.",
+    "A batch size of 64 consistently outperformed a batch size of 128 across all tested model configurations, yielding accuracies above 80% across all evaluated runs.",
+    "Error analysis indicated that inaccuracies in both binary and fine-grained classification were predominantly caused by false negative misclassifications (accounting for 11.9% to 14% of errors).",
+    "Corpus-wide inference over 35,967 unannotated tweets using the best fine-grained model revealed that 51.1% of tweets were positive (prayers, hope, support, and gratitude), 29.0% were neutral (news reports, relief operation announcements, and citizen observations), and 19.8% were negative (sadness, despair, and grief for victims along with criticism of government relief mismanagement)."
+  ],
+  "scope_and_delimitations": [
+    "Restricted tweet collection to a specific historical time window between November 1, 2013, and January 31, 2014, corresponding to Typhoon Yolanda (Haiyan).",
+    "Delimited data harvesting exclusively to three hashtags: #YolandaPH, #BangonPH, and #BangonPilipinas.",
+    "Delimited manual sentiment annotation to a balanced sample of 3,900 tweets (1,300 positive, 1,300 negative, 1,300 neutral) with an 80/20 train/test partition.",
+    "Constrained neural architectures to vanilla standard RNNs and bidirectional RNNs with Word2Vec word embeddings, excluding gated architectures (LSTM, GRU) and transformer models.",
+    "Delimited sentiment labels to three discrete categories (positive, negative, neutral) without fine-grained emotion sub-categorization (e.g., fear, gratitude, anger)."
+  ],
+  "limitations": {
+    "verbatim_excerpt": "In the error analysis of binary classification, the cause of the 14% and 12% inaccuracy for standard and bidirectional models respectively is based on false negative misclassifications. Same case with the fine-grained classification, wherein 12% and 11.9% for standard and bidirectional models respectively were misclassified by the models as false negative. The error similarity is expected since the same dataset is used for both type of classifications. Moreover, it can be deduced that the complexity of finer-grained classification would result to slightly lower accuracy than binary classification since the datasets are being compared to three classes.",
+    "summary": "The classification models exhibited persistent false negative misclassifications accounting for 11.9% to 14% of errors across binary and fine-grained tasks, and the study evaluated only basic standard and bidirectional RNN configurations without exploring multi-layer architectures or gated recurrent units."
+  },
+  "generalizability_gap": "The dataset and evaluation are restricted to a single catastrophic event (Typhoon Yolanda) in the Philippines during late 2013 and early 2014 using three specific hashtags; generalizability to other disaster categories (e.g., earthquakes, floods, volcanic eruptions), other typhoon events, diverse regional Philippine languages beyond English and Tagalog (e.g., Waray, Cebuano, Hiligaynon), and other social media platforms remains unproven.",
+  "methodological_gap": "The study utilized basic standard and bidirectional RNN models with Word2Vec embeddings rather than evaluating gated recurrent networks (LSTM, GRU), attention mechanisms, or pretrained contextual transformer architectures (e.g., BERT, RoBERTa). The evaluation was conducted on a single fixed 80/20 train/test split without k-fold cross-validation, out-of-domain robustness testing, or incorporation of multimodal and temporal social media metadata.",
+  "future_work": [
+    "Experimenting with different combinations and configurations of neural network layers in the hidden layer.",
+    "Exploring new architectures of Recurrent Neural Networks (such as LSTMs and GRUs) to improve classification performance on disaster-related text."
+  ]
+}

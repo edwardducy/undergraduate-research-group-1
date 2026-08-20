@@ -1,0 +1,181 @@
+{
+  "title": "Transformer-based Multi-task Learning for Disaster Tweet Categorisation",
+  "authors": [
+    "Congcong Wang",
+    "Paul Nulty",
+    "David Lillis"
+  ],
+  "year": 2021,
+  "venue": "Proceedings of the 18th International Conference on Information Systems for Crisis Response and Management (ISCRAM 2021)",
+  "publication_type": "empirical study",
+  "problem_statement": "Manual identification of actionable disaster messages during crises is unfeasible due to explosive message volumes on social media. Emergency response operators require real-time categorization of crisis-related tweets by requested information types and accurate message prioritization to establish situational awareness, but single-task models and traditional classifiers struggle with cross-task dependencies, severe class imbalance, and diverse disaster contexts.",
+  "domain": "Crisis Informatics, Disaster Response, Social Media Natural Language Processing (Twitter/X Disaster Tweet Classification and Prioritization), Multi-Task Learning",
+  "theoretical_framework": "Multi-task learning parameter-sharing theory (Zhang and Yang, 2017) positing that joint optimization across related downstream tasks regularizes representation learning, mitigates overfitting, and transfers inductive knowledge through a shared transformer encoder backbone; Situational Awareness (SA) framework in crisis response (Endsley, 2017; Vieweg et al., 2010).",
+  "methodology": "Proposed a transformer-based multi-task learning (MTL) framework combining multi-label Information Type Categorisation (ITC) across 25 categories and continuous Priority Estimation (PE) into a unified architecture. The framework shares an upstream transformer encoder (evaluating BERT_base, DistilBERT_base, ELECTRA_base, and ALBERT_base_v2) and adds two task-specific projection heads: a linear multi-label projection layer with sigmoid activation for ITC, and a linear regression projection layer for PE mapping categorical priority levels (Critical: 1.0, High: 0.75, Medium: 0.5, Low: 0.25) to continuous scores in [0, 1]. The joint model optimizes a composite loss combining binary cross-entropy for ITC and Mean Squared Error for PE with equal loss weighting (alpha = 0.5). To enhance generalization across heterogeneous encoders, introduced an ensemble technique combining disparate MTL models using a Union strategy for information type predictions and a Highest strategy for priority level predictions.",
+  "datasets": [
+    "TREC Incident Streams (TREC-IS) benchmark dataset (40,459 total disaster tweets across 42 crisis events from 2018 to 2020A; partitioned into a training set of 30,420 tweets from the 2018, 2019A, and 2019B editions, a development set of 3,381 tweets [10% sample] for hyperparameter selection, and a held-out test set of 6,658 tweets across 15 crisis events from the 2020A edition; annotated with an ontology of 25 information types [6 actionable, 19 non-actionable] and 4 priority levels [critical, high, medium, low])"
+  ],
+  "evaluation": {
+    "metrics": [
+      "Ranking: Normalized Discounted Cumulative Gain (NDCG@100)",
+      "Alerting Worth: Alert Worth High/Critical (AW-HC) and Alert Worth All (AW-A)",
+      "Information Feed Categorisation: Actionable F1 (CF1-H), All F1 (CF1-A), Categorisation Accuracy (Cacc)",
+      "Prioritisation: Priority Macro-F1 Actionable (PErr-H), Priority Macro-F1 All (PErr-A)",
+      "Overall: Harmonic Mean (HarM) across normalized metrics"
+    ],
+    "baseline_comparison": {
+      "Logistic Regression (LR + STL)": {
+        "NDCG": 0.4495,
+        "AW-HC": -0.4856,
+        "AW-A": -0.2627,
+        "PErr-H": 0.1718,
+        "PErr-A": 0.2216,
+        "CF1-H": 0.0898,
+        "CF1-A": 0.1527,
+        "Cacc": 0.9113,
+        "HarM": 0.2109
+      },
+      "BERT_base (STL)": {
+        "NDCG": 0.4393,
+        "AW-HC": -0.4057,
+        "AW-A": -0.2148,
+        "PErr-H": 0.2402,
+        "PErr-A": 0.2758,
+        "CF1-H": 0.1084,
+        "CF1-A": 0.1801,
+        "Cacc": 0.8960,
+        "HarM": 0.2510
+      },
+      "BERT_base + MTL (Proposed Individual)": {
+        "NDCG": 0.5101,
+        "AW-HC": -0.2689,
+        "AW-A": -0.1569,
+        "PErr-H": 0.1923,
+        "PErr-A": 0.2544,
+        "CF1-H": 0.1382,
+        "CF1-A": 0.1638,
+        "Cacc": 0.8937,
+        "HarM": 0.2609
+      }
+    },
+    "encoder_ablation_mtl": {
+      "BERT_base (110M)": {
+        "NDCG": 0.5101,
+        "AW-HC": -0.2689,
+        "AW-A": -0.1569,
+        "PErr-H": 0.1923,
+        "PErr-A": 0.2544,
+        "CF1-H": 0.1382,
+        "CF1-A": 0.1638,
+        "Cacc": 0.8937,
+        "HarM": 0.2609
+      },
+      "DistilBERT_base (66M)": {
+        "NDCG": 0.4808,
+        "AW-HC": -0.4533,
+        "AW-A": -0.2382,
+        "PErr-H": 0.9004,
+        "PErr-A": 0.1191,
+        "CF1-H": 0.1376,
+        "CF1-A": 0.1830,
+        "Cacc": 0.2110,
+        "HarM": 0.2264
+      },
+      "ELECTRA_base (110M)": {
+        "NDCG": 0.5042,
+        "AW-HC": -0.4011,
+        "AW-A": -0.2122,
+        "PErr-H": 0.2059,
+        "PErr-A": 0.2801,
+        "CF1-H": 0.1514,
+        "CF1-A": 0.1742,
+        "Cacc": 0.8958,
+        "HarM": 0.2689
+      },
+      "ALBERT_base_v2 (11M)": {
+        "NDCG": 0.4669,
+        "AW-HC": -0.4118,
+        "AW-A": -0.2190,
+        "PErr-H": 0.1900,
+        "PErr-A": 0.2720,
+        "CF1-H": 0.0568,
+        "CF1-A": 0.1707,
+        "Cacc": 0.9087,
+        "HarM": 0.1923
+      }
+    },
+    "ensemble_results": {
+      "EnsembleA (BERT + ELECTRA)": {
+        "NDCG": 0.5207,
+        "AW-HC": -0.2274,
+        "AW-A": -0.1406,
+        "PErr-H": 0.1999,
+        "PErr-A": 0.2560,
+        "CF1-H": 0.1738,
+        "CF1-A": 0.1796,
+        "Cacc": 0.8722,
+        "HarM": 0.2836
+      },
+      "EnsembleB (DistilBERT + ALBERT)": {
+        "NDCG": 0.4848,
+        "AW-HC": -0.3212,
+        "AW-A": -0.1823,
+        "PErr-H": 0.2081,
+        "PErr-A": 0.2728,
+        "CF1-H": 0.1407,
+        "CF1-A": 0.2041,
+        "Cacc": 0.8844,
+        "HarM": 0.2752
+      },
+      "EnsembleC (BERT + DistilBERT + ELECTRA)": {
+        "NDCG": 0.5206,
+        "AW-HC": -0.1982,
+        "AW-A": -0.1282,
+        "PErr-H": 0.2023,
+        "PErr-A": 0.2589,
+        "CF1-H": 0.1819,
+        "CF1-A": 0.1909,
+        "Cacc": 0.8621,
+        "HarM": 0.2919
+      },
+      "EnsembleD (BERT + DistilBERT + ELECTRA + ALBERT / Proposed Best)": {
+        "NDCG": 0.5176,
+        "AW-HC": -0.1613,
+        "AW-A": -0.1148,
+        "PErr-H": 0.2594,
+        "PErr-A": 0.2966,
+        "CF1-H": 0.1754,
+        "CF1-A": 0.2084,
+        "Cacc": 0.8545,
+        "HarM": 0.3141
+      }
+    }
+  },
+  "key_findings": [
+    "Multi-task learning with a shared BERT encoder backbone outperforms single-task learning baselines (both BERT STL and Logistic Regression STL), yielding superior ranking (NDCG 0.5101 vs. 0.4393) and alerting worth (AW-HC -0.2689 vs. -0.4057) while eliminating the operational requirement of training separate models for separate tasks.",
+    "Parameter-efficient transformer variants (DistilBERT at 66M parameters and ALBERT at 11M parameters) achieve competitive disaster tweet classification performance relative to full-sized encoders (BERT and ELECTRA at 110M parameters), demonstrating operational viability on resource-constrained hardware.",
+    "Combining diverse multi-task transformer models into an ensemble yields substantial performance gains, elevating the overall harmonic mean score (HarM) from 0.2609 (single BERT MTL) to 0.3141 (EnsembleD) and achieving state-of-the-art results across benchmark metrics.",
+    "Ensemble fusion ablations demonstrate that combining predictions via a Union strategy for information types and a Highest strategy for priority levels produces optimal performance across ranking, alerting worth, and categorization metrics.",
+    "The proposed multi-task framework and ensemble method achieved state-of-the-art performance when evaluated against participating systems in the TREC Incident Streams (TREC-IS 2020A) benchmark track across both 25-class (Task 1) and 12-class (Task 2) evaluations.",
+    "Qualitative error analysis indicates that misclassifications often arise from missing ground truth annotations, ambiguous multi-perspective interpretations (first-party versus third-party reporting), complex geographic entity disambiguation, and human assessor subjectivity."
+  ],
+  "scope_and_delimitations": [
+    "The experimental evaluation is delimited to English-language disaster tweets from the TREC-IS 2018–2020A benchmark dataset covering 42 crisis events.",
+    "Input representations are delimited strictly to raw text sequences with a maximum length of 128 WordPiece tokens, excluding linked web articles, images, and author metadata.",
+    "Architectural exploration is delimited to four pre-trained uncased base-scale transformer encoders (BERT_base, DistilBERT_base, ELECTRA_base, ALBERT_base_v2) using hard parameter sharing across two downstream heads.",
+    "Multi-task optimization is delimited to an equal fixed loss weighting parameter (alpha = 0.5) combining binary cross-entropy and mean squared error.",
+    "Ensemble aggregation is delimited to heuristic rule-based fusion strategies (Union/Intersection and Highest/Average/Lowest) rather than learned stacking classifiers."
+  ],
+  "limitations": {
+    "verbatim_excerpt": "Regarding the eectiveness, there is still much room to improve. We oer our approach as a baseline for future work on this problem. Our approach is currently limited to using the raw text of tweets. Per McCreadie et al. [2020,](#page-0-17) linked content such as the web pages, or images posted along with the tweets are likely to improve performance. Hence, future work will incorporate this linked information into our current approach. In addition, since our current approach only focuses on two tasks from a single corpus, we plan to extend our approach to support more tasks from multiple corpora. Although eectiveness is an essential performance measurement for an emergency response system, another aspect to which the same importance should be given is eciency. When employing an emergency response system in a real-world situation, the speed of message handling is crucial because social media message quantities are usually enormous during a crisis. Our approach has not yet been examined regarding its eciency, which also requires further exploration.",
+    "summary": "The proposed approach is limited to processing raw textual tweet content without incorporating linked external web pages or multimodal imagery; the multi-task formulation is restricted to two downstream tasks evaluated on a single benchmark corpus; computational efficiency and real-time processing throughput during high-volume crisis surges have not been empirically evaluated; and evaluation relies on human assessor annotations that contain subjective inconsistencies and errors."
+  },
+  "generalizability_gap": "The empirical evaluation is restricted to English-language Twitter posts across 42 disaster events in the TREC-IS benchmark, leaving unexamined performance on non-English crisis communications, code-switched microblogging streams, alternative messaging platforms (such as Facebook, Reddit, or Telegram), and multimodal disaster data streams containing synchronized imagery and geolocation coordinates.",
+  "methodological_gap": "The multi-task training setup uses a static, uniform loss weight parameter (alpha = 0.5) without exploring dynamic multi-task gradient balancing algorithms (such as GradNorm or PCGrad) to mitigate gradient conflict; the model ensemble relies on static heuristic aggregation rules rather than learned meta-classifiers; and the architecture lacks integration with geographical knowledge graphs or gazetteers to resolve localized place name ambiguities.",
+  "future_work": [
+    "Incorporating linked external content, including web pages and images posted alongside disaster tweets, into multimodal representation learning.",
+    "Extending the multi-task learning framework to support additional crisis informatics tasks across multiple diverse corpora.",
+    "Evaluating computational efficiency, inference latency, and high-throughput deployment architectures for real-time crisis message handling.",
+    "Integrating external knowledge maps, gazetteers, and geographical ontologies to disambiguate localized location references and enrich spatial context awareness."
+  ]
+}

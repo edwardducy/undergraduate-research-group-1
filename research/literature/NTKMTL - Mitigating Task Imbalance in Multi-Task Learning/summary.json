@@ -1,0 +1,81 @@
+{
+  "title": "NTKMTL: Mitigating Task Imbalance in Multi-Task Learning from Neural Tangent Kernel Perspective",
+  "authors": [
+    "Xiaohan Qin",
+    "Xiaoxing Wang",
+    "Ning Liao",
+    "Junchi Yan"
+  ],
+  "year": 2025,
+  "venue": "Neural Information Processing Systems (NeurIPS)",
+  "publication_type": "empirical study",
+  "problem_statement": "Task imbalance in multi-task learning causes certain tasks to dominate shared parameter updates while other tasks suffer from insufficient optimization due to differing convergence speeds and loss dynamics.",
+  "domain": "Multi-task learning across multi-task computer vision dense prediction, molecular property regression, facial attribute classification, and multi-task reinforcement learning.",
+  "theoretical_framework": "Neural Tangent Kernel (NTK) theory and spectral analysis of gradient flow ordinary differential equations, which model convergence speeds of individual tasks through the eigenvalues of an extended multi-task NTK matrix.",
+  "methodology": "NTKMTL constructs an extended Neural Tangent Kernel matrix across tasks and normalizes task loss weights inversely proportional to the square root of the maximum eigenvalue of each task-specific NTK matrix scaled by the average maximum eigenvalue; NTKMTL-SR accelerates computation by calculating the NTK matrix over shared representations rather than full network parameters.",
+  "datasets": [
+    "NYUv2",
+    "Cityscapes",
+    "CelebA",
+    "QM9",
+    "Meta-World MT10"
+  ],
+  "evaluation": {
+    "metrics": [
+      "Mean Rank (MR)",
+      "Average per-task performance drop relative to single-task learning baseline (Δm%)",
+      "Semantic segmentation mean Intersection over Union (mIoU) and pixel accuracy",
+      "Depth estimation absolute error and relative error",
+      "Surface normal mean error, median error, and percentage within angular thresholds (11.25°, 22.5°, 30°)",
+      "Mean Absolute Error (MAE) across 11 quantum chemical regression properties",
+      "Multi-attribute classification accuracy across 40 facial attributes",
+      "Success rate across 10 robotic manipulation tasks"
+    ],
+    "baselines": [
+      "Single-task learning (STL)",
+      "Linear Scalarization (LS)",
+      "Scale-Invariant (SI)",
+      "Dynamic Weight Average (DWA)",
+      "Uncertainty Weighting (UW)",
+      "Multi-Gradient Descent Algorithm (MGDA)",
+      "Random Loss Weighting (RLW)",
+      "PCGrad",
+      "GradDrop",
+      "CAGrad",
+      "IMTL-G",
+      "Nash-MTL",
+      "MoCo",
+      "Aligned-MTL",
+      "SDMGrad",
+      "DB-MTL",
+      "STCH",
+      "FAMO",
+      "FairGrad",
+      "GO4Align"
+    ]
+  },
+  "key_findings": [
+    "The convergence speed of each task in multi-task learning is governed by the eigenvalues of its task-specific Neural Tangent Kernel matrix, leading to spectral bias where tasks with larger eigenvalues dominate training.",
+    "Weighting tasks inversely proportional to the square root of their maximum NTK eigenvalue balances convergence speeds across tasks and mitigates task imbalance.",
+    "NTKMTL achieves state-of-the-art performance on the NYUv2 dense prediction benchmark with a mean rank of 4.33 and a relative performance drop of -6.99%, outperforming single-task learning across all three tasks.",
+    "On the CelebA 40-task benchmark, NTKMTL achieves an overall improvement over single-task learning (Δm% of -0.77%), outperforming all previous multi-task baselines.",
+    "NTKMTL-SR uses shared representations to achieve training speeds comparable to loss-oriented linear scalarization while attaining state-of-the-art results on the QM9 11-task regression benchmark (mean rank 4.00, Δm% 30.7%).",
+    "NTKMTL generalizes effectively to multi-task reinforcement learning on the Meta-World MT10 benchmark, achieving a 0.96 success rate."
+  ],
+  "scope_and_delimitations": [
+    "Evaluated on supervised multi-task learning (2 to 40 tasks) and multi-task reinforcement learning (10 tasks).",
+    "Focuses optimization weight derivations primarily on the diagonal task-specific blocks of the extended NTK matrix.",
+    "NTKMTL uses mini-batch size n=1 for shared parameter calculations, while NTKMTL-SR uses mini-batch size n=4 on shared representations."
+  ],
+  "limitations": {
+    "verbatim_excerpt": "In this work, we proposed the extended NTK Ke for MTL as a tool for more comprehensive analysis of training dynamics across tasks. The weight design of our current method mainly focuses on the analysis of the task-specific NTK matrices Kii. The full structure of the extended NTK matrix Ke offers further analytical opportunities. For example, analyzing the off-diagonal Kij blocks could reveal novel insights into task interactions or guide the development of task grouping strategies. These potential avenues are left for future investigation.",
+    "summary": "The method relies solely on the diagonal task-specific blocks of the extended NTK matrix rather than modeling inter-task interactions present in the off-diagonal blocks, and NTKMTL-SR is difficult to apply in reinforcement learning settings where networks lack explicit separation between shared and task-specific heads."
+  },
+  "generalizability_gap": "The method has not been evaluated on large-scale language models, multi-modal foundation models, or non-stationary online learning environments.",
+  "methodological_gap": "The weight calculation considers only the maximum eigenvalue of the task-specific NTK block rather than the complete eigenvalue spectrum or the off-diagonal task-interaction blocks of the extended NTK matrix.",
+  "future_work": [
+    "Analyzing the off-diagonal blocks Kij of the extended NTK matrix to model inter-task interactions.",
+    "Developing task grouping and task clustering strategies based on the full structure of the extended NTK matrix.",
+    "Extending shared representation approximations to policy architectures in multi-task reinforcement learning."
+  ]
+}

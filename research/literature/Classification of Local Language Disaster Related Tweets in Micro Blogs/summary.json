@@ -1,0 +1,49 @@
+{
+  "title": "Classification of Local Language Disaster Related Tweets in Micro Blogs",
+  "authors": [
+    "Randy Joy Magno Ventayen"
+  ],
+  "year": 2018,
+  "venue": "Asia Pacific Journal of Multidisciplinary Research",
+  "publication_type": "empirical study",
+  "problem_statement": "Social media disaster monitoring tools predominantly focus on major languages such as English and Tagalog, leaving non-English and regional dialect speakers (specifically Pangasinan speakers in Region 1, Philippines) underserved during disaster response and emergency relief operations.",
+  "domain": "Disaster Response and Crisis Informatics, Natural Language Processing for low-resource regional Philippine languages (Pangasinan microblog tweets during typhoons in Region 1, Philippines)",
+  "theoretical_framework": "Social media-based situational awareness and crisis informatics for disaster risk reduction and management (DRRM) in low-resource local languages",
+  "methodology": "The author developed a pipeline comprising: (1) Python-based Twitter data acquisition via the Twitter REST API and Tweepy using disaster hashtags (#LawinPH and #KarenPH); (2) manual keyword translation using interviews with native elderly Pangasinan speakers and a mobile Pangasinan-English Dictionary app to construct a disaster lexicon; (3) keyword-based filtering of downloaded tweets; (4) a simulated data collection experiment involving 46 student participants to generate 217 Pangasinan tweets due to natural data scarcity; and (5) word-frequency feature extraction and automated binary classification (disaster-related vs. non-disaster-related) using Support Vector Machines (SVM) in RapidMiner.",
+  "datasets": [
+    "Filtered organic Twitter dataset collected with hashtag #LawinPH (October 17-22, 2016), yielding 12 Pangasinan tweets",
+    "Synthetic Pangasinan disaster tweet dataset created by 46 student participants generating 217 tweets (100 used for training, 117 for testing)"
+  ],
+  "evaluation": {
+    "classifier": "Support Vector Machine (SVM)",
+    "training_samples": 100,
+    "testing_samples": 117,
+    "accuracy": "89.74% (105/117)",
+    "true_positive_rate": "90.00% (54/60)",
+    "true_negative_rate": "89.47% (51/57)"
+  },
+  "key_findings": [
+    "Manual translation of disaster keywords using native speaker interviews and dictionary tools enabled effective keyword-based filtering of regional Pangasinan tweets from a broader microblog corpus.",
+    "Real-world data extraction during Typhoon Lawin yielded only 12 organic Pangasinan tweets using disaster hashtags, demonstrating extreme data sparsity for local dialects in social media microblogs.",
+    "A Support Vector Machine (SVM) classifier trained on 100 simulated Pangasinan tweets achieved 89.74% overall accuracy, 90.00% true positive rate, and 89.47% true negative rate on a test set of 117 tweets.",
+    "Frequency-based feature extraction paired with machine learning classification can reliably distinguish disaster-related from non-disaster-related content in regional low-resource languages."
+  ],
+  "scope_and_delimitations": [
+    "Target language was restricted exclusively to the Pangasinan language and dialect within Region 1 (Ilocos Region), Philippines.",
+    "Event scope was bounded by Typhoons Karen and Lawin in October 2016, with real-world query parameters focused on October 17-22, 2016 for #LawinPH.",
+    "Classification task was delimited to binary categorization (disaster-related versus non-disaster-related).",
+    "The empirical evaluation relied primarily on simulated student-generated tweets rather than a large natural Twitter corpus due to the scarcity of organic local language tweets."
+  ],
+  "limitations": {
+    "verbatim_excerpt": "Since the researcher only filtered only 12 tweets in local language which may not possible for the classification process, an experiment will be done. Due to the limited number of tweets that can be used for classification, an experiment was conducted in a group of students.",
+    "summary": "The real-world Twitter data extraction produced only 12 organic Pangasinan disaster tweets, forcing the evaluation to rely on synthetic tweets authored by 46 students in an experimental setting, which may not capture the full noise, variance, and linguistic breadth of live crisis communications."
+  },
+  "generalizability_gap": "The framework was tested exclusively on simulated Pangasinan tweets in Region 1 of the Philippines and has not been validated on other Philippine regional languages (such as Ilocano, Cebuano, Hiligaynon, Waray, or Bikol) or across diverse geographic and real-world multi-hazard disaster events.",
+  "methodological_gap": "The extraction approach relies on static manual keyword translation and basic word frequencies with standard SVM, lacking morphological parsing for complex Pangasinan affixation, deep semantic representations, automated geolocation extraction, or comparative evaluation against modern deep learning or transformer-based NLP baselines.",
+  "future_work": [
+    "Extend data extraction and classification pipelines to other regional Philippine languages and dialects beyond Region 1.",
+    "Investigate automated techniques to extract location information embedded within hashtags and multilingual microblog text.",
+    "Develop an interactive crisis mapping and crowdsourcing platform integrated with Google Maps API to project real-time emergency locations for disaster response organizations such as NDRRMC, LGUs, and the Red Cross.",
+    "Implement data validation models combining tweet frequency density with government hazard risk maps to verify disaster reports."
+  ]
+}

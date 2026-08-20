@@ -1,0 +1,74 @@
+{
+  "title": "Evaluating Urgency of Typhoon-Related Tweets Through Sentiment Analysis Using Artificial Neural Networks",
+  "authors": [
+    "Ronnel P. Ermino",
+    "Ray Carlo A. Abacan",
+    "Nadine Gweneth C. Diamante",
+    "Kristine Marie N. Faca",
+    "Thatiana Erica D. Juntereal"
+  ],
+  "year": 2022,
+  "venue": "International Journal of Computing Sciences Research",
+  "publication_type": "empirical study",
+  "problem_statement": "Evaluating the urgency of disaster- and typhoon-related tweets in the Philippines to rapidly identify urgent distress and rescue calls from social media data during and after natural calamities, addressing the operational gap between public social media usage and government emergency response workflows.",
+  "domain": "Crisis informatics and disaster management in the Philippines, focusing on social media NLP (Twitter) in English, Tagalog, and bilingual English-Tagalog (Taglish).",
+  "theoretical_framework": "Supervised sentiment analysis and crisis communication modeling using a feed-forward artificial neural network to estimate tweet urgency on a continuous scale.",
+  "methodology": "A supervised feed-forward artificial neural network (ANN) constructed in Python with TensorFlow. The NLP pipeline involves data collection via Tweepy/Twitter API, text preprocessing (deduplication, lowercasing, non-alphanumeric character removal, tokenization, sequence conversion, and padding to 140 words), an Embedding layer (8,000 vocabulary size, 8 embedding dimensions), a Global Average Pooling 1D layer, a Dense hidden layer (24 units with ReLU activation), and a Dense output layer (1 unit with Sigmoid activation) trained with Binary Cross-Entropy loss.",
+  "datasets": [
+    "4,020 labeled Typhoon Ulysses (Vamco) tweets (2,010 urgent, 2,010 non-urgent) collected from November 8 to November 16, 2020 in English, Tagalog, and Taglish, partitioned into 3,900 training tweets and 120 validation tweets",
+    "A separate validation dataset of 100 disaster-related tweets (43 urgent, 57 non-urgent) for confusion matrix analysis"
+  ],
+  "evaluation": {
+    "training_metrics": {
+      "accuracy": 0.9987,
+      "binary_cross_entropy_loss": 0.0074
+    },
+    "simultaneous_validation_metrics": {
+      "dataset_size": 120,
+      "accuracy": 0.9917,
+      "binary_cross_entropy_loss": 0.068
+    },
+    "confusion_matrix_validation_metrics": {
+      "dataset_size": 100,
+      "true_positives": 42,
+      "true_negatives": 57,
+      "false_positives": 0,
+      "false_negatives": 1,
+      "accuracy": 0.99,
+      "sensitivity_recall": 0.9767,
+      "specificity": 1.0,
+      "precision_positive_predictive_value": 1.0,
+      "negative_predictive_value": 0.9828,
+      "false_positive_rate": 0.0,
+      "false_discovery_rate": 0.0,
+      "false_negative_rate": 0.0233,
+      "f1_score": 0.9882
+    }
+  },
+  "key_findings": [
+    "The feed-forward artificial neural network achieved 99.87% accuracy and 0.0074 loss on training, and 99.17% accuracy and 0.0680 loss on simultaneous validation.",
+    "Confusion matrix analysis on a separate 100-tweet validation dataset demonstrated 99% accuracy, 97.67% sensitivity, 100% specificity, 100% precision, 98.28% negative predictive value, and a 98.82% F1 score, with zero false positives and one false negative.",
+    "The lightweight architecture with an 8-dimensional embedding layer and global average pooling outperformed prior recurrent neural network baselines (86.99% for standard RNN and 87.6% for bidirectional RNN) on disaster tweet sentiment evaluation.",
+    "Continuous urgency scoring via sigmoid activation effectively differentiated high-urgency rescue requests from lower-urgency calamity posts such as donation drives.",
+    "The model was successfully exported to Protobuf (.pb), HDF5 (.h5), and JSON formats, enabling lightweight cross-platform deployment across Python and JavaScript/Node.js web applications via TensorFlow.js."
+  ],
+  "scope_and_delimitations": [
+    "Restricted data collection exclusively to tweets regarding Typhoon Ulysses (Vamco) between November 8 and November 16, 2020.",
+    "Delimited languages to English, Tagalog, and bilingual Taglish.",
+    "Fixed maximum tweet sequence length to 140 words and vocabulary size to 8,000 words.",
+    "Constrained urgency evaluation to binary supervision (urgent vs. non-urgent) mapped to a continuous 0 to 1 score.",
+    "Delimited model architecture to a feed-forward ANN with 8-dimensional embeddings, global average pooling, and one 24-unit ReLU dense layer, excluding recurrent or transformer models."
+  ],
+  "limitations": {
+    "verbatim_excerpt": "Even though the researchers were able to reach a high accuracy using the model and the preprocessed dataset but it is still recommended for future researchers to expand the vocabulary of the embedding layer by adding more diverse data to the dataset, even more so if the model will process multilingual inputs.",
+    "summary": "The model utilizes a small, fixed vocabulary of 8,000 words and was trained on a dataset limited to a single typhoon event (Typhoon Ulysses) in English and Tagalog, which restricts vocabulary coverage, handling of regional Philippine dialects, and out-of-vocabulary terms in unseen disaster scenarios."
+  },
+  "generalizability_gap": "The dataset and evaluation are restricted exclusively to a single typhoon event (Typhoon Ulysses) in the Philippines in November 2020 and limited to English and Tagalog text; generalizability across other natural disaster types (e.g., earthquakes, volcanic eruptions), different typhoon events, other Philippine regional languages (e.g., Cebuano, Ilocano, Waray), and international crisis settings has not been established.",
+  "methodological_gap": "The study evaluated model performance on relatively small validation sets (120 simultaneous validation tweets and 100 test tweets) without k-fold cross-validation, out-of-domain testing, or ablation analysis. The model uses static 8-dimensional token embeddings and global average pooling rather than contextual language representations (e.g., RoBERTa or multilingual transformer encoders), and does not leverage metadata (timestamps, retweets, user credibility) or multimodal features (images and videos).",
+  "future_work": [
+    "Expanding the embedding layer vocabulary and training dataset by collecting more diverse and multilingual disaster data.",
+    "Integrating the urgency evaluation model into live disaster incident reporting systems for government agencies and non-governmental organizations.",
+    "Implementing real-time tweet stream processing using JavaScript, Node.js, and TensorFlow.js with the exported JSON model format.",
+    "Developing Python-based emergency management and rescue applications utilizing the Protobuf (.pb) and HDF5 (.h5) model exports."
+  ]
+}

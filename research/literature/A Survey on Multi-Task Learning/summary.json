@@ -1,0 +1,41 @@
+{
+  "title": "A Survey on Multi-Task Learning",
+  "authors": [
+    "Yu Zhang",
+    "Qiang Yang"
+  ],
+  "year": 2021,
+  "venue": "IEEE Transactions on Knowledge and Data Engineering",
+  "publication_type": "systematic survey",
+  "problem_statement": "How to systematically categorize, formulate, optimize, and theoretically analyze multi-task learning algorithms across diverse learning paradigms, high-dimensional settings, and application domains to improve task generalization performance.",
+  "domain": "Machine Learning and Artificial Intelligence (including Computer Vision, Natural Language Processing, Speech Processing, Bioinformatics, Health Informatics, and Web Applications)",
+  "theoretical_framework": "Multi-task learning foundational frameworks including task relatedness formulations (when to share, what to share, and how to share via feature, instance, or parameter sharing), statistical learning theory (generalization error bounds, Rademacher complexity, local Rademacher complexity, VC dimension, covering numbers, algorithmic stability), matrix and tensor trace norm regularization, and Bayesian hierarchical modeling (matrix-variate normal distributions, Dirichlet processes, and Gaussian processes).",
+  "methodology": "Taxonomic survey and analytical synthesis categorizing multi-task learning models into five foundational algorithmic approaches (feature learning, low-rank, task clustering, task relation learning, and parameter decomposition) alongside regularized formulations (feature covariance versus task relation learning), integration with other learning paradigms (semi-supervised, active, unsupervised, reinforcement, multi-view learning, and graphical models), big data scaling techniques (parallel, online, distributed, and federated), and empirical benchmark comparisons.",
+  "datasets": null,
+  "evaluation": null,
+  "key_findings": [
+    "Multi-task learning algorithms primarily operate along five foundational paradigms: feature learning (feature transformation and feature selection), low-rank approaches, task clustering, task relation learning, and parameter decomposition.",
+    "Most regularized multi-task learning methods can be unified under a dual taxonomy: learning with feature covariance (modeling column relations) versus learning with task covariance (modeling task relationships).",
+    "In empirical comparisons across benchmark datasets, multi-task learning models consistently outperform single-task learning counterparts by effectively leveraging shared cross-task structures.",
+    "Deep multi-task learning models dominate computer vision and natural language processing applications through shared feature representations, whereas bioinformatics and health informatics prioritize interpretable models based on feature selection and task relation learning.",
+    "In theoretical analyses of multi-task generalization bounds, methods based on local Rademacher complexity derive tighter generalization bounds than those based on standard VC dimension, covering numbers, and algorithmic stability."
+  ],
+  "scope_and_delimitations": [
+    "The survey focuses primarily on multi-task learning where all tasks are treated equally with bidirectional knowledge sharing, explicitly excluding transfer learning (where a single target task is privileged), continual/lifelong learning (where tasks arrive sequentially), and multi-label learning/multi-output regression (where different outputs always share the exact same training instances).",
+    "The algorithmic review focuses primarily on supervised multi-task learning (homogeneous-feature and homogeneous-task settings by default), with secondary coverage of extensions to non-supervised paradigms, heterogeneous features, and big data scaling.",
+    "The survey focuses predominantly on feature-based and parameter-based multi-task learning methods, reviewing only representative works for instance-based multi-task learning due to the limited number of studies in that area."
+  ],
+  "limitations": {
+    "verbatim_excerpt": "Firstly, outlier tasks, which are unrelated to other tasks, are well known to hamper the performance of all the tasks when learning them jointly. There are some methods to alleviate negative effects that outlier tasks bring. However, there lacks principled ways and theoretical analyses to study the resulting negative effects. In order to make MTL safe to be used by human, this is an important issue and needs more studies. Secondly, deep learning has become a dominant approach in many areas and several multi-task deep models belonging to the feature transformation, low-rank, task clustering and task relation learning approaches have been proposed as reviewed in Sections 2, 3 and 5. As discussed, most of them only share hidden layers. This approach is powerful when all the tasks are related, but it is vulnerable to noisy and outlier tasks that can deteriorate the performance dramatically. We believe that it is desirable to design flexible and robust deep multi-task models. Lastly, existing studies mainly focus on supervised learning tasks, and only a few ones are on other tasks such as unsupervised learning, semi-supervised learning, active learning, multi-view learning and reinforcement learning tasks.",
+    "summary": "Multi-task learning models remain vulnerable to negative transfer caused by unrelated or outlier tasks, lack comprehensive theoretical analyses and principled mechanisms to mitigate negative interference, rely on rigid shared-layer deep architectures susceptible to noisy tasks, and remain predominantly concentrated on supervised learning settings with limited exploration into unsupervised, semi-supervised, active, reinforcement, and multi-view learning."
+  },
+  "generalizability_gap": "Most existing multi-task learning literature is concentrated in standard supervised benchmark datasets and single-layer sharing paradigms, leaving open questions regarding scalability and robustness in non-supervised learning paradigms (unsupervised, semi-supervised, active, and reinforcement learning), non-standard task modalities (heterogeneous feature spaces and multi-modal tensors), and complex real-world environments containing high ratios of unrelated or adversarial outlier tasks.",
+  "methodological_gap": "Current multi-task learning methodologies lack principled theoretical frameworks and adaptive algorithmic mechanisms to handle outlier tasks and prevent negative transfer; deep multi-task architectures largely rely on rudimentary parameter-sharing structures without automated decision mechanisms for 'when to share'; and direct extensions from binary to multi-class classification remain theoretically and empirically underexplored for task clustering and relation learning approaches.",
+  "future_work": [
+    "Developing principled methodologies and theoretical analyses to detect outlier tasks and mitigate negative transfer effects.",
+    "Designing flexible, adaptive, and robust deep multi-task architectures beyond simple hidden-layer sharing to handle noisy task relationships.",
+    "Extending multi-task learning formulations and the five core algorithmic approaches to non-supervised settings, including unsupervised, semi-supervised, active, reinforcement, and multi-view learning.",
+    "Applying multi-task learning to broader artificial intelligence domains such as automated reasoning, logic, and planning.",
+    "Investigating automated mechanisms for the 'when to share' decision problem to determine whether single-task or multi-task learning is optimal."
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "title": "CrisisBench: Benchmarking Crisis-related Social Media Datasets for Humanitarian Information Processing",
+  "authors": [
+    "Firoj Alam",
+    "Hassan Sajjad",
+    "Muhammad Imran",
+    "Ferda Ofli"
+  ],
+  "year": 2021,
+  "venue": "Association for the Advancement of Artificial Intelligence (AAAI)",
+  "publication_type": "benchmark dataset",
+  "problem_statement": "Dispersed crisis-related social media datasets with inconsistent label taxonomies, noisy near-duplicate content, and lacking standardized splits prevent researchers from comparing models and evaluating progress in crisis informatics tasks.",
+  "domain": "Crisis informatics and disaster response text processing on social media platforms (Twitter).",
+  "theoretical_framework": "Domain adaptation and transfer learning in natural language processing, using contextualized transformer representations and event-aware side-constraint conditioning to aggregate multi-event disaster data.",
+  "methodology": "The authors consolidated eight human-annotated crisis tweet corpora by mapping heterogeneous labels into unified informativeness and humanitarian taxonomies. They filtered exact duplicates via string matching and near-duplicates using bag-of-ngrams cosine similarity with a 0.75 threshold, assigned language tags via the Google Cloud Language Detection API, and created standardized 70/10/20 train/dev/test splits. They benchmarked CNN, fastText, BERT, DistilBERT, RoBERTa, and multilingual transformers across monolingual, cross-dataset, event-aware, and multilingual settings.",
+  "datasets": [
+    "CrisisLex (CrisisLexT26 and CrisisLexT6)",
+    "CrisisNLP",
+    "SWDM2013",
+    "ISCRAM2013",
+    "Disaster Response Data (DRD)",
+    "Disasters on Social Media (DSM)",
+    "CrisisMMD",
+    "AIDR"
+  ],
+  "evaluation": {
+    "metrics": [
+      "Weighted Precision",
+      "Weighted Recall",
+      "Weighted F1-score",
+      "Accuracy"
+    ],
+    "benchmark_results": {
+      "english_informativeness_binary": {
+        "CNN": 0.866,
+        "fastText": 0.844,
+        "BERT": 0.872,
+        "DistilBERT": 0.870,
+        "RoBERTa": 0.883
+      },
+      "english_humanitarian_11class": {
+        "CNN": 0.829,
+        "fastText": 0.824,
+        "BERT": 0.860,
+        "DistilBERT": 0.856,
+        "RoBERTa": 0.872
+      },
+      "event_aware_training": {
+        "CNN_humanitarian_F1": 0.842,
+        "BERT_humanitarian_F1": 0.865
+      },
+      "multilingual_humanitarian": {
+        "BERT_multilingual_F1": 0.781,
+        "XLM_RoBERTa_F1": 0.788
+      }
+    }
+  },
+  "key_findings": [
+    "Training models on the consolidated dataset yields superior generalization across individual test datasets and achieves higher overall F1-scores than training on single-source datasets.",
+    "Pre-trained transformer models (RoBERTa, BERT, DistilBERT) consistently outperform CNN and fastText architectures, delivering substantial performance gains on minority humanitarian classes.",
+    "Duplicate and near-duplicate tweets constitute 20% to 25% of uncleaned crisis datasets, and removing those duplicates prevents data leakage between training and evaluation splits.",
+    "Event-aware conditioning via prepended event tokens improves CNN multi-class humanitarian classification F1-score from 0.829 to 0.842.",
+    "Evaluating models on multilingual crisis data causes a significant performance drop of approximately 8% in F1-score compared to English-only benchmarks."
+  ],
+  "scope_and_delimitations": [
+    "Restricted benchmark evaluations to textual tweet content, excluding image and multimodal inputs.",
+    "Focused classification experiments primarily on English-language tweets, treating multilingual evaluations as preliminary baselines.",
+    "Evaluated binary informativeness and 11-class humanitarian categorization tasks while excluding disaster event type classification.",
+    "Omitted multi-label tweets from the DRD dataset to avoid manual re-annotation for single-label multiclass experiments."
+  ],
+  "limitations": {
+    "verbatim_excerpt": "Even after combining the datasets, the imbalance in class distribution seems to persist (last column in Table 4). For example, the distribution of \"not humanitarian\" is relatively higher (37.40%) than other class labels. In Table 4, we highlighted some class labels, which we dropped in the rest of the classification experiments conducted in this study.",
+    "summary": "The consolidated dataset retains substantial class imbalance with dominant non-humanitarian tweets and scarce minority categories. In addition, event-aware training fails to improve transformer models, multi-label instances were dropped rather than re-annotated, and performance drops significantly on multilingual subsets."
+  },
+  "generalizability_gap": "The benchmark evaluations focus predominantly on English tweets collected exclusively from Twitter between 2010 and 2017, leaving model generalizability to non-English languages, alternative social media platforms, and subsequent disaster events untested.",
+  "methodological_gap": "Token-prefixing event-aware conditioning failed to improve transformer performance, multi-label instances were discarded rather than modeled via multi-label classification frameworks, and similarity-based deduplication relied on a fixed heuristic threshold.",
+  "future_work": [
+    "Evaluating deeper encoder-decoder architectures such as Google T5 for crisis text classification.",
+    "Exploring regularization techniques and fine-tuning strategies to enhance transformer performance in crisis informatics.",
+    "Investigating multilingual pretrained models and zero-shot cross-lingual transfer for non-English crisis tweets.",
+    "Incorporating disaster event type classification into the consolidated benchmark suite.",
+    "Extending event-aware conditioning to multi-attribute tags such as geographic disaster region."
+  ]
+}

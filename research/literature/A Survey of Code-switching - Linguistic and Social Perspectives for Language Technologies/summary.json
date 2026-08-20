@@ -1,0 +1,46 @@
+{
+  "title": "A Survey of Code-switching: Linguistic and Social Perspectives for Language Technologies",
+  "authors": [
+    "A. Seza Doğruöz",
+    "Sunayana Sitaram",
+    "Barbara E. Bullock",
+    "Almeida Jacqueline Toribio"
+  ],
+  "year": 2021,
+  "venue": "Proceedings of the 59th Annual Meeting of the Association for Computational Linguistics and the 11th International Joint Conference on Natural Language Processing (ACL-IJCNLP 2021)",
+  "publication_type": "systematic survey",
+  "problem_statement": "Computational linguistics and natural language processing research on code-switching predominantly focuses on algorithmic and computational improvements while ignoring rich linguistic, structural, cognitive, and sociolinguistic theories from linguistics literature, resulting in massive multilingual models that fail to capture diverse code-switching types, lack adequate training data and benchmarks, and omit sociolinguistic dynamics in user-facing applications.",
+  "domain": "Natural Language Processing (NLP), Computational Linguistics, Sociolinguistics, Multilingualism, Code-Switching (C-S) in European and Indian multilingual contact contexts",
+  "theoretical_framework": "Theoretical linguistic and sociolinguistic frameworks of code-switching, including the Matrix Language Frame (MLF) model (Myers-Scotton; Joshi), Equivalence Constraint (Poplack), Government Constraint (DiSciullo et al.), Functional Head Constraint (Belazi et al.), Constraint-free models (Mahootian & Santorini; MacSwan), Auer's continuum of bilingual speech (prototypical code-switching, language mixing, mixed languages), Politeness theory and face-saving (Lavric), Clyne's eight-factor interactional model, and socio-indexical identity marking/backflagging (Muysken; Poplack; Gumperz; Zentella; Finnis).",
+  "methodology": "Cross-disciplinary systematic survey and critical synthesis analyzing structural, functional, cognitive, and sociolinguistic dimensions of code-switching across European and Indian multilingual contexts; contrasting linguistic frameworks against current computational NLP practices; distinguishing code-switching from borrowing, transfer, and loan translation; and evaluating computational bottlenecks across pretraining data in massive multilingual language models (e.g., mBERT, XLM-R), multi-task benchmark evaluation suites (GLUE-CoS, LINCE), and user-facing interactive systems.",
+  "datasets": null,
+  "evaluation": null,
+  "key_findings": [
+    "Computational linguistics research predominantly relies on the Matrix Language Frame (MLF) model despite empirical and theoretical criticisms regarding matrix language identification and clause-level boundary limits, while under-utilizing alternative grammatical constraints (such as the Functional Head Constraint) that improve computational and speech models.",
+    "NLP tag sets and models frequently fail to distinguish between true grammatical code-switching and nonce borrowings, lexical transfer, or loan translations, employing coarse part-of-speech annotations that obscure intra-sentential functional constraints.",
+    "Code-switching is strongly driven by pragmatic, cognitive, and socio-indexical functions (such as expressing in-group solidarity, politeness, conversational topic, and affective stance), which leave predictable structural traces that are ignored in conventional NLP pipelines.",
+    "Massive pretrained multilingual language models (e.g., mBERT, XLM-R) perform substantially worse on code-switched tasks than monolingual settings because they are trained on web-scraped monolingual corpora (Wikipedia, Common Crawl) lacking natural spoken and informal code-switching varieties.",
+    "Standardized code-switching benchmarks (e.g., GLUE-CoS, LINCE) are limited to a narrow set of language pairs (primarily Spanish-English and Hindi-English) and social media domains (Twitter), with state-of-the-art models performing near chance levels on complex reasoning tasks like Natural Language Inference (NLI).",
+    "Current language technologies almost entirely lack end-to-end user-facing applications (such as conversational dialogue systems) capable of dynamically adapting to user code-switching styles, social preferences, and affective language choices.",
+    "Both linguistics and computational research suffer from a positive-evidence bias by assuming code-switching occurs uniformly across all multilingual communities, ignoring negative evidence where historical, social, and prestige dynamics suppress switching (e.g., Saraswat Brahmin Konkani-Kannada bilinguals)."
+  ],
+  "scope_and_delimitations": [
+    "Focuses primarily on linguistic, sociolinguistic, and computational perspectives of code-switching within European multilingual contexts (e.g., Turkish-German, Frisian-Dutch, Spanish-Catalan, Russian-Ukrainian) and Indian multilingual contexts (Indo-Aryan and Dravidian language contact, Hindi-English, Bengali-English).",
+    "Delimits computational analysis to three primary bottlenecks: pretraining data representation in massive multilingual language models, multi-task benchmark evaluation suites, and user-facing interactive applications.",
+    "Excludes developing new algorithmic architectures or releasing novel empirical datasets, serving instead as a taxonomic and cross-disciplinary bridge between linguistics and computational NLP."
+  ],
+  "limitations": {
+    "verbatim_excerpt": "Due to the paucity of user-facing systems and standard benchmarks covering only a handful of simpler NLP tasks, it is likely that we overestimate how well computational models are able to handle C-S. In sum, language technologies for C-S seem to be constrained by the lack of availability of diverse C-S training data, evaluation benchmarks and the absence of user-facing applications. They need to go beyond pattern recognition and grammatical constraints of C-S in order to process and produce C-S the way humans do. Hence, it is important for the CL community to be aware of the vast literature around C-S in linguistics, particularly as we proceed to solving more challenging tasks.",
+    "summary": "Current computational processing of code-switching is fundamentally limited by three interrelated constraints: the absence of diverse code-switching training data in multilingual language models, narrow evaluation benchmarks covering only simpler NLP tasks over a few language pairs, and a lack of end-to-end user-facing applications that model the sociolinguistic, functional, and pragmatic factors governing human code-switching."
+  },
+  "generalizability_gap": "Current computational code-switching research is disproportionately concentrated on a few high-resource pairs (primarily Spanish-English and Hindi-English) and social media text (Twitter), leaving regional dialects, unlisted/minority languages with fewer than 10,000 speakers, spoken conversational interactions, and diverse diaspora/immigrant communities severely underrepresented.",
+  "methodological_gap": "Existing multilingual language models rely on web-scale monolingual pretraining corpora and coarse POS annotation schemes that cannot capture fine-grained functional heads or distinguish code-switching from borrowing and transfer; synthetic code-switched generation methods rely on rigid grammatical frameworks (e.g., MLF) that fail to generate natural utterances; and existing research lacks systematic collection and modeling of negative evidence where social context inhibits switching.",
+  "future_work": [
+    "Incorporating formal linguistic theories (such as the Functional Head Constraint and fine-grained functional tag sets) into multilingual language model pretraining and synthetic code-switching generation.",
+    "Developing comprehensive, multi-domain evaluation benchmarks spanning diverse language families, regional dialects, and under-resourced or officially unlisted minority languages.",
+    "Designing adaptive end-to-end user-facing dialogue systems that model sociolinguistic factors, user style accommodation, and affective language preferences.",
+    "Investigating negative evidence in multilingual communities to systematically identify socio-cultural and contextual factors that inhibit code-switching.",
+    "Conducting systematic comparative investigations of code-switching patterns within identical language pairs across domestic and diaspora/immigrant environments (e.g., Hindi-English in India vs. the UK/US).",
+    "Establishing interdisciplinary publication and citation guidelines to facilitate knowledge transfer between humanities/linguistics and computational linguistics."
+  ]
+}

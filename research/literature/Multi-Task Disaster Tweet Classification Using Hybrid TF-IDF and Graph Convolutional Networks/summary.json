@@ -1,0 +1,144 @@
+{
+  "title": "Multi-Task Disaster Tweet Classification Using Hybrid TF-IDF and Graph Convolutional Networks",
+  "authors": [
+    "Basudev Nath",
+    "Deepak Sahoo",
+    "Sudhansu Shekhar Patra",
+    "Hassan Alkhiri",
+    "Subrata Chowdhury",
+    "Sheraz Aslam",
+    "Kainat Mustafa"
+  ],
+  "year": 2026,
+  "venue": null,
+  "publication_type": "empirical study",
+  "problem_statement": "During crisis events, social media posts on X (formerly Twitter) provide critical situational information for emergency responders; however, the brevity, informality, high noise, and lexical sparsity of tweets impede automated classification. Existing machine learning methods produce high-dimensional sparse representations that struggle with noisy data, whereas deep learning and graph neural network approaches typically model either statistical term importance or relational dependencies in isolation rather than integrating both representations across multi-tiered disaster classification tasks.",
+  "domain": "Crisis Informatics, Disaster Response, Social Media Natural Language Processing (Twitter/X Disaster Tweet Classification in English), Graph Neural Networks, Multi-Task Learning",
+  "theoretical_framework": "Graph-based text representation theory conceptualizing short-text classification via corpus-level word co-occurrence graphs with Normalized Pointwise Mutual Information (NPMI) edge weights and spectral Graph Convolutional Networks (GCN), combined with statistical term weighting theory (TF-IDF) and cascaded multi-task representation learning through a shared Fully Connected Neural Network (FCNN).",
+  "methodology": "The authors developed a seven-stage cascaded multi-task learning framework combining statistical and graph-based representations. The pipeline pre-processes 33,370 tweets from CrisisNLP and CrisisLex using lowercasing, punctuation and stop-word removal, number replacement, entity anonymization, and Porter stemming. The architecture extracts fixed-length TF-IDF feature vectors (top k=20 terms) and builds a global word co-occurrence graph using a 5-word sliding window with NPMI edge weights filtered at a threshold of T=0.2. A dual-layer GCN (128 and 64 neurons with ReLU activations and cross-entropy loss) processes the graph to generate structural word embeddings. The framework concatenates the TF-IDF feature vectors and GCN embeddings into a fused representation Z = Z_TF-IDF ⊕ Z_GCN, which feeds into a shared two-layer FCNN (512 and 256 neurons with dropout, batch normalization, and L2 regularization) connected to sequential task-specific softmax classification heads: Task 1 for binary disaster identification (2 classes), Task 2 for multi-class disaster type categorization (3 classes: non-disaster, flood, earthquake), and Task 3 for aid and support need extraction in earthquake tweets (5 classes, balanced using SMOTE).",
+  "datasets": [
+    "CrisisNLP and CrisisLex collected benchmark corpora containing 33,370 total disaster and non-disaster tweets",
+    "Task 1 Dataset: 33,370 total tweets partitioned into disaster (Target=1) and non-disaster (Target=0) classes, evaluated on 6,674 test samples under an 80:20 train-test split",
+    "Task 2 Dataset: 15,435 tweets pulled from Task 1 and structured into three balanced categories: earthquake (5,779 tweets), flood (4,873 tweets), and non-disaster (4,783 tweets), evaluated on 3,088 test samples",
+    "Task 3 Dataset: 5,779 earthquake-related tweets categorized into five support/aid classes (Donation & Volunteering, Food & Medicine, Infrastructure & Utilities, Other Useful Information, and Sympathy & Support), evaluated on 1,156 test samples with SMOTE oversampling applied during training"
+  ],
+  "evaluation": {
+    "metrics": [
+      "Accuracy",
+      "Precision",
+      "Recall",
+      "Macro-averaged F1-score",
+      "Weighted-averaged F1-score",
+      "Confusion Matrix",
+      "Inference Latency and Throughput"
+    ],
+    "task_1_binary_classification": {
+      "Proposed_TF-IDF_plus_GCN": {
+        "accuracy": "94.47%",
+        "precision": 0.9398,
+        "recall": 0.9491,
+        "f1_score": 0.9444
+      },
+      "TF-IDF_Only": {
+        "accuracy": "75.60%",
+        "precision": 0.7695,
+        "recall": 0.7560,
+        "f1_score": 0.7567
+      },
+      "GCN_Only": {
+        "accuracy": "80.98%",
+        "precision": 0.8094,
+        "recall": 0.8098,
+        "f1_score": 0.8091
+      },
+      "Baselines": {
+        "Bi-LSTM": "87.00% accuracy",
+        "LSTM-GAT": "88.40% accuracy",
+        "STGCN": "82.31% accuracy",
+        "HGAT": "80.45% accuracy",
+        "TextGCN": "80.31% accuracy"
+      }
+    },
+    "task_2_disaster_type_classification": {
+      "Proposed_TF-IDF_plus_GCN": {
+        "overall_accuracy": "91.78%",
+        "no_disaster_accuracy": "95.49%",
+        "flood_accuracy": "86.70%",
+        "earthquake_accuracy": "93.31%"
+      },
+      "GCN_Only": {
+        "overall_accuracy": "82.30%",
+        "no_disaster_accuracy": "84.50%",
+        "flood_accuracy": "80.40%",
+        "earthquake_accuracy": "82.10%"
+      },
+      "TF-IDF_Only": {
+        "overall_accuracy": "76.09%",
+        "no_disaster_accuracy": "77.73%",
+        "flood_accuracy": "74.08%",
+        "earthquake_accuracy": "76.74%"
+      }
+    },
+    "task_3_help_category_classification": {
+      "Proposed_TF-IDF_plus_GCN": {
+        "overall_accuracy": "94.64%",
+        "macro_average": {
+          "precision": 0.9210,
+          "recall": 0.9362,
+          "f1_score": 0.9278
+        },
+        "weighted_average": {
+          "precision": 0.9446,
+          "recall": 0.9599,
+          "f1_score": 0.9518
+        },
+        "category_f1_scores": {
+          "Donation_and_Volunteering": 0.9468,
+          "Food_and_Medicine": 0.9291,
+          "Infrastructure_and_Utilities": 0.8474,
+          "Other_Useful_Information": 0.9836,
+          "Sympathy_and_Support": 0.9425
+        }
+      },
+      "Ablation_and_Baselines": {
+        "TF-IDF_Only_accuracy": "54.01%",
+        "GCN_Only_accuracy": "62.89%",
+        "BERT_Infrastructure_f1": 0.22,
+        "LSTM_Infrastructure_f1": 0.22,
+        "Bi-LSTM_Infrastructure_f1": 0.37
+      }
+    },
+    "computational_efficiency": {
+      "model_parameters": "approximately 2.3M parameters (compared to ~110M for BERT)",
+      "inference_speed": "217 tweets per second",
+      "average_latency": "4.6 ms per tweet on NVIDIA Tesla T4 GPU"
+    }
+  },
+  "key_findings": [
+    "The hybrid TF-IDF + GCN framework outperformed standalone TF-IDF, standalone GCN, and deep learning baselines across all three evaluation tiers, achieving 94.47% accuracy on binary disaster identification, 91.78% on disaster type classification, and 94.64% on aid-need extraction.",
+    "Ablation experiments demonstrated that integrating local statistical term significance (TF-IDF) with global graph relational embeddings (GCN) produced large performance gains over single-representation models (+13.49% to +18.87% over TF-IDF alone; +9.48% to +31.75% over GCN alone across the three tasks).",
+    "On granular help-seeking categorization (Task 3), the hybrid model achieved strong macro-averaged F1 (0.9278) and significantly outperformed deep learning baselines (LSTM, Bi-LSTM, BERT), which struggled on minority aid categories such as Infrastructure & Utilities (BERT F1 = 0.22 vs. Hybrid F1 = 0.8474).",
+    "Detailed error analysis demonstrated that inter-disaster classification confusion was highly asymmetric in Task 2, where flood-related tweets were misclassified as earthquake events at six times the rate of the reverse error (107 instances vs. 18 instances), indicating shared crisis vocabulary between disaster types.",
+    "The proposed architecture achieved high computational efficiency with only 2.3 million parameters, processing 217 tweets per second with an average inference latency of 4.6 ms per tweet on an NVIDIA Tesla T4 GPU."
+  ],
+  "scope_and_delimitations": [
+    "The text corpus is delimited to English-language disaster tweets collected from the CrisisNLP and CrisisLex benchmark datasets.",
+    "The disaster typology is delimited to two natural hazard types (floods and earthquakes) alongside non-disaster content, excluding other disaster domains such as wildfires, cyclones, or human-induced crises.",
+    "The fine-grained help-seeking classification (Task 3) is delimited exclusively to earthquake-related tweets across five specific support categories.",
+    "The lexical feature extraction is constrained to the top k=20 TF-IDF terms per tweet based on empirical optimization, and the graph adjacency matrix is constrained by an NPMI edge threshold of T=0.2 using a 5-word sliding window.",
+    "The graph modeling relies on static corpus-level co-occurrence graphs rather than dynamic or streaming graph construction."
+  ],
+  "limitations": {
+    "verbatim_excerpt": "Large inter-disaster misunderstanding shows that flood and earthquake tweets share grammatical and contextual characteristics, while confusion with non-disaster content remains modest (43–74 instances). The misunderstanding is asymmetric, with Flood*rightarrow*Earthquake (107) being six times greater than Earthquake*rightarrow*Flood (18), suggesting that flood-related jargon is more commonly misinterpreted as earthquake terms.",
+    "summary": "The framework exhibits inter-disaster lexical confusion between flood and earthquake posts due to shared crisis terminology; the experimental evaluation is restricted to English-language static corpora across two natural disaster categories; Task 3 aid classification is evaluated only on earthquake tweets; and the system relies on static NPMI graphs without real-time streaming updates, geolocation features, or explainable AI mechanisms."
+  },
+  "generalizability_gap": "The framework was tested exclusively on English-language tweets covering two natural disaster types (floods and earthquakes) from historical CrisisNLP and CrisisLex datasets. The authors did not evaluate the approach on multilingual or code-mixed social media streams, non-English disaster communications, alternative disaster events (such as wildfires, typhoons, or industrial catastrophes), or multimodal posts containing paired images and text.",
+  "methodological_gap": "The framework depends on static corpus-level NPMI graph construction that cannot dynamically incorporate streaming real-time vocabulary or out-of-vocabulary disaster terms without retraining. Additionally, the methodology lacks geolocation-aware spatial analysis, comparison with large generative language models such as OpenAI GPT series, and post-hoc Explainable AI (XAI) mechanisms to provide transparent decision rationales for humanitarian responders.",
+  "future_work": [
+    "Extend the proposed hybrid framework to multilingual and code-mixed datasets to enhance linguistic diversity and geographic applicability.",
+    "Conduct comparative evaluations involving large-scale AI models, including OpenAI GPT-based classifiers, to assess scalability and adaptability.",
+    "Incorporate real-time data streaming and dynamic graph construction techniques to support live crisis monitoring.",
+    "Integrate geolocation-aware analysis to contextualize disaster reports and emergency support requests spatially.",
+    "Implement Explainable AI (XAI) methods to improve model transparency, interpretability, and operational utility in humanitarian decision-making."
+  ]
+}

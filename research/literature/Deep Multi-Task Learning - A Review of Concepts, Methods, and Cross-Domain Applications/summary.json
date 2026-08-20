@@ -1,0 +1,42 @@
+{
+  "title": "Deep multi-task learning: a review of concepts, methods, and cross-domain applications",
+  "authors": [
+    "Mahmoud Mohamed Abdelsamie",
+    "Shahira Shaaban Azab",
+    "Hesham A. Hefny"
+  ],
+  "year": 2026,
+  "venue": "International Journal of Data Science and Analytics",
+  "publication_type": "systematic survey",
+  "problem_statement": "Providing a comprehensive, unified review and taxonomy of deep multi-task learning (MTL) concepts, architectural sharing mechanisms (hard vs. soft parameter sharing), optimization challenges (negative transfer, task imbalance, hyperparameter sensitivity), and cross-domain application strategies.",
+  "domain": "Deep learning and multi-task learning across cross-domain applications (natural language processing, computer vision, healthcare, bioinformatics, power systems, robotics, finance, climate science, and physics)",
+  "theoretical_framework": "Multi-task learning (MTL) inductive transfer bias and shared representation learning; hard and soft parameter sharing paradigms; multi-objective optimization and regularized joint loss formulation",
+  "methodology": "Comprehensive literature review and bibliometric quantitative analysis of 6,872 unique Scopus-indexed publications (2020–2025) on multi-task learning, combined with structural taxonomy categorization of MTL architectures (single-domain, multimodal, learned, conditional) and cross-domain application analysis.",
+  "datasets": null,
+  "evaluation": null,
+  "key_findings": [
+    "MTL publication volume grew rapidly between 2020 and mid-2025, peaking in 2024, with major contributions from computer science (4,698 papers), engineering (1,135 papers), mathematics (498 papers), and medicine/health sciences (241 papers).",
+    "Hard parameter sharing shares hidden layers while keeping task-specific heads, providing low computational complexity and reduced overfitting for highly related tasks, whereas soft parameter sharing regularizes separate per-task networks to maintain similarity, offering higher flexibility for loosely related tasks at higher computational cost.",
+    "MTL architectures are systematically categorized into single-domain (shared trunk, cross-talk/cross-stitch, prediction distillation, hierarchical/modular/generative), multimodal (e.g., OmniNet), learned (structure search, branched, modular, fine-grained sharing), and conditional architectures.",
+    "MTL fundamentally differs from transfer learning: MTL simultaneously learns all tasks using bidirectional knowledge sharing across shared backbones, whereas transfer learning transfers knowledge sequentially and unidirectionally from a source to a target domain.",
+    "Primary operational bottlenecks across domains include negative transfer among conflicting tasks, task imbalance during gradient optimization, acute hyperparameter sensitivity, and training scalability constraints with large task counts."
+  ],
+  "scope_and_delimitations": [
+    "Focused on deep multi-task learning research published between 2020 and mid-2025 indexed in the Scopus database (articles, conference papers, and review papers).",
+    "Restricted subject areas to computer science, engineering, mathematics, physics, medicine, decision sciences, neuroscience, business, and social sciences.",
+    "Excluded non-peer-reviewed whitepapers, non-English publications, and purely non-deep traditional statistical multi-task learning methods."
+  ],
+  "limitations": {
+    "verbatim_excerpt": "Despite its potential benefits, MTL presents several draw-backs and limitations. One major challenge is negative transfer, which occurs when tasks are too different or con-flicting, causing the shared learning process to affect the performance when trained jointly [51, 52, 56]. Task imbalance is another problem, where some tasks may dominate the learning process due to larger datasets, stronger gradients, or simpler objectives, leading to poor performance on low-resource or complex tasks. [53]. Furthermore, Architectural Complexity, designing suit-able architectures that allow for both shared and task-specific components, is non-trivial, especially when tasks differ in modality, structure, or scale [10]. Another one of the most significant limitations of MTL is the sensitivity of hyperparameters. Unlike single-task mod-els, multi-task learning systems often require fine-tuning of various hyperparameters, such as task-specific weights, learning rates, and optimization strategies [94, 95]. This addi-tional layer of complexity can significantly increase the effort required during the model development phase, as finding the optimal balance between tasks is critical to avoid poor performance or negative transfer.",
+    "summary": "MTL faces negative transfer when tasks conflict, task imbalance where dominant tasks skew gradient updates, elevated architectural complexity across multimodal or heterogeneous tasks, acute hyperparameter sensitivity (task loss weights, learning rates), and severe optimization/memory scalability constraints when scaling to dozens or hundreds of tasks."
+  },
+  "generalizability_gap": "Many domain-specific MTL implementations have only been evaluated on narrow single-language or single-institution benchmarks (e.g., specific Arabic dialects, college student cohorts, discrete robotic action spaces, or constant pressure physical models) without cross-institutional validation or continuous dexterous control environments.",
+  "methodological_gap": "Existing MTL methods often rely on empirical trial-and-error or heuristic task weighting; they lack automated mechanisms to eliminate negative transfer, struggle with gradient interference and computational memory bottlenecks at scale, and often lack model interpretability in high-stakes domains like healthcare and finance.",
+  "future_work": [
+    "Developing dynamic task weighting approaches using attention mechanisms and deep reinforcement learning to adaptively evaluate task contributions during training and mitigate negative transfer.",
+    "Integrating meta-learning ('learning to learn') techniques to automatically discover optimal representation sharing strategies and balance shared versus task-specific components.",
+    "Leveraging Large Language Models (LLMs) and foundation models for zero-shot and few-shot multi-task transfer across diverse domains.",
+    "Enhancing model interpretability, reliability, and explainability for high-stakes MTL deployments in healthcare, finance, and autonomous systems.",
+    "Designing scalable task grouping and optimization frameworks to manage dozens or hundreds of tasks without excessive memory consumption or gradient conflict."
+  ]
+}

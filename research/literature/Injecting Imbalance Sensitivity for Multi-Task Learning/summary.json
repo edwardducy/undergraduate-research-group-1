@@ -1,0 +1,81 @@
+{
+  "title": "Injecting Imbalance Sensitivity for Multi-Task Learning",
+  "authors": [
+    "Zhipeng Zhou",
+    "Liu Liu",
+    "Peilin Zhao",
+    "Wei Gong"
+  ],
+  "year": 2025,
+  "venue": "Proceedings of the Thirty-Fourth International Joint Conference on Artificial Intelligence (IJCAI-2025)",
+  "publication_type": "empirical study",
+  "problem_statement": "Multi-task learning optimization methods, particularly gradient manipulation approaches, predominantly focus on resolving gradient conflicts while overlooking the critical issue of gradient imbalance and dominance across tasks, which causes Pareto failures and hinders balanced individual task progress even in the absence of conflicts.",
+  "domain": "Multi-Task Supervised Learning (Dense Scene Understanding, Facial Attribute Classification) and Multi-Task Reinforcement Learning (Robotic Manipulation)",
+  "theoretical_framework": "Multi-objective optimization and Pareto optimality theory (Pareto dominance, Pareto front, and Pareto stationarity), Lagrangian duality in convex programming under Slater's condition, and gradient dynamics analyzing gradient similarity, imbalance ratios, and conflict-averse properties.",
+  "methodology": "IMbalance-sensitive Gradient (IMGrad) descent method injects imbalance sensitivity into optimization-based multi-task learning paradigms by imposing projected norm constraints. The framework incorporates a constraint (g_i^T d - ||g_i||) into the dual objective to encourage the projected norms of the combined gradient d across all tasks to surpass individual task gradient norms. By applying Lagrangian duality and interchanging minimum and maximum operators via Slater's condition, IMGrad derives an analytical objective that balances global convergence and Pareto properties. The balancing weight mu is adaptively determined by cos theta, where theta represents the angle between the mean task gradient g_0 and the MGDA minimum norm gradient g^m. The authors also extend this principle to augment Nash-MTL by adaptively weighting its agreement and bargaining terms.",
+  "datasets": [
+    "Cityscapes (urban scene understanding benchmark evaluated on 7-class semantic segmentation and depth estimation)",
+    "NYUv2 (indoor scene understanding benchmark evaluated on 13-class semantic segmentation, depth estimation, and surface normal prediction)",
+    "CelebA (large-scale facial attribute dataset with over 200,000 images evaluated across 40 binary attribute classification tasks)",
+    "Meta-World MT10 (multi-task robotic manipulation reinforcement learning benchmark with 10 distinct manipulation environments)",
+    "Synthetic two-task toy benchmark (imbalanced two-objective optimization trajectories derived from CAGrad and Nash-MTL settings)"
+  ],
+  "evaluation": {
+    "metrics": [
+      "Delta m% (overall relative multi-task degradation/improvement percentage compared to independent single-task reference oracles)",
+      "Mean Intersection over Union (mIoU) and Pixel Accuracy (Pix. Acc.) for semantic segmentation on Cityscapes and NYUv2",
+      "Absolute Error (Abs. Err.) and Relative Error (Rel. Err.) for depth estimation on Cityscapes and NYUv2",
+      "Mean Angle Error, Median Angle Error, and Percentage of Pixels within 11.25°, 22.5°, and 30° thresholds for surface normal prediction on NYUv2",
+      "Average classification degradation Delta m% across 40 attribute classification tasks on CelebA",
+      "Average task success rate and standard error of the mean (SEM) over 10 random seeds on Meta-World MT10 reinforcement learning",
+      "Statistical imbalance ratios, gradient cosine similarities (cos phi_ij), and individual progress ratios r_i(t) = L_i(t) / L_i(0)"
+    ],
+    "baselines": [
+      "Linear Scalarization (LS / naive mean gradient)",
+      "Independent single-task learning models",
+      "Random Loss Weighting (RLW)",
+      "Dynamic Weight Average (DWA)",
+      "Multiple Gradient Descent Algorithm (MGDA)",
+      "Gradient Drop (GradDrop)",
+      "Projecting Conflicting Gradients (PCGrad)",
+      "Conflict-Averse Gradient descent (CAGrad)",
+      "Impartial Multi-Task Learning (IMTL)",
+      "Nash Multi-Task Learning (Nash-MTL)",
+      "Momentum-based Correction (MoCo)",
+      "Fast Adaptive Multitask Optimization (FAMO)",
+      "Scale Invariant (SI), Uncertainty Weighting (UW), Single-Task SAC, Multi-Task SAC, Multi-Head SAC, Soft Modularization (SM), CARE"
+    ],
+    "architectures": [
+      "Multi-Task Attention Network (MTAN) with SegNet backbone for Cityscapes and NYUv2 scene understanding",
+      "9-layer Convolutional Neural Network (CNN) backbone with task-specific linear classification heads for CelebA",
+      "Soft Actor-Critic (SAC) multi-layer perceptron architecture for Meta-World MT10 reinforcement learning"
+    ]
+  },
+  "key_findings": [
+    "Empirical analysis reveals that gradient imbalance is a more fundamental obstacle in multi-task optimization than gradient conflict, because balanced task gradients converge to global optima despite severe conflicts, whereas imbalanced gradients frequently stall or cause Pareto failures.",
+    "Mainstream optimization-based multi-task learning methods (such as PCGrad, CAGrad, and Nash-MTL) experience Pareto failures and imbalanced individual task progress because existing methods lack simultaneous conflict-averse and imbalance-sensitive properties.",
+    "On the NYUv2 3-task benchmark, IMGrad achieves a state-of-the-art Delta m% of -4.57% (outperforming Nash-MTL at -4.04% and FAMO at -4.10%), attaining 40.20 mIoU and 66.19% pixel accuracy in segmentation, and 0.52 absolute error in depth estimation.",
+    "On the Cityscapes 2-task benchmark, IMGrad attains a Delta m% of 6.61% (substantially improving over CAGrad at 11.58% and outperforming Nash-MTL at 6.82%), with 75.13 mIoU and 0.0128 absolute depth error.",
+    "On the CelebA 40-task facial attribute classification benchmark, IMGrad achieves a Delta m% of 1.27%, demonstrating strong scalability across massive task counts and competitive performance alongside FAMO (1.21%).",
+    "On the Meta-World MT10 reinforcement learning benchmark, IMGrad improves CAGrad by over 0.10 in success rate, reaching a state-of-the-art success rate of 0.93 ± 0.068 (compared to 0.83 for CAGrad and 0.91 for Nash-MTL).",
+    "Ablation and control group experiments demonstrate that selectively gating multi-task optimization based on gradient imbalance ratios yields consistent performance gains across baselines, whereas gating by gradient conflict similarity yields minimal benefit."
+  ],
+  "scope_and_delimitations": [
+    "Focuses strictly on optimization-based multi-task learning with shared backbone architectures and gradient manipulation algorithms, excluding architecture-based parameter sharing designs.",
+    "Requires individual per-task gradient evaluations at every training iteration to compute gradient similarities and imbalance ratios.",
+    "Evaluates empirical performance on standard benchmarks: 2-task and 3-task dense scene understanding (Cityscapes, NYUv2), 40-task image classification (CelebA), and 10-task robotic manipulation (Meta-World MT10).",
+    "Utilizes the cosine angle cos theta between the average task gradient g_0 and the MGDA minimum norm gradient g^m as the primary operational proxy for quantifying gradient imbalance."
+  ],
+  "limitations": {
+    "verbatim_excerpt": "While IMGrad does not achieve the best performance, it consistently ranks among the top methods, underscoring the importance of imbalance sensitivity for learning massive tasks.",
+    "summary": "The authors acknowledge that IMGrad does not obtain the top metric on every single evaluation benchmark (such as surface normal prediction on NYUv2 or CelebA classification where FAMO slightly outperforms it). Additionally, the method requires per-task backward passes that scale computationally with task count, focuses solely on optimization-based approaches without custom architecture co-design, and did not evaluate augmented Nash-MTL on reinforcement learning benchmarks due to implementation unavailability."
+  },
+  "generalizability_gap": "The authors evaluated IMGrad exclusively on computer vision datasets (NYUv2, Cityscapes, CelebA) and simulated robotic manipulation benchmarks (Meta-World MT10); the authors did not evaluate the method on natural language processing, multilingual or code-switched text corpora, speech processing, large language model multi-task fine-tuning, or physical robotic hardware.",
+  "methodological_gap": "IMGrad requires computing individual task gradients for all tasks at each training step, incurring linear gradient computation overhead; furthermore, the method relies on a geometric proxy (cos theta between g_0 and g^m) to regulate imbalance sensitivity rather than directly resolving underlying curvature discrepancies across task loss surfaces.",
+  "future_work": [
+    "Extending imbalance-sensitive multi-task gradient descent methods to natural language processing, speech, and multimodal foundation models.",
+    "Developing scalable gradient combination algorithms to reduce the per-task gradient computation overhead in massive multi-task settings.",
+    "Exploring alternative geometric, statistical, or curvature-based formulations for quantifying task imbalance dynamically during training.",
+    "Investigating official implementations and extensions of augmented bargaining-game multi-task frameworks (such as Nash-MTL) in multi-task reinforcement learning environments."
+  ]
+}
