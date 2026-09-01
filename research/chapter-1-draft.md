@@ -169,6 +169,24 @@ The prototype web application for disaster triage processes replayed tweets from
 
 The investigation is delimited to the three core operational triage tasks and does not evaluate secondary NLP tasks such as sentiment analysis, machine translation, or automated text summarization.
 
+## 9. Significance of the Study
+
+<!-- vale off -->
+The findings and computational artifacts produced by this study provide practical, methodological, and empirical contributions to disaster informatics, multi-task optimization, and Philippine natural language processing. The significance of this study is structured across three distinct stakeholder groups.
+
+### 9.1 Primary Beneficiaries: Disaster Response Agencies and Emergency Practitioners
+
+Disaster management agencies, including the National Disaster Risk Reduction and Management Council (NDRRMC), the Office of Civil Defense (OCD), Local Government Units (LGUs), and non-governmental emergency response teams, gain a lightweight, edge-deployable triage capability. By replacing three isolated single-task models with a unified multi-task Transformer encoder, emergency operations centers can execute real-time extraction of affected geographic locations, humanitarian requirements, and urgent distress levels in a single forward pass. Because the fine-tuned model operates efficiently on modest local workstation hardware (requiring 8 GB of GPU VRAM or less), disaster teams can deploy the system offline in localized emergency operations centers. This local edge execution eliminates dependencies on expensive, high-latency cloud Large Language Model APIs that frequently experience service failures during extreme typhoon power and telecommunication outages. Furthermore, offline local execution ensures strict data privacy compliance under the Philippine Data Privacy Act of 2012 (Republic Act 10173). The companion prototype web application demonstrates an interactive map dashboard that converts unstructured Taglish social media streams into structured geospatial incident pins, accelerating emergency response times during critical landfall windows.
+
+### 9.2 Secondary Beneficiaries: Computer Science and Crisis NLP Researchers
+
+Researchers in Computer Science, Machine Learning, Crisis Informatics, and Natural Language Processing benefit from the empirical methodologies, benchmark datasets, and diagnostic tools developed in this research. This study provides the Multi-Task Corpus of Taglish Disaster Tweets, establishing the first publicly documented, multi-task benchmark containing concurrent annotations for token-level Named Entity Recognition, sequence-level intent classification, and sequence-level urgency classification on code-switched Philippine crisis text. In addition, the experimental evaluation resolves conflicting claims in the 2022 to 2024 Multi-Task Optimization literature (Xin et al., 2022; Kurin et al., 2022; Elich et al., 2024) by evaluating candidate loss-weighting and gradient-surgery algorithms against tuned Static Linear Scalarization and isolated Single-Task Learning baselines under a rigorous 4-fold Leave-One-Event-Out protocol. Furthermore, the open-source PyTorch routines for logging gradients and the intra-task baseline derived from half-batch gradients provide researchers with reusable diagnostic tools to isolate genuine cross-task gradient conflict from stochastic mini-batch sample variance in low-resource representation learning.
+
+### 9.3 Tertiary Beneficiaries: Academic Institutions and Future Computer Science Researchers
+
+Academic institutions, including Centro Escolar University and Philippine research universities, benefit from an authentic Design Science Research case study that demonstrates how to execute reproducible, mathematically rigorous deep learning experiments. Future undergraduate and graduate Computer Science students gain an open-source research codebase, validated event splits, and baseline benchmarks that serve as an extensible foundation for future research. Future investigations can build directly upon this foundation to extend multi-task optimization to other low-resource Philippine regional languages (such as Cebuano, Ilocano, and Hiligaynon), explore model quantization and pruning techniques for mobile edge devices, or integrate multi-modal sensor and satellite inputs into crisis triage architectures.
+<!-- vale on -->
+
 ## 10. Definition of Terms
 
 ### 10.1 Operational Definitions
