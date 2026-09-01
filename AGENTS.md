@@ -1,8 +1,3 @@
-# Raw Markdown Guidelines
-
-- To ensure readers understand files easily in raw text form, structure all Markdown documents for readability.
-- To preserve raw text readability, limit formatting syntax strictly to section headings, bulleted lists, and bold text.
-
 # Writing Guidelines
 
 - To support non-native English readers, pair demonstrative pronouns with explicit nouns instead of using standalone pronouns such as "this" or "it" without referents.
