@@ -58,3 +58,17 @@ This file documents research papers that could not be extracted into the literat
 - **Link**: https://dl.acm.org/doi/10.1145/2675133.2675242
 - **Access Restriction**: ACM Digital Library repository.
 - **Summary and Relevance**: Introduces the CrisisLexT26 multi-disaster crisis repository, providing 38,951 microblogs from Typhoon Haiyan (Yolanda, 2013) that establish an open-access foundational corpus for Leave-One-Event-Out validation.
+
+## 9. CrisisMMD: Multimodal Twitter Datasets from Natural Disasters
+- **Authors**: Firoj Alam, Ferda Ofli, and Muhammad Imran (2018)
+- **Venue**: Proceedings of the 15th International Conference on Information Systems for Crisis Response and Management (ISCRAM 2018)
+- **Link**: https://crisisnlp.qcri.org/crisismmd
+- **Access Restriction**: Open-access conference dataset paper.
+- **Summary and Relevance**: Curates approximately 18,000 multi-modal crisis tweets across seven international natural disaster events, establishing historical precedent for disaster informatics categorization while lacking token-level entity span annotations on code-switched text.
+
+## 10. LibMTL: A Python Library for Multi-Task Learning
+- **Authors**: Baijiong Lin and Yu Zhang (2023)
+- **Venue**: Journal of Machine Learning Research (JMLR 2023 / IEEE TPAMI)
+- **Link**: https://github.com/median-research-group/LibMTL
+- **Access Restriction**: Open-access software library and benchmark repository.
+- **Summary and Relevance**: Provides standardized modular implementations and taxonomic categorization for multi-task optimization algorithms, gradient-surgery methods, and multi-objective Pareto formulations in deep learning.
