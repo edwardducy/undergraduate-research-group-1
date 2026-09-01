@@ -31,3 +31,30 @@ This file documents research papers that could not be extracted into the literat
 - **Link**: https://dl.acm.org/doi/10.1145/3639233.3639341
 - **Access Restriction**: Behind the ACM Digital Library paywall requiring subscription access.
 - **Summary and Relevance**: The authors introduce a fine-grained named entity recognition dataset for Tagalog text. The publication provides comparative baselines for sequence labeling in Philippine languages.
+
+## 5. Attentive Single-Tasking of Multiple Tasks
+- **Authors**: Kevis-Kokitsi Maninis, Ilija Radosavovic, and Iasonas Kokkinos (2019)
+- **Venue**: IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2019)
+- **Link**: https://openaccess.thecvf.com/content_CVPR_2019/html/Maninis_Attentive_Single-Tasking_of_Multiple_Tasks_CVPR_2019_paper.html
+- **Access Restriction**: Open-access conference paper cited as a mathematical and empirical metric definition.
+- **Summary and Relevance**: Introduces the relative multi-task transfer metric ($\Delta_m$) to quantify percentage performance gain or degradation of multi-task learning models over isolated single-task baselines.
+
+## 6. Social Media in Disaster Risk Reduction and Management
+- **Authors**: Noemi Lardizabal-Dado (2020)
+- **Venue**: Book Chapter in *Disaster Risk Reduction and Management*, National Disaster Center
+- **Access Restriction**: Print publication and regional domain documentation.
+- **Summary and Relevance**: Documents the origin, operational evolution, and coordination protocols of crowdsourced citizen disaster hashtags (#RescuePH, #ReliefPH) since Tropical Storm Habagat in 2012.
+
+## 7. NDRRMC Situational Reports on Typhoon Vamco, Typhoon Rai, and Severe Tropical Storm Paeng
+- **Authors**: National Disaster Risk Reduction and Management Council (NDRRMC, 2020, 2022)
+- **Venue**: Republic of the Philippines Government Disaster Agency Reports
+- **Link**: https://ndrrmc.gov.ph/
+- **Access Restriction**: Government institutional public reports.
+- **Summary and Relevance**: Provides official governmental disaster statistics, emergency management timelines, and validation data for Philippine hydrometeorological crisis events.
+
+## 8. Comparing Normal and Disaster Tweet Lexicons for Crisis Response
+- **Authors**: Alexandra Olteanu, Sarah Vieweg, and Carlos Castillo (2015)
+- **Venue**: Proceedings of the 18th ACM Conference on Computer-Supported Cooperative Work & Social Computing (CSCW 2015)
+- **Link**: https://dl.acm.org/doi/10.1145/2675133.2675242
+- **Access Restriction**: ACM Digital Library repository.
+- **Summary and Relevance**: Introduces the CrisisLexT26 multi-disaster crisis repository, providing 38,951 microblogs from Typhoon Haiyan (Yolanda, 2013) that establish an open-access foundational corpus for Leave-One-Event-Out validation.
