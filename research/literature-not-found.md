@@ -66,9 +66,16 @@ This file documents research papers that could not be extracted into the literat
 - **Access Restriction**: Open-access conference dataset paper.
 - **Summary and Relevance**: Curates approximately 18,000 multi-modal crisis tweets across seven international natural disaster events, establishing historical precedent for disaster informatics categorization while lacking token-level entity span annotations on code-switched text.
 
-## 10. LibMTL: A Python Library for Multi-Task Learning
-- **Authors**: Baijiong Lin and Yu Zhang (2023)
-- **Venue**: Journal of Machine Learning Research (JMLR 2023 / IEEE TPAMI)
-- **Link**: https://github.com/median-research-group/LibMTL
-- **Access Restriction**: Open-access software library and benchmark repository.
-- **Summary and Relevance**: Provides standardized modular implementations and taxonomic categorization for multi-task optimization algorithms, gradient-surgery methods, and multi-objective Pareto formulations in deep learning.
+## 10. Language Model Tokenizers Introduce Unfairness Between Languages
+- **Authors**: Aleksandar Petrov, Emanuele La Malfa, Philip H.S. Torr, and Adel Bibi (2023)
+- **Venue**: Advances in Neural Information Processing Systems (NeurIPS 2023, Datasets and Benchmarks Track)
+- **Link**: https://arxiv.org/abs/2305.15425
+- **Access Restriction**: Open-access preprint and conference proceedings.
+- **Summary and Relevance**: Establishes the tokenization parity premium and documents that standard multilingual subword tokenizers over-fragment low-resource and non-Latin scripts by two to seven times relative to English, providing the linguistic mechanism for subword dilution in code-switched Taglish text.
+
+## 11. Do All Languages Cost the Same? Tokenization in the Era of Commercial Language Models
+- **Authors**: Orevaoghene Ahia, Sachin Kumar, Hila Gonen, Jungo Kasai, David R. Mortensen, Noah A. Smith, and Yulia Tsvetkov (2023)
+- **Venue**: Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing (EMNLP 2023)
+- **Link**: https://arxiv.org/abs/2305.07093
+- **Access Restriction**: Open-access conference proceedings.
+- **Summary and Relevance**: Quantifies token fertility disparities across languages in commercial and open-source multilingual Transformer tokenizers, demonstrating substantial fragmentation overhead for low-resource languages.
