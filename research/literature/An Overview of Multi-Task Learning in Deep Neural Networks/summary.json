@@ -1,0 +1,30 @@
+{
+  "title": "An Overview of Multi-Task Learning in Deep Neural Networks",
+  "authors": [
+    "Sebastian Ruder"
+  ],
+  "year": 2017,
+  "venue": "arXiv preprint",
+  "publication_type": "systematic survey",
+  "problem_statement": "Providing a unified theoretical and practical overview of multi-task learning mechanisms, parameter sharing architectures, and auxiliary task selection in deep neural networks.",
+  "domain": "Deep Learning, Multi-Task Representation Learning, and Natural Language Processing",
+  "theoretical_framework": "Inductive Transfer Theory, Hard vs. Soft Parameter Sharing, and Representation Learning",
+  "methodology": "Systematic literature survey and conceptual taxonomy analyzing multi-task network architectures, inductive transfer mechanisms, and loss weighting formulations.",
+  "datasets": null,
+  "evaluation": "Qualitative comparison and taxonomy of multi-task learning paradigms across computer vision, natural language processing, and speech recognition applications.",
+  "key_findings": [
+    "Delineated the foundational difference between hard parameter sharing (shared intermediate encoder layers with task heads) and soft parameter sharing (regularized parameter distance).",
+    "Formalized five underlying mechanisms of inductive transfer in deep MTL: implicit data augmentation, attention focusing, eavesdropping, representation bias, and regularization.",
+    "Demonstrated that hard parameter sharing amortizes computational feature extraction into a single forward pass, providing strong regularization and reduced risk of overfitting."
+  ],
+  "scope_and_delimitations": "Focuses on deep neural network architectures for multi-task learning, covering both feedforward networks and recurrent/convolutional models.",
+  "limitations": {
+    "verbatim_excerpt": "While MTL has shown empirical success, theoretical understanding of when tasks help each other and how to balance conflicting gradients remains an open challenge.",
+    "summary": "Identified the unresolved challenge of predicting task compatibility and mitigating conflicting loss gradients during joint multi-task optimization."
+  },
+  "generalizability_gap": "Pre-dates the widespread adoption of modern multi-task Transformer encoders (such as XLM-RoBERTa, mBERT, and ModernBERT).",
+  "methodological_gap": "Does not survey modern gradient surgery techniques (such as PCGrad and CAGrad) or Pareto-stationary multi-task optimizers.",
+  "future_work": [
+    "Developing adaptive multi-task optimization algorithms to dynamically balance gradient conflicts in deep architectures."
+  ]
+}
