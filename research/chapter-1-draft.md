@@ -106,61 +106,38 @@ Specialized Multi-Task Optimization (MTO) algorithms address these optimization 
 ## 7. Conceptual Framework
 
 <!-- vale off -->
-This study adopts the Input-Process-Output (IPO) model to structure the experimental design, algorithmic implementation, and empirical evaluation of the research. The conceptual framework traces the flow from baseline inputs, computational processes, and resulting outputs across the four Design Science Research (DSR) phases.
+This study adopts the Input-Process-Output (IPO) model to structure the experimental design, algorithmic implementation, and empirical evaluation across the four Design Science Research (DSR) phases. Table 1 summarizes the conceptual architecture of the research, mapping raw datasets, model backbones, and baseline parameters (Input) through data preprocessing, gradient diagnostic logging, multi-task training, and benchmarking routines (Process) to produce the trained multi-task model, empirical benchmark tables, non-parametric statistical proofs, and the prototype web application for disaster triage (Output).
 
-### 7.1 Input
+| Input | Process | Output |
+| :--- | :--- | :--- |
+| **Datasets & Testbed Hardware**<br>• Multi-Task Corpus of Taglish Disaster Tweets (6,000–10,000 tweets across Typhoon Haiyan, Vamco, Rai, Paeng)<br>• Token-level BIO entity annotations (Location, Infrastructure) & sequence-level intent and urgency labels<br>• Dedicated workstation testbed (Ubuntu 22.04 LTS, NVIDIA GPU $\ge 8\text{GB}$ VRAM, multi-core CPU, 32GB RAM)<br><br>**Architectures & Baselines**<br>• Shared multilingual Transformer encoder (XLM-RoBERTa Base $\approx 270\text{M}$ params, mBERT Base $\approx 110\text{M}$ params)<br>• Task-specific classification heads for sequence classification and token-level sequence labeling<br>• Isolated Single-Task Learning (STL) baselines<br>• Uniform Equal Weighting (EW, $w_k = 1/K$)<br>• Static Linear Scalarization (LS) grid sweeps<br><br>**Optimization Algorithms**<br>• Dynamic Loss Weighting: Uncertainty Weighting, GradNorm, FAMO<br>• Gradient Surgery: PCGrad, CAGrad, IMTL-G, Nash-MTL<br><br>**Evaluation Parameters**<br>• 4-fold Leave-One-Event-Out (LOEO) cross-validation splits<br>• Fixed hyperparameter grids & random seeds ($n \ge 3$) | **Phase 1 (Baseline Analysis)**<br>• Train isolated Single-Task Learning models on individual tasks<br>• Train shared encoder baseline under Uniform Equal Weighting (EW)<br>• Profile baseline inference latency ($t_{\text{exec}}$) and peak memory ($M_{\text{RAM}}$)<br><br>**Phase 2 (Design and Artifact Creation)**<br>• Execute text normalization, subword tokenization, and BIO subword label alignment<br>• Implement candidate MTO algorithms in PyTorch multi-task training loop<br>• Integrate routines for logging gradients tracking $\|\mathbf{g}_k\|_2$, $R_{\text{max/min}}$, and $\cos(\mathbf{g}_i, \mathbf{g}_j)$<br>• Compute intra-task baseline derived from half-batch gradients ($\cos_{\text{intra}, k}$)<br>• Integrate fine-tuned model into FastAPI backend with interactive map dashboard for incidents<br><br>**Phase 3 (Empirical Benchmarking)**<br>• Train shared encoder across all candidate MTO algorithms under 4-fold LOEO cross-validation<br>• Measure macro-averaged F1 for intent, macro-averaged F1 for urgency, and span-level F1 for NER<br>• Compute relative multi-task transfer ($\Delta_m$)<br>• Profile throughput (tweets/s), $t_{\text{exec}}$, and $M_{\text{RAM}}$<br><br>**Phase 4 (Comparative Validation)**<br>• Execute Wilcoxon signed-rank and Friedman tests ($p < 0.05$)<br>• Compute Spearman rank correlation ($\rho$) between gradient conflict metrics and $\Delta_m$ | **Trained Multi-Task Model**<br>• Fine-tuned, hard-parameter-sharing multilingual Transformer encoder executing NER, intent classification, and urgency classification concurrently in a single forward pass ($O(1)$ relative to task count $K$)<br><br>**Validated Empirical Benchmarks**<br>• Performance tables evaluating Intent Macro F1, Urgency Macro F1, NER Span F1, and relative multi-task transfer ($\Delta_m$) across four disaster event splits<br>• Computational efficiency benchmarks ($t_{\text{exec}}$ in ms, $M_{\text{RAM}}$ in MB, throughput in tweets/s)<br>• Comprehensive gradient diagnostic logs tracking per-step norms, norm ratios, and cosine similarities<br><br>**Statistical Significance Proofs**<br>• Non-parametric hypothesis test proofs ($p < 0.05$) determining significant performance gains over baselines<br>• Spearman rank correlation coefficients ($\rho$) validating gradient conflict mitigation vs transfer gains<br><br>**Prototype Web Application**<br>• Prototype web application for disaster triage featuring real-time model serving via a FastAPI backend, automated multi-task predictions, and an interactive map dashboard for incidents |
 
-The input stage establishes the empirical datasets, neural architectures, optimization algorithms, and testbed hardware specifications.
+### 7.1 Input Stage
 
-- **Raw Datasets and Hardware Specifications of the Testbed**
-  - Multi-Task Corpus of Taglish Disaster Tweets (6,000 to 10,000 tweets across Typhoon Haiyan, Typhoon Vamco, Typhoon Rai, and Typhoon Paeng) partitioned under 4-fold Leave-One-Event-Out splits.
-  - Token-level annotations of named entities in BIO format for location and infrastructure spans alongside sequence-level intent and urgency labels.
-  - Local workstation testbed running Linux Ubuntu 22.04 LTS with a dedicated NVIDIA GPU with CUDA support ($\ge 8\text{GB}$ VRAM), multi-core CPU, and 32GB RAM.
-- **Model Architectures and Baseline Configurations**
-  - Shared multilingual Transformer encoder (such as XLM-RoBERTa Base with $\approx 270\text{M}$ parameters or mBERT Base with $\approx 110\text{M}$ parameters) with hard parameter sharing across intermediate representation layers.
-  - Task-specific classification heads branching from the shared encoder for sequence classification and token-level sequence labeling.
-  - Isolated Single-Task Learning (STL) baselines, Uniform Equal Weighting ($w_k = 1/K$), and Static Linear Scalarization (LS) grid sweeps.
-- **Hyperparameter Constraints and Candidate MTO Algorithms**
-  - Candidate dynamic loss-weighting methods, including Uncertainty Weighting, GradNorm, and FAMO.
-  - Candidate gradient-surgery techniques, including PCGrad, CAGrad, IMTL-G, and Nash-MTL.
-  - Fixed hyperparameter search grids, including learning rates, batch sizes, optimizer schedules, and random seeds ($n \ge 3$).
-- **DSR Evaluation Metrics and Benchmarks**
-  - Task-specific evaluation metrics, namely macro-averaged F1 score for intent classification, macro-averaged F1 score for urgency classification, and span-level F1 score for Named Entity Recognition.
-  - Relative multi-task transfer ($\Delta_m$).
-  - Computational efficiency metrics, including single-pass inference latency ($t_{\text{exec}}$ in milliseconds), peak memory usage ($M_{\text{RAM}}$ in megabytes), and throughput in tweets per second.
-  - Significance threshold for non-parametric hypothesis tests ($p < 0.05$) and coefficients of Spearman rank correlation.
+The input stage establishes the empirical datasets, neural network architectures, optimization algorithms, and testbed hardware specifications.
 
-### 7.2 Process
+- **Raw Datasets and Hardware Specifications of the Testbed:** The dataset input comprises the Multi-Task Corpus of Taglish Disaster Tweets (6,000 to 10,000 tweets across Typhoon Haiyan, Typhoon Vamco, Typhoon Rai, and Typhoon Paeng) partitioned under a 4-fold Leave-One-Event-Out cross-validation protocol. Annotations include token-level named entities in BIO format for location and infrastructure spans alongside sequence-level intent and urgency labels. Hardware inputs specify a local workstation running Linux Ubuntu 22.04 LTS with a dedicated NVIDIA GPU ($\ge 8\text{GB}$ VRAM), multi-core CPU, and 32GB RAM.
+- **Model Architectures and Baseline Configurations:** Architectural inputs specify an encoder-only multilingual Transformer backbone (XLM-RoBERTa Base with $\approx 270\text{M}$ parameters and mBERT Base with $\approx 110\text{M}$ parameters) with hard parameter sharing across intermediate representation layers. Dedicated task-specific classification heads branch from the shared encoder for sequence classification and token-level sequence labeling. Baseline configurations include isolated Single-Task Learning (STL) baselines, Uniform Equal Weighting ($w_k = 1/K$), and Static Linear Scalarization (LS) grid sweeps.
+- **Hyperparameter Constraints and Candidate MTO Algorithms:** Algorithmic inputs specify two candidate MTO families: dynamic loss-weighting methods (Uncertainty Weighting, GradNorm, FAMO) and gradient-surgery techniques (PCGrad, CAGrad, IMTL-G, Nash-MTL). Hyperparameter grids define fixed learning rates, batch sizes, optimizer schedules, and random seeds ($n \ge 3$).
+- **DSR Evaluation Metrics and Benchmarks:** Evaluation inputs define task F1 metrics (macro-averaged F1 for intent, macro-averaged F1 for urgency, span-level F1 for NER), relative multi-task transfer ($\Delta_m$), computational efficiency metrics ($t_{\text{exec}}$, $M_{\text{RAM}}$, throughput), and the significance threshold for non-parametric hypothesis testing ($p < 0.05$).
+
+### 7.2 Process Stage
 
 The process stage executes the experimental pipeline across data preprocessing, multi-task model training, gradient logging, benchmarking, and web application deployment.
 
-- **Data Preprocessing and Batch Preparation**
-  - Text normalization, multilingual subword tokenization, alignment of BIO labels with subword tokens, and 4-fold Leave-One-Event-Out dataset splitting.
-- **Gradient Diagnostics and Optimization Implementation**
-  - PyTorch multi-task training loop implementing candidate Multi-Task Optimization (MTO) algorithms.
-  - Routines for logging gradients computing per-task gradient norms ($\|\mathbf{g}_k\|_2$), ratios of gradient norms, and pairwise cosine similarities ($\cos(\mathbf{g}_i, \mathbf{g}_j)$) on shared encoder parameters.
-  - Intra-task baseline derived from half-batch gradients to decouple stochastic diversity among mini-batch samples from cross-task gradient conflict.
-- **Empirical Benchmarking and Statistical Testing**
-  - Computational profiling of single-pass inference latency ($t_{\text{exec}}$), peak memory usage ($M_{\text{RAM}}$), and throughput under standardized testbed conditions.
-  - Task F1 scoring and relative multi-task transfer ($\Delta_m$) evaluation across four disaster event splits under a Leave-One-Event-Out protocol.
-  - Non-parametric hypothesis testing using the Wilcoxon signed-rank test and the Friedman test ($p < 0.05$) alongside Spearman rank correlation analysis.
-- **Web Application Development**
-  - Integration of the fine-tuned multi-task Transformer encoder into a FastAPI backend.
-  - Construction of an interactive map dashboard for incidents to support operational disaster management.
+- **Data Preprocessing and Batch Preparation:** Performs text normalization, multilingual subword tokenization, alignment of BIO labels with subword tokens, and 4-fold Leave-One-Event-Out dataset splitting.
+- **Gradient Diagnostics and Optimization Implementation:** Implements candidate MTO algorithms within the PyTorch multi-task training loop. Routines for logging gradients compute per-task gradient norms ($\|\mathbf{g}_k\|_2$), ratios of gradient norms, and pairwise cosine similarities ($\cos(\mathbf{g}_i, \mathbf{g}_j)$) on shared encoder parameters. The pipeline calculates the intra-task baseline derived from half-batch gradients to decouple stochastic mini-batch variance from cross-task gradient conflict.
+- **Empirical Benchmarking and Statistical Testing:** Profiles single-pass inference latency ($t_{\text{exec}}$), peak memory usage ($M_{\text{RAM}}$), and throughput under standardized testbed conditions. Evaluates task F1 scores and relative multi-task transfer ($\Delta_m$) across four disaster event splits under a Leave-One-Event-Out protocol. Executes non-parametric hypothesis testing using the Wilcoxon signed-rank test and Friedman test ($p < 0.05$) alongside Spearman rank correlation analysis.
+- **Web Application Development:** Integrates the fine-tuned multi-task Transformer encoder into a FastAPI backend and constructs an interactive map dashboard for incidents to support operational disaster response.
 
-### 7.3 Output
+### 7.3 Output Stage
 
 The output stage delivers four concrete research deliverables across the Design Science Research lifecycle.
 
-- **Trained Multi-Task Model**
-  - Fine-tuned, hard-parameter-sharing multilingual Transformer model executing Named Entity Recognition, intent classification, and urgency classification concurrently in a single forward pass ($O(1)$ relative to task count $K$).
-- **Validated Empirical Benchmark Results**
-  - Quantitative benchmark datasets and tables evaluating macro-averaged F1 score for intent classification, macro-averaged F1 score for urgency classification, span-level F1 score for Named Entity Recognition, relative multi-task transfer ($\Delta_m$), inference latency ($t_{\text{exec}}$ in ms), peak memory usage ($M_{\text{RAM}}$ in MB), throughput in tweets per second, and gradient diagnostic logs across four disaster event splits under a Leave-One-Event-Out protocol.
-- **Statistical Significance Results ($p < 0.05$)**
-  - Results of non-parametric statistical hypothesis tests (Wilcoxon signed-rank and Friedman tests at $p < 0.05$) validating whether candidate Multi-Task Optimization algorithms significantly outperform baselines.
-  - Coefficients of Spearman rank correlation validating the relationship between mitigating gradient conflicts and relative multi-task transfer.
-- **Prototype Web Application for Disaster Triage**
-  - Prototype web application for disaster triage featuring real-time model serving via a FastAPI backend, automated multi-task predictions, and an interactive map dashboard for incidents.
+- **Trained Multi-Task Model:** A fine-tuned, hard-parameter-sharing multilingual Transformer encoder executing Named Entity Recognition, intent classification, and urgency classification concurrently in a single forward pass ($O(1)$ relative to task count $K$).
+- **Validated Empirical Benchmark Results:** Quantitative benchmark datasets and tables evaluating macro-averaged F1 score for intent classification, macro-averaged F1 score for urgency classification, span-level F1 score for Named Entity Recognition, relative multi-task transfer ($\Delta_m$), inference latency ($t_{\text{exec}}$ in ms), peak memory usage ($M_{\text{RAM}}$ in MB), throughput in tweets per second, and gradient diagnostic logs across four disaster event splits under a Leave-One-Event-Out protocol.
+- **Statistical Significance Results ($p < 0.05$):** Results of non-parametric statistical hypothesis tests (Wilcoxon signed-rank and Friedman tests at $p < 0.05$) validating whether candidate Multi-Task Optimization algorithms significantly outperform baselines, accompanied by Spearman rank correlation coefficients ($\rho$) validating the relationship between gradient conflict mitigation and relative multi-task transfer.
+- **Prototype Web Application for Disaster Triage:** A prototype web application for disaster triage featuring real-time model serving via a FastAPI backend, automated multi-task predictions, and an interactive map dashboard for incidents.
 <!-- vale on -->
 
 ## 8. Scope and Delimitations
