@@ -1,0 +1,67 @@
+{
+  "title": "Low-supervision urgency detection and transfer in short crisis messages",
+  "authors": [
+    "Mayank Kejriwal",
+    "Peilin Zhou"
+  ],
+  "year": 2019,
+  "venue": "Proceedings of the 2019 IEEE/ACM International Conference on Advances in Social Networks Analysis and Mining (ASONAM 2019)",
+  "publication_type": "empirical study",
+  "problem_statement": "How to semi-automatically detect urgency in short crisis messages on social media with minimal supervision when only a small labeled dataset and an unlabeled background corpus exist, and how to effectively transfer urgency knowledge across disparate crisis events in immediate post-disaster scenarios where no target background corpus is available.",
+  "domain": "Crisis Informatics, Disaster Response, Social Media NLP (Twitter), Low-Supervision Machine Learning, Transfer Learning",
+  "theoretical_framework": "Multi-source feature ensembling combining domain-specific heuristic keyword indicators, local unsupervised subword-aware representations (fastText skip-gram), and generalized out-of-domain embeddings (pre-trained Wikipedia skip-gram); instance-based transfer learning via target up-sampling to mitigate domain shift and concept drift across heterogeneous disaster domains.",
+  "methodology": "A minimally supervised urgency classification pipeline evaluating two operational crisis settings: (1) Single-crisis low-supervision setting: Tweets undergo preprocessing (tokenization, stripping '@' mentions, 'RT' prefixes, special suffixes, non-alphanumeric characters, and converting to lowercase), followed by extracting an 11-dimensional manual feature vector (10 domain-specific keyword presence indicators: hit, help, kill, injure, strand, miss, urgent, die, need, food, plus 1 numeric digit presence indicator), training local fastText skip-gram word and sentence embeddings on the in-domain unlabeled background corpus, and extracting 300-dimensional pre-trained Wikipedia fastText embeddings. Three separate Linear Regression models are trained on each respective feature set and combined into a weighted ensemble calibrated on a held-out validation set. (2) Cross-crisis transfer learning setting (Algorithm 1): For a new target crisis lacking a background corpus, local fastText embeddings are trained on the auxiliary source crisis corpus, target manual features are extracted, and the small labeled target dataset is up-sampled by a factor of 6x before mixing with labeled source data to train three Linear Regression models whose predictions are combined via unweighted score averaging.",
+  "datasets": [
+    "Nepal Dataset - Tweets collected in the aftermath of the 2015 Nepal earthquake (Gorkha earthquake) via the DARPA LORELEI program, comprising a balanced labeled subset of 400 tweets (curated via iterative active learning) and an unlabeled background corpus",
+    "Kerala Dataset - Tweets collected in the aftermath of the 2018 Kerala floods in South India, comprising an imbalanced labeled subset of 400 tweets (curated via active learning) and a large unlabeled background corpus",
+    "Macedonia Dataset - Information-dense dataset from a live-action disaster simulation in Macedonia in late 2018 via the DARPA LORELEI program, consisting of 205 messages all labeled as urgent or non-urgent without an unlabeled background corpus"
+  ],
+  "evaluation": {
+    "metrics": [
+      "Accuracy",
+      "Precision",
+      "Recall",
+      "F-Measure (harmonic mean of precision and recall)",
+      "One-sided Student's paired t-test across 10 experimental trials against the Local baseline"
+    ],
+    "rq1_low_supervision_results": {
+      "nepal_f_measure": "69.44% (significant at p < 0.01 over Local baseline)",
+      "kerala_f_measure": "Demonstrates statistically significant improvements over individual feature representations on imbalanced data"
+    },
+    "rq2_transfer_learning_results": {
+      "transfer_configurations": [
+        "Nepal (source) -> Macedonia (target)",
+        "Kerala (source) -> Macedonia (target)",
+        "Nepal (source) -> Kerala (target)",
+        "Kerala (source) -> Nepal (target)"
+      ],
+      "observations": "Transfer methods outperform target-only Local baselines across almost all metrics; target up-sampling (6x) improves transfer robustness; source-target instance mixing achieves a 2.0% to 2.7% F-Measure improvement over up-sampling alone in two configurations"
+    }
+  },
+  "key_findings": [
+    "Combining manual keyword features, local unsupervised fastText embeddings, and pre-trained Wikipedia embeddings in a linear regression ensemble significantly outperforms individual feature representations and local baselines for low-supervision urgency detection (achieving 69.44% F-Measure on the Nepal dataset at 99% statistical significance).",
+    "Local background embeddings substantially improve recall and accuracy, whereas manual keyword heuristics elevate precision, confirming that multi-source feature ensembling effectively balances precision-recall trade-offs in short crisis message classification.",
+    "Pre-trained Wikipedia embeddings act as an effective free regularizer that stabilizes model performance and enhances generalization without requiring additional labeled or domain-specific unlabeled data.",
+    "In immediate post-disaster settings lacking target background corpora, transferring word embeddings from an auxiliary source disaster combined with 6x target up-sampling consistently exceeds target-only local baselines.",
+    "Cross-crisis transfer learning achieves lower overall performance than single-crisis training with target background corpora (for example, Nepal F-Measure decreases from over 69% in single-crisis training to 62.5% when transferring from Kerala) due to domain shift and disaster-specific vocabulary variations.",
+    "Mixing labeled source and target instances provides diminishing performance gains (2.0% to 2.7% F-Measure improvement over target up-sampling alone in two out of four transfer configurations)."
+  ],
+  "scope_and_delimitations": [
+    "Restricted crisis communications exclusively to English-language short messages and tweets across three disaster events (2015 Nepal earthquake, 2018 Kerala floods, and 2018 Macedonia disaster simulation).",
+    "Delimited classification objective strictly to binary urgency detection (urgent versus non-urgent).",
+    "Delimited classification architectures to Linear Regression models over static manual keyword indicators and fastText sentence embeddings, excluding deep transformer neural networks.",
+    "Delimited target labeled data acquisition in transfer learning scenarios to a maximum of 400 actively sampled instances without an in-domain target background corpus."
+  ],
+  "limitations": {
+    "verbatim_excerpt": "Our approach shows a slight improvement over the upsampling baseline on two of the four scenarios (Tables V and VII) by 2-2.7% on the F-Measure metric, which shows the diminishing returns from mixing source and target labeled training data. Further improving performance by high margins will require a radically new approach left for future work.",
+    "summary": "The transfer learning methodology yields diminishing returns when combining source and target labeled data, providing only modest F-Measure improvements (2.0% to 2.7%) over target up-sampling alone in two of four transfer settings. Additionally, cross-crisis transfer performance remains consistently lower than single-crisis models trained on in-domain background corpora because of domain shift and vocabulary divergences across distinct disaster types. The system also relies on manually engineered keyword indicators that introduce noise and shallow fastText embeddings that lack deep contextual token modeling."
+  },
+  "generalizability_gap": "The framework is evaluated exclusively on English-language short messages from three specific emergency scenarios (earthquake, flood, and disaster simulation); generalizability to other disaster categories (such as biological epidemics or armed conflicts), non-English languages, multilingual code-switched text, and social platforms beyond Twitter remains unexamined.",
+  "methodological_gap": "The architecture relies on static keyword heuristics and shallow fastText embeddings evaluated with Linear Regression classifiers rather than deep contextual transformer models; the transfer learning mechanism employs simple instance up-sampling without domain adaptation objectives, adversarial feature alignment, or uncertainty calibration to handle severe class prior and lexical distribution shifts across crises.",
+  "future_work": [
+    "Expanding the manual feature space with broader domain-specific crisis lexicons and syntactic features.",
+    "Utilizing more sophisticated local embedding architectures with systematic hyperparameter optimization for learning rates and vector dimensionality.",
+    "Developing deep learning transfer architectures with informative priors to leverage auxiliary source crisis domains on irregular social media text.",
+    "Investigating advanced domain adaptation techniques to bridge substantial lexical and contextual shifts between disparate disaster events."
+  ]
+}

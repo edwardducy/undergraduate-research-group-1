@@ -1,0 +1,73 @@
+{
+  "title": "GLUE: A Multi-Task Benchmark and Analysis Platform for Natural Language Understanding",
+  "authors": [
+    "Alex Wang",
+    "Amanpreet Singh",
+    "Julian Michael",
+    "Felix Hill",
+    "Omer Levy",
+    "Samuel R. Bowman"
+  ],
+  "year": 2019,
+  "venue": "Proceedings of the 7th International Conference on Learning Representations (ICLR 2019)",
+  "publication_type": "benchmark dataset",
+  "problem_statement": "Most natural language understanding models above the word level are engineered for isolated tasks and struggle with out-of-domain generalization; existing evaluation platforms focus narrowly on sentence-to-vector encoders and sentiment-heavy datasets, lacking a model-agnostic multi-task benchmark with private test data and diagnostic probing tools to measure general, robust linguistic understanding.",
+  "domain": "Natural Language Understanding (NLU), Multi-Task Learning, Transfer Learning, Sentence Representation Evaluation across Diverse Linguistic Phenomena and Genres (English)",
+  "theoretical_framework": "Multi-task and transfer representation learning in NLP; sentence-level semantic compositionality; formal linguistic semantics and natural logic (factivity, intersectivity, monotonicity, quantification, and syntactic alternations for diagnostic probing).",
+  "methodology": "The authors introduce the General Language Understanding Evaluation (GLUE) benchmark, consisting of: (1) A suite of nine English sentence understanding tasks spanning single-sentence classification (CoLA, SST-2), similarity/paraphrase identification (MRPC, QQP, STS-B), and natural language inference / textual entailment (MNLI, QNLI, RTE, WNLI); (2) An online evaluation platform with an automated scoring service and public leaderboard based primarily on privately-held test sets to prevent data snooping and ensure fair comparisons; (3) An expert-constructed diagnostic evaluation dataset containing 550 naturally-occurring sentence pairs (1,100 directed inference examples) tagged across four coarse categories (Lexical Semantics, Predicate-Argument Structure, Logic, and Knowledge) and over thirty fine-grained phenomena to probe model reasoning mechanisms and error modes; and (4) Baseline empirical experiments comparing multi-task models against separate single-task models and pre-trained sentence representation encoders (CBoW, Skip-Thought, InferSent, DisSent, GenSen, and ELMo/CoVe augmented BiLSTMs with and without cross-sentence attention).",
+  "datasets": [
+    "CoLA (Corpus of Linguistic Acceptability): 8.5k train, 1k dev, 1k test sentences for grammatical acceptability judgments from linguistics literature.",
+    "SST-2 (Stanford Sentiment Treebank): 67k train, 872 dev, 1.8k test movie review sentences for binary positive/negative sentiment classification.",
+    "MRPC (Microsoft Research Paraphrase Corpus): 3.7k train, 408 dev, 1.7k test news sentence pairs for semantic equivalence.",
+    "QQP (Quora Question Pairs): 364k train, 40k dev, 391k test question pairs from Quora for semantic duplicate detection.",
+    "STS-B (Semantic Textual Similarity Benchmark): 5.7k train, 1.5k dev, 1.4k test sentence pairs drawn from news, captions, and NLI data with similarity scores from 1 to 5.",
+    "MNLI (Multi-Genre Natural Language Inference Corpus): 393k train, 20k dev, 20k test sentence pairs across 10 genres for 3-class textual entailment, augmented optionally with 550k SNLI examples.",
+    "QNLI (Question-answering NLI converted from SQuAD): 105k train, 5.5k dev, 5.5k test question-context sentence pairs for binary entailment.",
+    "RTE (Recognizing Textual Entailment): 2.5k train, 276 dev, 3k test sentence pairs combining RTE1, RTE2, RTE3, and RTE5 for binary entailment.",
+    "WNLI (Winograd NLI converted from Winograd Schema Challenge): 634 train, 71 dev, 146 test sentence pairs for pronoun coreference resolution.",
+    "Diagnostic Dataset: 550 naturally-occurring sentence pairs (1,100 directed inference examples) annotated across 4 coarse and 30+ fine-grained linguistic phenomena."
+  ],
+  "evaluation": {
+    "metrics": [
+      "Accuracy for SST-2, QNLI, RTE, and WNLI",
+      "Matthews Correlation Coefficient (MCC) for CoLA",
+      "Average of Accuracy and F1 Score for MRPC and QQP",
+      "Average of Pearson and Spearman Correlation Coefficients for STS-B",
+      "Accuracy across Matched (in-domain) and Mismatched (cross-domain) test sets for MNLI",
+      "Macro-Average Score across all nine benchmark tasks for leaderboard ranking",
+      "R3 three-class correlation coefficient for the Diagnostic Dataset"
+    ],
+    "baseline_performance": [
+      "Multi-task BiLSTM + ELMo + Attention achieves highest overall GLUE score (70.0 macro-average) vs. single-task counterpart (67.4).",
+      "Pre-trained sentence encoders achieve lower overall scores: CBoW (58.9), Skip-Thought (61.5), InferSent (65.6), DisSent (62.2), GenSen (66.5).",
+      "Baseline models perform poorly on WNLI (all models score at or below most-frequent class baseline of 65.1%) and RTE (best model scores 61.7%).",
+      "On diagnostic evaluation, best model achieves an R3 of only 0.28 (human baseline reaches 0.80 with Fleiss kappa of 0.73), exhibiting severe drops on Logic and downward monotonicity."
+    ]
+  },
+  "key_findings": [
+    "Multi-task training across GLUE tasks consistently outperforms training separate single-task models when incorporating attention mechanisms or pre-trained ELMo representations.",
+    "Contextualized word representations from ELMo significantly improve performance over static GloVe and translation-derived CoVe embeddings, especially on single-sentence tasks.",
+    "Pre-trained sentence representation models (CBoW, Skip-Thought, InferSent, GenSen) lag behind multi-task models directly trained on the benchmark, particularly on grammatical acceptability (CoLA).",
+    "Current models struggle substantially with low-resource and complex inference tasks, failing to exceed the majority-class baseline on WNLI (65.1%) and obtaining low accuracy on RTE.",
+    "Diagnostic probing reveals that baseline NLU models exploit shallow lexical heuristics (such as quantifier keywords and subsequence overlap) rather than true compositional reasoning, failing severely on downward monotonicity, double negation, and restrictivity.",
+    "Multi-task models underperform single-task models on the diagnostic MNLI evaluation (R3 score drops), indicating destructive task interference during joint training with uniform sampling."
+  ],
+  "scope_and_delimitations": [
+    "Benchmark tasks are strictly delimited to English single-sentence and sentence-pair understanding tasks, excluding generation, token-level sequence labeling, and multi-turn dialogue.",
+    "Dataset formats are recast into classification or regression, eliminating token span extraction for question answering in QNLI and candidate pronoun selection in WNLI.",
+    "Evaluation is confined to sentence-level semantics and inference without testing long-document contexts or multimodal inputs.",
+    "Diagnostic suite is curated specifically for error analysis of NLI models rather than general downstream task evaluation."
+  ],
+  "limitations": {
+    "verbatim_excerpt": "The diagnostic examples are hand-picked to address certain phenomena, and NLI is a task with no natural input distribution, so we do not expect performance on the diagnostic set to reflect overall performance or generalization in downstream applications. Performance on the analysis set should be compared between models but not between categories. The set is provided not as a benchmark, but as an analysis tool for error analysis, qualitative model comparison, and development of adversarial examples.",
+    "summary": "The authors highlight several key limitations of the benchmark and evaluated baselines: (1) the diagnostic evaluation set is hand-crafted and not drawn from a natural input distribution, meaning diagnostic scores reflect qualitative error patterns rather than general downstream application performance; (2) simple multi-task training regimes suffer from destructive task interference, leading multi-task models to underperform single-task models on diagnostic NLI probing; (3) baseline sentence representation and multi-task models fail on challenging reasoning tasks like WNLI (unable to beat majority-class guessing) and struggle with complex logical structures like downward monotonicity and restrictivity; and (4) recasting tasks into sentence-pair classification introduces specific artifacts, such as adversarial dev sets in WNLI."
+  },
+  "generalizability_gap": "The GLUE benchmark is restricted exclusively to English-language sentence-level understanding tasks, leaving unaddressed multilingual NLU, low-resource languages, code-switched text, long-form document comprehension, generative dialogue, and multi-modal grounding tasks.",
+  "methodological_gap": "The baseline models rely on basic multi-task training with proportional task sampling and uniform loss aggregation without gradient conflict resolution (e.g., PCGrad, CAGrad) or adaptive routing, leading to negative transfer; additionally, the benchmark recasts token-level span extraction (SQuAD to QNLI) and pronoun selection (Winograd to WNLI) into sentence-pair classification, altering the native task mechanics and introducing dataset-specific artifacts.",
+  "future_work": [
+    "Developing improved general NLU architectures capable of deep semantic and logical reasoning beyond surface-level lexical heuristics.",
+    "Exploring advanced multi-task training and optimization regimes to mitigate destructive task interference between heterogeneous objectives.",
+    "Extending diagnostic probing suites to evaluate additional fine-grained linguistic phenomena and broader task distributions.",
+    "Investigating methods that effectively transfer knowledge to low-resource and complex inference tasks like WNLI and RTE."
+  ]
+}

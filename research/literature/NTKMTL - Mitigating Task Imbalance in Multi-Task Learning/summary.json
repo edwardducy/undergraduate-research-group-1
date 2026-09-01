@@ -14,11 +14,11 @@
   "theoretical_framework": "Neural Tangent Kernel (NTK) theory and spectral analysis of gradient flow ordinary differential equations, which model convergence speeds of individual tasks through the eigenvalues of an extended multi-task NTK matrix.",
   "methodology": "NTKMTL constructs an extended Neural Tangent Kernel matrix across tasks and normalizes task loss weights inversely proportional to the square root of the maximum eigenvalue of each task-specific NTK matrix scaled by the average maximum eigenvalue; NTKMTL-SR accelerates computation by calculating the NTK matrix over shared representations rather than full network parameters.",
   "datasets": [
-    "NYUv2",
-    "Cityscapes",
-    "CelebA",
-    "QM9",
-    "Meta-World MT10"
+    "NYUv2 (indoor scene understanding benchmark with 3 dense prediction tasks: 13-class semantic segmentation, depth estimation, and surface normal prediction; 795 train / 654 test images)",
+    "Cityscapes (urban scene understanding benchmark with 2 dense prediction tasks: 7-class semantic segmentation and depth estimation; downsampled to 128×256)",
+    "CelebA (large-scale facial attribute dataset with over 200,000 images evaluated across 40 binary attribute classification tasks)",
+    "QM9 (quantum chemistry molecular property regression benchmark containing over 130,000 organic molecules as graphs with 11 property prediction tasks)",
+    "Meta-World MT10 (multi-task reinforcement learning benchmark comprising 10 robotic manipulation environments evaluated with Soft Actor-Critic)"
   ],
   "evaluation": {
     "metrics": [
@@ -51,28 +51,41 @@
       "STCH",
       "FAMO",
       "FairGrad",
-      "GO4Align"
+      "GO4Align",
+      "Multi-task SAC (MTL SAC)",
+      "Multi-task SAC with Task Encoder (MTL SAC + TE)",
+      "Multi-headed SAC (MH SAC)"
+    ],
+    "architectures": [
+      "SegNet-based Multi-Task Attention Network (MTAN) for NYUv2 and Cityscapes",
+      "9-layer Convolutional Neural Network (CNN) with task-specific linear heads for CelebA",
+      "Message Passing Neural Network (MPNN) with Set2Set pooling for QM9",
+      "Soft Actor-Critic (SAC) multi-layer perceptron policy network for Meta-World MT10"
     ]
   },
   "key_findings": [
     "The convergence speed of each task in multi-task learning is governed by the eigenvalues of its task-specific Neural Tangent Kernel matrix, leading to spectral bias where tasks with larger eigenvalues dominate training.",
     "Weighting tasks inversely proportional to the square root of their maximum NTK eigenvalue balances convergence speeds across tasks and mitigates task imbalance.",
     "NTKMTL achieves state-of-the-art performance on the NYUv2 dense prediction benchmark with a mean rank of 4.33 and a relative performance drop of -6.99%, outperforming single-task learning across all three tasks.",
+    "On Cityscapes, NTKMTL achieves balanced performance across semantic segmentation and depth estimation, securing the lowest relative performance drop of 1.92%.",
     "On the CelebA 40-task benchmark, NTKMTL achieves an overall improvement over single-task learning (Δm% of -0.77%), outperforming all previous multi-task baselines.",
     "NTKMTL-SR uses shared representations to achieve training speeds comparable to loss-oriented linear scalarization while attaining state-of-the-art results on the QM9 11-task regression benchmark (mean rank 4.00, Δm% 30.7%).",
+    "The authors identified that prior QM9 multi-task benchmarks suffered from premature learning rate decay in the shared codebase; re-evaluating baselines under adjusted scheduler parameters significantly improved convergence across all methods.",
     "NTKMTL generalizes effectively to multi-task reinforcement learning on the Meta-World MT10 benchmark, achieving a 0.96 success rate."
   ],
   "scope_and_delimitations": [
     "Evaluated on supervised multi-task learning (2 to 40 tasks) and multi-task reinforcement learning (10 tasks).",
     "Focuses optimization weight derivations primarily on the diagonal task-specific blocks of the extended NTK matrix.",
-    "NTKMTL uses mini-batch size n=1 for shared parameter calculations, while NTKMTL-SR uses mini-batch size n=4 on shared representations."
+    "NTKMTL uses mini-batch size n=1 for shared parameter calculations, while NTKMTL-SR uses mini-batch size n=4 on shared representations.",
+    "Model architectures are restricted to SegNet-based MTAN for dense vision, 9-layer CNN for facial classification, MPNN for molecular regression, and SAC for robotic RL.",
+    "All computational benchmarks were executed on a single NVIDIA RTX 4090 GPU."
   ],
   "limitations": {
-    "verbatim_excerpt": "In this work, we proposed the extended NTK Ke for MTL as a tool for more comprehensive analysis of training dynamics across tasks. The weight design of our current method mainly focuses on the analysis of the task-specific NTK matrices Kii. The full structure of the extended NTK matrix Ke offers further analytical opportunities. For example, analyzing the off-diagonal Kij blocks could reveal novel insights into task interactions or guide the development of task grouping strategies. These potential avenues are left for future investigation.",
-    "summary": "The method relies solely on the diagonal task-specific blocks of the extended NTK matrix rather than modeling inter-task interactions present in the off-diagonal blocks, and NTKMTL-SR is difficult to apply in reinforcement learning settings where networks lack explicit separation between shared and task-specific heads."
+    "verbatim_excerpt": "In this work, we proposed the extended NTK Ke for MTL as a tool for more comprehensive analysis of training dynamics across tasks. The weight design of our current method mainly focuses on the analysis of the task-specific NTK matrices Kii. The full structure\n\nof the extended NTK matrix Ke offers further analytical opportunities. For example, analyzing the off-diagonal Kij blocks could reveal novel insights into task interactions or guide the development of task grouping strategies. These potential avenues are left for future investigation.",
+    "summary": "The task weight design focuses strictly on the diagonal task-specific blocks of the extended NTK matrix rather than modeling cross-task interactions or synergies represented in the off-diagonal blocks; full NTKMTL incurs computational overhead requiring gradient computation across mini-batches, while its fast shared-representation variant (NTKMTL-SR) is challenging to apply in environments such as reinforcement learning where models do not cleanly separate into shared backbones and task-specific heads."
   },
-  "generalizability_gap": "The method has not been evaluated on large-scale language models, multi-modal foundation models, or non-stationary online learning environments.",
-  "methodological_gap": "The weight calculation considers only the maximum eigenvalue of the task-specific NTK block rather than the complete eigenvalue spectrum or the off-diagonal task-interaction blocks of the extended NTK matrix.",
+  "generalizability_gap": "The authors did not evaluate the method on natural language processing tasks, large language models, multi-modal foundation models, or non-stationary online environments.",
+  "methodological_gap": "The weight calculation considers only the maximum eigenvalue of each task-specific NTK block rather than the full eigenvalue spectrum or off-diagonal task-interaction blocks, requires computing gradients across multiple mini-batches for full NTKMTL, and assumes a separable shared-representation architecture that limits NTKMTL-SR in policy networks.",
   "future_work": [
     "Analyzing the off-diagonal blocks Kij of the extended NTK matrix to model inter-task interactions.",
     "Developing task grouping and task clustering strategies based on the full structure of the extended NTK matrix.",

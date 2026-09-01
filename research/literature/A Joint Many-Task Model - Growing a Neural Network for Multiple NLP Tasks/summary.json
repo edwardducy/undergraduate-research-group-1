@@ -1,0 +1,95 @@
+{
+  "title": "A Joint Many-Task Model: Growing a Neural Network for Multiple NLP Tasks",
+  "authors": [
+    "Kazuma Hashimoto",
+    "Caiming Xiong",
+    "Yoshimasa Tsuruoka",
+    "Richard Socher"
+  ],
+  "year": 2017,
+  "venue": "Proceedings of the 2017 Conference on Empirical Methods in Natural Language Processing (EMNLP 2017)",
+  "publication_type": "empirical study",
+  "problem_statement": "How to jointly train a single deep neural network across multiple increasingly complex NLP tasks across morphological, syntactic, and semantic levels by reflecting linguistic hierarchies in network depth, sharing low-level predictions with higher layers, and preventing catastrophic forgetting or catastrophic interference across tasks.",
+  "domain": "Natural Language Processing (NLP), Multi-Task Learning, Linguistic Hierarchy Modeling, Deep Neural Networks, Sequence Tagging, Syntactic Parsing, Sentence Semantics",
+  "theoretical_framework": "Linguistic hierarchy principles in NLP (morphology to syntax to semantics, e.g. POS tags -> chunk tags -> syntactic dependencies -> semantic relatedness -> textual entailment); multi-task learning with deep neural networks (Caruana, 1997; Collobert et al., 2011; Søgaard and Goldberg, 2016) where lower-level tasks are supervised at lower layers; continual learning without catastrophic forgetting (Li and Hoiem, 2016; Rusu et al., 2016); Skip-gram word and character n-gram distributional semantics (Mikolov et al., 2013; Bojanowski et al., 2017); bidirectional LSTMs (Graves & Schmidhuber, 2005; Hochreiter & Schmidhuber, 1997); greedy dependency parsing as head selection (Zhang et al., 2017; Dozat & Manning, 2017; Eisner, 1996); and sentence-pair semantic representation via element-wise operations and Maxout networks (Tai et al., 2015; Goodfellow et al., 2013).",
+  "methodology": "The Joint Many-Task (JMT) model implements a five-layer bidirectional LSTM architecture where depth successively grows to solve five NLP tasks ordered by linguistic hierarchy: (1) POS tagging on layer 1 with a ReLU softmax classifier; (2) chunking on layer 2 taking layer 1 hidden states, shared word/character embeddings, and weighted POS label embeddings; (3) dependency parsing on layer 3 taking layer 2 hidden states, shared embeddings, and POS + chunking label embeddings, scoring candidate parents via a matching function and applying Eisner's algorithm when non-projective cycles occur; (4) semantic relatedness on layer 4 using max-pooling over token hidden states, element-wise difference and product operations between sentence representations, and a Maxout softmax classifier trained via KL-divergence loss; and (5) textual entailment on layer 5 using max-pooling, asymmetric sentence subtraction and multiplication, and weighted relatedness label embeddings fed into three Maxout hidden layers with cross-entropy loss. All layers use shortcut connections feeding the shared input embeddings (Skip-gram word + averaged unique character n-gram embeddings). Training follows a sequential dataset iteration per epoch with growing gradient clipping (min(3.0, depth)), L2-norm regularization, dropout, and a successive regularization term δ||θ_{task} - θ'_{task}||^2 that penalizes divergence from parameters trained at the previous task/epoch to prevent catastrophic interference.",
+  "datasets": [
+    "Penn Treebank (WSJ): POS tagging (Sections 0-18 train / 19-21 dev / 22-24 test; 39,832 train sentences)",
+    "CoNLL-2000 Shared Task (WSJ): Chunking (Sections 15-18 train / 19 dev / 20 test; IOBES tagging scheme)",
+    "Penn Treebank (WSJ) with Stanford Dependencies (v3.3.0): Dependency parsing (Sections 2-21 train / 22 dev / 23 test; UAS and LAS metrics excluding punctuation)",
+    "SICK (Sentences Involving Compositional Knowledge): Semantic relatedness (4,500 train / 500 dev / 4,927 test sentence pairs; real-valued relatedness score 1-5)",
+    "SICK (Sentences Involving Compositional Knowledge): Textual entailment (4,500 train / 500 dev / 4,927 test sentence pairs; 3 classes: entailment, contradiction, neutral)"
+  ],
+  "evaluation": {
+    "metrics": [
+      "POS tagging: Word-level accuracy (%)",
+      "Chunking: F1 score (%) under IOBES scheme",
+      "Dependency parsing: Unlabeled Attachment Score (UAS %) and Labeled Attachment Score (LAS %) excluding punctuation",
+      "Semantic relatedness: Mean Squared Error (MSE), Pearson's r, Spearman's rho",
+      "Textual entailment: 3-class classification accuracy (%)"
+    ],
+    "benchmark_results": {
+      "POS_Tagging_WSJ_Accuracy": {
+        "Single_Task": 97.1,
+        "JMTall": 97.55,
+        "Ling_et_al_2015_SOTA": 97.78
+      },
+      "Chunking_CoNLL2000_F1": {
+        "Single_Task": 95.05,
+        "JMTAB": 95.77,
+        "Sogaard_and_Goldberg_2016": 95.56,
+        "Suzuki_and_Isozaki_2008_SOTA": 95.15
+      },
+      "Dependency_Parsing_WSJ_UAS_LAS": {
+        "Single_Task_UAS": 93.35,
+        "Single_Task_LAS": 91.21,
+        "JMTall_UAS": 94.71,
+        "JMTall_LAS": 93.0,
+        "Andor_et_al_2016_UAS": 94.61,
+        "Dozat_and_Manning_2017_SOTA_UAS": 95.74
+      },
+      "Semantic_Relatedness_SICK_MSE": {
+        "Single_Task": 0.26,
+        "JMTDE": 0.24,
+        "JMTall": 0.233,
+        "Tai_et_al_2015_SOTA": 0.253,
+        "Zhou_et_al_2016_SOTA": 0.243
+      },
+      "Textual_Entailment_SICK_Accuracy": {
+        "Single_Task": 83.1,
+        "JMTDE": 85.8,
+        "JMTall": 86.2,
+        "Yin_et_al_2016_SOTA": 86.2
+      }
+    }
+  },
+  "key_findings": [
+    "Stacking NLP tasks at successively deeper layers according to linguistic hierarchy (POS tagging -> chunking -> dependency parsing -> semantic relatedness -> textual entailment) significantly outperforms predicting tasks at the same depth or handling tasks separately.",
+    "Joint multi-task training in the JMT model improves performance across all five tasks compared to their single-task baselines, demonstrating that joint learning benefits both higher-level semantic tasks and lower-level syntactic/tagging tasks.",
+    "Shortcut connections that directly feed shared word and character n-gram representations into all deeper BiLSTM layers are critical for performance, particularly for semantic tasks in higher layers.",
+    "Explicitly passing predicted output label embeddings from lower layers to higher layers provides substantial improvements over solely sharing internal hidden states (vertical connections).",
+    "Successive regularization prevents catastrophic interference across tasks, yielding notable performance gains on tasks with smaller dataset sizes (such as chunking).",
+    "Training tasks in order from lower-level to higher-level within each epoch outperforms random task shuffling or mixed mini-batching.",
+    "Pre-trained character n-gram embeddings combined with word embeddings provide essential morphological features that improve POS tagging, chunking, and parsing accuracy without requiring complex character LSTM encoders."
+  ],
+  "scope_and_delimitations": [
+    "Evaluated exclusively on English-language text benchmarks spanning five specific tasks across the Wall Street Journal (WSJ) Penn Treebank and SICK datasets, without testing on non-English languages, multilingual transfer, machine translation, or dialogue systems.",
+    "Constrained model architecture to five stacked bidirectional LSTM layers with hidden state and embedding dimensionality of 100, using greedy head-selection parsing backed by Eisner's algorithm and max-pooling sentence representations.",
+    "Limited shared input representations to Skip-gram word embeddings and averaged unique character n-gram embeddings (n=1,2,3) without transformer-based contextual language models.",
+    "Delimited training optimization to sequential iteration over full datasets per epoch with gradient clipping capped at min(3.0, depth) and joint parameter regularization."
+  ],
+  "limitations": {
+    "verbatim_excerpt": "In our JMT model, it is not obvious when to stop the training while trying to maximize the scores of all the five tasks. We focused on maximizing the accuracy of dependency parsing on the development data in our experiments. However, the sizes of the training data are different across the different tasks; for example, the semantic tasks include only 4,500 sentence pairs, and the dependency parsing dataset includes 39,832 sentences with word-level annotations. Thus, in general, dependency parsing requires more training epochs than the semantic tasks, but currently, our model trains all of the tasks for the same training epochs. The same strategy for decreasing the learning rate is also shared across all the different tasks, although our growing gradient clipping method described in Section 5.2 helps improve the results. Indeed, we observed that better scores of the semantic tasks can be achieved before the accuracy of dependency parsing reaches the best score. Developing a method for achieving the best scores for all of the tasks at the same time is important future work.",
+    "summary": "The JMT model lacks an optimal stopping and scheduling mechanism across tasks with highly imbalanced dataset sizes, forcing all tasks to share identical training epochs and learning rate decay schedules despite semantic tasks reaching peak performance earlier than data-heavy syntactic parsing tasks. In addition, the model does not explicitly exploit predicted dependency tree structures for downstream semantic tasks, uses simple greedy parsing requiring post-hoc tree corrections, and relies on fixed-dimensional static embeddings."
+  },
+  "generalizability_gap": "The JMT architecture was evaluated exclusively on English language corpora across a limited set of five standardized tasks (WSJ Penn Treebank and SICK); the authors did not test generalization to non-English languages, morphologically rich languages, cross-lingual transfer, cross-domain adaptation, long-document understanding, or generative sequence-to-sequence tasks.",
+  "methodological_gap": "The model trains all tasks for a uniform number of epochs with a uniform learning rate schedule despite large disparities in dataset sizes and convergence rates; it does not dynamically balance task losses or optimize task-specific early stopping; the higher-level semantic layers use simple max-pooling and do not explicitly consume the parse trees or structural outputs generated by the dependency parsing layer; and dependency parsing relies on greedy head selection requiring post-hoc Eisner algorithm projection rather than global biaffine attention or transition-based search.",
+  "future_work": [
+    "Developing a method for achieving the best scores for all of the tasks at the same time by addressing task-specific training epochs and learning rate scheduling.",
+    "Incorporating more complex tasks into the JMT model, such as entity detection, relation extraction, and language modeling.",
+    "Training each task across multiple domains to enhance domain adaptation capabilities.",
+    "Efficiently utilizing large unlabeled text corpora to improve the entire hierarchical multi-task representation beyond initial word and character embedding pre-training.",
+    "Explicitly incorporating learned syntactic dependency structures into higher-level semantic reasoning layers.",
+    "Learning low-level tasks via task-oriented optimization of high-level objectives, such as latent graph parsing driven by neural machine translation."
+  ]
+}

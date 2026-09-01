@@ -1,0 +1,115 @@
+{
+  "title": "Reporting Score Distributions Makes a Difference: Performance Study of LSTM-networks for Sequence Tagging",
+  "authors": [
+    "Nils Reimers",
+    "Iryna Gurevych"
+  ],
+  "year": 2017,
+  "venue": "Conference on Empirical Methods in Natural Language Processing (EMNLP)",
+  "publication_type": "empirical study",
+  "problem_statement": "Reporting a single performance score is insufficient and misleading when comparing non-deterministic deep learning models, because random seed variation across weight initialization, data shuffling, and dropout masks causes statistically significant performance fluctuations that alter perceived state-of-the-art rankings.",
+  "domain": "Natural Language Processing (NLP) and Deep Learning for Sequence Tagging",
+  "theoretical_framework": "Non-convex optimization landscape and generalization dynamics of deep neural networks, focusing on the distinction between sharp and flat local minima in parameter weight-space under stochastic initialization and non-deterministic training dynamics.",
+  "methodology": "The authors conducted an extensive empirical study evaluating over 50,000 BiLSTM network configurations across five sequence tagging tasks (POS tagging, Chunking, Named Entity Recognition, Entity Recognition, and Event Detection). The study evaluated random seed sensitivity by re-running two state-of-the-art NER systems (Ma and Hovy 86 times, Lample et al. 41 times) and analyzing 1,830 paired seed configurations across all five tasks using Kolmogorov-Smirnov and Brown-Forsythe tests. The authors then evaluated hyperparameter stability and sensitivity across 10 architectural choices (pre-trained word embeddings, character representations, optimizers, gradient clipping/normalization, tagging schemes, dropout configurations, output classifiers, stacked BiLSTM layers, recurrent units, and mini-batch sizes) to identify configurations that achieve superior performance with minimal score variance.",
+  "datasets": [
+    "Penn Treebank (WSJ section reduced to the first 500 training sentences for POS tagging)",
+    "CoNLL 2000 shared task dataset (Chunking)",
+    "CoNLL 2003 shared task dataset (Named Entity Recognition)",
+    "ACE 2005 dataset (Entity Recognition)",
+    "TempEval-3 Task B dataset (Event Detection)"
+  ],
+  "evaluation": {
+    "metrics": [
+      "Accuracy (for POS tagging)",
+      "F1-score (for Chunking, NER, Entity Recognition, and Event Detection)",
+      "Performance standard deviation (sigma)",
+      "Median difference (Delta F1 / Delta Acc)",
+      "95th percentile performance difference",
+      "Maximum performance difference",
+      "Kolmogorov-Smirnov two-sample test (distribution comparison)",
+      "Brown-Forsythe test (variance equality comparison)",
+      "Randomization test with Bonferroni correction",
+      "Spearman rank correlation (rho) between development and test performance"
+    ],
+    "evaluated_components": {
+      "word_embeddings": [
+        "Google News (Mikolov et al., 2013)",
+        "Levy and Goldberg Bag of Words (Le. BoW, 2014)",
+        "Levy and Goldberg Dependency-based (Le. Dep., 2014)",
+        "GloVe 100-dimensional (GloVe1, Pennington et al., 2014)",
+        "GloVe 300-dimensional (GloVe2, Pennington et al., 2014)",
+        "GloVe Common Crawl (GloVe3, Pennington et al., 2014)",
+        "Komninos and Manandhar Dependency-based (Komn., 2016)",
+        "FastText Subword Embeddings (Bojanowski et al., 2016)"
+      ],
+      "character_representations": [
+        "CNN character representation (Ma and Hovy, 2016)",
+        "BiLSTM character representation (Lample et al., 2016)",
+        "No character representation"
+      ],
+      "optimizers": [
+        "Stochastic Gradient Descent (SGD)",
+        "Adagrad",
+        "Adadelta",
+        "RMSProp",
+        "Adam",
+        "Nadam"
+      ],
+      "gradient_strategies": [
+        "Gradient clipping (thresholds 1, 3, 5, 10)",
+        "Gradient normalization (threshold 1)",
+        "No gradient clipping/normalization"
+      ],
+      "tagging_schemes": [
+        "BIO",
+        "IOBES"
+      ],
+      "dropout_configurations": [
+        "No dropout",
+        "Naive dropout",
+        "Variational dropout (applied to output units, recurrent units, or both)"
+      ],
+      "classifiers": [
+        "Softmax classifier",
+        "Linear-chain Conditional Random Field (CRF) classifier"
+      ],
+      "network_depth_and_units": [
+        "1, 2, and 3 stacked BiLSTM layers",
+        "25, 50, 75, 100, 125, and 150 recurrent units per layer"
+      ],
+      "mini_batch_sizes": [
+        1,
+        8,
+        16,
+        32,
+        64
+      ]
+    }
+  },
+  "key_findings": [
+    "The sequence of random numbers has a statistically significant impact on test performance (up to 1.01% F1 variation on CoNLL 2003 NER and up to 8.23% F1 on ACE 2005 Entities), demonstrating that comparing single performance scores is unreliable for non-deterministic neural networks.",
+    "Re-running published NER models over multiple seeds demonstrated that Lample et al. achieved a statistically significantly superior score distribution and lower variance compared to Ma and Hovy, reversing conclusions drawn from single reported scores.",
+    "Development set performance exhibits a weak Spearman rank correlation (rho = 0.229) with test set performance, indicating that selecting the single best checkpoint on development data does not guarantee optimal generalization or prevent convergence to poor local minima on unseen test data.",
+    "Linear-chain CRF output classifiers outperformed Softmax classifiers across 4 out of 5 tasks (achieving 27% lower standard deviation on NER) and reduced sensitivity to network depth, whereas Softmax required deeper stacked BiLSTM layers.",
+    "Nadam and Adam optimizers demonstrated the fastest convergence, highest median performance, and roughly 35% lower score standard deviation compared to Adagrad, Adadelta, and SGD, which frequently failed to converge.",
+    "Pre-trained word embeddings had a substantial impact across all tasks (e.g., Komninos and Manandhar embeddings outperformed GloVe2 by 4.97% accuracy on small-sample POS tagging).",
+    "Variational dropout applied to both recurrent and output dimensions consistently outperformed naive dropout and no-dropout configurations across 83.5% of evaluated setups while yielding the lowest performance variance.",
+    "Gradient normalization with a threshold of 1 significantly improved performance over unnormalized gradients and element-wise gradient clipping across all benchmark tasks.",
+    "Differences between CNN-based and BiLSTM-based character representations were statistically insignificant across all five tasks when other architectural parameters were held constant."
+  ],
+  "scope_and_delimitations": [
+    "Focused exclusively on English linguistic sequence tagging benchmarks (POS tagging, Chunking, NER, Entity Recognition, Event Detection) using bidirectional LSTM architectures.",
+    "Deliberately reduced the Penn Treebank POS training set from over 38,000 sentences to the first 500 sentences to avoid performance saturation and detect architectural differences.",
+    "Evaluated pre-trained word embedding artifacts released by original authors rather than controlling the underlying corpora, vocabulary sizes, or training token counts.",
+    "Evaluated optimizers using the default hyperparameter configurations recommended in their respective original publications rather than tuning learning rates separately for each optimizer."
+  ],
+  "limitations": {
+    "verbatim_excerpt": "Note we only evaluated the pre-trained embeddings provided by different authors, but not the underlying algorithms to generate these embeddings. The quality of word embeddings depends on many factors, including the size, the quality, and the preprocessing of the data corpus. As the corpora are not comparable, our results do not allow concluding that one approach is superior for generating word embeddings.",
+    "summary": "The authors acknowledge that their evaluation of word embeddings was restricted to pre-trained vector artifacts generated from non-comparable corpora and preprocessing pipelines, preventing conclusions about the algorithmic superiority of embedding methods. Additionally, the study evaluated optimizers using default hyperparameter settings rather than tuning learning rates exhaustively, and the empirical scope was restricted to English BiLSTM sequence tagging."
+  },
+  "generalizability_gap": "The empirical study evaluated only English-language sequence tagging benchmarks using bidirectional LSTM architectures; the findings were not evaluated on morphologically rich or low-resource languages, non-sequential NLP tasks (such as machine translation or text classification), or Transformer-based foundation architectures.",
+  "methodological_gap": "The study evaluated pre-trained word embeddings directly without standardizing training corpora or tokenization across algorithms, evaluated optimizers using fixed default hyperparameters without per-optimizer learning rate search, and relied on empirical score distributions without proving theoretical bounds on local minima convergence.",
+  "future_work": [
+    "Investigate whether specific architectural components (such as optimizers and variational dropout) are intrinsically less sensitive to hyperparameters or specifically avoid converging to bad local minima caused by random seed variation."
+  ]
+}

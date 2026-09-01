@@ -1,0 +1,74 @@
+{
+  "title": "Meta-Pretraining for Zero-Shot Cross-Lingual Named Entity Recognition in Low-Resource Philippine Languages",
+  "authors": [
+    "David Demitri Africa",
+    "Suchir Salhan",
+    "Yuval Weiss",
+    "Paula Buttery",
+    "Richard Diehl Martinez"
+  ],
+  "year": 2025,
+  "venue": "Proceedings of the 5th Workshop on Multilingual Representation Learning (MRL 2025)",
+  "publication_type": "empirical study",
+  "problem_statement": "Named-entity recognition (NER) in low-resource languages is conventionally tackled by finetuning large multilingual language models, which is computationally infeasible in memory- or latency-constrained settings. Furthermore, cross-lingual transfer from high-resource Indo-European models to underrepresented Austronesian languages struggles because morphosyntactic cues, voice alternations, and case particles differ substantially. The authors investigate whether small causal decoder language models can be meta-pretrained using first-order Model-Agnostic Meta-Learning (MAML) to adapt rapidly and transfer zero-shot to unseen low-resource Philippine languages without any target-language pretraining exposure.",
+  "domain": "Natural Language Processing (NLP), Cross-Lingual Transfer, Low-Resource Languages, Philippine Languages (Tagalog, Cebuano), Named Entity Recognition (NER), Meta-Learning",
+  "theoretical_framework": "First-order Model-Agnostic Meta-Learning (MAML) framework (Finn et al., 2017); Austronesian typological linguistics contrasting Tagalog's four-way overt voice paradigm and personal case particles (si, ni) with Cebuano's reduced two-way system and discourse-driven marking (Tanangkingsing, 2011; Bautista, 2004; Baklanova, 2019); Subset-Masked Language Modeling Task (SMLMT) framework (Bansal et al., 2020); and Linear-Chain Conditional Random Field (CRF) sequence tagging theory (Lafferty et al., 2001; Ma and Hovy, 2016).",
+  "methodology": "The authors pretrain LLaMA-style PICO causal decoder Transformer models across four parameter tiers (tiny: 11M, small: 65M, medium: 181M, and large: 570M). Pretraining alternates via a synchronized Bernoulli draw (p = 0.5) between standard autoregressive next-token prediction on pre-tokenized Dolma and a 32-way, 4-shot Subset-Masked LM Task (SMLMT) episodic meta-learning objective using first-order MAML. In each MAML episode, the inner loop updates a lightweight MLP head for 10 SGD steps (learning rate = 1e-3) while the outer loop backpropagates query loss through the backbone with AdamW (peak learning rate = 3e-4, 2,500 warmup steps, cosine decay) over 6,000 total updates. After pretraining, an untrained linear-chain CRF head is attached, and models are finetuned on nine high-resource languages (Danish, English, Croatian, Portuguese, Slovak, Serbian, Swedish, Chinese, and an all-language mixture) under head-only and full-model finetuning regimes. Models are subsequently evaluated zero-shot on Tagalog and Cebuano treebanks. Representation dynamics, learning curves, and token confidences are analyzed across 61 intermediate checkpoints for the 181M medium model finetuned on Slovak.",
+  "datasets": [
+    "Dolma: Pre-tokenized English web and general domain text corpus used for autoregressive pretraining and episodic meta-learning tasks",
+    "Universal NER v1 (UNER v1) In-Language Finetuning Treebanks: da_ddt (Danish), en_ewt (English), hr_set (Croatian), pt_bosque (Portuguese), sk_snk (Slovak), sr_set (Serbian), sv_talbanken (Swedish), zh_gsd (Traditional Chinese), zh_gsdsimp (Simplified Chinese)",
+    "Universal NER v1 (UNER v1) Zero-Shot Target Test Sets: tl_trg (Tagalog TRG), tl_ugnayan (Tagalog Ugnayan), ceb_gja (Cebuano GJA)",
+    "Parallel Universal Dependencies (PUD) Evaluation Sets: sentence-aligned test sets in German (de_pud), English (en_pud), Portuguese (pt_pud), Russian (ru_pud), Swedish (sv_pud), and Chinese (zh_pud)"
+  ],
+  "evaluation": {
+    "metrics": [
+      "Token-level micro-F1 score",
+      "Per-entity F1 score (PER, LOC, ORG)",
+      "Convergence time to 90% final loss (t90)",
+      "Normalized Area Under the Loss Curve (Loss AUC)",
+      "Initial learning curve slope",
+      "Token-level prediction confidence (probability of correct tag)",
+      "Surprisal delta (change in gold label log-probability)"
+    ],
+    "evaluated_architectures": [
+      "PICO-MAML Tiny (11M parameters, d=96, L=12)",
+      "PICO-MAML Small (65M parameters, d=384, L=12)",
+      "PICO-MAML Medium (181M parameters, d=768, L=12)",
+      "PICO-MAML Large (570M parameters, d=1536, L=12)"
+    ],
+    "baseline_architectures": [
+      "Vanilla PICO Tiny (11M parameters)",
+      "Vanilla PICO Small (65M parameters)",
+      "Vanilla PICO Medium (181M parameters)",
+      "Vanilla PICO Large (570M parameters)"
+    ]
+  },
+  "key_findings": [
+    "First-order MAML meta-pretraining improves zero-shot cross-lingual micro-F1 on Tagalog and Cebuano by 2 to 6 percentage points under head-only finetuning and 1 to 3 percentage points under full finetuning across small decoder language models.",
+    "The relative benefit of meta-pretraining depends on model capacity: the 11M tiny model shows negligible head-only gains due to capacity limits, whereas models from 65M upward show clear performance lifts, with relative F1 gains peaking at moderate scales and tapering to +6% at 570M.",
+    "Meta-pretraining accelerates in-language finetuning convergence, reducing the time to reach 90% of final loss (t90) by up to 8% (approximately 111 steps) in full-model tuning for large and small models without modifying the initial learning slope.",
+    "Performance improvements concentrate strongly on Person (PER) entities (F1 of 0.60 to 0.70) while Location (LOC) and Organization (ORG) scores remain near chance in Slovak head-only tuning, resulting from training set entity imbalances (8:1 PER to LOC, 15:1 PER to ORG) and high proportions of single-token names (87.6%).",
+    "Meta-pretraining sharpens single-token lexical prototypes and leverages language-specific surface cues, producing earlier and higher zero-shot gains in Tagalog due to overt personal case particles ('si' and 'ni' preceding 11% of PER entities) compared to Cebuano (5% to 6% particle occurrence).",
+    "Meta-learning introduces a tradeoff between prototype sharpening and contextual generalization: while MAML increases confidence on common names, it reduces confidence on multi-token or context-dependent locative expressions."
+  ],
+  "scope_and_delimitations": [
+    "The study is delimited to small decoder-only causal Transformer models ranging from 11M to 570M parameters, excluding encoder-only architectures and large-scale multilingual models.",
+    "Pretraining compute is delimited to 6,000 outer updates on four NVIDIA A100-80GB GPUs with a fixed Bernoulli objective probability (p = 0.5).",
+    "Target zero-shot language evaluation is delimited to two Philippine languages, Tagalog and Cebuano, evaluated on Universal NER v1 benchmarks (tl_trg, tl_ugnayan, ceb_gja).",
+    "Source finetuning languages are delimited to nine high-resource languages and an all-language mixture from Universal Dependencies and Universal NER.",
+    "Detailed checkpoint dynamics and per-tag qualitative analyses are delimited to a single configuration: the 181M medium model finetuned head-only on Slovak (sk_snk) across a single random seed."
+  ],
+  "limitations": {
+    "verbatim_excerpt": "The gains are most pronounced for person entities and head-only finetuning, and scale best with larger model capacities. All training runs stop at exactly six thousand outer steps, a horizon that may be too short for the largest model, so the conclusions derived only cover a fraction of the training budget a corporate setup might have. A more diverse and multilingual corpus may alter both quantitative and qualitative conclusions, and varying languages in the meta-task is a natural way to extend this work. Qualitative analysis was conducted on a single configuration and single seed due to cost and GPU constraints. Qualitative analysis was conducted by a native Tagalog speaker with a register typical of Manila, and a wide variety of perspectives would improve the robustness of the analysis. Finally (and most naturally), our focus on only two Austronesian languages controls for certain lexical and syntactic divergences but limits the generality of the typological conclusions; extending to a broader set of Philippine and Malayo-Polynesian languages is a natural next step.",
+    "summary": "The authors acknowledge several study limitations: empirical gains concentrate predominantly on person entities and head-only finetuning; the 6,000-step pretraining budget is short and potentially undertrains larger models; pretraining data is restricted to English Dolma rather than multilingual text; qualitative analyses were conducted on a single medium model configuration, single seed, and a single native speaker with a Manila register; and target evaluations cover only two Austronesian languages (Tagalog and Cebuano), constraining broader typological generalizations across other Philippine and Malayo-Polynesian languages."
+  },
+  "generalizability_gap": "The meta-pretraining approach was evaluated only on Tagalog and Cebuano, leaving untested more than 100 other Philippine languages (such as Ilocano, Hiligaynon, Bikol, and Waray) and broader Malayo-Polynesian language families. Furthermore, pretraining used only monolingual English text, leaving open how meta-pretraining behaves when applied to multilingual corpora or noisy code-switched text.",
+  "methodological_gap": "The meta-pretraining framework demonstrates limited efficacy for multi-token, complex, or highly contextual entity spans (such as locations and organizations), where prototype sharpening suppresses contextual cue recognition. Additionally, all models were trained for a uniform 6,000 steps without full hyperparameter sweeps across seeds or varying Bernoulli objective ratios, and head-only tuning relied on linear CRF heads that cannot update underlying representations to resolve syntactic ambiguities.",
+  "future_work": [
+    "Extending episodic meta-pretraining to multilingual corpora and incorporating diverse language tasks into the meta-learning objective.",
+    "Investigating prototype formation dynamics and zero-shot transfer in even lower-resource and typologically distant language settings.",
+    "Developing meta-learning objectives capable of capturing multi-token entities, complex syntactic structures, and contextual location and organization boundaries.",
+    "Scaling pretraining beyond 6,000 steps to evaluate the full potential of large parameter models under larger compute budgets.",
+    "Evaluating the approach across a wider spectrum of Philippine and Malayo-Polynesian languages and diverse dialectal registers."
+  ]
+}

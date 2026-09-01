@@ -1,0 +1,58 @@
+{
+  "title": "TASKWEB: Selecting Better Source Tasks for Multi-task NLP",
+  "authors": [
+    "Joongwon Kim",
+    "Akari Asai",
+    "Gabriel Ilharco",
+    "Hannaneh Hajishirzi"
+  ],
+  "year": 2023,
+  "venue": "Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing (EMNLP 2023)",
+  "publication_type": "empirical study",
+  "problem_statement": "While joint multi-task training can improve general language model performance, it remains unclear how NLP tasks are interrelated and how to systematically select optimal source tasks to assist learning a new, unseen target task with few labeled examples without incurring massive computational costs.",
+  "domain": "Multi-Task Natural Language Processing (NLP), Transfer Learning, Task Selection, Pairwise Task Transferability, Parameter-Efficient Tuning, Zero-Shot Generalization (English)",
+  "theoretical_framework": "Cross-task transfer learning theory; non-commutativity and empirical transitivity of task transferability; graph path-based task affinity estimation; parameter-efficient fine-tuning (PEFT).",
+  "methodology": "The authors introduce TASKWEB and TASKSHOP: (1) TASKWEB is a large-scale empirical benchmark comprising approximately 25,000 pairwise task transfer experiments across 22 diverse NLP tasks, evaluating 3 model architectures (encoder-decoder T5-small/base/large, decoder-only GPT-2 medium, encoder-only RoBERTa-base) and 3 adaptation settings (full fine-tuning, Adapter-tuning, BitFit) across 8 random seeds; (2) Mathematical analysis of task transfer properties discovers that transferability is non-commutative (A -> B does not imply B -> A) but exhibits strong transitivity for positive transfers (high A -> B and B -> C implies high A -> C); (3) TASKSHOP is a novel task selection algorithm that predicts directional transfer to an unseen target task (having <= 32 examples) by searching over pivot paths (s -> p -> t) combining known TASKWEB scores with lightweight text similarity methods (Retrieval-of-Experts or LLM-similarity) interpolated with direct estimation; (4) Multi-task selection evaluates fine-tuning T5-3B on small curated subsets (kn examples, e.g., top-5 tasks with 2,000 examples each = 10,000 examples) against target-agnostic massive multi-task baselines (T0-3B, T5-3B + all 21 tasks = 42,000 examples) across 11 target tasks in zero-shot settings.",
+  "datasets": [
+    "22 NLP Tasks in TASKWEB: Natural Questions, SQuAD 2.0, HotpotQA, CommonsenseQA, SocialIQA, CosmosQA, MultiRC, BoolQ, WiC, WSC (Winograd), COPA, HellaSwag, PIQA, ARC-Easy, ARC-Challenge, OpenBookQA, MNLI, QNLI, RTE, QQP, MRPC, SST-2.",
+    "Target Evaluation Tasks: ANLI (R1, R2, R3), Story Cloze, COPA, HellaSwag, RTE, Winogrande, CB, WSC, and other zero-shot NLU benchmarks evaluated across prompt templates via PromptSource."
+  ],
+  "evaluation": {
+    "metrics": [
+      "Normalized Discounted Cumulative Gain (NDCG) for overall source task ranking quality",
+      "Regret@k (Regret@5) measuring performance gap between predicted top-k and oracle top-k source tasks",
+      "Average Percentage Change (PC) and Positive Transfer Proportion (PM) across 8 random seeds for pairwise transferability",
+      "Zero-shot accuracy across 11 target tasks and multiple prompt templates for multi-task fine-tuning"
+    ],
+    "results": [
+      "TASKSHOP with Retrieval-of-Experts (TASKSHOP-RoE) achieves highest NDCG and lowest Regret@5, improving overall ranking by 10% and top-k precision by 38% over baseline selection methods.",
+      "Models trained on small multi-task subsets (10,000 examples across top-5 source tasks chosen by TASKSHOP) outperform T0-3B by 14.7% and T5-3B + all tasks (42,000 examples) by 4.3% in zero-shot target accuracy.",
+      "Using oracle top-5 source tasks from TASKWEB further improves target accuracy, whereas training on bottom-5 (unhelpful) tasks causes severe accuracy degradation (decreasing by 3.4 points on average)."
+    ]
+  },
+  "key_findings": [
+    "Pairwise task transfer is directional and predominantly non-commutative (only 97 of 210 pairs exhibit commutativity), meaning transferability from task A to B does not imply equal transfer from B to A.",
+    "Positive task transfers display strong transitivity: when intermediate transfers (source -> pivot and pivot -> target) exceed higher transferability thresholds, the probability of positive source -> target transfer increases up to 97%.",
+    "Curated small multi-task training sets (top 3 to 5 source tasks, 10k examples total) consistently outperform massive target-agnostic multi-task training sets (21 tasks, 42k examples or T0-3B's millions of examples) on zero-shot generalization.",
+    "Pairwise transfer dynamics are more consistent across different model sizes and adaptation methods within the same architectural family (e.g., T5 variants) than across distinct model families (T5 vs. GPT-2 vs. RoBERTa).",
+    "Including negative or unhelpful source tasks in a multi-task training mixture actively degrades target performance, demonstrating that negative transfer can counteract the benefits of multi-task scaling."
+  ],
+  "scope_and_delimitations": [
+    "Delimited to 22 English-language NLP tasks covering classification, multiple-choice QA, and extractive QA, explicitly excluding generative long-form QA, summarization, dialogue, and domain-specific corpora (legal, medical).",
+    "Restricted to English monolingual benchmarks without evaluating multilingual or cross-lingual transfer.",
+    "Multi-task fine-tuning experiments evaluate models up to 3 billion parameters (T5-3B), without testing multi-billion emergent parameter scales (>10B+).",
+    "Training data construction relies on uniform random sampling of 2,000 examples per selected source task without exploring dynamic data weighting or temperature-based task scheduling."
+  ],
+  "limitations": {
+    "verbatim_excerpt": "Our work contains several limitations. First, our set of tasks does not constitute the entirety of NLP tasks. While we use 22 NLP tasks that are representative enough to cover various types of reasoning, we do not include long-form tasks (e.g., summarization, LFQA) or domain-specific tasks (e.g., law, medicine) to facilitate experiments across various model architectures such as encoder-only models. In order to add entirely new forms of task to TASKWEB, one would have to compute pairwise transfer scores between the new task and other tasks in TASKWEB. If the model is known beforehand, this would require \u2225T\u2225 iterations of fine-tuning with 1,000 examples where T is the set of tasks in TASKWEB. On the other hand, if the model is not known beforehand, this would require \u2225M\u2225 \u00d7 \u2225T\u2225 iterations where M is the set of models used in TASKWEB.\n\nMoreover, our datasets are in English and we do not incorporate multilinguality in our experiments. Second, our work focuses on models with at most three billion parameters. Our finding may not be directly applicable to models with orders of magnitude more parameters considering factors such as emergence [\\(Wei et al.,](#page-12-6) [2022b\\)](#page-12-6), which can be explored in future work. Third, we perform our multi-task finetuning experiments by uniformly sampling 2,000 examples from each source task following the style of [Wang et al.](#page-12-0) [\\(2022b\\)](#page-12-0). Therefore, different behavior may arise when other sampling strategies are used. Finally, recent work shows the effectiveness of using diverse instruction-output pairs which do not necessarily have clear boundaries as our tasks do [\\(Ouyang et al.,](#page-11-8) [2022;](#page-11-8) [Wang](#page-12-7)\n\n[et al.,](#page-12-7) [2022a,](#page-12-7) [2023\\)](#page-12-8). Recently, [Wang et al.](#page-12-8) [2023](#page-12-8) report that large language models finetuned on specific instruction datasets perform better on related target tasks, which is closely related to our findings. Future work could extend our approach to setups without clear boundaries between tasks and explore ways to perform target-specific instruction tuning. Considering these limitations, we encourage the NLP community to contribute to quantifying the transferabilities between different language tasks.",
+    "summary": "The authors identify four principal limitations: (1) TASKWEB covers 22 English classification and multiple-choice tasks, excluding long-form generative tasks (summarization, long-form QA), domain-specific tasks (legal, medical), and multilingual datasets; (2) adding new tasks or architectures requires substantial pairwise computational investment (|T| or |M| \u00d7 |T| fine-tuning runs); (3) experiments are restricted to models up to 3 billion parameters (T5-3B), meaning findings may not transfer directly to much larger models with emergent properties; and (4) multi-task fine-tuning utilizes uniform sampling of 2,000 examples per selected task rather than dynamic, proportional, or instruction-mixture sampling strategies."
+  },
+  "generalizability_gap": "The benchmark and task selection framework are evaluated only on English-language classification, multiple-choice, and extractive QA benchmarks on models up to 3B parameters. Transferability and selection dynamics remain untested on multilingual and low-resource settings, generative long-form text, multi-turn conversational tasks, code generation, and 10B+ large language models.",
+  "methodological_gap": "TASKSHOP relies on static pairwise transfer matrices and lightweight prompt text embeddings (RoE/LLM-similarity) without modeling higher-order task interactions or negative gradient interference among selected source tasks during joint multi-task training; furthermore, multi-task dataset mixtures use uniform example sampling (2k per task) rather than learned task weighting or temperature-scaled sampling.",
+  "future_work": [
+    "Extending TASKWEB to broader task paradigms including generative long-form QA, summarization, and domain-specific benchmarks.",
+    "Incorporating multilinguality and cross-lingual task transfer relationships into the pairwise matrix.",
+    "Investigating task selection and transferability dynamics in large language models exceeding 10 billion parameters with emergent abilities.",
+    "Applying task selection principles to instruction-tuning datasets lacking explicit task boundaries to enable target-specific instruction mixture optimization."
+  ]
+}

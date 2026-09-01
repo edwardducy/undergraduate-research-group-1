@@ -1,3 +1,5 @@
+<!-- vale off -->
+
 # Unavailable Literature Tracker
 
 This file documents research papers that could not be extracted into the literature repository.
@@ -22,3 +24,10 @@ This file documents research papers that could not be extracted into the literat
 - **Links**: https://link.springer.com/chapter/10.1007/978-981-99-8349-0_11 and https://archium.ateneo.edu/discs-faculty-pubs/411/
 - **Access Restriction**: Springer client verification challenges prevent automated document downloads.
 - **Summary and Relevance**: The study introduces FiReCS, a sentiment-annotated corpus containing more than ten thousand Filipino-English product and service reviews. The paper evaluates transformer-based language models and zero-shot performance with the GPT-3 series on code-switched text.
+
+## 4. TF-NERD: Tagalog Fine-grained Named Entity Recognition Dataset
+- **Authors**: Robin Kamille Ramos and John Paul Vergara (2023)
+- **Venue**: ACM, Proceedings of the 7th International Conference on Natural Language Processing and Information Retrieval (NLPIR 2023)
+- **Link**: https://dl.acm.org/doi/10.1145/3639233.3639341
+- **Access Restriction**: Behind the ACM Digital Library paywall requiring subscription access.
+- **Summary and Relevance**: The authors introduce a fine-grained named entity recognition dataset for Tagalog text. The publication provides comparative baselines for sequence labeling in Philippine languages.

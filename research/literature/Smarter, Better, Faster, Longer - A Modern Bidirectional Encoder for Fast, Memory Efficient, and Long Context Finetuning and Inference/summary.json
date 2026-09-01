@@ -1,0 +1,142 @@
+{
+  "title": "Smarter, Better, Faster, Longer: A Modern Bidirectional Encoder for Fast, Memory Efficient, and Long Context Finetuning and Inference",
+  "authors": [
+    "Benjamin Warner",
+    "Antoine Chaffin",
+    "Benjamin Clavié",
+    "Orion Weller",
+    "Oskar Hallström",
+    "Said Taghadouini",
+    "Alexis Gallagher",
+    "Raja Biswas",
+    "Faisal Ladhak",
+    "Tom Aarsen",
+    "Nathan Cooper",
+    "Griffin Adams",
+    "Jeremy Howard",
+    "Iacopo Poli"
+  ],
+  "year": 2025,
+  "venue": "Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (ACL 2025)",
+  "publication_type": "empirical study",
+  "problem_statement": "Encoder-only transformer architectures such as BERT and RoBERTa remain essential for non-generative downstream natural language processing applications including semantic search, passage retrieval, classification, reranking, and safety routing. However, existing encoder models have seen limited architectural modernization since their introduction. Practitioners face key bottlenecks including context windows limited to 512 tokens, inefficient subword tokenizers lacking programming language syntax, quadratic attention scaling, padding token compute overhead, hardware-agnostic layer dimensions, and training corpora that lack recent data or code.",
+  "domain": "Natural Language Processing (NLP), Bidirectional Encoder Transformers, Information Retrieval (IR), Dense Passage Retrieval (DPR), Multi-Vector Retrieval (ColBERT), Long-Context Understanding, Source Code Retrieval, Hardware-Aware Deep Learning",
+  "theoretical_framework": "Modern bidirectional transformer architectures (Vaswani et al., 2017; Devlin et al., 2019); Rotary Position Embeddings (RoPE) for context extension (Su et al., 2024); alternating sliding-window local attention and global attention (Beltagy et al., 2020; Gemma Team et al., 2024); Gated Linear Units (GeGLU) activation theory (Shazeer, 2020); hardware-aware deep-and-narrow network scaling and GPU tensor core tile/wave alignment theory (Anthony et al., 2024; Tay et al., 2022); Masked Language Modeling (MLM) with 30% masking rate (Wettig et al., 2023); and Warmup-Stable-Decay (WSD) trapezoidal learning rate scheduling with StableAdamW optimization (Wortsman et al., 2023).",
+  "methodology": "The authors developed ModernBERT in two configurations: ModernBERT-base (149 million parameters across 22 layers, hidden size 768, intermediate GLU dimension 2,304) and ModernBERT-large (395 million parameters across 28 layers, hidden size 1,024, intermediate GLU dimension 5,248). The architecture incorporates modern design optimizations: removal of bias terms across linear layers and LayerNorms (retaining bias solely in the final decoder projection), post-embedding LayerNorm with pre-normalization, GeGLU activation, RoPE positional embeddings, alternating attention (every third layer applies global attention with RoPE theta=160,000, while intermediate layers apply 128-token local sliding window attention with RoPE theta=10,000), FlashAttention (combining FlashAttention-3 for global attention and FlashAttention-2 for local attention), full-model unpadding before the embedding layer with dynamic greedy sequence packing (>99% token efficiency), and torch.compile module compilation. Pretraining was conducted on 2 trillion tokens of primarily English web data, code, and scientific literature with a 50,368-vocabulary BPE tokenizer (modified OLMo). Pretraining used StableAdamW with Adafactor-style update clipping, trapezoidal learning rate scheduling with 1 - sqrt decay, batch size warmup schedules, Megatron random initialization for base, and Phi-style center-tiling weight initialization with Gopher scaling for large. Native context length was extended from 1,024 to 8,192 tokens during the final 300 billion tokens by elevating global RoPE theta to 160,000 and upsampling high-quality sources. The models were evaluated across GLUE (NLU classification), BEIR (single-vector DPR and multi-vector ColBERT retrieval), MLDR (long-context retrieval in-domain and out-of-domain), CodeSearchNet and StackOverflow-QA (code retrieval), and synthetic variable/fixed-length benchmarks on an NVIDIA RTX 4090 for memory and throughput efficiency.",
+  "datasets": [
+    "Pretraining Corpus: 2 trillion tokens comprising English web crawl data, source code repositories, and scientific papers",
+    "GLUE (General Language Understanding Evaluation): 8 NLU classification subsets (MNLI, QNLI, QQP, RTE, SST-2, MRPC, CoLA, STS-B)",
+    "MS-MARCO: 1.25M passage retrieval training samples with mined hard negatives (for DPR) and 810k samples with BGE-M3 distillation scores (for ColBERT via PyLate)",
+    "BEIR (Benchmarking Information Retrieval): 15 zero-shot evaluation datasets (TREC-COVID, NFCorpus, SciFact, FiQA, Touche-2020, DBPedia, SCIDOCS, Climate-FEVER, CQADupStack, Quora, FEVER, Robust04, Signal-1M, TREC-NEWS, BioASQ)",
+    "MLDR (Multi-Lingual Dense Retrieval): English subset of over 200,000 long documents evaluated under zero-shot out-of-domain and fine-tuned in-domain settings",
+    "CodeSearchNet: Code-to-text retrieval benchmark across 6 programming languages evaluated via the CoIR framework",
+    "StackOverflow-QA: Hybrid code-and-text long-context question answering retrieval benchmark evaluated via the CoIR framework",
+    "Synthetic Efficiency Benchmark: 4 sets of 8,192 documents (fixed 512 tokens, fixed 8,192 tokens, variable short mean 256 tokens, variable long mean 4,096 tokens)"
+  ],
+  "evaluation": {
+    "metrics": [
+      "GLUE average dev score and per-task accuracy/F1/Spearman correlation",
+      "BEIR nDCG@10 (single-vector DPR and multi-vector ColBERT)",
+      "MLDR nDCG@10 (out-of-domain and in-domain)",
+      "CoIR / CodeSearchNet Mean Reciprocal Rank (MRR@10)",
+      "StackOverflow-QA nDCG@10",
+      "Throughput (thousands of tokens per second on NVIDIA RTX 4090)",
+      "Max batch size (memory efficiency / VRAM utilization)"
+    ],
+    "benchmark_results": {
+      "glue_dev_average": {
+        "modernbert_base": 89.15,
+        "modernbert_large": 89.91,
+        "deberta_v3_base": 88.75,
+        "deberta_v3_large": 90.02,
+        "bert_base": 83.27,
+        "roberta_base": 86.43
+      },
+      "beir_ndcg_at_10": {
+        "single_vector_dpr": {
+          "modernbert_base": 47.92,
+          "modernbert_large": 49.33,
+          "gte_en_mlm_base": 47.78,
+          "gte_en_mlm_large": 48.71
+        },
+        "multi_vector_colbert": {
+          "modernbert_base": 50.81,
+          "modernbert_large": 51.52,
+          "gte_en_mlm_base": 49.7,
+          "gte_en_mlm_large": 49.99
+        }
+      },
+      "mldr_long_context_ndcg_at_10": {
+        "single_vector_out_of_domain": {
+          "modernbert_base": 45.47,
+          "modernbert_large": 46.52,
+          "gte_en_mlm_base": 53.64,
+          "gte_en_mlm_large": 56.4
+        },
+        "single_vector_in_domain": {
+          "modernbert_base": 61.12,
+          "modernbert_large": 64.91,
+          "gte_en_mlm_base": 61.42,
+          "gte_en_mlm_large": 65.05
+        },
+        "multi_vector_out_of_domain": {
+          "modernbert_base": 59.95,
+          "modernbert_large": 65.65,
+          "gte_en_mlm_base": 50.86,
+          "gte_en_mlm_large": 53.6
+        }
+      },
+      "code_retrieval": {
+        "codesearchnet_mrr_at_10": {
+          "modernbert_base": 72.84,
+          "modernbert_large": 75.39
+        },
+        "stackoverflow_qa_ndcg_at_10": {
+          "modernbert_base": 71.05,
+          "modernbert_large": 72.63
+        }
+      },
+      "inference_efficiency_tokens_per_sec": {
+        "fixed_512": {
+          "modernbert_base": 167578,
+          "modernbert_large": 69828
+        },
+        "fixed_8192": {
+          "modernbert_base": 125950,
+          "modernbert_large": 46801,
+          "gte_en_mlm_base": 47507,
+          "gte_en_mlm_large": 16532
+        }
+      }
+    }
+  },
+  "key_findings": [
+    "ModernBERT-base (149M parameters) and ModernBERT-large (395M parameters) establish state-of-the-art results across natural language understanding, text retrieval, long-context retrieval, and code retrieval benchmarks.",
+    "ModernBERT-base is the first Masked Language Modeling (MLM)-trained encoder to surpass DeBERTaV3-base on GLUE (89.15 versus 88.75 average score), showing that MLM with modern architectural design matches or exceeds Replaced Token Detection (RTD).",
+    "ModernBERT-large achieves an 89.91 average score on GLUE with 395M parameters, nearly matching DeBERTaV3-large (90.02 with 435M parameters) while processing sequence tokens at twice the throughput.",
+    "On the BEIR benchmark, ModernBERT surpasses all existing encoders in both single-vector Dense Passage Retrieval (base: 47.92, large: 49.33 nDCG@10) and multi-vector ColBERT settings (base: 50.81, large: 51.52 nDCG@10).",
+    "In long-context multi-vector ColBERT retrieval on MLDR, long-context encoders gain over 40 nDCG@10 points over short-context baselines without long-context fine-tuning, with ModernBERT outperforming all competing models by over 9 nDCG@10 points.",
+    "On code retrieval tasks (CodeSearchNet and StackOverflow-QA), ModernBERT outperforms all competing encoders due to pretraining on code repositories and employing a code-aware BPE tokenizer with 50,368 tokens.",
+    "Hardware-aware deep-and-narrow architecture design, full-model unpadding, and alternating local-global attention enable ModernBERT to process 8,192-token inputs 2.65x to 3.0x faster than competing long-context encoders while supporting up to 2x larger batch sizes on an NVIDIA RTX 4090."
+  ],
+  "scope_and_delimitations": [
+    "Model architecture scope is delimited to bidirectional encoder-only transformer models in base (22 layers, 149M parameters) and large (28 layers, 395M parameters) configurations.",
+    "Pretraining data is delimited to 2 trillion tokens of primarily English-language text, source code repositories, and scientific literature.",
+    "Maximum native context sequence length is delimited to 8,192 tokens.",
+    "Architectural constraints omit bias terms in linear layers and LayerNorms (retaining bias only in the final decoder projection) and restrict sliding window local attention to 128 tokens.",
+    "Hardware design optimizations target a specific basket of GPUs (NVIDIA T4, A10, L4, RTX 3090, RTX 4090, A100, H100), with priority given to inference deployment over training-cluster-specific wave quantization."
+  ],
+  "limitations": {
+    "verbatim_excerpt": "Language This study focuses exclusively on the English language, and trains on a very large number of tokens. As such, a major limitation of our work is that it is not directly applicable to other languages, and potentially even less-so to lower resources languages. Exploration of modernizing encoder models in multilingual [\\(Zhang et al.,](#page-14-5) [2024\\)](#page-14-5) and monolingual but non-English [\\(Antoun et al.,](#page-9-12) [2024\\)](#page-9-12) settings is a promising avenue.\n\nBiases Our model is trained largely on web data, as a result, all of its representations are subject to the biases present in such data.\n\nHarmful Content Generation The MLM objective gives the model some ability to generate text by suggesting a given token to replace the [MASK] token [\\(Samuel,](#page-13-15) [2024\\)](#page-13-15), which could result in the generation of harmful content. However, Modern-BERT is not, primarily, a generative model, and as such, has not been trained to and therefore cannot generate longer sequences of text. As a result, it is considerably less likely to be at risk of generating harmful content of any kind.\n\nMLM-only objective Given the strong results of DeBERTav3 on classification tasks but weak ones on retrieval, it seems that a training leveraging both MLM and RTD might be better suited to achieve best results on classification. Extending our work to RTD is thus a promising line of research.\n\nScaling Besides the architectural modifications, a key aspect of our studies is data scaling. However, other scaling axes, notably in terms of model parameters are left unexplored.",
+    "summary": "The authors acknowledge several explicit limitations: the model family focuses exclusively on the English language and source code, rendering it not directly applicable to non-English and low-resource languages; pretraining representations inherit societal and web data biases; masked language modeling retains a minor residual capability to suggest harmful token replacements; pretraining relied solely on the Masked Language Modeling objective rather than hybrid MLM and Replaced Token Detection (RTD); parameter scaling beyond 395 million parameters was left unexplored; and out-of-domain zero-shot long-context dense retrieval trails specialized retrieval models unless fine-tuned in-domain."
+  },
+  "generalizability_gap": "ModernBERT was pretrained exclusively on English-language corpora and programming code, leaving multilingual representation, cross-lingual transfer, and non-English low-resource language understanding completely unaddressed. In addition, parameter scaling behavior beyond 395M parameters remains unexamined.",
+  "methodological_gap": "The pretraining framework relies solely on the Masked Language Modeling (MLM) objective rather than incorporating Replaced Token Detection (RTD); zero-shot out-of-domain single-vector dense passage retrieval on long contexts exhibits performance degradation without task-adapted fine-tuning; parallel attention and softcapping techniques were omitted due to downstream performance degradation or compatibility constraints; and hardware throughput optimizations were evaluated exclusively on NVIDIA GPU architectures.",
+  "future_work": [
+    "Extending ModernBERT architecture and pretraining recipes to multilingual settings and non-English monolingual domains, with special attention to low-resource languages.",
+    "Investigating hybrid pretraining objectives that combine Masked Language Modeling (MLM) with Replaced Token Detection (RTD) to enhance downstream classification accuracy.",
+    "Exploring model parameter scaling axes beyond 395M parameters to evaluate whether deep-and-narrow encoder scaling laws continue to hold at larger capacities.",
+    "Analyzing the theoretical and empirical synergy between alternating local-global attention and multi-vector ColBERT retrieval over extended context windows.",
+    "Developing improved long-context pretraining and adaptation recipes to elevate zero-shot out-of-domain single-vector dense passage retrieval performance."
+  ]
+}

@@ -146,5 +146,14 @@ Cosme
 FiReCS
 ISBM
 LSTM
-
-
+scalarization
+Wilcoxon
+FAMO
+GradNorm
+IMTL
+minibatches
+mini-batches
+minibatch
+backpropagate
+backpropagated
+granularities

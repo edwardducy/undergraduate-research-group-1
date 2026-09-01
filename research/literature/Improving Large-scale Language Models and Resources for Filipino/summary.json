@@ -1,0 +1,80 @@
+{
+  "title": "Improving Large-scale Language Models and Resources for Filipino",
+  "authors": [
+    "Jan Christian Blaise Cruz",
+    "Charibeth Cheng"
+  ],
+  "year": 2022,
+  "venue": "Proceedings of the Thirteenth Language Resources and Evaluation Conference (LREC 2022)",
+  "publication_type": "empirical study",
+  "problem_statement": "Low-resource languages such as Filipino suffer from a severe scarcity of benchmark datasets, linguistic tools, and large-scale pretrained language models, which impedes NLP research progress. Prior Filipino language models (such as Tagalog BERT and ELECTRA) were pretrained on small, topically narrow corpora like WikiText-TL-39, resulting in sub-optimal downstream performance on complex classification tasks and limiting the capacity of larger transformer architectures.",
+  "domain": "Natural Language Processing (NLP), Filipino / Tagalog Language Modeling, Low-Resource Languages, Text Classification, Pretraining Corpus Construction",
+  "theoretical_framework": "Self-supervised Transformer language modeling and the RoBERTa robust optimization framework (Liu et al., 2019) building upon BERT masked language modeling (Devlin et al., 2018); Byte-Pair Encoding (BPE) subword tokenization (Sennrich et al., 2015); memory-efficient optimization via Adafactor (Shazeer and Stern, 2018); and inverted-pyramid discourse entailing structures for natural language inference generation (Cruz et al., 2021).",
+  "methodology": "The authors construct TLUnified, a large-scale, topically diverse Filipino pretraining corpus, by aggregating and deduplicating diverse Filipino text sources including bilingual bitexts (e.g., bible-uedin, CCAligned, ParaCrawl, TED2020, WikiMatrix, OpenSubtitles), the deduplicated Filipino split of OSCAR, and a 60% subset of the NewsPH news corpus. Raw text is cleaned using five deterministic filters: non-Latin character threshold (>15% non-Latin removed), sentence token length bounds (4 <= N <= 150), consecutive punctuation filtering, average word length ratio bounds (3 <= r <= 18), and HTML/URL artifact removal, followed by deduplication. A 32,000 BPE subword tokenizer with character coverage 1.0 is trained without uncasing. Using TLUnified, the authors pretrain two RoBERTa variants—Base (110M parameters, 12 layers, 768 hidden, 100k steps, lr=6e-4) and Large (330M parameters, 24 layers, 1024 hidden, 300k steps, lr=4e-4)—using Adafactor on 8x NVIDIA Tesla P100 GPUs with dynamic batching up to 8,192 tokens. The models are evaluated by finetuning with Adafactor on three downstream Filipino classification benchmarks: 2016 Election Hate Speech Detection, Dengue Infoveillance multi-label classification (reformulated as 32-class classification), and NewsPH-NLI Medium (generated from the unexposed 40% NewsPH split).",
+  "datasets": [
+    "TLUnified: A large-scale pretraining corpus for Filipino constructed by combining deduplicated Filipino text from bitext corpora (bible-uedin, CCAligned, ELRC 2922, MultiC-CAligned, ParaCrawl, TED2020, WikiMatrix, tico-19, Ubuntu, OpenSubtitles, QED, Tanzil, Tatoeba, GlobalVoices, KDE4, WikiMedia), OSCAR Tagalog split, and 60% of NewsPH",
+    "Filipino Hatespeech Dataset: 10,000 Philippine presidential election-related tweets from 2016 annotated for binary hate speech classification (Cabasag et al., 2019)",
+    "Filipino Dengue Dataset: 4,000 low-resource disease infoveillance tweets annotated across 5 binary health labels, transformed into a 32-class single-label classification task (Livelo and Cheng, 2018)",
+    "NewsPH-NLI Medium: An entailment benchmark dataset generated from the remaining 40% unseen subset of the NewsPH news corpus to evaluate natural language inference without pretraining data leakage",
+    "WikiText-TL-39: Previous small-scale Filipino Wikipedia pretraining corpus used as a historical baseline comparison (Cruz and Cheng, 2019)"
+  ],
+  "evaluation": {
+    "metrics": [
+      "Validation Accuracy",
+      "Test Accuracy"
+    ],
+    "evaluated_models": [
+      "RoBERTa Base (110M parameters, TLUnified-trained)",
+      "RoBERTa Large (330M parameters, TLUnified-trained)"
+    ],
+    "baseline_models": [
+      "Tagalog BERT Base (110M parameters, WikiText-TL-39-trained)",
+      "Tagalog ELECTRA Base (110M parameters, NewsPH-trained)"
+    ],
+    "benchmark_results": {
+      "hatespeech_test_accuracy": {
+        "bert_base": "68.60%",
+        "electra_base": "68.37%",
+        "roberta_base": "72.50%",
+        "roberta_large": "72.67%"
+      },
+      "dengue_test_accuracy": {
+        "bert_base": "84.70%",
+        "electra_base": "83.60%",
+        "roberta_base": "89.10%",
+        "roberta_large": "90.00%"
+      },
+      "newsph_nli_medium_test_accuracy": {
+        "bert_base": "86.97%",
+        "electra_base": "87.05%",
+        "roberta_base": "91.00%",
+        "roberta_large": "91.09%"
+      }
+    }
+  },
+  "key_findings": [
+    "RoBERTa models pretrained on TLUnified substantially outperform previous Filipino transformer baselines (Tagalog BERT and ELECTRA) across all three evaluation benchmarks, achieving an average gain of 4.47% test accuracy.",
+    "RoBERTa Large achieves the highest test accuracy across all tasks: 72.67% on Hate Speech (+4.07% over BERT Base), 90.00% on Dengue (+5.30% over BERT Base), and 91.09% on NewsPH-NLI Medium (+4.04% over ELECTRA Base).",
+    "RoBERTa Base demonstrates strong performance improvements (+3.90% on Hate Speech, +4.40% on Dengue, and +3.95% on NewsPH-NLI Medium over baselines), closely trailing RoBERTa Large.",
+    "The performance gap between RoBERTa Base and RoBERTa Large is marginal (+0.17% on Hate Speech, +0.90% on Dengue, and +0.09% on NewsPH-NLI Medium), indicating that while TLUnified improves significantly upon WikiText-TL-39, larger corpora are required to fully saturate and exploit the parameter capacity of large-scale 330M transformer models.",
+    "Non-destructive preprocessing preserving capitalization, casing, and adding task-specific tokens ([LINK], [MENTION], [HASHTAG]) with averaged subword embedding initialization maintains vital morphological and syntactic cues in noisy social media text."
+  ],
+  "scope_and_delimitations": [
+    "The pretraining dataset TLUnified and resulting RoBERTa models focus exclusively on the Filipino (Tagalog) language, excluding other Philippine regional languages.",
+    "Evaluation is delimited to three specific classification tasks: binary hate speech detection, 32-class dengue infoveillance classification, and natural language inference.",
+    "Model architecture scope is delimited to masked language modeling via RoBERTa (Base with 110M parameters and Large with 330M parameters), without evaluating autoregressive decoder-only or sequence-to-sequence models.",
+    "To prevent data contamination and artificial performance inflation, NewsPH-NLI Medium was generated exclusively from a 40% split of NewsPH that was withheld from TLUnified pretraining.",
+    "Finetuning sequence lengths were truncated to 256 subwords for Base and Large models to reduce memory and training time, as no downstream sentence or sentence pair exceeded 256 subwords."
+  ],
+  "limitations": {
+    "verbatim_excerpt": "The difference in performance between the Base and Large RoBERTa variants is marginal in the current benchmarks. Large outperforms Base only by +0.17% for Hatespeech, +0.9% for Dengue, and +0.09% for NewsPH-NLI Medium. We hypothesize that this is due to the size of the pretraining dataset. While the size of TLUnified is much larger than the previous WikiText-TL-39, it may still not be enough to make full use of the capacity of a Large-variant Transformer. We surmise that RoBERTa Large may need to be trained with more data to show significant, non-marginal improvements in performance.",
+    "summary": "The authors acknowledge that the performance improvement of RoBERTa Large over RoBERTa Base is marginal across the evaluated benchmarks (between +0.09% and +0.90% accuracy). They attribute this bottleneck to pretraining corpus size, noting that although TLUnified is substantially larger and more diverse than WikiText-TL-39, the corpus remains insufficient to fully realize the representational capacity of large 330M-parameter Transformer models."
+  },
+  "generalizability_gap": "TLUnified and the pretrained RoBERTa models cover only standard Filipino/Tagalog text, leaving unexamined the more than 170 other regional Philippine languages (such as Cebuano, Ilocano, Hiligaynon, and Waray) as well as heavy conversational code-switching (Taglish) and generative language modeling capabilities.",
+  "methodological_gap": "Evaluation was restricted to three sentence- and tweet-level classification tasks, lacking evaluation on generative NLP tasks (such as machine translation, summarization, and question answering) or token-level sequence labeling tasks (such as named entity recognition and part-of-speech tagging). In addition, pretraining data volume constraints prevented RoBERTa Large from demonstrating substantial capacity scaling gains over RoBERTa Base.",
+  "future_work": [
+    "Scaling pretraining data beyond TLUnified to enable large-scale Transformer models to realize their full parameter capacity.",
+    "Expanding Filipino language model evaluations to broader downstream tasks, including sequence labeling, question answering, and text generation.",
+    "Exploring multilingual and regional pretraining adaptations for other under-resourced Philippine languages."
+  ]
+}

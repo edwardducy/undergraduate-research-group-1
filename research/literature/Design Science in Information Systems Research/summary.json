@@ -1,0 +1,33 @@
+{
+  "title": "Design Science in Information Systems Research",
+  "authors": [
+    "Alan R. Hevner",
+    "Salvatore T. March",
+    "Jinsoo Park",
+    "Sudha Ram"
+  ],
+  "year": 2004,
+  "venue": "MIS Quarterly",
+  "publication_type": "theoretical analysis",
+  "problem_statement": "Delineating the boundaries and methodological standards of design science research in contrast to traditional behavioral research in information systems.",
+  "domain": "Information Systems, Software Engineering, and Computer Science Methodology",
+  "theoretical_framework": "Design Science Paradigm, Behavioral Science Paradigm, and Information Systems Research Framework",
+  "methodology": "Conceptual framework synthesis and development of seven normative guidelines for artifact construction, evaluation, and communication.",
+  "datasets": null,
+  "evaluation": "Analytical evaluation and mapping of seven foundational guidelines across exemplar design science research projects.",
+  "key_findings": [
+    "Established that design science creates and evaluates IT artifacts (constructs, models, methods, instantiations) intended to solve identified organizational and technical problems.",
+    "Formulated seven core guidelines for design science research rigor: Design as an Artifact, Problem Relevance, Design Evaluation, Research Contributions, Research Rigor, Design as a Search Process, and Communication of Research.",
+    "Emphasized that empirical evaluation of artifact utility, quality, and efficiency is mandatory for establishing scientific contribution."
+  ],
+  "scope_and_delimitations": "Focuses on IT and information systems artifact creation and evaluation.",
+  "limitations": {
+    "verbatim_excerpt": "The guidelines should be addressed in any design-science research project. However, researchers, reviewers, and editors must use their judgment to determine how and to what degree each guideline should be applied.",
+    "summary": "Guidelines must be applied flexibly with domain-specific judgment rather than as a rigid bureaucratic checklist."
+  },
+  "generalizability_gap": "High-level guidelines require operationalization when applied to specific empirical deep learning benchmarks.",
+  "methodological_gap": "Evaluation methods are broadly classified (observational, analytical, experimental, testing, descriptive) without specifying statistical test parameters.",
+  "future_work": [
+    "Development of domain-specific evaluation metrics and formal artifact verification methods across evolving computing paradigms."
+  ]
+}

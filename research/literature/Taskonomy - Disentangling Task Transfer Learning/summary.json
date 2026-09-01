@@ -1,0 +1,65 @@
+{
+  "title": "Taskonomy: Disentangling Task Transfer Learning",
+  "authors": [
+    "Amir R. Zamir",
+    "Alexander Sax",
+    "William Shen",
+    "Leonidas Guibas",
+    "Jitendra Malik",
+    "Silvio Savarese"
+  ],
+  "year": 2018,
+  "venue": "IEEE Conference on Computer Vision and Pattern Recognition (CVPR)",
+  "publication_type": "empirical study",
+  "problem_statement": "Visual tasks are commonly solved in isolation via fully supervised learning, ignoring structural redundancies and quantifiable transfer dependencies across tasks, which leads to massive labeled data requirements and computational inefficiency.",
+  "domain": "Computer Vision, Transfer Learning, Visual Task Space Modeling (26 2D, 2.5D, 3D, and semantic indoor scene tasks)",
+  "theoretical_framework": "Computational task space taxonomy modeling; transfer learning representations as sufficient statistics in feedforward neural networks; Analytic Hierarchy Process (AHP) for normalized pairwise task affinity matrix construction; Binary Integer Programming (BIP) optimization for global transfer policy selection under a fixed supervision budget.",
+  "methodology": "The authors propose a four-step computational framework to map the structure of visual task space across 26 visual tasks: (1) Train fully supervised task-specific feedforward convolutional networks (ResNet-50 without pooling) for each task; (2) Train small, shallow transfer networks (2 convolutional layers) between representations in latent space across first-order and higher-order task combinations; (3) Normalize transfer performance into a pairwise task affinity matrix using ordinal win-rate comparisons and the Analytic Hierarchy Process (AHP); (4) Solve a Binary Integer Programming (BIP) problem to discover the globally optimal supervision policy that minimizes target task error given a limited supervision budget (maximum number of source tasks trained from scratch). The discovered structure is validated on novel out-of-dictionary tasks and external benchmarks (ImageNet and MIT Places).",
+  "datasets": [
+    "Taskonomy Dataset: 4 million high-resolution indoor images with ground truth across 26 vision tasks, captured from about 600 buildings. The experimental subset uses 120,000 training, 16,000 validation, and 17,000 testing images across non-overlapping buildings.",
+    "ImageNet (used for external benchmark correlation validation on object classification).",
+    "MIT Places (used for external benchmark correlation validation on scene classification)."
+  ],
+  "evaluation": {
+    "metrics": [
+      "Win Rate (%): proportion of test set images where a proposed model beats a baseline",
+      "Gain: win rate against a network trained from scratch using the same limited training data as transfer networks",
+      "Quality: win rate against a fully supervised network trained with 120k images (gold standard)",
+      "Spearman's Rho: rank correlation across external benchmark rankings"
+    ],
+    "baselines": [
+      "Random Network Baseline (Gaussian representation readout)",
+      "Statistically informed average guess baseline",
+      "Training from scratch with limited data (16k images)",
+      "Fully supervised task-specific networks (gold standard, 120k images)",
+      "Self-supervised representation baselines: Video/Motion (Wang & Gupta, 2015), Colorization (Zhang et al., 2016), Jigsaw Puzzles (Noroozi & Favaro, 2016), Generic 3D Representation (Zamir et al., 2016), and Egomotion (Agrawal et al., 2015)",
+      "ImageNet FC7 off-the-shelf feature transfer",
+      "Random feasible transfer policies"
+    ]
+  },
+  "key_findings": [
+    "Discovered a strong, non-trivial computational structure among 26 visual tasks, enabling solving all tasks with significantly reduced supervision (supervision budget substantially lower than total task count).",
+    "Taxonomy-suggested transfer policies consistently outperform state-of-the-art self-supervised representations and off-the-shelf ImageNet features on novel tasks, approaching fully supervised performance with only a fraction of the data.",
+    "Transfer relationships are frequently asymmetric and counter-intuitive; for instance, transferring surface normals to depth estimation is computationally more effective than transferring depth to surface normals, contrary to analytical expectations.",
+    "Higher-order transfers (combining features from multiple source tasks, such as surface normals and occlusion edges) provide synergistic gains for targets like reshading and point matching.",
+    "The discovered task structure generalizes to external image distributions, exhibiting high rank correlation on MIT Places (Spearman's rho = 0.857) and ImageNet (Spearman's rho = 0.823).",
+    "The taxonomy remains remarkably stable across variations in network architecture (ResNet-50 vs. others), dataset size (up to 16x transfer data variance), and data splits."
+  ],
+  "scope_and_delimitations": [
+    "The empirical investigation is delimited to indoor scene perception across 26 predefined visual tasks (2D, 2.5D, 3D, and semantic).",
+    "The function class is restricted to convolutional neural networks (ResNet-50 encoder with identical shallow 2-layer transfer decoders).",
+    "Supervision policy discovery is optimized under fixed, discrete task budgets (ranging from 1 to 26 source tasks) evaluated on 16k transfer examples."
+  ],
+  "limitations": {
+    "verbatim_excerpt": "*Model Dependence:* We used a computational approach and adopted neural networks as our function class. Though we validated the stability of the findings w.r.t various architectures and datasets, it should be noted that the findings are in principle model and data specific.\n\n*Compositionality:* We performed the modeling via a set of common human-defined visual tasks. It is natural to consider a further compositional approach in which such common tasks are viewed as *observed samples* which are composed of computationally found latent subtasks.\n\n*Space Regularity:* We performed modeling of a dense space via a sampled dictionary. Though we showed a good tolerance w.r.t. to the choice of dictionary and transferring to out-of-dictionary tasks, this outcome holds upon a proper sampling of the space as a function of its regularity. More formal studies on properties of the computed space is required for this to be provably guaranteed for a general case.\n\n*Lifelong Learning*: We performed the modeling in one go. In many cases, e.g. lifelong learning, the system is evolving and the number of mastered tasks constantly increase. Such scenarios require augmentation of the structure with expansion mechanisms based on new beliefs.",
+    "summary": "The computational taxonomy is fundamentally conditioned on neural network representations and specific indoor scene datasets; task definitions rely on human-defined visual heuristics rather than unsupervised latent subtasks; mapping a continuous task space via a discrete dictionary lacks theoretical regularity guarantees; and the static one-pass framework cannot dynamically update as new tasks arrive sequentially in lifelong learning environments."
+  },
+  "generalizability_gap": "The empirical task taxonomy is restricted to static 2D/3D indoor visual environments and convolutional architectures, leaving unexamined task transfer structures in non-visual domains (e.g., natural language processing, speech, audio), outdoor environments, dynamic temporal sequences, and transformer-based architectures.",
+  "methodological_gap": "The framework models transfer relationships through feedforward transfer functions in a fixed latent space rather than simultaneous bidirectional multi-task learning or dynamic gradient balancing, and task affinity is derived through ordinal pairwise comparisons rather than optimization-level gradient conflict analysis.",
+  "future_work": [
+    "Developing compositional task space formulations where tasks are decomposed into computationally discovered latent subtasks.",
+    "Formulating mathematical analyses and theoretical guarantees on task space regularity and completeness.",
+    "Extending the taxonomy framework to dynamic lifelong learning systems where task dictionaries expand incrementally over time.",
+    "Investigating the relationship between transfer learning task structure and simultaneous multi-task parameter sharing."
+  ]
+}

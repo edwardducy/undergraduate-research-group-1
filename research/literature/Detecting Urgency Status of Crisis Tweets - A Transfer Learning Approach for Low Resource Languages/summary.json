@@ -1,0 +1,88 @@
+{
+  "title": "Detecting Urgency Status of Crisis Tweets: A Transfer Learning Approach for Low Resource Languages",
+  "authors": [
+    "Efsun Sarioglu Kayi",
+    "Linyong Nan",
+    "Bohan Qu",
+    "Mona Diab",
+    "Kathleen McKeown"
+  ],
+  "year": 2020,
+  "venue": "Proceedings of the 28th International Conference on Computational Linguistics (COLING 2020)",
+  "publication_type": "empirical study",
+  "problem_statement": "How to detect the urgency status of crisis-related social media tweets during natural disasters with very limited annotated data, and how to effectively transfer urgency classification knowledge from a high-resource language (English) to low-resource languages (Sinhala and Odia) in a zero-shot cross-lingual setting using deep contextual and cross-lingual embeddings.",
+  "domain": "Crisis Informatics, Disaster Response, Social Media NLP (Twitter), Cross-Lingual Transfer Learning, Low-Resource Languages (English, Sinhala, Odia)",
+  "theoretical_framework": "Zero-shot cross-lingual transfer learning framework (Ruder et al., 2019) mapping high-resource source representations to low-resource target spaces via projection-based bilingual embeddings (VecMap, Proc-B) and massively multilingual contextual representations (LASER, XLM-R); semi-supervised self-training via multi-classifier consensus voting (Yarowsky, 1995; Zhou and Goldman, 2004); and recall-maximizing ensemble decision theory for life-critical disaster informatics.",
+  "methodology": "A transfer learning pipeline comprising: (1) Preprocessing tweets via URL/mention removal, lowercasing, and hashtag segmentation; (2) Feature extraction using monolingual non-contextual (fastText, CrisisNLP) and contextual embeddings (BERT-base, BERT-large, RoBERTa-large, XLM-mlm-en) for English, alongside projection-based cross-lingual embeddings (VecMap, Proc-B initialized with fastText and aligned via fast-align seed dictionaries) and multilingual contextual embeddings (LASER, XLM-R base/large) for Sinhala and Odia; (3) Classification using SVM, Random Forest, Multi-Layer Perceptron (dense layers 1024, 512, 64 with batch normalization, ReLU, and dropout), and CNN architectures; (4) Semi-supervised data augmentation via multi-round self-training with agreement across three independent RoBERTa models to pseudo-label unlabeled disaster tweets (expanding 1,952 samples to 16,243 samples); and (5) Ensemble modeling using an aggressive voting strategy (predicting Urgent if any model votes positive) to maximize recall for urgent crisis situations.",
+  "datasets": [
+    "English Crisis Urgency Dataset - 1,919 crisis tweets sampled from Imran et al. (2016) and annotated on Figure-Eight across four urgency levels (134 Extremely Urgent, 378 Definitely Urgent, 589 Somewhat Urgent, 818 Not Urgent), mapped to binary labels (26.7% urgent, 73.3% not urgent) and split into 80% training and 20% evaluation",
+    "Augmented English Dataset - 16,243 crisis tweets combining 1,952 labeled samples with pseudo-labeled unlabeled crisis tweets filtered by consensus agreement of three RoBERTa models (18.5% urgent ratio)",
+    "Sinhala Evaluation Dataset (LDC LORELEI IL10 / LDC2018E57) - Sentence-level binary urgency annotations by native informants (7.7% urgent ratio)",
+    "Odia Evaluation Dataset (LDC LORELEI IL11 / LDC2019E62) - Sentence-level binary urgency annotations by native informants (16.1% urgent ratio)"
+  ],
+  "evaluation": {
+    "metrics": [
+      "Macro Precision",
+      "Macro Recall",
+      "Macro F1 Score (unweighted mean across positive and negative classes)",
+      "Mean and standard deviation across 30 independent experimental runs"
+    ],
+    "english_classification_results": {
+      "random_baseline_macro_f1": 50.0,
+      "crisisnlp_mlp_original_macro_f1": "70.5 ± 1.3",
+      "fasttext_mlp_original_macro_f1": "65.8 ± 1.4",
+      "bert_large_mlp_original_macro_f1": 75.2,
+      "roberta_large_mlp_original_macro_f1": 75.7,
+      "roberta_large_mlp_augmented_macro_f1": 75.6,
+      "ensemble_aggressive_voting_macro_f1": 76.5,
+      "ensemble_precision": 77.8,
+      "ensemble_recall": 75.6
+    },
+    "cross_lingual_sinhala_results_zero_shot": {
+      "procb_mlp_original_macro_f1": "54.6 ± 5.1",
+      "vecmap_mlp_original_macro_f1": "52.3 ± 4.7",
+      "laser_mlp_original_macro_f1": 62.1,
+      "xlmr_large_mlp_augmented_macro_f1": 59.2,
+      "ensemble_macro_f1": 63.5,
+      "ensemble_precision": 61.2,
+      "ensemble_recall": 69.3
+    },
+    "cross_lingual_odia_results_zero_shot": {
+      "procb_mlp_original_macro_f1": "53.3 ± 3.4",
+      "vecmap_mlp_augmented_macro_f1": "56.4 ± 2.1",
+      "xlmr_base_mlp_original_macro_f1": 47.9,
+      "xlmr_base_mlp_augmented_macro_f1": 61.3,
+      "ensemble_macro_f1": 62.6,
+      "ensemble_precision": 71.2,
+      "ensemble_recall": 60.3
+    }
+  },
+  "key_findings": [
+    "Deep pre-trained contextual models (RoBERTa-large) produce superior tweet representations even with small annotated datasets, achieving a 75.7% Macro F1 score on English urgency detection (a 25.7% absolute improvement over random baseline).",
+    "Zero-shot cross-lingual transfer from English to low-resource languages is effective, achieving 63.5% Macro F1 on Sinhala using LASER representations and 62.6% Macro F1 on Odia using XLM-R representations with an ensemble model.",
+    "LASER features perform best for English-to-Sinhala transfer due to sentence-level contextual modeling and larger parallel training corpora (796,000 sentence pairs), whereas XLM-R base features benefit Odia transfer most when augmented with synthetic training data.",
+    "In-domain crisis embeddings (CrisisNLP) consistently outperform out-of-domain embeddings (fastText) for English classification (70.5% vs. 65.8% Macro F1 with MLP).",
+    "Semi-supervised data augmentation via multi-classifier consensus improves classification performance when source and target label distributions are aligned (Odia: 16.1% vs. 18.5% urgent), but degrades performance when class distributions diverge substantially (Sinhala: 7.7% vs. 18.5% urgent).",
+    "Aggressive voting ensembles predicting positive when any constituent model predicts urgency enhance recall and overall Macro F1 across both English and cross-lingual low-resource tasks."
+  ],
+  "scope_and_delimitations": [
+    "Restricted crisis post types to natural disaster tweets (such as earthquakes, typhoons, and landslides) sampled from historical crisis corpora.",
+    "Delimited target low-resource languages strictly to Sinhala (IL10) and Odia (IL11) evaluated in a zero-shot cross-lingual setting using LDC LORELEI packages without target-language training data.",
+    "Mapped fine-grained 4-level urgency annotations into binary classification (Urgent vs Not Urgent).",
+    "Delimited classifier models to frozen embedding feature extraction followed by shallow classifiers (SVM, RF, MLP, CNN), excluding full end-to-end fine-tuning due to dataset size constraints.",
+    "Multilingual BERT was excluded from cross-lingual experiments because its pre-training vocabulary does not support Sinhala or Odia."
+  ],
+  "limitations": {
+    "verbatim_excerpt": "When we analyzed the annotations, we noticed that some of the tweets about rescue efforts were particularly confusing: tweets that are general status updates about an incident and more critical tweets that are asking for help are both labeled as urgent, without making a distinction between the two. This demonstrates one of many aspects of the difficulty of annotating for urgency, partially due to the tendency of labeling a tweet as urgent even though the urgency of the event is past.",
+    "summary": "Urgency annotation suffers from ambiguity and noise because annotators frequently conflate general crisis status updates with critical emergency requests for help, and tend to label past events as urgent. Additionally, end-to-end fine-tuning of deep pre-trained language models fails on small-scale crisis datasets, pseudo-label data augmentation degrades performance when source and target class prior distributions diverge, and major multilingual models like Multilingual BERT lack support for low-resource languages such as Sinhala and Odia."
+  },
+  "generalizability_gap": "The transfer framework is evaluated only on two Indo-Aryan languages (Sinhala and Odia) and English natural disaster tweets; generalizability to other language families, non-natural emergencies (man-made conflicts, terrorist attacks, infectious disease outbreaks), and social media platforms beyond Twitter remains unexamined.",
+  "methodological_gap": "The methodology relies on static frozen embedding feature extraction and shallow classifiers because end-to-end transformer fine-tuning collapses on small datasets; projection-based cross-lingual embeddings (VecMap, Proc-B) rely on order-independent idf-weighted word averaging rather than deep contextualized sentence modeling; and semi-supervised data augmentation lacks mechanisms to adapt to target-domain class prior distribution shifts.",
+  "future_work": [
+    "Extending cross-lingual urgency detection to additional low-resource languages across diverse language families.",
+    "Developing domain adaptation and calibration techniques for semi-supervised data augmentation when source and target label distributions differ significantly.",
+    "Exploring low-resource fine-tuning techniques and lightweight parameter-efficient transfer methods for deep pre-trained language models on small disaster corpora.",
+    "Investigating fine-grained multi-class urgency intensity classification beyond binary tags to differentiate active emergency rescue calls from general incident status reports.",
+    "Integrating cross-lingual urgency classifiers into real-time emergency dispatch and humanitarian assistance platforms."
+  ]
+}

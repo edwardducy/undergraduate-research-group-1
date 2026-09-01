@@ -1,0 +1,34 @@
+{
+  "title": "Multitask Learning",
+  "authors": [
+    "Rich Caruana"
+  ],
+  "year": 1997,
+  "venue": "Machine Learning",
+  "publication_type": "empirical study",
+  "problem_statement": "Traditional machine learning algorithms train isolated models on individual tasks, discarding domain-specific inductive signals present in related tasks and incurring redundant computation.",
+  "domain": "Machine Learning, Inductive Transfer, and Neural Network Architectures",
+  "theoretical_framework": "Inductive Transfer, Representation Learning, and Hard Parameter Sharing",
+  "methodology": "Parallel joint training of multiple task objectives over a shared hidden representation using backpropagation in neural networks, kernel regression, and k-nearest neighbor algorithms.",
+  "datasets": [
+    "1D ALVINN autonomous road-following dataset",
+    "Medical pneumonia risk prediction database",
+    "Synthetic Boolean decision problems"
+  ],
+  "evaluation": "Empirical comparison of generalization error, root mean squared error (RMSE), and classification accuracy between isolated single-task learning and shared multi-task learning models.",
+  "key_findings": [
+    "Proved that joint multi-task training over a shared hidden representation provides an inductive bias that improves generalization performance on primary tasks.",
+    "Formalized the hard parameter sharing architecture, demonstrating that sharing intermediate hidden representations amortizes computation across multiple tasks.",
+    "Identified mechanisms of inductive transfer, including statistical data amplification, feature eavesdropping, representation bias, and attribute selection."
+  ],
+  "scope_and_delimitations": "Focuses on hard parameter sharing in feedforward multi-layer perceptrons, kernel regression, and k-nearest neighbor methods.",
+  "limitations": {
+    "verbatim_excerpt": "If tasks are not sufficiently related, training them together can cause negative transfer where performance on one or more tasks degrades relative to single-task learning.",
+    "summary": "Identified the risk of negative transfer when joint tasks have conflicting gradient directions or unrelated domain signals."
+  },
+  "generalizability_gap": "Evaluated on small-scale MLP and regression architectures; does not investigate modern deep Transformer encoders or multi-task gradient conflict optimization algorithms.",
+  "methodological_gap": "Used equal loss weighting; did not explore dynamic loss balancing, gradient surgery, or multi-objective Pareto optimization methods.",
+  "future_work": [
+    "Investigation of task relationship discovery algorithms and methods to dynamically mitigate negative transfer in large-scale multi-task architectures."
+  ]
+}
