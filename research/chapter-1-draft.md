@@ -1,5 +1,26 @@
 # Chapter 1: The Problem and Its Background
 
+## 1. Proposed Title
+
+<!-- vale off -->
+**Research Title:**  
+Benchmarking Dynamic Multi-Task Optimization in a Multilingual Transformer Encoder for Joint Triage of Taglish Disaster Tweets
+
+**Degree Program:**  
+Bachelor of Science in Computer Science
+
+**Academic Institution:**  
+Department of Computer Science and Information Technology  
+School of Science and Technology  
+Centro Escolar University, Manila
+
+**Course:**  
+Undergraduate Research 1 (CSIT 411)
+
+**Academic Term:**  
+First Semester, Academic Year 2026–2027
+<!-- vale on -->
+
 ## 2. Introduction to the Study
 
 <!-- vale off -->
