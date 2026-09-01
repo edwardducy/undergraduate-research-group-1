@@ -1,0 +1,46 @@
+{
+  "title": "Do All Languages Cost the Same? Tokenization in the Era of Commercial Language Models",
+  "authors": [
+    "Orevaoghene Ahia",
+    "Sachin Kumar",
+    "Hila Gonen",
+    "Jungo Kasai",
+    "David R. Mortensen",
+    "Noah A. Smith",
+    "Yulia Tsvetkov"
+  ],
+  "year": 2023,
+  "venue": "Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing (EMNLP 2023)",
+  "publication_type": "empirical study",
+  "problem_statement": "Analyzes the economic and computational inequities caused by subword tokenizers in commercial language model APIs that charge per token, demonstrating that low-resource languages incur higher monetary costs and latency overhead for identical semantic content.",
+  "domain": "Natural Language Processing, Subword Tokenization, NLP Economics & Fairness",
+  "theoretical_framework": "Cross-lingual tokenizer fertility analysis and pricing policy critique for token-based commercial NLP billing models.",
+  "methodology": "Empirically measures token fertility, byte-to-token ratios, monetary cost per task, and generation throughput across 22 typologically diverse languages using commercial API tokenizers (including OpenAI tiktoken cl100k_base, text-davinci-003, and Cohere) on standardized translation datasets.",
+  "datasets": [
+    "FLORES-101",
+    "WMT parallel benchmark datasets"
+  ],
+  "evaluation": [
+    "Token fertility (subword tokens per word)",
+    "Byte-to-token ratio",
+    "Relative cost ratio compared to English",
+    "Context window efficiency"
+  ],
+  "key_findings": [
+    "Commercial tokenizers exhibit severe cross-lingual fertility disparities, requiring up to 6x more tokens to represent equivalent semantic content in low-resource languages compared to English.",
+    "Because API pricing models charge uniformly per token, speakers of low-resource languages pay significantly higher financial costs for identical linguistic tasks.",
+    "High subword fragmentation dilutes semantic token embeddings and limits the effective context length available for multi-sentence reasoning in under-represented languages.",
+    "Language-agnostic Byte-Pair Encoding trained predominantly on English web text allocates fewer subword merges to non-dominant languages, forcing character-level fallback."
+  ],
+  "scope_and_delimitations": "Focuses on commercial API tokenizers and pricing models across 22 languages spanning high-resource, medium-resource, and low-resource tiers on parallel corpora.",
+  "limitations": {
+    "verbatim_excerpt": "Our analysis is limited to 22 languages selected based on data availability in FLORES-101, and does not assess dialectal variations, informal social media slang, or mixed-language code-switching.",
+    "summary": "The analysis focuses on standard translated text across 22 languages and does not evaluate informal social media dialects, code-switched text, or morphological affixes in agglutinative hybrids."
+  },
+  "generalizability_gap": "Evaluated on clean standard language benchmarks; does not cover code-switched social media text (such as Tagalog-English Taglish) or domain-specific emergency disaster microblogs.",
+  "methodological_gap": "Does not measure joint multi-task gradient conflict or sequence labeling degradation induced by token over-fragmentation during fine-tuning.",
+  "future_work": [
+    "Designing equitable tokenizer pricing structures based on semantic content or byte length rather than subword token count.",
+    "Exploring adaptive cross-lingual tokenizers tailored for multilingual and low-resource deployment."
+  ]
+}
