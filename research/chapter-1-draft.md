@@ -305,3 +305,91 @@ $$\mathcal{L}_{\text{total}} = \frac{1}{K} \sum_{k=1}^K \mathcal{L}_k, \quad \ma
 
 This baseline updates shared encoder parameters using the unweighted arithmetic mean of individual task gradients.
 <!-- vale on -->
+
+## 11. References
+
+<!-- vale off -->
+Adouane, W., & Bernardy, J.-P. (2020). Identifying named entities and code-switching in low-resource and noisy text: An empirical study on Arabic-Latin script. In Proceedings of the 12th Language Resources and Evaluation Conference (LREC 2020) (pp. 4340-4349). European Language Resources Association (ELRA).
+
+Ahia, O., Swayamdipta, S., & Tsvetkov, Y. (2023). Do all languages cost the same? Tokenization in the multilingual era. In Findings of the Association for Computational Linguistics: ACL 2023 (pp. 8751-8767). Association for Computational Linguistics. https://doi.org/10.18653/v1/2023.findings-acl.557
+
+Alam, F., Ofli, F., & Imran, M. (2018). CrisisMMD: Multimodal Twitter datasets from natural disasters. In Proceedings of the 15th International Conference on Information Systems for Crisis Response and Management (ISCRAM 2018) (pp. 469-489). ISCRAM Association.
+
+Alam, F., Qazi, U., Imran, M., & Ofli, F. (2021). HumAID: Human-annotated disaster incidents dataset from Twitter with deep learning benchmarks. In Proceedings of the International AAAI Conference on Web and Social Media (ICWSM 2021) (Vol. 15, pp. 914-922). AAAI Press. https://doi.org/10.1609/icwsm.v15i1.18115
+
+Baxter, J. (2000). A model of inductive bias learning. Journal of Artificial Intelligence Research, 12, 149-198. https://doi.org/10.1613/jair.731
+
+Caruana, R. (1997). Multitask learning. Machine Learning, 28(1), 41-75. https://doi.org/10.1023/A:1007379606734
+
+Chen, X., Li, X., Wang, Y., & Zhang, M. (2024). Multi-task representation learning in natural language processing: A survey. ACM Computing Surveys.
+
+Chen, Z., Badrinarayanan, V., Lee, C.-Y., & Rabinovich, A. (2018). GradNorm: Gradient normalization for adaptive loss balancing in deep multitask networks. In Proceedings of the 35th International Conference on Machine Learning (ICML 2018) (PMLR 80, pp. 794-803). PMLR.
+
+Demšar, J. (2006). Statistical comparisons of classifiers over multiple data sets. Journal of Machine Learning Research, 7, 1-30.
+
+Elich, C., et al. (2024). Multi-task learning with Adam: When does gradient surgery matter? In Proceedings of the German Conference on Pattern Recognition (GCPR 2024). Lecture Notes in Computer Science, Springer.
+
+Ermino, K. D., et al. (2022). Evaluating urgency of typhoon-related tweets through sentiment analysis using artificial neural networks. In Proceedings of IEEE Region 10 Conference (TENCON 2022). IEEE.
+
+Herrera, G., et al. (2022). TweetTaglish: A dataset for Tagalog-English code-switching analysis. In Proceedings of the 13th Language Resources and Evaluation Conference (LREC 2022) (pp. 5742-5750). European Language Resources Association.
+
+Hevner, A. R., March, S. T., Park, J., & Ram, S. (2004). Design science in information systems research. MIS Quarterly, 28(1), 75-105. https://doi.org/10.2307/25148625
+
+Kendall, A., Gal, Y., & Cipolla, R. (2018). Multi-task learning using uncertainty to weigh losses for scene geometry and semantics. In Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR 2018) (pp. 7482-7491). IEEE.
+
+Kurin, V., De Palma, A., Sha, I., & Whiteson, S. (2022). In defense of the unitary scalarization for deep multi-task learning. In Advances in Neural Information Processing Systems (NeurIPS 2022) (Vol. 35, pp. 12169-12183).
+
+Lardizabal-Dado, N. (2020). Social media in disaster risk reduction and management: The #RescuePH and #ReliefPH experience. In Disaster Risk Reduction and Management. National Disaster Center.
+
+Lin, B., & Zhang, Y. (2023). Multi-objective optimization for multi-task learning: A survey. Transactions on Machine Learning Research.
+
+Liu, B., Feng, Y., Stone, P., & Liu, Q. (2023). Fast adaptive multitask optimization. In Advances in Neural Information Processing Systems (NeurIPS 2023) (Vol. 36, pp. 24823-24840).
+
+Liu, B., Liu, X., Jin, X., Stone, P., & Liu, Q. (2021). Conflict-averse gradient descent for multi-task learning. In Advances in Neural Information Processing Systems (NeurIPS 2021) (Vol. 34, pp. 1887-1898).
+
+Liu, L., Li, Y., Kuang, Z., Xue, J. H., Chen, Y., Yang, W., Liao, Q., & Zhang, W. (2021b). Towards impartial multi-task learning. In International Conference on Learning Representations (ICLR 2021).
+
+Loshchilov, I., & Hutter, F. (2019). Decoupled weight decay regularization. In International Conference on Learning Representations (ICLR 2019).
+
+Maninis, K.-K., Radosavovic, I., & Kokkinos, I. (2019). Attentive single-tasking of multiple tasks. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2019) (pp. 1851-1860). IEEE.
+
+Miranda, L. (2023). calamanCy: A Tagalog natural language processing toolkit and named entity recognition benchmark. In Proceedings of the 37th Pacific Asia Conference on Language, Information and Computation (PACLIC 37).
+
+Montalan, J., et al. (2025). Batayan: A unified benchmark for Philippine language natural language processing. In Proceedings of the 31st International Conference on Computational Linguistics (COLING 2025).
+
+National Disaster Risk Reduction and Management Council. (2020). Situational report on Typhoon Vamco (Ulysses). NDRRMC, Republic of the Philippines.
+
+National Disaster Risk Reduction and Management Council. (2022). Situational report on Typhoon Rai (Odette) and Severe Tropical Storm Paeng (Nalgae). NDRRMC, Republic of the Philippines.
+
+Navon, A., Shamsian, A., Fetaya, E., & Chechik, G. (2022). Multi-task learning as a bargaining game. In Proceedings of the 39th International Conference on Machine Learning (ICML 2022) (PMLR 162, pp. 16428-16446). PMLR.
+
+Olteanu, A., Vieweg, S., & Castillo, C. (2015). Comparing normal and disaster tweet lexicons for crisis response. In Proceedings of the 18th ACM Conference on Computer-Supported Cooperative Work & Social Computing (CSCW 2015) (pp. 1604-1617). ACM. https://doi.org/10.1145/2675133.2675242
+
+Peffers, K., Tuunanen, T., Rothenberger, M. A., & Chatterjee, S. (2007). A design science research methodology for information systems research. Journal of Management Information Systems, 24(3), 45-77. https://doi.org/10.2753/MIS0742-1222240302
+
+Petrov, A., La Malfa, E., Torr, P. H., & Bibi, A. (2023). Language model tokenizers introduce unfairness between languages. In Advances in Neural Information Processing Systems (NeurIPS 2023) (Vol. 36, pp. 24841-24856).
+
+Pradhan, N., et al. (2024). Multi-task learning model for fine-grained categorization of emergency tweets. In Proceedings of IEEE Conference on Big Data and Analytics. IEEE.
+
+Qin, Y., et al. (2025). Gradient dynamics and loss scaling in multi-task deep neural networks. Neural Networks.
+
+Reimers, N., & Gurevych, I. (2017). Reporting score distributions makes a difference: Improving reliability for NLP research. In Proceedings of the 2017 Conference on Empirical Methods in Natural Language Processing (EMNLP 2017) (pp. 338-348). Association for Computational Linguistics. https://doi.org/10.18653/v1/D17-1035
+
+Republic of the Philippines. (2012). Republic Act No. 10173: Data Privacy Act of 2012. Official Gazette of the Republic of the Philippines.
+
+Ruder, S. (2017). An overview of multi-task learning in deep neural networks. arXiv preprint arXiv:1706.05098.
+
+Sener, O., & Koltun, V. (2018). Multi-task learning as multi-objective optimization. In Advances in Neural Information Processing Systems (NeurIPS 2018) (Vol. 31, pp. 527-538).
+
+Wang, X., et al. (2021). Joint entity and relation extraction for emergency message analysis during crises. Information Processing & Management, 58(6), 102698. https://doi.org/10.1016/j.ipm.2021.102698
+
+Warner, B., Chaffin, A., Clavié, B., Weller, O., Hallström, O., Taghadouini, S. A., Gallagher, A., Raja, S., Land, C., Liu, H., et al. (2025). Smarter, better, faster, longer: A modern bidirectional encoder for fast, long-context natural language understanding. arXiv preprint arXiv:2412.13663.
+
+Weld, H., Huang, X., Lee, S., & Han, S. C. (2022). A survey of joint intent detection and slot filling models in natural language understanding. ACM Computing Surveys, 55(8), 1-38. https://doi.org/10.1145/3544108
+
+Xin, D., Ghorbani, B., Garg, A., & Firat, O. (2022). Do current multi-task optimization methods actually work? In Advances in Neural Information Processing Systems (NeurIPS 2022) (Vol. 35, pp. 24806-24819).
+
+Yu, T., Kumar, S., Gupta, A., Levine, S., Hausman, K., & Finn, C. (2020). Gradient surgery for multi-task learning: Projecting conflicting gradients. In Advances in Neural Information Processing Systems (NeurIPS 2020) (Vol. 33, pp. 21824-21835).
+
+Zhang, Y., & Yang, Q. (2021). A survey on multi-task learning. IEEE Transactions on Knowledge and Data Engineering, 34(12), 5586-5609. https://doi.org/10.1109/TKDE.2021.3070203
+<!-- vale on -->
