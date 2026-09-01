@@ -200,7 +200,6 @@ The investigation is delimited to the three core operational triage tasks and do
 <!-- vale off -->
 To establish technical precision across the study, the following terms are operationally defined according to their computational, mathematical, and algorithmic roles in the experimental framework and software system.
 
-- **Automated Disaster Triage:** The computational process of concurrently extracting token-level geographic entities and classifying sequence-level humanitarian intent and urgency tiers from raw social media feeds in real time.
 - **BIO Schema for Token Annotation:** A token-level tagging scheme that marks the beginning (B-), inside continuation (I-), and outside absence (O-) of named entity tokens. In this study, the schema identifies multi-token location and infrastructure entity spans in Taglish disaster tweets.
 - **Computational Inference Latency ($t_{\text{exec}}$):** The average execution time in milliseconds required for the multi-task model to perform a single forward pass and output predictions for all three triage tasks.
   $$t_{\text{exec}} = \frac{1}{N} \sum_{i=1}^N \left( t_{\text{end}, i} - t_{\text{start}, i} \right)$$
