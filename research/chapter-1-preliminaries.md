@@ -30,13 +30,13 @@ Before drafting Chapter 1, confirm that the project is a Computer Science resear
 
 **Core formula for CS research:**
 
-- CS Research Project = Novel Component or Experiment + Software Artifact + Empirical Metrics
+- CS Research Project = New Component (previously untested algorithmic modification compared against baselines with t_exec, M_RAM, accuracy) + Software Artifact + Empirical Metrics
 
 **Comparison by dimension:**
 
 - **Primary Goal**
   - Software Engineering: Build a working, reliable software product for end users.
-  - Computer Science Research: Create new computational knowledge, algorithms, or novel optimizations.
+  - Computer Science Research: Create new computational knowledge, such as an algorithm that reduces inference latency or memory by a stated percent on the target hardware.
 - **Nature of Problem**
   - Software Engineering: A known problem solved with standard off-the-shelf tools and APIs.
   - Computer Science Research: An unresolved computational problem or an open algorithmic bottleneck.
@@ -92,13 +92,13 @@ Chapter 1 opens with two distinct sections that build the opening narrative of t
 ### 3.2 Background Of The Study: The Technical Case File And Macro-Meso-Micro Model
 
 - The Background is a rigorous, data-driven technical case file of 2 to 4 pages.
-- The Background narrows from broad theoretical paradigms to concrete computational bottlenecks through the Macro-Meso-Micro funnel model.
+- The Background narrows from broad theoretical frameworks (e.g., DSRM, complexity theory) to concrete computational bottlenecks through the Macro-Meso-Micro funnel model.
 
-**Macro perspective, global algorithmic and CS paradigm trends:**
+**Macro perspective, global algorithmic and CS research trends:**
 
 - Establish the global state of the core CS subfield.
 - Cite recent peer-reviewed studies from the last 3 to 5 years, from IEEE Xplore, the ACM Digital Library, or Springer.
-- Show how state-of-the-art algorithms function worldwide.
+- Show how recent peer-reviewed algorithms (2021–2026, IEEE/ACM) perform on accuracy, latency, and memory benchmarks worldwide.
 
 **Meso perspective, national or regional application context:**
 
@@ -134,8 +134,8 @@ Chapter 1 opens with two distinct sections that build the opening narrative of t
   - SOP question: "What are the performance limitations and accuracy metrics of existing baseline models under [Target Condition]?"
   - Research objective: "To establish benchmark performance metrics of existing algorithms using [Standard Dataset / Testbed]."
 - **Phase 2: Design and Artifact Creation (DSR)**
-  - SOP question: "How can [Proposed Novel Algorithm / Optimization Technique] be designed and integrated into a proof-of-concept software artifact?"
-  - Research objective: "To design and implement [Proposed Novel Algorithm] using Python and PyTorch into a functional proof-of-concept artifact."
+  - SOP question: "How can [Proposed Algorithm: name the modification, e.g., quantized ensemble with GradNorm] be designed and integrated into a proof-of-concept software artifact?"
+  - Research objective: "To design and implement [Proposed Algorithm: specify name, inputs, and tooling] using Python and PyTorch into a functional proof-of-concept artifact."
 - **Phase 3: Empirical Benchmarking**
   - SOP question: "What is the empirical performance of the proposed artifact in terms of execution time (texec), memory footprint (MRAM), and accuracy (Acc)?"
   - Research objective: "To empirically measure the artifact's performance across execution speed, memory utilization, and classification accuracy."
@@ -147,7 +147,7 @@ Chapter 1 opens with two distinct sections that build the opening narrative of t
 
 ### A. Theoretical Foundations In Computer Science
 
-The research must anchor in recognized scientific theories and formal paradigms:
+The research must anchor in recognized scientific theories and formal frameworks:
 
 - **Design Science Research Methodology, DSRM, Peffers et al.:** Iterative cycle of Problem Identification, Solution Objectives, Artifact Design, Demonstration, Empirical Evaluation, and Communication.
 - **Computational Complexity Theory:** Big-O notation, such as O(n) and O(n log n), for time and space trade-off evaluation.
@@ -158,7 +158,7 @@ The research must anchor in recognized scientific theories and formal paradigms:
 - **Processing speed and latency:** Inference time per frame in milliseconds, throughput in frames per second, and execution time (texec).
 - **Computational efficiency:** CPU or GPU load from 0 to 100 percent, RAM allocation in megabytes, and FLOPs count.
 - **Model precision and quality:** Accuracy, precision, recall, F1-score, and mean average precision (mAP).
-- **Robustness and edge cases:** Performance under noise, low-light degradation, packet loss, or sparse data.
+- **Stability and edge cases:** Accuracy and latency retention under specified degradations (e.g., <50 lux, 10% packet loss) or sparse data.
 
 ### C. Input-Process-Output (IPO) Conceptual Model For CS
 
@@ -175,7 +175,7 @@ Represent the analytical and experimental flow of the project in IPO format:
   - Software proof-of-concept artifact implementation
   - Empirical benchmarking and statistical testing
 - **Output**
-  - Novel or optimized algorithmic artifact
+  - New or optimized artifact that the study measures with execution time, memory footprint, and accuracy (p<0.05)
   - Validated empirical benchmark results
   - Comparative performance proof, p < 0.05
   - Open research codebase or proof of concept
