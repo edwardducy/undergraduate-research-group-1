@@ -10,3 +10,4 @@ _page_*
 node_modules/
 .slidev/
 dist/
+*.deb
