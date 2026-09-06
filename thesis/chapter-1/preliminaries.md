@@ -1,5 +1,3 @@
-<!-- vale off -->
-
 # Chapter 1 Preliminaries: CEU CSIT Module M2
 
 **Record:** Pasted copy of the university module "M2. Preliminary & Chapter 1: General Components of a CS Research Proposal", a guide to algorithmic investigations, Design Science Research (DSR), empirical benchmarking, and CEU manuscript protocols. Recorded 2026-08-31.
@@ -197,5 +195,3 @@ Represent the analytical and experimental flow of the project in IPO format:
 
 - Avoid dictionary definitions.
 - Define technical and algorithmic terms operationally, based on how each term functions inside the mathematical formulas, the dataset pipeline, or the execution codebase.
-
-<!-- vale on -->

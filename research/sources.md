@@ -28,7 +28,6 @@ https://arxiv.org/abs/2004.12376
 https://arxiv.org/abs/1711.02257
 https://arxiv.org/abs/2001.06782
 https://arxiv.org/abs/2104.03090
-https://doi.org/10.62019/zabvxd97
 https://arxiv.org/abs/2111.06053
 https://arxiv.org/abs/2201.04122
 https://arxiv.org/abs/2305.19000

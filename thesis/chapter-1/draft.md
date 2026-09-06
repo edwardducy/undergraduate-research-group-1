@@ -2,23 +2,18 @@
 
 ## 1. Proposed Title
 
-<!-- vale off -->
 Benchmarking Dynamic Multi-Task Balancing in a Multilingual Encoder for Joint Triage of Taglish Disaster Tweets
-<!-- vale on -->
 
 ## 2. Introduction to the Study
 
-<!-- vale off -->
 During natural disasters such as typhoons and severe floods, emergency response agencies rely on real-time social media messages to coordinate rescue, assess infrastructure damage, and distribute humanitarian relief. Extracting critical information from these high-volume message streams requires natural language processing (NLP) models to execute three concurrent tasks, namely token-level Named Entity Recognition (NER) for critical locations and infrastructure, sequence-level intent classification for humanitarian needs, and sequence-level urgency prioritization for life-threatening distress.
 
 Standard NLP deployment pipelines run separate Single-Task Learning (STL) models for each prediction target. This approach scales computational latency and memory consumption linearly with task count ($\mathcal{O}(K)$ for $K$ tasks), exceeding the processing capabilities of local workstation hardware. In contrast, hard-parameter-sharing Multi-Task Learning (MTL) uses a single multilingual Transformer backbone to generate shared representations in a single forward pass, achieving near-constant inference latency ($\mathcal{O}(1)$ relative to $K$). However, joint multi-task training couples heterogeneous loss functions, producing two primary gradient failure modes during backpropagation, namely gradient magnitude disparities and gradient directional conflicts. On low-resource, code-switched text such as Tagalog-English (Taglish), these optimization bottlenecks often trigger negative transfer, causing joint models to underperform isolated single-task baselines.
 
 To resolve these computational and optimization challenges, this study develops an empirical benchmarking framework grounded in the Design Science Research Methodology (DSRM). The investigation benchmarks candidate Multi-Task Optimization (MTO) algorithms (spanning dynamic loss weighting and gradient surgery) against Uniform Equal Weighting (EW), tuned Static Linear Scalarization (LS), and isolated STL baselines across four historical Philippine typhoons under a 4-fold Leave-One-Event-Out (LOEO) evaluation protocol. Using PyTorch gradient diagnostic hooks and an intra-task half-batch gradient baseline, the framework quantifies gradient interference, evaluates out-of-distribution generalization, and deploys the fine-tuned model within a prototype web application for disaster triage.
-<!-- vale on -->
 
 ## 3. Background of the Study
 
-<!-- vale off -->
 ### 3.1 Macro Level
 
 Automated disaster triage requires extracting three types of information from incoming crisis messages, namely location entities (Alam et al., 2021), humanitarian intent categories, and urgency levels (Wang et al., 2021). Deploying independent Transformer models for each task multiplies inference latency and parameter storage linearly as $\mathcal{O}(K)$ for $K$ tasks (Ruder, 2017). Conversely, hard parameter sharing passes text through a shared multilingual Transformer encoder to compute intermediate contextual representations, which feed lightweight task-specific linear heads (Chen et al., 2024; Ruder, 2017). This unified architecture maintains near-constant inference latency ($\mathcal{O}(1)$ relative to $K$) on local workstation hardware and introduces an inductive bias that guides shared parameters toward representations supporting all triage tasks simultaneously.
@@ -55,11 +50,9 @@ As summarized in Table 1, existing benchmarks exhibit clear architectural limita
 This data void directly impairs multi-task optimization research for crisis triage. In a shared Transformer encoder, token-level NER aggregates cross-entropy loss across all subword tokens in a sequence, whereas intent and urgency classification compute loss over a single pooled representation. As a result, token labeling gradients systematically dominate backpropagation ($\|\mathbf{g}_{\text{NER}}\|_2 \gg \|\mathbf{g}_{\text{Intent}}\|_2, \|\mathbf{g}_{\text{Urgency}}\|_2$, as characterized by Chen et al., 2018). Under Uniform Equal Weighting, this structural asymmetry allows token-level updates to overwrite pooled sequence representations, inducing negative transfer.
 
 To address these empirical and optimization challenges, this study curates the Multi-Task Corpus of Taglish Disaster Tweets across four Philippine typhoons under a 4-fold LOEO protocol. The study rigorously evaluates dynamic loss weighting and gradient surgery against baseline methods, providing empirical guidance and an operational triage artifact for crisis informatics.
-<!-- vale on -->
 
 ## 4. Statement of the Problem
 
-<!-- vale off -->
 Real-time disaster triage requires models to process text across token-level Named Entity Recognition (NER), sequence-level intent classification, and sequence-level urgency classification. Running separate Single-Task Learning (STL) models scales computational latency and parameter memory linearly ($\mathcal{O}(K)$ for $K$ tasks), exceeding the memory and compute budgets of local workstations (Ruder, 2017). A shared multilingual Transformer encoder processes all three tasks in a single forward pass ($\mathcal{O}(1)$ relative to $K$), but joint optimization couples token-level and sequence-level loss functions. This coupling induces gradient magnitude disparities and directional conflicts ($\cos(\mathbf{g}_i, \mathbf{g}_j) < 0$) that degrade shared representations and cause negative transfer (B. Liu et al., 2021; Yu et al., 2020).
 
 Multi-Task Optimization (MTO) algorithms (spanning dynamic loss weighting and gradient surgery) aim to resolve these gradient conflicts. However, prior empirical studies report conflicting evidence regarding whether dynamic balancing consistently outperforms Static Linear Scalarization (LS) or Uniform Equal Weighting (EW) under adaptive optimizers like AdamW (Elich et al., 2024; Xin et al., 2022). In addition, stochastic variance across mini-batch samples can produce opposing gradient vectors that confound empirical measurements of genuine cross-task conflict (Elich et al., 2024). Furthermore, crisis informatics lacks unified code-switched Taglish corpora providing concurrent token-level and sequence-level annotations under cross-event evaluation.
@@ -73,11 +66,9 @@ To resolve these challenges, this study addresses four research questions aligne
 **Phase 3 (Empirical Benchmarking):** How do candidate Multi-Task Optimization algorithms, comprising dynamic loss weighting (Uncertainty Weighting, GradNorm, and FAMO) and gradient surgery (PCGrad, CAGrad, IMTL-G, and Nash-MTL), compare against isolated Single-Task Learning, Uniform Equal Weighting (EW), and Static Linear Scalarization (LS) across 4-fold Leave-One-Event-Out splits in predictive F1 scores, relative multi-task transfer ($\Delta_m$), computational efficiency ($t_{\text{exec}}$, throughput, $M_{\text{VRAM}}$, $M_{\text{RAM}}$), and training runtime?
 
 **Phase 4 (Comparative Validation):** To what extent do performance differences among candidate Multi-Task Optimization algorithms demonstrate statistical significance under a two-tier non-parametric validation framework (paired bootstrap confidence intervals and omnibus Friedman-Nemenyi tests), and how strongly does relative multi-task transfer ($\Delta_m$) correlate with empirical gradient conflict metrics relative to the intra-task half-batch baseline?
-<!-- vale on -->
 
 ## 5. Objectives of the Study
 
-<!-- vale off -->
 The primary objective of this study is to construct the Multi-Task Corpus of Taglish Disaster Tweets, benchmark candidate Multi-Task Optimization algorithms using PyTorch gradient diagnostics under a 4-fold Leave-One-Event-Out cross-validation protocol, and deploy the fine-tuned multilingual Transformer model into a prototype web application for disaster triage.
 
 Aligned with the four Design Science Research (DSR) phases, this study pursues four specific research objectives.
@@ -89,11 +80,9 @@ Aligned with the four Design Science Research (DSR) phases, this study pursues f
 **Phase 3 (Empirical Benchmarking):** To benchmark candidate Multi-Task Optimization algorithms, comprising dynamic loss weighting (Uncertainty Weighting, GradNorm, and FAMO) and gradient surgery (PCGrad, CAGrad, IMTL-G, and Nash-MTL), against isolated Single-Task Learning, Uniform Equal Weighting (EW), and Static Linear Scalarization (LS) across 4-fold Leave-One-Event-Out splits in predictive F1 scores, relative multi-task transfer ($\Delta_m$), computational efficiency ($t_{\text{exec}}$, throughput, $M_{\text{VRAM}}$, $M_{\text{RAM}}$), and training runtime.
 
 **Phase 4 (Comparative Validation):** To evaluate the statistical significance of performance differences across candidate Multi-Task Optimization algorithms using a two-tier non-parametric validation framework (paired bootstrap confidence intervals and omnibus Friedman-Nemenyi tests), and to analyze the Spearman rank correlation ($\rho$) between relative multi-task transfer ($\Delta_m$) and empirical gradient conflict metrics relative to the intra-task half-batch baseline.
-<!-- vale on -->
 
 ## 6. Theoretical Framework
 
-<!-- vale off -->
 This study is grounded in three theoretical foundations, namely Design Science Research Methodology, computational complexity analysis of shared representations, and multi-objective optimization with gradient dynamics.
 
 First, this study adopts the Design Science Research Methodology (DSRM) established by Peffers et al. (2007) and the artifact evaluation guidelines formulated by Hevner et al. (2004). Unlike behavioral sciences that focus on observing and predicting natural phenomena, design science in computer science produces new scientific knowledge through the systematic design, implementation, and empirical evaluation of computational artifacts. Hevner et al. (2004) establish that rigorous design science research requires systematic evaluation of artifact utility, problem relevance, and verifiable technical contributions. Peffers et al. (2007) formulated this inquiry as an iterative six-activity lifecycle comprising (1) Problem Identification and Motivation, (2) Definition of the Objectives for a Solution, (3) Design and Development, (4) Demonstration, (5) Evaluation, and (6) Communication. To operationalize this methodology, the study structures research activities into four sequential phases, namely Baseline Analysis (Phase 1), Design and Artifact Creation (Phase 2), Empirical Benchmarking (Phase 3), and Comparative Validation (Phase 4). Under this foundation, the primary intellectual contribution resides in the empirical multi-task optimization knowledge and curated benchmark corpus, while the web application prototype serves as an operational demonstration artifact.
@@ -119,11 +108,9 @@ This mathematical formulation identifies two primary failure modes in shared par
 **Gradient Directional Conflict:** When the inner product between task gradients is negative ($\langle \mathbf{g}_i, \mathbf{g}_j \rangle < 0$, or cosine similarity $\cos(\mathbf{g}_i, \mathbf{g}_j) < 0$), the first-order term $-\eta \langle \mathbf{g}_i, \mathbf{g}_j \rangle$ becomes positive. This condition indicates, to a first-order approximation, that parameter updates along task $i$ increase the empirical loss on task $j$, inducing destructive interference and negative transfer across shared layers (Yu et al., 2020).
 
 Specialized Multi-Task Optimization (MTO) algorithms address these challenges through dynamic loss weighting or gradient surgery techniques that project conflicting gradient vectors onto orthogonal hyperplanes or compute impartial descent directions. Furthermore, following the intra-task gradient diagnostic principle of Elich et al. (2024), the framework incorporates an intra-task baseline derived from half-batch gradients computed across disjoint sample subsets to distinguish stochastic mini-batch variance from genuine cross-task conflict. Statistical validity is established through a two-tier non-parametric testing framework (Demšar, 2006) combining per-fold paired bootstrap confidence intervals with omnibus Friedman-Nemenyi ranking. To translate these theoretical principles into an operational experimental workflow, the study adopts the Input-Process-Output conceptual framework.
-<!-- vale on -->
 
 ## 7. Conceptual Framework
 
-<!-- vale off -->
 This study adopts the Input-Process-Output (IPO) model to structure the experimental design, algorithmic implementation, and empirical evaluation across the four Design Science Research phases. Figure 1 outlines the conceptual framework of the study, mapping the input datasets, model architectures, optimization configurations, and testbed specifications through structured preprocessing, multi-task benchmarking, statistical validation, and service integration processes to produce four concrete research deliverables, namely the trained multi-task model, validated empirical benchmark tables, statistical hypothesis test results, and the interactive disaster triage web prototype.
 
 **Figure 1**  
@@ -149,11 +136,9 @@ The process stage executes four structured workflows (P1 to P4), comprising (1) 
 ### 7.3 Output Stage
 
 The output stage delivers four concrete research artifacts (O1 to O4), comprising (1) a trained hard-parameter-sharing multi-task model executing concurrent predictions in $\mathcal{O}(1)$ time, (2) validated empirical benchmark tables reporting task F1 scores, relative transfer ($\Delta_m$), computational efficiency, and gradient conflict dynamics across 12 paired evaluation runs, (3) inferential bootstrap confidence intervals and non-parametric hypothesis test results, and (4) a prototype web application for disaster triage supporting 4-stage incident lifecycle management.
-<!-- vale on -->
 
 ## 8. Scope and Delimitations
 
-<!-- vale off -->
 ### 8.1 Scope of the Study
 
 This study focuses on constructing the Multi-Task Corpus of Taglish Disaster Tweets, benchmarking candidate Multi-Task Optimization (MTO) algorithms within a shared multilingual Transformer encoder, and deploying the optimized model into a prototype web application for disaster triage. The experimental dataset comprises a target volume of 6,000 to 10,000 code-switched Taglish crisis tweets (with a verified baseline of at least 6,000 annotated instances) collected across four historical Philippine typhoons (Haiyan, Vamco, Rai, and Paeng), evaluated under a 4-fold Leave-One-Event-Out (LOEO) cross-validation protocol across three random initialization seeds (seeds 42, 123, and 456).
@@ -169,11 +154,9 @@ To maintain methodological rigor and computational feasibility, the study establ
 The data processing and inference pipelines handle raw textual content exclusively, excluding multi-modal data streams such as satellite imagery, crowd-sourced photographs, voice recordings, and video feeds. In addition, the architectural scope is delimited to encoder-only multilingual Transformer backbones using hard parameter sharing across intermediate representations. The investigation excludes soft parameter sharing, task-specific adapter modules, and proprietary cloud-hosted generative Large Language Models that require external network access and high-end server clusters.
 
 Model evaluation focuses strictly on the three primary triage tasks, specifically token-level Named Entity Recognition, sequence-level humanitarian intent classification, and sequence-level urgency prioritization. The study excludes auxiliary natural language processing tasks such as sentiment analysis, automatic summarization, and machine translation. Finally, the software deliverable functions strictly as an empirical research artifact and demonstration tool for local triage benchmarking. The application is not integrated into municipal emergency dispatch networks, live 911 infrastructure, or operational government command centers.
-<!-- vale on -->
 
 ## 9. Significance of the Study
 
-<!-- vale off -->
 The outputs of this research deliver computational, methodological, and practical contributions to three distinct stakeholder groups.
 
 **Disaster Response Agencies and Emergency Practitioners (Primary Beneficiaries):**  
@@ -184,13 +167,10 @@ Natural language processing researchers acquire the Multi-Task Corpus of Taglish
 
 **Academic Institutions and Future System Developers (Tertiary Beneficiaries):**  
 Academic institutions and system developers receive an open-source Design Science Research artifact containing modular training scripts, cross-event evaluation pipelines, and baseline model checkpoints. Future researchers can extend this framework to additional Philippine regional languages, investigate post-training 8-bit or 4-bit quantization for edge devices, or integrate multi-modal sensor streams into the triage pipeline.
-<!-- vale on -->
 
 ## 10. Definition of Terms
 
 To establish technical precision across this study, the following terms are operationally defined according to their theoretical, mathematical, and algorithmic roles in the experimental framework and software system.
-
-<!-- vale off -->
 
 **AdamW Optimizer:** An adaptive stochastic gradient descent optimization algorithm with decoupled weight decay that maintains running exponential moving averages of first moments (gradient means) and uncentered second moments (uncentered gradient variances) for each parameter. In this study, the AdamW optimizer fine-tunes the shared Transformer backbone and task-specific classification heads, providing per-parameter gradient scale adaptivity across heterogeneous task loss landscapes while applying decoupled weight decay to maintain model generalization.
 
@@ -285,11 +265,9 @@ where loss weights $\mathbf{w} = (w_1, \dots, w_K)$ remain constant during train
 **Uniform Equal Weighting (EW):** The default multi-task optimization baseline that assigns equal weight ($w_k = 1/K$) to all task losses, defined by
 $$\mathcal{L}_{\text{total}} = \frac{1}{K} \sum_{k=1}^K \mathcal{L}_k, \quad \mathbf{g}_{\text{total}} = \frac{1}{K} \sum_{k=1}^K \nabla_{\boldsymbol{\theta}_{\text{sh}}} \mathcal{L}_k$$
 This baseline updates shared encoder parameters using the unweighted arithmetic mean of individual task gradients.
-<!-- vale on -->
 
 ## 11. References
 
-<!-- vale off -->
 Adouane, W., & Bernardy, J.-P. (2020). When is multi-task learning beneficial for low-resource noisy code-switched user-generated Algerian texts? In *Proceedings of the 4th Workshop on Computational Approaches to Code Switching (CALCS@LREC 2020)* (pp. 17-25). European Language Resources Association. https://aclanthology.org/2020.calcs-1.3/
 
 Alam, F., Qazi, U., Imran, M., & Ofli, F. (2021). HumAID: Human-annotated disaster incidents data from Twitter with deep learning benchmarks. In *Proceedings of the International AAAI Conference on Web and Social Media (ICWSM 2021)* (Vol. 15, pp. 914-922). AAAI Press. https://doi.org/10.1609/icwsm.v15i1.18115
@@ -343,4 +321,3 @@ Weld, H., Huang, X., Long, S., Poon, J., & Han, S. C. (2022). A survey of joint 
 Xin, D., Ghorbani, B., Garg, A., Firat, O., & Gilmer, J. (2022). Do current multi-task optimization methods in deep learning even help? In *Advances in Neural Information Processing Systems (NeurIPS 2022)* (Vol. 35, pp. 24806-24819).
 
 Yu, T., Kumar, S., Gupta, A., Levine, S., Hausman, K., & Finn, C. (2020). Gradient surgery for multi-task learning. In *Advances in Neural Information Processing Systems (NeurIPS 2020)* (Vol. 33, pp. 21824-21835).
-<!-- vale on -->
