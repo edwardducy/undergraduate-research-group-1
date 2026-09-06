@@ -1,13 +1,12 @@
-# Downloaded paper PDFs, extracted figures, and Marker metadata.
-# These are copyrighted publications kept locally only.
 *.pdf
-*_meta.json
-_page_*
+paper.md
 
-# OS files
 .DS_Store
 .venv/
 node_modules/
 .slidev/
 dist/
 *.deb
+
+__pycache__/
+.ruff_cache/

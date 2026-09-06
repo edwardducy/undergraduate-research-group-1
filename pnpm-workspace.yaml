@@ -1,3 +1,0 @@
-allowBuilds:
-  "@vvago/vale": true
-  "playwright-chromium": true
