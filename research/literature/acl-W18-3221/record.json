@@ -1,0 +1,103 @@
+{
+  "paper_id": "acl-W18-3221",
+  "paper_type": "experimental",
+  "abstract": "We describe our work for the CALCS 2018 shared task on named entity recognition on code-switched data. Our system ranked first place for MS Arabic-Egyptian named entity recognition and third place for English-Spanish.",
+  "bibliographic": {
+    "title": "Code-Switched Named Entity Recognition with Embedding Attention",
+    "authors": [
+      {
+        "first_name": "Changhan",
+        "last_name": "Wang"
+      },
+      {
+        "first_name": "Kyunghyun",
+        "last_name": "Cho"
+      },
+      {
+        "first_name": "Douwe",
+        "last_name": "Kiela"
+      }
+    ],
+    "year": 2018,
+    "venue": "Proceedings of the Third Workshop on Computational Approaches to Code-Switching",
+    "venue_type": "workshop",
+    "doi_or_url": "https://aclanthology.org/W18-3221"
+  },
+  "content": {
+    "problem": "Multilingual speakers frequently alternate between languages (code-switching), and traditional monolingual NLP techniques, including named entity recognition systems, degrade sharply on such mixed-language social media input.",
+    "proposed_solution": "The authors build a neural NER system that combines pre-trained FastText word embeddings, character-level BiLSTM representations, a learned self-attention over these multiple embeddings, explicit capitalization features, and a shortcut-stacked BiLSTM encoder feeding a CRF tagger.",
+    "algorithm_or_model": "shortcut-stacked BiLSTM-CRF with embedding-level self-attention over multilingual FastText and character-level embeddings",
+    "dataset_testbed": [
+      "CALCS 2018 shared task Modern Standard Arabic-Egyptian (MSA-EGY) Twitter NER dataset",
+      "CALCS 2018 shared task English-Spanish (ENG-SPA) Twitter NER dataset"
+    ],
+    "metrics": [
+      {
+        "name": "F1",
+        "value": 67.74,
+        "unit": "percent",
+        "condition": "Proposed system on the ENG-SPA development set"
+      },
+      {
+        "name": "F1",
+        "value": 62.39,
+        "unit": "percent",
+        "condition": "Proposed system on the ENG-SPA test set"
+      },
+      {
+        "name": "F1",
+        "value": 60.28,
+        "unit": "percent",
+        "condition": "FastText-concatenation baseline on the ENG-SPA test set"
+      },
+      {
+        "name": "F1",
+        "value": 62.67,
+        "unit": "percent",
+        "condition": "Simple three-model ensemble on the ENG-SPA test set"
+      },
+      {
+        "name": "F1",
+        "value": 81.41,
+        "unit": "percent",
+        "condition": "Proposed system on the MSA-EGY development set"
+      },
+      {
+        "name": "F1",
+        "value": 71.62,
+        "unit": "percent",
+        "condition": "Proposed system on the MSA-EGY test set"
+      },
+      {
+        "name": "F1",
+        "value": 70.08,
+        "unit": "percent",
+        "condition": "FastText-concatenation baseline on the MSA-EGY test set"
+      }
+    ],
+    "claim": "Their attention-based neural system beat a simpler embedding-concatenation baseline on the test sets of both language pairs, earning first place in the shared task for MSA-Egyptian and third place for English-Spanish.",
+    "author_stated_limitations": [
+      "The very small ENG-SPA development set (832 tweets versus a 15.6k test set) made dev and test performance diverge and made hyperparameter tuning difficult.",
+      "They only tried a simple ensembling strategy and did not pursue proper ensembling because of time constraints.",
+      "They felt a strong gazetteer could have helped, although they believed relying on it would defeat the purpose of their general neural architecture.",
+      "The very poor performance on the OTHER category for ENG-SPA might be an artifact of that category being small."
+    ],
+    "themes": [
+      "code-switching",
+      "named entity recognition",
+      "attention mechanism",
+      "shared task"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "The tendency for multilingual speakers to engage in code-switching—i.e, alternating between multiple languages or language varieties—poses important problems for NLP systems: traditional monolingual techniques quickly break down with input from mixed languages.",
+    "proposed_solution_quote": "In this paper, we exploit recent advances in neural NLP systems, tailored to code-switching. We use high-quality FastText embeddings trained on Common Crawl (Grave et al., 2018; Mikolov et al., 2018) and employ shortcut-stacked sentence encoders (Nie and Bansal, 2017) to obtain deep token-level representations to feed into the CRF.",
+    "claim_quote": "Our system ranked first place for MS Arabic-Egyptian named entity recognition and third place for English-Spanish.",
+    "author_stated_limitation_quotes": [
+      "The dev set for this task was very small (832, versus a test set of 15.6k), which explains the discrepancy between dev set and test set performance—this discrepancy also made it difficult to tune hyperparameters properly for this task.",
+      "We did not pursue proper ensembling due to time constraints.",
+      "We felt that we could have benefited from having a strong gazetteer, but also believe that this would kind of defeat the purpose of our general neural network architecture, which should not have to rely on those kinds of features.",
+      "The Other category was perfectly handled for MSA-EGY, while this was very bad for ENG-SPA — this could however also be an artifact, since that category was quite small."
+    ]
+  }
+}

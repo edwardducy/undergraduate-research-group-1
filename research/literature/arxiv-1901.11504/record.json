@@ -1,0 +1,86 @@
+{
+  "paper_id": "arxiv-1901.11504",
+  "paper_type": "experimental",
+  "abstract": "In this paper, we present a Multi-Task Deep Neural Network (MT-DNN) for learning representations across multiple natural language understanding (NLU) tasks. MT-DNN not only leverages large amounts of cross-task data, but also benefits from a regularization effect that leads to more general representations to help adapt to new tasks and domains. MT-DNN extends the model proposed in [Liu et al. (2015)](#bib.bib16 \"\") by incorporating a pre-trained bidirectional transformer language model, known as BERT ([Devlin et al., 2018](#bib.bib6 \"\")). MT-DNN obtains new state-of-the-art results on ten NLU tasks, including SNLI, SciTail, and eight out of nine GLUE tasks, pushing the GLUE benchmark to 82.7% (2.2% absolute improvement) 11 1 As of February 25, 2019 on the latest GLUE test set.. We also demonstrate using the SNLI and SciTail datasets that the representations learned by MT-DNN allow domain adaptation with substantially fewer in-domain labels than the pre-trained BERT representations. The code and pre-trained models are publicly available at https://github.com/namisan/mt-dnn.",
+  "bibliographic": {
+    "title": "Multi-Task Deep Neural Networks for Natural Language Understanding",
+    "authors": [
+      {
+        "first_name": "Xiaodong",
+        "last_name": "Liu"
+      },
+      {
+        "first_name": "Pengcheng",
+        "last_name": "He"
+      },
+      {
+        "first_name": "Weizhu",
+        "last_name": "Chen"
+      },
+      {
+        "first_name": "Jianfeng",
+        "last_name": "Gao"
+      }
+    ],
+    "year": 2019,
+    "venue": "arXiv",
+    "venue_type": "preprint",
+    "doi_or_url": "https://arxiv.org/abs/1901.11504"
+  },
+  "content": {
+    "problem": "Supervised learning of deep neural networks for individual natural language understanding tasks requires large amounts of task-specific labeled data that is often unavailable, and the resulting representations tend to overfit to a single task and generalize poorly to new tasks and domains.",
+    "proposed_solution": "The authors combine multi-task learning with language model pre-training by extending the MT-DNN architecture to use a pre-trained BERT bidirectional Transformer as shared text-encoding layers, with task-specific output layers trained jointly across many NLU tasks via mini-batch SGD.",
+    "algorithm_or_model": "Multi-Task Deep Neural Network (MT-DNN)",
+    "dataset_testbed": [
+      "GLUE benchmark (CoLA, SST-2, MNLI, RTE, WNLI, QQP, MRPC, STS-B, QNLI)",
+      "SNLI",
+      "SciTail"
+    ],
+    "metrics": [
+      {
+        "name": "GLUE benchmark score",
+        "value": 82.7,
+        "unit": "percent",
+        "condition": "MT-DNN (BERT_LARGE shared layers, MTL plus fine-tuning) on the GLUE test set"
+      },
+      {
+        "name": "accuracy",
+        "value": 91.6,
+        "unit": "percent",
+        "condition": "MT-DNN_LARGE adapted to SNLI using all in-domain training data"
+      },
+      {
+        "name": "accuracy",
+        "value": 95.0,
+        "unit": "percent",
+        "condition": "MT-DNN_LARGE adapted to SciTail using all in-domain training data"
+      },
+      {
+        "name": "accuracy",
+        "value": 93.1,
+        "unit": "percent",
+        "condition": "MT-DNN on the QNLI GLUE test set, formulated as a pairwise ranking task"
+      },
+      {
+        "name": "accuracy",
+        "value": 82.1,
+        "unit": "percent",
+        "condition": "MT-DNN adapted to SNLI with only 0.1% of in-domain training data"
+      }
+    ],
+    "claim": "MT-DNN achieved new state-of-the-art results on ten NLU tasks, pushing the GLUE benchmark to 82.7% (a 2.2% absolute improvement over BERT_LARGE) and reaching 91.6% on SNLI and 95.0% on SciTail, while its learned representations enabled domain adaptation with substantially fewer in-domain labels than pre-trained BERT.",
+    "author_stated_limitations": [],
+    "themes": [
+      "multi-task learning",
+      "natural language understanding",
+      "language model pretraining",
+      "domain adaptation"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "First, supervised learning of DNNs requires large amounts of task-specific labeled data, which is not always available. MTL provides an effective way of leveraging supervised data from many related tasks.",
+    "proposed_solution_quote": "We argue that MTL and language model pre-training are complementary technologies, and can be combined to improve the learning of text representations to boost the performance of various NLU tasks. To this end, we extend the MT-DNN model originally proposed in Liu et al. (2015) by incorporating BERT as its shared text encoding layers.",
+    "claim_quote": "MT-DNN obtains new state-of-the-art results on ten NLU tasks across three popular benchmarks: SNLI, SciTail, and GLUE. MT-DNN also demonstrates an exceptional generalization capability in domain adaptation experiments.",
+    "author_stated_limitation_quotes": []
+  }
+}

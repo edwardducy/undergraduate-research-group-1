@@ -1,0 +1,149 @@
+{
+  "paper_id": "arxiv-2502.14911",
+  "paper_type": "dataset-benchmark",
+  "abstract": "Recent advances in large language models (LLMs) have demonstrated remarkable capabilities on widely benchmarked high-resource languages. However, linguistic nuances of under-resourced languages remain unexplored. We introduce Batayan, a holistic Filipino benchmark that systematically evaluates LLMs across three key natural language processing (NLP) competencies: understanding, reasoning, and generation. Batayan consolidates eight tasks, three of which have not existed prior for Filipino corpora, covering both Tagalog and code-switched Taglish utterances. Our rigorous, native-speaker-driven adaptation and validation processes ensures fluency and authenticity to the complex morphological and syntactic structures of Filipino, alleviating the pervasive translationese bias in existing Filipino corpora. We report empirical results on a variety of open-source and commercial LLMs, highlighting significant performance gaps that signal the under-representation of Filipino in pre-training corpora, the unique hurdles in modeling Filipino’s rich morphology and construction, and the importance of explicit Filipino language support. Moreover, we discuss the practical challenges encountered in dataset construction and propose principled solutions for building culturally and linguistically-faithful resources in under-represented languages. We also provide a public evaluation suite as a clear foundation for iterative, community-driven progress in Filipino NLP.",
+  "bibliographic": {
+    "title": "Batayan: A Filipino NLP benchmark for evaluating Large Language Models",
+    "authors": [
+      {
+        "first_name": "Jann Railey",
+        "last_name": "Montalan"
+      },
+      {
+        "first_name": "Jimson Paulo",
+        "last_name": "Layacan"
+      },
+      {
+        "first_name": "David Demitri",
+        "last_name": "Africa"
+      },
+      {
+        "first_name": "Richell Isaiah",
+        "last_name": "Flores"
+      },
+      {
+        "first_name": "Michael T.",
+        "last_name": "Lopez II"
+      },
+      {
+        "first_name": "Theresa Denise",
+        "last_name": "Magsajo"
+      },
+      {
+        "first_name": "Anjanette",
+        "last_name": "Cayabyab"
+      },
+      {
+        "first_name": "William Chandra",
+        "last_name": "Tjhi"
+      }
+    ],
+    "year": 2025,
+    "venue": "arXiv",
+    "venue_type": "preprint",
+    "doi_or_url": "https://arxiv.org/abs/2502.14911"
+  },
+  "content": {
+    "problem": "Filipino, despite being spoken by over 80 million people, is under-represented in multilingual LLMs and benchmarks, and existing Filipino corpora suffer from translationese, narrow task coverage, and quality problems because much of them were produced by non-native speakers or machine translation.",
+    "proposed_solution": "The authors build Batayan, a holistic Filipino benchmark of eight tasks spanning understanding, reasoning, and generation (three of them novel for Filipino), whose data are natively translated, re-translated, and quality-filtered by native Filipino speakers through acceptability judgments, and release it within the SEA-HELM evaluation suite and leaderboard.",
+    "algorithm_or_model": "Batayan benchmark",
+    "dataset_testbed": [
+      "Batayan (newly created Filipino benchmark with 3,800 test instances)",
+      "PAWS",
+      "Belebele (Tagalog subset)",
+      "PH election-related tweets dataset (Cabasag et al., 2019)",
+      "Balanced COPA",
+      "XNLI",
+      "XL-Sum",
+      "FLORES 200"
+    ],
+    "metrics": [
+      {
+        "name": "macro F1",
+        "value": 78.41,
+        "unit": "percent",
+        "condition": "Gemma-SEA-LION-v3-9B-IT, zero-shot, average across the four Batayan NLU tasks (PI, QA, SA, TD)"
+      },
+      {
+        "name": "macro F1",
+        "value": 80.69,
+        "unit": "percent",
+        "condition": "Gemma-SEA-LION-v3-9B-IT, zero-shot, average across the Batayan NLR tasks (CR, NLI)"
+      },
+      {
+        "name": "macro F1",
+        "value": 92.75,
+        "unit": "percent",
+        "condition": "Gemma-SEA-LION-v3-9B-IT, zero-shot, on the causal reasoning (CR) task"
+      },
+      {
+        "name": "macro F1",
+        "value": 79.23,
+        "unit": "percent",
+        "condition": "Gemma-SEA-LION-v3-9B-IT, zero-shot, average among small models across NLU and NLR tasks"
+      },
+      {
+        "name": "NLG Avg.",
+        "value": 60.35,
+        "unit": "percent",
+        "condition": "Gemma-SEA-LION-v3-9B-IT, zero-shot, unweighted average across NLG tasks and scores (AS, MT eng-to-tgl, MT tgl-to-eng)"
+      },
+      {
+        "name": "MetricX-24",
+        "value": 87.24,
+        "unit": "",
+        "condition": "Gemma-SEA-LION-v3-9B-IT, zero-shot, English-to-Filipino machine translation"
+      },
+      {
+        "name": "MetricX-24",
+        "value": 90.56,
+        "unit": "",
+        "condition": "Gemma-SEA-LION-v3-9B-IT, zero-shot, Filipino-to-English machine translation"
+      },
+      {
+        "name": "macro F1",
+        "value": 86.23,
+        "unit": "percent",
+        "condition": "best average macro F1 on NLU and NLR tasks among commercial models, whose reported range is 75.14 to 86.23"
+      },
+      {
+        "name": "Cohen's kappa",
+        "value": 0.8202,
+        "unit": "",
+        "condition": "inter-annotator agreement of three native speakers annotating sentiment on the PH election tweets dataset"
+      },
+      {
+        "name": "Krippendorff's alpha",
+        "value": 0.8268,
+        "unit": "",
+        "condition": "inter-annotator agreement of three native speakers annotating sentiment on the PH election tweets dataset"
+      }
+    ],
+    "claim": "Evaluations of more than 50 open-source and commercial LLMs show that models with explicit Filipino instruction tuning, such as Gemma-SEA-LION-v3-9B-IT, perform markedly better on Batayan than other models, rivaling or even surpassing state-of-the-art commercial systems, with performance further improving as model size grows.",
+    "author_stated_limitations": [
+      "Prosodic features such as stress and sarcasm are not directly observable in the datasets, which the authors mitigate by keeping only high-agreement samples.",
+      "The SA and TD tasks come only from tweets about political events, which narrows the domain coverage of those tasks.",
+      "The test sets are relatively small because the authors prioritized consistent, high-quality, representative samples over larger volumes.",
+      "A comprehensive error-case analysis across all models and tasks was not feasible given their breadth.",
+      "The evaluation does not cover LLMs that specialize in specific tasks such as translation."
+    ],
+    "themes": [
+      "large language models",
+      "low-resource languages",
+      "benchmark evaluation",
+      "Filipino NLP"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "Filipino, despite being the national language of the Philippines and being spoken by over 80 million people, remains an under-resourced language. It is under-represented in multilingual LLMs, and existing corpora are domain-specific, non-multilingual [Cajote et al. (2024)], and created by non-native speakers [Quakenbush (2005)]; [Dita et al. (2009)].",
+    "proposed_solution_quote": "We introduce Batayan, a holistic Filipino benchmark that systematically evaluates LLMs across three key natural language processing (NLP) competencies: understanding, reasoning, and generation. Batayan consolidates eight tasks, three of which have not existed prior for Filipino corpora, covering both Tagalog and code-switched Taglish utterances.",
+    "claim_quote": "In this paper, we introduced Batayan for holistically evaluating LLMs on a gamut of Filipino language tasks covering natural language understanding, reasoning, and generation. Our findings show that LLMs with explicit Filipino language support and fine-tuned on Filipino instructions demonstrate better performance on Batayan compared to other models.",
+    "author_stated_limitation_quotes": [
+      "Additionally, prosodic characteristics such as stress and sarcasm are not immediately obvious in the datasets utilized. We account for this by selecting only high-agreement samples.",
+      "We also note that the domain of both SA and TD tasks (which were tweets surrounding political events), limits the distributions of these tasks, and as such we recommend utilizing other datasets that cover a wider set of domains and use cases.",
+      "While we recognize that datasets with larger amounts of samples are preferred to ensure generalizability, we maintain our position to prioritize consistent, high-quality, and representative samples.",
+      "Further, given the breadth of models and tasks, a comprehensive evaluation incorporating error cases was not possible.",
+      "We also recognize the importance of evaluation LLMs that specialize on specific tasks such as translation."
+    ]
+  }
+}

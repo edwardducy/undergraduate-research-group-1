@@ -1,0 +1,64 @@
+{
+  "paper_id": "doi-10.2753-MIS0742-1222240302",
+  "paper_type": "methodology-theory",
+  "abstract": "The paper motivates, presents, demonstrates in use, and evaluates a methodology for conducting design science (DS) research in information systems (IS). DS is of importance in a discipline oriented to the creation of successful artifacts. Several researchers have pioneered DS research in IS, yet over the past 15 years, little DS research has been done within the discipline. The lack of a methodology to serve as a commonly accepted framework for DS research and of a template for its presentation may have contributed to its slow adoption. The design science research methodology (DSRM) presented here incorporates principles, practices, and procedures required to carry out such research and meets three objectives: it is consistent with prior literature, it provides a nominal process model for doing DS research, and it provides a mental model for presenting and evaluating DS research in IS. The DS process includes six steps: problem identification and motivation, definition of the objectives for a solution, design and development, demonstration, evaluation, and communication. We demonstrate and evaluate the methodology by presenting four case studies in terms of the DSRM, including cases that present the design of a database to support health assessment methods, a software reuse measure, an Internet video telephony application, and an IS planning method. The designed methodology effectively satisfies the three objectives and has the potential to help aid the acceptance of DS research in the IS discipline.",
+  "bibliographic": {
+    "title": "A Design Science Research Methodology for Information Systems Research",
+    "authors": [
+      {
+        "first_name": "Ken",
+        "last_name": "Peffers"
+      },
+      {
+        "first_name": "Tuure",
+        "last_name": "Tuunanen"
+      },
+      {
+        "first_name": "Marcus A.",
+        "last_name": "Rothenberger"
+      },
+      {
+        "first_name": "Samir",
+        "last_name": "Chatterjee"
+      }
+    ],
+    "year": 2007,
+    "venue": "Journal of Management Information Systems",
+    "venue_type": "journal",
+    "doi_or_url": "https://doi.org/10.2753/MIS0742-1222240302"
+  },
+  "content": {
+    "problem": "Although design science was established as a legitimate information systems research paradigm in the early 1990s, it saw little adoption because the field lacked a commonly accepted methodology and a shared mental model for conducting, presenting, and evaluating such research.",
+    "proposed_solution": "The authors develop the Design Science Research Methodology (DSRM), a nominal six-step process model of problem identification and motivation, definition of solution objectives, design and development, demonstration, evaluation, and communication, together with a mental model for structuring research outputs, and demonstrate it on four published projects.",
+    "algorithm_or_model": "Design Science Research Methodology (DSRM) process model",
+    "dataset_testbed": [
+      "Case study of the CATCH data warehouse for community health assessment (Berndt et al., Miami-Dade County, Florida)",
+      "Case study of a software reuse measure developed at MBA Technologies (Rothenberger and Hershauer)",
+      "Case study of the SIP-based CGUsipClient voice- and video-over-IP application for Internet2 (Chatterjee et al., Claremont Graduate University)",
+      "Case study of the critical success chains (CSC) IS planning method at Digia Ltd. (Peffers et al.)"
+    ],
+    "metrics": [],
+    "claim": "The DSRM satisfies its three design objectives of consistency with prior literature, provision of a nominal process, and provision of a mental model, and its application to four case studies shows that published design science research in IS fits the methodology, which could aid its acceptance in the discipline.",
+    "author_stated_limitations": [
+      "The DSRM may not transfer well to design in practice, since some of its research-oriented elements may be unnecessary or too general for practical design contexts.",
+      "The DSRM is only one general methodological guideline and should not be treated as the only appropriate way to conduct design science research.",
+      "The evaluation is limited to four previously published case studies, and further use is needed to learn whether there are problem domains where the DSRM requires extension or does not work well."
+    ],
+    "themes": [
+      "design science research",
+      "research methodology",
+      "information systems research",
+      "process model"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "Several researchers have pioneered DS research in IS, yet over the past 15 years, little DS research has been done within the discipline. The lack of a methodology to serve as a commonly accepted framework for DS research and of a template for its presentation may have contributed to its slow adoption.",
+    "proposed_solution_quote": "The design science research methodology (DSRM) presented here incorporates principles, practices, and procedures required to carry out such research and meets three objectives: it is consistent with prior literature, it provides a nominal process model for doing DS research, and it provides a mental model for presenting and evaluating DS research in IS.",
+    "claim_quote": "The designed methodology effectively satisfies the three objectives and has the potential to help aid the acceptance of DS research in the IS discipline.",
+    "author_stated_limitation_quotes": [
+      "Thus, for design in practice, the DSRM may contain unnecessary elements for some contexts, while being much too general to support design in others.",
+      "We should emphasize that this paper represents one general methodological guideline for effective DS research. Researchers should by no means draw any inference that the DSRM is the only appropriate methodology with which to conduct such research.",
+      "The case studies we provided with this paper demonstrate its use within the scope of four research problems. Further use will tell us whether there are problem domains where it requires extension or where it does not work well."
+    ]
+  }
+}

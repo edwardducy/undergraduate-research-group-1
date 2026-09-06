@@ -1,0 +1,104 @@
+{
+  "paper_id": "arxiv-2104.03090",
+  "paper_type": "dataset-benchmark",
+  "abstract": "Social networks are widely used for information consumption and dissemination, especially during time-critical events such as natural disasters. Despite its significantly large volume, social media content is often too noisy for direct use in any application. Therefore, it is important to filter, categorize, and concisely summarize the available content to facilitate effective consumption and decision-making. To address such issues automatic classification systems have been developed using supervised modeling approaches, thanks to the earlier efforts on creating labeled datasets. However, existing datasets are limited in different aspects (e.g., size, contains duplicates) and less suitable to support more advanced and data-hungry deep learning models. In this paper, we present a new large-scale dataset with ∼{\\sim}77K human-labeled tweets, sampled from a pool of ∼{\\sim}24 million tweets across 19 disaster events that happened between 2016 and 2019. Moreover, we propose a data collection and sampling pipeline, which is important for social media data sampling for human annotation. We report multiclass classification results using classic and deep learning (fastText and transformer) based models to set the ground for future studies. The dataset and associated resources are publicly available.11 1 https://crisisnlp.qcri.org/humaid\\_dataset.html",
+  "bibliographic": {
+    "title": "HumAID: Human-Annotated Disaster Incidents Data from Twitter with Deep Learning Benchmarks",
+    "authors": [
+      {
+        "first_name": "Firoj",
+        "last_name": "Alam"
+      },
+      {
+        "first_name": "Umair",
+        "last_name": "Qazi"
+      },
+      {
+        "first_name": "Muhammad",
+        "last_name": "Imran"
+      },
+      {
+        "first_name": "Ferda",
+        "last_name": "Ofli"
+      }
+    ],
+    "year": 2021,
+    "venue": "arXiv",
+    "venue_type": "preprint",
+    "doi_or_url": "https://arxiv.org/abs/2104.03090"
+  },
+  "content": {
+    "problem": "Existing labeled Twitter datasets for disaster response are small, contain exact or near duplicates, and are otherwise too limited to support data-hungry deep learning models for humanitarian information classification.",
+    "proposed_solution": "The authors built HumAID, the largest human-annotated disaster tweet dataset (about 77K tweets sampled from roughly 24 million tweets covering 19 disasters) through a multi-step filtering and crowdsourced annotation pipeline, and released fixed data splits with classification baselines.",
+    "algorithm_or_model": "SVM, Random Forest, fastText, and transformer models (BERT, RoBERTa, XLM-RoBERTa, DistilBERT)",
+    "dataset_testbed": [
+      "HumAID: newly created dataset of 77,196 human-labeled tweets across 19 disaster events (2016-2019)",
+      "Pool of 24,859,155 tweets collected via the AIDR system using the Twitter streaming API",
+      "Humanitarian categories labeled data from Alam, Imran, and Ofli (2019) used to train the Random Forest filtering classifier"
+    ],
+    "metrics": [
+      {
+        "name": "F1",
+        "value": 76.9,
+        "unit": "percent",
+        "condition": "Random Forest filtering classifier trained on prior humanitarian-categories labeled data to remove non-humanitarian tweets before sampling"
+      },
+      {
+        "name": "weighted F1",
+        "value": 0.781,
+        "unit": "",
+        "condition": "RoBERTa fine-tuned and evaluated on the combined all-events split (10 classes)"
+      },
+      {
+        "name": "weighted F1",
+        "value": 0.885,
+        "unit": "",
+        "condition": "RoBERTa on the 2016 Italy Earthquake event split, the best event-level result"
+      },
+      {
+        "name": "Fleiss kappa",
+        "value": 0.55,
+        "unit": "",
+        "condition": "average annotation agreement across the 19 disaster events"
+      },
+      {
+        "name": "Krippendorff alpha",
+        "value": 0.57,
+        "unit": "",
+        "condition": "average annotation agreement across the 19 disaster events"
+      },
+      {
+        "name": "average observed agreement",
+        "value": 0.64,
+        "unit": "",
+        "condition": "average over all annotator pairs across the 19 disaster events"
+      },
+      {
+        "name": "majority agreement",
+        "value": 0.83,
+        "unit": "",
+        "condition": "average tweet-level majority agreement across the 19 disaster events"
+      }
+    ],
+    "claim": "HumAID is the largest publicly available human-annotated disaster tweet dataset, and the authors' experiments show transformer-based models, especially RoBERTa, outperform classical supervised algorithms, providing strong baselines for future crisis informatics research.",
+    "author_stated_limitations": [
+      "Only English tweets were annotated because annotating other languages exceeded the project budget.",
+      "The best performing RoBERTa and XLM-RoBERTa models come at the cost of a large number of parameters."
+    ],
+    "themes": [
+      "crisis informatics",
+      "disaster tweet classification",
+      "crowdsourced annotation",
+      "transformer language models"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "Deep neural networks have shown SOTA performance in many NLP tasks and application areas. However, deep learning algorithms are usually data-hungry, whereas the existing datasets in the crisis informatics domain are limited in different respects, which restricts the development of more sophisticated deep learning models.",
+    "proposed_solution_quote": "Hence, in this paper, we present the largest publicly available human annotated Twitter dataset, called HumAID: Human-Annotated Disaster Incidents Data, for crisis informatics research.",
+    "claim_quote": "Our extensive experiments show that deep learning models outperform traditional supervised learning algorithms. Last but not least, we share dataset, code, and data splits with the research community for both reproducibility and further enhancements.",
+    "author_stated_limitation_quotes": [
+      "We choose to only annotate English tweets due to budget limitations. Therefore, we discard all non-English tweets using the Twitter provided language metadata for a given tweet.",
+      "RoBERTa and XLM-RoBERTa are outperforming BERT and DistilBERT, which comes with the cost of their large number of parameters."
+    ]
+  }
+}

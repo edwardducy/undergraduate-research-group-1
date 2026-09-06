@@ -1,0 +1,80 @@
+{
+  "paper_id": "arxiv-1605.05894",
+  "paper_type": "dataset-benchmark",
+  "abstract": "Microblogging platforms such as Twitter provide active communication channels during mass convergence and emergency events such as earthquakes, typhoons. During the sudden onset of a crisis situation, affected people post useful information on Twitter that can be used for situational awareness and other humanitarian disaster response efforts, if processed timely and effectively. Processing social media information pose multiple challenges such as parsing noisy, brief and informal messages, learning information categories from the incoming stream of messages and classifying them into different classes among others. One of the basic necessities of many of these tasks is the availability of data, in particular human-annotated data. In this paper, we present human-annotated Twitter corpora collected during 19 different crises that took place between 2013 and 2015. To demonstrate the utility of the annotations, we train machine learning classifiers. Moreover, we publish first largest word2vec word embeddings trained on 52 million crisis-related tweets. To deal with tweets language issues, we present human-annotated normalized lexical resources for different lexical variations.",
+  "bibliographic": {
+    "title": "Twitter as a Lifeline: Human-annotated Twitter Corpora for NLP of Crisis-related Messages",
+    "authors": [
+      {
+        "first_name": "Muhammad",
+        "last_name": "Imran"
+      },
+      {
+        "first_name": "Prasenjit",
+        "last_name": "Mitra"
+      },
+      {
+        "first_name": "Carlos",
+        "last_name": "Castillo"
+      }
+    ],
+    "year": 2016,
+    "venue": "arXiv",
+    "venue_type": "preprint",
+    "doi_or_url": "https://arxiv.org/abs/1605.05894"
+  },
+  "content": {
+    "problem": "Crisis-informatics researchers cannot fully exploit NLP and machine learning methods for disaster-related Twitter messages because human-annotated data for such short, noisy, informal texts is scarce.",
+    "proposed_solution": "The authors collect over 52 million crisis-related tweets from 19 crises, have volunteers and paid crowdsourced workers annotate around 50,000 of them with UN OCHA-derived information categories and out-of-vocabulary normalizations, and release the corpora, trained classifiers, word2vec embeddings, and lexical resources to the research community.",
+    "algorithm_or_model": "Naive Bayes, Support Vector Machines, and Random Forest crisis-message classifiers",
+    "dataset_testbed": [
+      "Nepal Earthquake tweets",
+      "Terremoto Chile tweets",
+      "Chile Earthquake tweets",
+      "California Earthquake tweets",
+      "Pakistan Earthquake tweets",
+      "Cyclone PAM tweets",
+      "Typhoon Hagupit tweets",
+      "Hurricane Odile tweets",
+      "Iceland Volcano tweets",
+      "Landslides worldwide tweets (English)",
+      "Landslides worldwide tweets (French)",
+      "Landslides worldwide tweets (Spanish)",
+      "Pakistan Floods tweets",
+      "India Floods tweets",
+      "Palestine Conflict tweets",
+      "Peshawar Attack Pakistan tweets",
+      "Middle East Respiratory Syndrome tweets",
+      "Ebola virus outbreak tweets",
+      "Malaysia Airlines flight MH370 tweets"
+    ],
+    "metrics": [
+      {
+        "name": "Area Under ROC curve",
+        "value": 0.97,
+        "unit": "",
+        "condition": "10-fold cross-validation on the annotated crisis datasets, injured or dead people class, best classifier"
+      },
+      {
+        "name": "Area Under ROC curve",
+        "value": 0.23,
+        "unit": "",
+        "condition": "10-fold cross-validation on the annotated crisis datasets, missing, trapped, or found people class (the smallest class proportion), worst classifier result"
+      }
+    ],
+    "claim": "The released human-annotated corpora are effective for training multiclass message classifiers, with most information categories reaching acceptable AUC levels (at or above 0.80), and the resources can improve NLP for crisis messages and disaster response efforts.",
+    "author_stated_limitations": [],
+    "themes": [
+      "crisis informatics",
+      "disaster response",
+      "social media text classification",
+      "text normalization"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "One of the basic necessities of many of these tasks is the availability of data, in particular human-annotated data.",
+    "proposed_solution_quote": "In this paper, we present human-annotated Twitter corpora collected during 19 different crises that took place between 2013 and 2015.",
+    "claim_quote": "We build machine-learning classifiers to empirically validate the effectiveness of the annotated datasets.",
+    "author_stated_limitation_quotes": []
+  }
+}

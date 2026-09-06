@@ -1,0 +1,160 @@
+{
+  "paper_id": "arxiv-2412.13663",
+  "paper_type": "experimental",
+  "abstract": "Encoder-only transformer models such as BERT offer a great performance-size tradeoff for retrieval and classification tasks with respect to larger decoder-only models. Despite being the workhorse of numerous production pipelines, there have been limited Pareto improvements to BERT since its release. In this paper, we introduce ModernBERT, bringing modern model optimizations to encoder-only models and representing a major Pareto improvement over older encoders. Trained on 2 trillion tokens with a native 8192 sequence length, ModernBERT models exhibit state-of-the-art results on a large pool of evaluations encompassing diverse classification tasks and both single and multi-vector retrieval on different domains (including code). In addition to strong downstream performance, ModernBERT is also the most speed and memory efficient encoder and is designed for inference on common GPUs.",
+  "bibliographic": {
+    "title": "Smarter, Better, Faster, Longer: A Modern Bidirectional Encoder for Fast, Memory Efficient, and Long Context Finetuning and Inference",
+    "authors": [
+      {
+        "first_name": "Benjamin",
+        "last_name": "Warner"
+      },
+      {
+        "first_name": "Antoine",
+        "last_name": "Chaffin"
+      },
+      {
+        "first_name": "Benjamin",
+        "last_name": "Clavié"
+      },
+      {
+        "first_name": "Orion",
+        "last_name": "Weller"
+      },
+      {
+        "first_name": "Oskar",
+        "last_name": "Hallström"
+      },
+      {
+        "first_name": "Said",
+        "last_name": "Taghadouini"
+      },
+      {
+        "first_name": "Alexis",
+        "last_name": "Gallagher"
+      },
+      {
+        "first_name": "Raja",
+        "last_name": "Biswas"
+      },
+      {
+        "first_name": "Faisal",
+        "last_name": "Ladhak"
+      },
+      {
+        "first_name": "Tom",
+        "last_name": "Aarsen"
+      },
+      {
+        "first_name": "Nathan",
+        "last_name": "Cooper"
+      },
+      {
+        "first_name": "Griffin",
+        "last_name": "Adams"
+      },
+      {
+        "first_name": "Jeremy",
+        "last_name": "Howard"
+      },
+      {
+        "first_name": "Iacopo",
+        "last_name": "Poli"
+      }
+    ],
+    "year": 2024,
+    "venue": "arXiv",
+    "venue_type": "preprint",
+    "doi_or_url": "https://arxiv.org/abs/2412.13663"
+  },
+  "content": {
+    "problem": "Production NLP pipelines still rely on aging encoder-only models such as the original BERT, whose 512-token context limit, outdated architecture and vocabulary, inefficient compute, and small narrow-domain training data leave them far behind modern decoder-only language models.",
+    "proposed_solution": "The authors introduce ModernBERT, a family of encoder-only transformers that combines recent architectural advances (RoPE, GeGLU, alternating local-global attention, unpadding, Flash Attention) with a hardware-aware deep-and-narrow design, a modern BPE tokenizer, and pretraining on 2 trillion tokens including code at a native 8192-token context length.",
+    "algorithm_or_model": "ModernBERT",
+    "dataset_testbed": [
+      "GLUE",
+      "BEIR",
+      "MS-MARCO",
+      "MLDR (English subset)",
+      "CodeSearchNet",
+      "StackOverflow-QA",
+      "NVIDIA RTX 4090"
+    ],
+    "metrics": [
+      {
+        "name": "GLUE average",
+        "value": 88.4,
+        "unit": "percent",
+        "condition": "ModernBERT-base, best of base-size encoders on GLUE benchmark suite"
+      },
+      {
+        "name": "GLUE average",
+        "value": 90.4,
+        "unit": "percent",
+        "condition": "ModernBERT-large, second-best large encoder on GLUE, close behind DeBERTaV3-large"
+      },
+      {
+        "name": "BEIR nDCG@10 (DPR)",
+        "value": 44.0,
+        "unit": "percent",
+        "condition": "ModernBERT-large, single-vector retrieval finetuned on MS-MARCO"
+      },
+      {
+        "name": "BEIR nDCG@10 (ColBERT)",
+        "value": 52.4,
+        "unit": "percent",
+        "condition": "ModernBERT-large, multi-vector retrieval finetuned on MS-MARCO"
+      },
+      {
+        "name": "MLDR nDCG@10 (ColBERT, out-of-domain)",
+        "value": 80.4,
+        "unit": "percent",
+        "condition": "ModernBERT-large, long-context multi-vector retrieval without long-context finetuning"
+      },
+      {
+        "name": "CodeSearchNet nDCG@10",
+        "value": 59.5,
+        "unit": "percent",
+        "condition": "ModernBERT-large, single-vector code-to-text retrieval"
+      },
+      {
+        "name": "StackOverflow-QA nDCG@10",
+        "value": 83.9,
+        "unit": "percent",
+        "condition": "ModernBERT-large, single-vector retrieval in hybrid text-code setting"
+      },
+      {
+        "name": "Inference throughput",
+        "value": 46.8,
+        "unit": "thousands of tokens per second",
+        "condition": "ModernBERT-large on fixed 8192-token inputs on an NVIDIA RTX 4090, averaged over 10 runs"
+      }
+    ],
+    "claim": "ModernBERT sets a new overall state of the art among encoder models at both base and large sizes across classification and single- or multi-vector retrieval tasks (including code and long-context retrieval), while being the fastest and most memory-efficient encoder, processing 8192-token sequences roughly two to three times faster than the next-fastest model.",
+    "author_stated_limitations": [
+      "The study is exclusively English and very large-scale pretraining makes it not directly applicable to other languages, especially lower-resource ones.",
+      "Because the model is trained largely on web data, its representations inherit the biases present in that data.",
+      "The masked language modeling objective gives the model a limited ability to generate text by filling the [MASK] token, which could produce harmful content, though the risk is lower than for generative models.",
+      "The model is trained only with the MLM objective, and combining MLM with replaced-token-detection might better suit classification performance.",
+      "Scaling was explored only along the data axis, leaving other scaling axes such as model parameter count unexplored."
+    ],
+    "themes": [
+      "encoder language models",
+      "text retrieval",
+      "natural language understanding",
+      "model efficiency"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "Despite being the workhorse of numerous production pipelines, there have been limited Pareto improvements to BERT since its release.",
+    "proposed_solution_quote": "In this paper, we introduce ModernBERT, bringing modern model optimizations to encoder-only models and representing a major Pareto improvement over older encoders.",
+    "claim_quote": "ModernBERT pushes the encoder state of the art forward across a wide range of benchmarks. On GLUE, ModernBERT-base is the first encoder to beat DeBERTaV3-base since its release in 2021.",
+    "author_stated_limitation_quotes": [
+      "This study focuses exclusively on the English language, and trains on a very large number of tokens. As such, a major limitation of our work is that it is not directly applicable to other languages, and potentially even less-so to lower resources languages.",
+      "Our model is trained largely on web data, as a result, all of its representations are subject to the biases present in such data.",
+      "The MLM objective gives the model some ability to generate text by suggesting a given token to replace the \\[MASK\\] token, which could result in the generation of harmful content.",
+      "Given the strong results of DeBERTav3 on classification tasks but weak ones on retrieval, it seems that a training leveraging both MLM and RTD might be better suited to achieve best results on classification.",
+      "Besides the architectural modifications, a key aspect of our studies is data scaling. However, other scaling axes, notably in terms of model parameters are left unexplored."
+    ]
+  }
+}

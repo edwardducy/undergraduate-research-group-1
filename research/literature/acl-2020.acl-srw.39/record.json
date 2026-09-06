@@ -1,0 +1,102 @@
+{
+  "paper_id": "acl-2020.acl-srw.39",
+  "paper_type": "experimental",
+  "abstract": "Distinguishing informative and actionable messages from a social media platform like Twitter is critical for facilitating disaster management. For this purpose, we compile a multilingual dataset of over 130K samples for multilabel classification of disaster-related tweets. We present a masking-based loss function for partially labeled samples and demonstrate the effectiveness of Manifold Mixup in the text domain. Our main model is based on Multilingual BERT, which we further improve with Manifold Mixup. We show that our model generalizes to unseen disasters in the test set. Furthermore, we analyze the capability of our model for zero-shot generalization to new languages. Our code, dataset, and other resources are available on Github.<sup>1</sup>",
+  "bibliographic": {
+    "title": "Cross-Lingual Disaster-related Multi-label Tweet Classification with Manifold Mixup",
+    "authors": [
+      {
+        "first_name": "Jishnu",
+        "last_name": "Ray Chowdhury"
+      },
+      {
+        "first_name": "Cornelia",
+        "last_name": "Caragea"
+      },
+      {
+        "first_name": "Doina",
+        "last_name": "Caragea"
+      }
+    ],
+    "year": 2020,
+    "venue": "Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics: Student Research Workshop",
+    "venue_type": "conference",
+    "doi_or_url": "https://aclanthology.org/2020.acl-srw.39"
+  },
+  "content": {
+    "problem": "Most prior disaster-related tweet classification work handles only English and single-label settings, and there was no large-scale standard multilingual dataset for multi-label disaster tweet classification, despite the need in disaster-prone non-English-speaking regions for real-time classifiers.",
+    "proposed_solution": "The authors aggregate existing CrisisNLP and CrisisLex resources into a large multilingual multi-label dataset under a new annotation scheme, train Multilingual BERT with a class-mask-based loss that exploits partially labeled (binary-only) samples alongside multi-class samples, and further augment the model with Manifold Mixup.",
+    "algorithm_or_model": "Multilingual BERT (M-BERT) with Manifold Mixup",
+    "dataset_testbed": [
+      "Aggregated multilingual disaster tweet dataset of over 130K samples built from CrisisNLP resources #1, #4, #5, #7 and CrisisLexT6 and CrisisLexT26",
+      "Russia Meteor test set",
+      "Cyclone Pam test set",
+      "Philippines Flood test set",
+      "Mixed disasters test set"
+    ],
+    "metrics": [
+      {
+        "name": "F1",
+        "value": 87.39,
+        "unit": "percent",
+        "condition": "M-BERT + Manifold Mixup on the English-only Mixed disasters test set (10,000 samples)"
+      },
+      {
+        "name": "F1",
+        "value": 87.44,
+        "unit": "percent",
+        "condition": "M-BERT + Manifold Mixup on the full multilingual Mixed disasters test set (10,000 samples)"
+      },
+      {
+        "name": "F1",
+        "value": 84.9,
+        "unit": "percent",
+        "condition": "M-BERT + Manifold Mixup on the English-only Russia Meteor test set (802 samples)"
+      },
+      {
+        "name": "F1",
+        "value": 85.48,
+        "unit": "percent",
+        "condition": "M-BERT + Word Mixup on the English-only Cyclone Pam test set (2,473 samples)"
+      },
+      {
+        "name": "F1",
+        "value": 85.26,
+        "unit": "percent",
+        "condition": "M-BERT + Manifold Mixup, zero-shot classification of Spanish tweets (4,724 samples) with no Spanish tweets in training"
+      },
+      {
+        "name": "F1",
+        "value": 81.33,
+        "unit": "percent",
+        "condition": "M-BERT + Manifold Mixup, zero-shot classification of French tweets (666 samples)"
+      },
+      {
+        "name": "F1",
+        "value": 75.44,
+        "unit": "percent",
+        "condition": "M-BERT + Manifold Mixup, zero-shot classification of Italian tweets (1,581 samples)"
+      },
+      {
+        "name": "F1",
+        "value": 90.9,
+        "unit": "percent",
+        "condition": "Informative vs. Non-Informative per-class binary F1 of M-BERT + Manifold Mixup on the multilingual Mixed disasters test set"
+      }
+    ],
+    "claim": "Multilingual BERT fine-tuned with Manifold Mixup outperforms all non-BERT baselines and consistently improves over plain M-BERT, generalizing to unseen disasters and achieving strong zero-shot transfer to unseen languages such as Spanish, French, and Italian.",
+    "author_stated_limitations": [],
+    "themes": [
+      "disaster-related tweet classification",
+      "multi-label text classification",
+      "cross-lingual transfer",
+      "data augmentation"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "We stress that there are a lot of disaster-prone non-Englishspeaking countries, which could benefit from a multilingual classifier that can be used in real-time to identify useful information on social media. Furthermore, there is a lack of a large scale standard multilingual disaster-related dataset for multi-label classification with diverse disaster types.",
+    "proposed_solution_quote": "For this purpose, we compile a multilingual dataset of over 130K samples for multilabel classification of disaster-related tweets. We present a masking-based loss function for partially labeled samples and demonstrate the effectiveness of Manifold Mixup in the text domain.",
+    "claim_quote": "As can be seen in Table 4, the M-BERT outperforms all the non-BERT baseline models. Using Manifold Mixup consistently increases the performance of base M-BERT in all cases, often also working better than Word Mixup and Sentence Mixup, especially for the multilingual setting (see Table 5).",
+    "author_stated_limitation_quotes": []
+  }
+}

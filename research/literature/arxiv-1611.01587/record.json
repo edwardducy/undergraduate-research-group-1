@@ -1,0 +1,102 @@
+{
+  "paper_id": "arxiv-1611.01587",
+  "paper_type": "experimental",
+  "abstract": "Transfer and multi-task learning have traditionally focused on either a single source-target pair or very few, similar tasks. Ideally, the linguistic levels of morphology, syntax and semantics would benefit each other by being trained in a single model. We introduce a joint many-task model together with a strategy for successively growing its depth to solve increasingly complex tasks. Higher layers include shortcut connections to lower-level task predictions to reflect linguistic hierarchies. We use a simple regularization term to allow for optimizing all model weights to improve one task's loss without exhibiting catastrophic interference of the other tasks. Our single end-to-end model obtains state-of-the-art or competitive results on five different tasks from tagging, parsing, relatedness, and entailment tasks.",
+  "bibliographic": {
+    "title": "A Joint Many-Task Model: Growing a Neural Network for Multiple NLP Tasks",
+    "authors": [
+      {
+        "first_name": "Kazuma",
+        "last_name": "Hashimoto"
+      },
+      {
+        "first_name": "Caiming",
+        "last_name": "Xiong"
+      },
+      {
+        "first_name": "Yoshimasa",
+        "last_name": "Tsuruoka"
+      },
+      {
+        "first_name": "Richard",
+        "last_name": "Socher"
+      }
+    ],
+    "year": 2016,
+    "venue": "arXiv",
+    "venue_type": "preprint",
+    "doi_or_url": "https://arxiv.org/abs/1611.01587"
+  },
+  "content": {
+    "problem": "Multi-task NLP models have traditionally handled only a few closely related tasks and often ignore linguistic hierarchies by predicting tasks separately or at the same depth, while pipeline systems are not trained end-to-end.",
+    "proposed_solution": "The authors propose the Joint Many-Task (JMT) model, which assigns increasingly complex NLP tasks to successively deeper bi-LSTM layers, feeds lower-level task predictions to higher layers through shortcut connections and weighted label embeddings, and applies a successive regularization term so all model weights can keep training one task without catastrophic interference.",
+    "algorithm_or_model": "Joint Many-Task (JMT) model",
+    "dataset_testbed": [
+      "WSJ portion of the Penn Treebank (POS tagging)",
+      "WSJ corpus with the CoNLL-2000 split (chunking)",
+      "WSJ corpus with Stanford-style dependencies (dependency parsing)",
+      "SICK dataset (semantic relatedness and textual entailment)",
+      "English Wikipedia text for pre-training word and character n-gram embeddings"
+    ],
+    "metrics": [
+      {
+        "name": "POS accuracy",
+        "value": 97.55,
+        "unit": "percent",
+        "condition": "JMT model with all five tasks (JMTall) on the WSJ Penn Treebank test set (sections 22-24)"
+      },
+      {
+        "name": "Chunking F1",
+        "value": 95.77,
+        "unit": "percent",
+        "condition": "JMTAB subset (POS plus chunking layers) on the CoNLL-2000 test set (WSJ section 20)"
+      },
+      {
+        "name": "Dependency UAS",
+        "value": 94.67,
+        "unit": "percent",
+        "condition": "JMTall on the WSJ section 23 test set with punctuation excluded"
+      },
+      {
+        "name": "Dependency LAS",
+        "value": 92.9,
+        "unit": "percent",
+        "condition": "JMTall on the WSJ section 23 test set with punctuation excluded"
+      },
+      {
+        "name": "Relatedness MSE",
+        "value": 0.233,
+        "unit": "",
+        "condition": "JMTall on the SICK test set; lower is better"
+      },
+      {
+        "name": "Entailment accuracy",
+        "value": 86.2,
+        "unit": "percent",
+        "condition": "JMTall on the SICK test set"
+      }
+    ],
+    "claim": "A single end-to-end JMT model improves every task it covers over single-task baselines and achieves state-of-the-art or competitive results on chunking, dependency parsing, semantic relatedness, and textual entailment.",
+    "author_stated_limitations": [
+      "All tasks are trained for the same number of epochs under one shared learning-rate schedule even though the task datasets differ greatly in size, so some tasks reach their best scores before others and training to maximize all five tasks at once is not obvious.",
+      "The model does not explicitly use the dependency structures produced by its parsing layer when handling the semantic tasks.",
+      "Large external text is only used to pre-train embeddings rather than being exploited efficiently to improve the entire model."
+    ],
+    "themes": [
+      "multi-task learning",
+      "transfer learning",
+      "recurrent neural networks",
+      "natural language processing"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "Transfer and multi-task learning have traditionally focused on either a single source-target pair or very few, similar tasks. Ideally, the linguistic levels of morphology, syntax and semantics would benefit each other by being trained in a single model.",
+    "proposed_solution_quote": "We introduce a joint many-task model together with a strategy for successively growing its depth to solve increasingly complex tasks. Higher layers include shortcut connections to lower-level task predictions to reflect linguistic hierarchies.",
+    "claim_quote": "In experiments on five NLP tasks, our single model achieves the state-of-the-art or competitive results on chunking, dependency parsing, semantic relatedness, and textual entailment.",
+    "author_stated_limitation_quotes": [
+      "Thus, in general, dependency parsing requires more training epochs than the semantic tasks, but currently, our model trains all of the tasks for the same training epochs. The same strategy for decreasing the learning rate is also shared across all of the different tasks, although our growing gradient clipping method described in Section 5.2 helps improve the results.",
+      "Currently, our JMT model does not explicitly use the learned dependency structures, and thus the explicit use of the output from the dependency layer should be an interesting direction of future work.",
+      "Such large text data was used in our experiments to pre-train the word and character nn-gram embeddings. However, it would be preferable to efficiently use it for improving the entire model."
+    ]
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "paper_id": "arxiv-2301.01967",
+  "paper_type": "survey",
+  "abstract": "The analysis of data in which multiple languages are represented has gained popularity among computational linguists in recent years. So far, much of this research focuses mainly on the improvement of computational methods and largely ignores linguistic and social aspects of C-S discussed across a wide range of languages within the long-established literature in linguistics. To fill this gap, we offer a survey of code-switching (C-S) covering the literature in linguistics with a reflection on the key issues in language technologies. From the linguistic perspective, we provide an overview of structural and functional patterns of C-S focusing on the literature from European and Indian contexts as highly multilingual areas. From the language technologies perspective, we discuss how massive language models fail to represent diverse C-S types due to lack of appropriate training data, lack of robust evaluation benchmarks for C-S (across multilingual situations and types of C-S) and lack of end-toend systems that cover sociolinguistic aspects of C-S as well. Our survey will be a step towards an outcome of mutual benefit for computational scientists and linguists with a shared interest in multilingualism and C-S.",
+  "bibliographic": {
+    "title": "A Survey of Code-switching: Linguistic and Social Perspectives for Language Technologies",
+    "authors": [
+      {
+        "first_name": "A. Seza",
+        "last_name": "Doğruöz"
+      },
+      {
+        "first_name": "Sunayana",
+        "last_name": "Sitaram"
+      },
+      {
+        "first_name": "Barbara E.",
+        "last_name": "Bullock"
+      },
+      {
+        "first_name": "Almeida Jacqueline",
+        "last_name": "Toribio"
+      }
+    ],
+    "year": 2021,
+    "venue": "Proceedings of the 59th Annual Meeting of the Association for Computational Linguistics and the 11th International Joint Conference on Natural Language Processing (Volume 1: Long Papers)",
+    "venue_type": "conference",
+    "doi_or_url": "https://doi.org/10.18653/v1/2021.acl-long.131"
+  },
+  "content": {
+    "problem": "Computational research on code-switching has concentrated on improving methods while largely neglecting the linguistic and social insights about code-switching documented across many languages in the established linguistics literature.",
+    "proposed_solution": "The authors offer a survey of the linguistics literature on code-switching that reviews structural and functional patterns in European and Indian multilingual contexts and reflects on the key issues this raises for language technologies.",
+    "algorithm_or_model": null,
+    "dataset_testbed": [],
+    "metrics": [],
+    "claim": "The authors conclude that massive language models still fail to represent diverse code-switching types because of missing training data, robust evaluation benchmarks, and end-to-end systems covering sociolinguistic factors, and that their survey is a step toward mutual benefit for computational scientists and linguists.",
+    "author_stated_limitations": [
+      "The survey's scope is restricted to code-switching studies from European and Indian multilingual contexts.",
+      "The surveyed research lacks systematic comparisons of code-switching for the same language pairs in India and immigrant settings and provides little coverage of less-known Indian language pairs."
+    ],
+    "themes": [
+      "code-switching",
+      "multilingualism",
+      "language technologies",
+      "sociolinguistics"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "So far, much of this research focuses mainly on the improvement of computational methods and largely ignores linguistic and social aspects of C-S discussed across a wide range of languages within the long-established literature in linguistics.",
+    "proposed_solution_quote": "To fill this gap, we offer a survey of code-switching (C-S) covering the literature in linguistics with a reflection on the key issues in language technologies.",
+    "claim_quote": "From the language technologies perspective, we discuss how massive language models fail to represent diverse C-S types due to lack of appropriate training data, lack of robust evaluation benchmarks for C-S (across multilingual situations and types of C-S) and lack of end-to-end systems that cover sociolinguistic aspects of C-S as well. Our survey will be a step towards an outcome of mutual benefit for computational scientists and linguists with a shared interest in multilingualism and C-S.",
+    "author_stated_limitation_quotes": [
+      "The goal of this paper was to inform computational linguists and language technologists about the linguistic and social aspects C-S studies focusing on the European and Indian multilingual contexts.",
+      "There are hardly any systematic linguistic comparisons between the C-S within the same language pairs in India and immigrant contexts (e.g. C-S between Hindi-English in India vs. Hindi-English in the US/UK). There is also a need for more research about C-S between less known language pairs in India."
+    ]
+  }
+}

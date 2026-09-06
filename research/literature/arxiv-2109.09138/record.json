@@ -1,0 +1,47 @@
+{
+  "paper_id": "arxiv-2109.09138",
+  "paper_type": "survey",
+  "abstract": "Deep learning approaches have achieved great success in the field of Natural Language Processing (NLP). However, directly training deep neural models often suffer from overfitting and data scarcity problems that are pervasive in NLP tasks. In recent years, Multi-Task Learning (MTL), which can leverage useful information of related tasks to achieve simultaneous performance improvement on these tasks, has been used to handle these problems. In this paper, we give an overview of the use of MTL in NLP tasks. We first review MTL architectures used in NLP tasks and categorize them into four classes, including parallel architecture, hierarchical architecture, modular architecture, and generative adversarial architecture. Then we present optimization techniques on loss construction, gradient regularization, data sampling, and task scheduling to properly train a multi-task model. After presenting applications of MTL in a variety of NLP tasks, we introduce some benchmark datasets. Finally, we make a conclusion and discuss several possible research directions in this field.",
+  "bibliographic": {
+    "title": "Multi-Task Learning in Natural Language Processing: An Overview",
+    "authors": [
+      {
+        "first_name": "Shijie",
+        "last_name": "Chen"
+      },
+      {
+        "first_name": "Yu",
+        "last_name": "Zhang"
+      },
+      {
+        "first_name": "Qiang",
+        "last_name": "Yang"
+      }
+    ],
+    "year": 2021,
+    "venue": "arXiv",
+    "venue_type": "preprint",
+    "doi_or_url": "https://arxiv.org/abs/2109.09138"
+  },
+  "content": {
+    "problem": "Directly training deep neural models on NLP tasks suffers from pervasive overfitting and data scarcity, because sufficiently training such models requires large amounts of expensive labeled data along with substantial computing, time, and storage budgets.",
+    "proposed_solution": "The authors survey how multi-task learning is applied to NLP by organizing MTL architectures into four classes (parallel, hierarchical, modular, and generative adversarial) and reviewing optimization techniques for loss construction, gradient regularization, data sampling, and task scheduling, along with applications and benchmark datasets.",
+    "algorithm_or_model": null,
+    "dataset_testbed": [],
+    "metrics": [],
+    "claim": "The survey provides a structured taxonomy of multi-task learning in NLP, arguing that learning from multiple related tasks lets models aggregate training data, share common knowledge, and achieve simultaneous performance improvements across tasks, while identifying task relatedness, leveraging unlabeled data, and better MTL architectures for pre-trained language models as key open directions.",
+    "author_stated_limitations": [],
+    "themes": [
+      "multi-task learning",
+      "natural language processing",
+      "deep learning",
+      "model architectures"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "However, directly training deep neural models often suffer from overfitting and data scarcity problems that are pervasive in NLP tasks.",
+    "proposed_solution_quote": "In this paper, we give an overview of the use of MTL in NLP tasks. We first review MTL architectures used in NLP tasks and categorize them into four classes, including parallel architecture, hierarchical architecture, modular architecture, and generative adversarial architecture.",
+    "claim_quote": "In this paper, we give an overview of the application of multi-task learning in recent natural language processing research, focusing on deep learning approaches.",
+    "author_stated_limitation_quotes": []
+  }
+}

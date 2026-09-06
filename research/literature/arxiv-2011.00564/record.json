@@ -1,0 +1,43 @@
+{
+  "paper_id": "arxiv-2011.00564",
+  "paper_type": "survey",
+  "abstract": "In recent years, fostered by deep learning technologies and by the high demand for conversational AI, various approaches have been proposed that address the capacity to elicit and understand user’s needs in task-oriented dialogue systems. We focus on two core tasks, slot filling (SF) and intent classification (IC), and survey how neural based models have rapidly evolved to address natural language understanding in dialogue systems. We introduce three neural architectures: independent models, which model SF and IC separately, joint models, which exploit the mutual benefit of the two tasks simultaneously, and transfer learning models, that scale the model to new domains. We discuss the current state of the research in SF and IC, and highlight challenges that still require attention.",
+  "bibliographic": {
+    "title": "Recent Neural Methods on Slot Filling and Intent Classification for Task-Oriented Dialogue Systems: A Survey",
+    "authors": [
+      {
+        "first_name": "Samuel",
+        "last_name": "Louvan"
+      },
+      {
+        "first_name": "Bernardo",
+        "last_name": "Magnini"
+      }
+    ],
+    "year": 2020,
+    "venue": "arXiv",
+    "venue_type": "preprint",
+    "doi_or_url": "https://arxiv.org/abs/2011.00564"
+  },
+  "content": {
+    "problem": "The rapid growth of neural approaches and commercial demand for conversational AI has produced many scattered methods for slot filling and intent classification in task-oriented dialogue systems, leaving researchers and practitioners without a structured overview of the field.",
+    "proposed_solution": "The authors survey recent neural models for slot filling and intent classification, organizing them into three architecture families (independent, joint, and transfer learning models), comparing their performance on standard datasets, and discussing open challenges.",
+    "algorithm_or_model": null,
+    "dataset_testbed": [],
+    "metrics": [],
+    "claim": "The survey concludes that joint models exploiting the relationship between slot filling and intent classification perform relatively better than independent models, and that with sufficient in-domain training data most joint models nearly solve widely used benchmarks like ATIS and SNIPS, while scaling to new domains and languages with limited labeled data remains an open challenge.",
+    "author_stated_limitations": [],
+    "themes": [
+      "slot filling",
+      "intent classification",
+      "task-oriented dialogue systems",
+      "natural language understanding"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "Motivated by the rapid explosion of scientific progress, and by unprecedented market attention, we think that a guided map of the approaches on SF and IC can be useful for a large spectrum of researchers and practitioners interested in dialogue systems.",
+    "proposed_solution_quote": "We focus on two core tasks, slot filling (SF) and intent classification (IC), and survey how neural based models have rapidly evolved to address natural language understanding in dialogue systems. We introduce three neural architectures: independent models, which model SF and IC separately, joint models, which exploit the mutual benefit of the two tasks simultaneously, and transfer learning models, that scale the model to new domains.",
+    "claim_quote": "Joint models exploiting the relation between SF and IC simultaneously shown relatively better performance than independent models. Empirical results have shown that most joint models nearly ”solve” widely used datasets, ATIS and SNIPS, given sufficient in-domain training data.",
+    "author_stated_limitation_quotes": []
+  }
+}

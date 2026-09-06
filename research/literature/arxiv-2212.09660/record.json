@@ -1,0 +1,57 @@
+{
+  "paper_id": "arxiv-2212.09660",
+  "paper_type": "survey",
+  "abstract": "Code-Switching, a common phenomenon in written text and conversation, has been studied over decades by the natural language processing (NLP) research community. Initially, code-switching is intensively explored by leveraging linguistic theories and, currently, more machine-learning oriented approaches to develop models. We introduce a comprehensive systematic survey on code-switching research in natural language processing to understand the progress of the past decades and conceptualize the challenges and tasks on the code-switching topic. Finally, we summarize the trends and findings and conclude with a discussion for future direction and open questions for further investigation.",
+  "bibliographic": {
+    "title": "The Decades Progress on Code-Switching Research in NLP: A Systematic Survey on Trends and Challenges",
+    "authors": [
+      {
+        "first_name": "Genta Indra",
+        "last_name": "Winata"
+      },
+      {
+        "first_name": "Alham Fikri",
+        "last_name": "Aji"
+      },
+      {
+        "first_name": "Zheng-Xin",
+        "last_name": "Yong"
+      },
+      {
+        "first_name": "Thamar",
+        "last_name": "Solorio"
+      }
+    ],
+    "year": 2022,
+    "venue": "arXiv",
+    "venue_type": "preprint",
+    "doi_or_url": "https://arxiv.org/abs/2212.09660"
+  },
+  "content": {
+    "problem": "Code-switching research in NLP has grown rapidly across many languages, tasks, and methods over recent decades, but the field has lacked a comprehensive systematic survey that consolidates this progress and identifies open challenges.",
+    "proposed_solution": "The authors conduct the first large-scale systematic survey by collecting and manually annotating more than 400 code-switching papers from the ACL Anthology and ISCA proceedings, categorizing them by languages, venues, paper types, datasets, methods, and tasks, and analyzing how linguistic theories and machine learning approaches have evolved.",
+    "algorithm_or_model": null,
+    "dataset_testbed": [],
+    "metrics": [],
+    "claim": "The survey finds that neural methods and pre-trained multilingual models have increasingly dominated code-switching NLP while rule-based and statistical approaches decline, that research is heavily skewed toward a few language pairs such as Spanish-English and Hindi-English, and that more than 60% of code-switching datasets remain private, hindering reproducibility.",
+    "author_stated_limitations": [
+      "The survey's counts and statistics only cover papers published in the ACL Anthology and ISCA Proceedings, although related papers from other publicly accessible resources were included as related work.",
+      "The annotation scheme does not capture the code-switching type (such as intra-sentential or inter-sentential switching) because many surveyed papers do not report that information."
+    ],
+    "themes": [
+      "code-switching",
+      "multilingual natural language processing",
+      "survey",
+      "low-resource languages"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "Code-Switching, a common phenomenon in written text and conversation, has been studied over decades by the natural language processing (NLP) research community. Initially, code-switching is intensively explored by leveraging linguistic theories and, currently, more machine-learning oriented approaches to develop models.",
+    "proposed_solution_quote": "We introduce a comprehensive systematic survey on code-switching research in natural language processing to understand the progress of the past decades and conceptualize the challenges and tasks on the code-switching topic.",
+    "claim_quote": "Following general NLP trends, we see the adoption of neural methods and pre-trained models growing in popularity over time. In contrast, the statistical and rule-based approaches are diminishing.",
+    "author_stated_limitation_quotes": [
+      "The numbers in this survey are limited to papers published in the ACL Anthology and ISCA Proceedings. However, we also included papers as related work from other resources if they are publicly available and accessible.",
+      "In addition, the category in the survey does not include the code-switching type (i.e., intra-sentential, inter-sentential, etc.) since some papers do not provide such information."
+    ]
+  }
+}

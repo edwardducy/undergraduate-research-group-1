@@ -1,0 +1,101 @@
+{
+  "paper_id": "doi-10.1023-A-1007379606734",
+  "paper_type": "experimental",
+  "abstract": "Multitask Learning is an approach to inductive transfer that improves generalization by using the domain information contained in the training signals of _related_ tasks as an inductive bias. It does this by learning tasks in parallel while using a shared representation; what is learned for each task can help other tasks be learned better. This paper reviews prior work on MTL, presents new evidence that MTL in backprop nets discovers task relatedness without the need of supervisory signals, and presents new results for MTL with k-nearest neighbor and kernel regression. In this paper we demonstrate multitask learning in three domains. We explain how multitask learning works, and show that there are many opportunities for multitask learning in real domains. We present an algorithm and results for multitask learning with case-based methods like k-nearest neighbor and kernel regression, and sketch an algorithm for multitask learning in decision trees. Because multitask learning works, can be applied to many different kinds of domains, and can be used with different learning algorithms, we conjecture there will be many opportunities for its use on real-world problems.",
+  "bibliographic": {
+    "title": "Multitask Learning",
+    "authors": [
+      {
+        "first_name": "Rich",
+        "last_name": "Caruana"
+      }
+    ],
+    "year": 1997,
+    "venue": "Machine Learning",
+    "venue_type": "journal",
+    "doi_or_url": "https://doi.org/10.1023/A:1007379606734"
+  },
+  "content": {
+    "problem": "Learning each task in isolation ignores the domain information available in the training signals of related tasks drawn from the same domain, causing tabula rasa learners to generalize poorly on difficult real-world problems.",
+    "proposed_solution": "Train multiple related tasks in parallel on one learner that shares an internal representation (e.g., extra outputs on a backprop net with a shared hidden layer), so the extra task training signals act as an inductive bias that improves generalization on the main task.",
+    "algorithm_or_model": "Multitask Learning (MTL) in backpropagation nets, plus MTL algorithms for k-nearest neighbor, kernel regression, and decision trees",
+    "dataset_testbed": [
+      "1D-ALVINN synthetic road image domain",
+      "1D-DOORS real door image domain collected with a robot-mounted camera",
+      "Medis Pneumonia Database (14,199 pneumonia cases from 78 hospitals)",
+      "Peaks Functions (120 synthetic conditional functions)",
+      "Xavier robot sensory prediction domain",
+      "synthetic F1/F2 sigmoid function problems"
+    ],
+    "metrics": [
+      {
+        "name": "change MTL to best STL",
+        "value": -15.9,
+        "unit": "percent",
+        "condition": "steering task in the 1D-ALVINN domain, backprop nets with one hidden layer"
+      },
+      {
+        "name": "change MTL to best STL",
+        "value": -23.5,
+        "unit": "percent",
+        "condition": "doorknob location task in the 1D-DOORS domain"
+      },
+      {
+        "name": "change MTL to best STL",
+        "value": -31.4,
+        "unit": "percent",
+        "condition": "door type task in the 1D-DOORS domain"
+      },
+      {
+        "name": "error rate (fraction deaths)",
+        "value": 0.0197,
+        "unit": "",
+        "condition": "MTL with rankprop on Medis Pneumonia Database at FOP 0.3 (STL rankprop error 0.0210)"
+      },
+      {
+        "name": "change MTL to STL",
+        "value": -10.8,
+        "unit": "percent",
+        "condition": "rankprop pneumonia risk prediction at FOP 0.1"
+      },
+      {
+        "name": "change MTL LCWA to STL LCWA",
+        "value": -9.1,
+        "unit": "percent",
+        "condition": "kernel regression pneumonia risk prediction at FOP 0.3 with lambda = 1, training sets of 1000 cases"
+      },
+      {
+        "name": "change MTL to STL",
+        "value": -10.9,
+        "unit": "percent",
+        "condition": "robot sensory prediction task 8 meters into the future"
+      },
+      {
+        "name": "mean RMSE",
+        "value": 0.0631,
+        "unit": "",
+        "condition": "MTL net using F2(A,B) as an extra output on the F1(A,B) problem, mean of 50 trials"
+      }
+    ],
+    "claim": "Across simulated and real domains (road following, door recognition, pneumonia risk prediction, robot sensing, and synthetic functions), training related tasks in parallel on a shared representation cut generalization error on the main task by roughly 5-40%, and shuffle tests confirmed the gains come from information in the extra training signals rather than side effects of having multiple outputs.",
+    "author_stated_limitations": [
+      "MTL does not always improve performance: it is an inductive bias that can hurt on some problems, so it must be tested on each problem (e.g., adding an extra SSE output to the rankprop net raised error for high-risk pneumonia patients).",
+      "The authors have no principled way to determine which MTL network architecture is best for a given problem."
+    ],
+    "themes": [
+      "multitask learning",
+      "inductive transfer",
+      "neural networks",
+      "generalization"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "This paper argues that sometimes this methodology is counterproductive because it ignores a potentially rich source of information available in many real-world problems: the information contained in the training signals of other tasks drawn from the same domain.",
+    "proposed_solution_quote": "MTL improves generalization by leveraging the domain-specific information contained in the training signals of _related_ tasks. It does this by training tasks in parallel while using a shared representation.",
+    "claim_quote": "We conclude that the benefits observed with MTL are due to the information in the extra training signals serving as a domain-specific inductive bias for these problems, not to some other benefit achievable with unrelated extra outputs.",
+    "author_stated_limitation_quotes": [
+      "MTL does not always improve performance. In the pneumonia domain, performance dropped for high-risk cases when an extra SSE output was added to the rankprop net (see Section 4.2).",
+      "We do not currently have principled ways to determine what architecture is best for each problem."
+    ]
+  }
+}

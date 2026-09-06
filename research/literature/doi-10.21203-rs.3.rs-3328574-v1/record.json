@@ -1,0 +1,90 @@
+{
+  "paper_id": "doi-10.21203-rs.3.rs-3328574-v1",
+  "paper_type": "experimental",
+  "abstract": "Multilingualism is the ability to converse fluently in more than one language. In multilingual societies, code-switching, the practise of switching languages during a conversation, occurs often, creating a need for multilingual dialogue and voice recognition systems in natural language processing (NLP). However, interpreting code-switching utterances is extremely difficult for these NLP systems, as the model must adjust to code-switching patterns. In recent years, deep learning strategies have enabled natural language systems with massive volumes of training data to attain human-level performance in languages. However, they cannot accommodate a large number of low-resource languages, mostly mixed languages. Also, code-switching, despite being a common occurrence, is unique to spoken language and lacks the transcriptions necessary for training deep learning models. Our work in this paper, explores the usage of multi-task learning in code-switched setting to see if it can leverage from the training signals of related tasks and improve the generalizability as well as boost the performance and metrics of our model.",
+  "bibliographic": {
+    "title": "Leveraging Multi-Task Learning in Code-Switched setting",
+    "authors": [
+      {
+        "first_name": "Mithun Kumar",
+        "last_name": "S R"
+      },
+      {
+        "first_name": "Omkar",
+        "last_name": "Pitale"
+      },
+      {
+        "first_name": "Aruna",
+        "last_name": "Malapati"
+      }
+    ],
+    "year": 2023,
+    "venue": "Research Square",
+    "venue_type": "preprint",
+    "doi_or_url": "https://doi.org/10.21203/rs.3.rs-3328574/v1"
+  },
+  "content": {
+    "problem": "NLP systems struggle to interpret code-switched language because models must adapt to language-mixing patterns, and code-switched data is scarce and lacks the transcriptions needed to train deep learning models.",
+    "proposed_solution": "The authors propose a multi-task learning framework with hard parameter sharing that couples a pre-trained multilingual transformer encoder with a bidirectional LSTM and shared MLP layers, plus task-specific MLP-CRF heads and an uncertainty-weighted joint loss, so that a primary token classification task can benefit from the training signals of a related task.",
+    "algorithm_or_model": "Multi-task hard-parameter-sharing architecture of transformer encoder, BiLSTM and shared MLPs with task-specific MLP-CRF layers",
+    "dataset_testbed": [
+      "LinCE benchmark (Named Entity Recognition and Language Identification tasks, Hindi-English)"
+    ],
+    "metrics": [
+      {
+        "name": "NER Test F1",
+        "value": 71.37,
+        "unit": "percent",
+        "condition": "10-fold cross-validation average with mBERT encoder in the multi-task framework on LinCE Hindi-English"
+      },
+      {
+        "name": "NER Test F1",
+        "value": 77.41,
+        "unit": "percent",
+        "condition": "10-fold cross-validation average with XLM-RoBERTa base encoder in the multi-task framework on LinCE Hindi-English"
+      },
+      {
+        "name": "NER Test F1",
+        "value": 82.92,
+        "unit": "percent",
+        "condition": "10-fold cross-validation average with XLM-RoBERTa large encoder in the multi-task framework on LinCE Hindi-English"
+      },
+      {
+        "name": "LID Test F1",
+        "value": 80.648,
+        "unit": "percent",
+        "condition": "10-fold cross-validation average with mBERT encoder in the multi-task framework on LinCE Hindi-English"
+      },
+      {
+        "name": "LID Test F1",
+        "value": 88.154,
+        "unit": "percent",
+        "condition": "10-fold cross-validation average with XLM-RoBERTa base encoder in the multi-task framework on LinCE Hindi-English"
+      },
+      {
+        "name": "LID Test F1",
+        "value": 88.557,
+        "unit": "percent",
+        "condition": "10-fold cross-validation average with XLM-RoBERTa large encoder in the multi-task framework on LinCE Hindi-English"
+      }
+    ],
+    "claim": "Multi-task learning in a code-switched setting outperforms the traditional single-task approach, with the NER task leveraging signals from the related language identification task to improve generalizability and F1 performance across all tested pre-trained models.",
+    "author_stated_limitations": [
+      "The authors have not yet evaluated their framework on the GLUECoS benchmark or explored further optimizations, so results beyond LinCE remain untested."
+    ],
+    "themes": [
+      "multi-task learning",
+      "code-switching",
+      "named entity recognition",
+      "natural language processing"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "However, they cannot accommodate a large number of low-resource languages, mostly mixed languages. Also, code-switching, despite being a common occurrence, is unique to spoken language and lacks the transcriptions necessary for training deep learning models.",
+    "proposed_solution_quote": "We have developed a framework that employs multi-task learning using a encoder, bidirectional LSTM [13] and multi-layer perceptron model as our primary architecture for token classification tasks.",
+    "claim_quote": "The experimental results demonstrates that the multitask learning approach outperforms the traditional single-task approach (i.e using a model to train a single task) to solving the task by having an implicit data augmentation effect to help generalizability.",
+    "author_stated_limitation_quotes": [
+      "We are yet to experiment on GLUECoS dataset and try out more optimizations in order to achieve much better results than the existing ones."
+    ]
+  }
+}

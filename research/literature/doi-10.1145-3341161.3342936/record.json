@@ -1,0 +1,96 @@
+{
+  "paper_id": "doi-10.1145-3341161.3342936",
+  "paper_type": "experimental",
+  "abstract": "Humanitarian disasters have been on the rise in recent years due to the effects of climate change and socio-political situations such as the refugee crisis. Technology can be used to best mobilize resources such as food and water in the event of a natural disaster, by semi-automatically flagging tweets and short messages as indicating an urgent need. The problem is challenging not just because of the sparseness of data in the immediate aftermath of a disaster, but because of the varying characteristics of disasters in developing countries (making it difficult to train just one system) and the noise and quirks in social media. In this paper, we present a robust, low-supervision social media urgency system that adapts to arbitrary crises by leveraging both labeled and unlabeled data in an ensemble setting. The system is also able to adapt to new crises where an unlabeled background corpus may not be available yet by utilizing a simple and effective transfer learning methodology. Experimentally, our transfer learning and low-supervision approaches are found to outperform viable baselines with high significance on myriad disaster datasets.",
+  "bibliographic": {
+    "title": "Low-supervision urgency detection and transfer in short crisis messages",
+    "authors": [
+      {
+        "first_name": "Mayank",
+        "last_name": "Kejriwal"
+      },
+      {
+        "first_name": "Peilin",
+        "last_name": "Zhou"
+      }
+    ],
+    "year": 2019,
+    "venue": "Proceedings of the 2019 IEEE/ACM International Conference on Advances in Social Networks Analysis and Mining (ASONAM)",
+    "venue_type": "conference",
+    "doi_or_url": "https://doi.org/10.1145/3341161.3342936"
+  },
+  "content": {
+    "problem": "Detecting urgent needs in short social media messages during humanitarian crises is hard because only a handful of labeled examples exist when a disaster strikes, each disaster has different characteristics, and social media text is noisy.",
+    "proposed_solution": "The authors build an urgency classifier from a few hundred labeled tweets by combining manual keyword features, locally trained fastText embeddings, and pre-trained Wikipedia embeddings in a weighted ensemble, and add a transfer variant that trains the ensemble on pooled source and target labeled data with the target up-sampled when no background corpus exists for the new crisis.",
+    "algorithm_or_model": "Weighted ensemble of three linear regression classifiers over manual, local fastText, and pre-trained Wikipedia embedding features, with an up-sampled source-target transfer variant",
+    "dataset_testbed": [
+      "Nepal earthquake tweet dataset (DARPA LORELEI)",
+      "Macedonia live-action disaster simulation dataset (DARPA LORELEI)",
+      "Kerala floods tweet dataset"
+    ],
+    "metrics": [
+      {
+        "name": "Accuracy",
+        "value": 69.25,
+        "unit": "percent",
+        "condition": "Our approach on the Nepal dataset for RQ1 low-supervision urgency detection, averaged over ten trials; 99% significance over the Local baseline"
+      },
+      {
+        "name": "F-Measure",
+        "value": 69.44,
+        "unit": "percent",
+        "condition": "Our approach on the Nepal dataset for RQ1 low-supervision urgency detection, averaged over ten trials; 99% significance over the Local baseline"
+      },
+      {
+        "name": "Recall",
+        "value": 70.5,
+        "unit": "percent",
+        "condition": "Our approach on the Nepal dataset for RQ1; 95% significance over the Local baseline"
+      },
+      {
+        "name": "Precision",
+        "value": 51.39,
+        "unit": "percent",
+        "condition": "Our approach on the Kerala dataset for RQ1; best precision, 99% significance over the Local baseline"
+      },
+      {
+        "name": "Accuracy",
+        "value": 61.79,
+        "unit": "percent",
+        "condition": "Our approach for RQ2 transfer learning with Nepal as source and Macedonia as target; 90% significance over the Local baseline"
+      },
+      {
+        "name": "F-Measure",
+        "value": 56.9,
+        "unit": "percent",
+        "condition": "Our approach for RQ2 transfer learning with Nepal as source and Macedonia as target"
+      },
+      {
+        "name": "F-Measure",
+        "value": 43.03,
+        "unit": "percent",
+        "condition": "Our approach for RQ2 transfer learning with Nepal as source and Kerala as target; 90% significance over the Local baseline"
+      }
+    ],
+    "claim": "The ensemble and transfer learning approaches beat single-feature-set baselines with high statistical significance across the three disaster datasets, with the best low-supervision result being 69.44% F-Measure on Nepal.",
+    "author_stated_limitations": [
+      "The individual feature sets are weak on their own: the local embedding model can reduce precision and the manual keyword features reduce recall.",
+      "The transfer learning approach only slightly improves on the simpler up-sampling baseline in two of four source-target scenarios, showing diminishing returns from mixing source and target labeled training data."
+    ],
+    "themes": [
+      "crisis informatics",
+      "urgency detection",
+      "transfer learning",
+      "low-supervision machine learning"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "The problem is challenging not just because of the sparseness of data in the immediate aftermath of a disaster, but because of the varying characteristics of disasters in developing countries (making it difficult to train just one system) and the noise and quirks in social media.",
+    "proposed_solution_quote": "In this paper, we present a robust, low-supervision social media urgency system that adapts to arbitrary crises by leveraging both labeled and unlabeled data in an ensemble setting. The system is also able to adapt to new crises where an unlabeled background corpus may not be available yet by utilizing a simple and effective transfer learning methodology.",
+    "claim_quote": "Experimentally, our transfer learning and low-supervision approaches are found to outperform viable baselines with high significance on myriad disaster datasets.",
+    "author_stated_limitation_quotes": [
+      "While the local embedding model can reduce precision, for example, it can help the system to improve and accuracy and recall. Similarly, manual features reduce recall, but help the system to improve accuracy and precision (sometimes considerably).",
+      "Our approach shows a slight improvement over the upsampling baseline on two of the four scenarios (Tables V and VII) by 2-2.7% on the F-Measure metric, which shows the diminishing returns from mixing source and target labeled training data."
+    ]
+  }
+}

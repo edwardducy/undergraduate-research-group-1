@@ -1,0 +1,86 @@
+{
+  "paper_id": "doi-10.1007-s41060-025-00892-y",
+  "paper_type": "survey",
+  "abstract": "Multi-task learning (MTL) is a machine learning method that has witnessed exponential traction due to its ability to solve multiple tasks simultaneously. Joining training-related tasks in MTL improves both predictive performance and data efficiency. The shared knowledge across tasks enables MTL models to outperform traditional single-task models. The effectiveness of MTL depends on several factors, including how tasks are chosen, how relationships between them are structured, and the choice of shared and task-specific model components. In literature, several architectures and strategies for multi-task learning have been successfully applied across different fields such as natural language processing, computer vision, healthcare, and others. However, MTL has some challenges, such as task interference, data availability, optimal task selection, and hyperparameter tuning. Recent research has introduced new techniques to address these issues, such as adaptive task balancing and parameter sharing mechanisms, although each approach has its limitations. In this review, we provide a comprehensive examination of the multi-task learning concept, and the strategies used in several different domains. It also explores the key factors influencing the success of MTL and provides a detailed classification of research efforts applying MTL in a wide range of fields, highlighting existing achievements and challenges.",
+  "bibliographic": {
+    "title": "Deep multi-task learning: a review of concepts, methods, and cross-domain applications",
+    "authors": [
+      {
+        "first_name": "Mahmoud Mohamed",
+        "last_name": "Abdelsamie"
+      },
+      {
+        "first_name": "Shahira Shaaban",
+        "last_name": "Azab"
+      },
+      {
+        "first_name": "Hesham A.",
+        "last_name": "Hefny"
+      }
+    ],
+    "year": 2026,
+    "venue": "International Journal of Data Science and Analytics",
+    "venue_type": "journal",
+    "doi_or_url": "https://doi.org/10.1007/s41060-025-00892-y"
+  },
+  "content": {
+    "problem": "Existing reviews of multi-task learning are fragmented along individual domains and are not current with deep MTL developments, leaving the field without a unified cross-domain account of its concepts, methods, and applications.",
+    "proposed_solution": "The authors present a comprehensive survey that explains MTL fundamentals, compares hard and soft parameter sharing, categorizes MTL architectures, analyzes the factors behind MTL success, and classifies application studies across a wide range of fields.",
+    "algorithm_or_model": null,
+    "dataset_testbed": [
+      "Scopus bibliographic database records of multi-task learning publications (8,245 retrieved, 6,872 unique records retained, 2020 to mid-2025)"
+    ],
+    "metrics": [
+      {
+        "name": "Retrieved MTL publications",
+        "value": 8245,
+        "unit": "publications",
+        "condition": "Scopus search 2020 to mid-2025 for the terms multi-task learning or multitask learning in title, abstract, and keywords"
+      },
+      {
+        "name": "Unique MTL records analyzed",
+        "value": 6872,
+        "unit": "publications",
+        "condition": "After filtering by document type and subject area and removing duplicates by DOI and exact title match"
+      },
+      {
+        "name": "Computer science publications",
+        "value": 4698,
+        "unit": "publications",
+        "condition": "Largest contributing field among Scopus MTL publications from 2020 to mid-2025"
+      },
+      {
+        "name": "Engineering publications",
+        "value": 1135,
+        "unit": "publications",
+        "condition": "Second largest contributing field among Scopus MTL publications from 2020 to mid-2025"
+      },
+      {
+        "name": "Mathematics publications",
+        "value": 498,
+        "unit": "publications",
+        "condition": "Third largest contributing field among Scopus MTL publications from 2020 to mid-2025"
+      },
+      {
+        "name": "Medicine and health sciences publications",
+        "value": 241,
+        "unit": "publications",
+        "condition": "Fourth largest contributing field among Scopus MTL publications from 2020 to mid-2025"
+      }
+    ],
+    "claim": "The review concludes that multi-task learning is a rapidly growing and versatile paradigm that improves generalization and data efficiency across diverse domains, while its success depends on task selection, parameter-sharing architecture, and loss balancing, and it still faces challenges such as negative transfer and computational cost.",
+    "author_stated_limitations": [],
+    "themes": [
+      "multi-task learning",
+      "deep learning",
+      "parameter sharing",
+      "cross-domain applications"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "For example, applications of MTL in intelligent transportation (e.g., traffic prediction and autonomous driving) and cybersecurity (e.g., intrusion detection and malware analysis) have been discussed in domain-specific reviews. However, these studies often lack a unified view across domains or fail to capture recent methodological developments in deep MTL.",
+    "proposed_solution_quote": "In contrast, our review aims to provide a comprehensive and up-to-date overview of deep MTL, covering not only the algorithmic foundations but also a wide range of applications across domains including healthcare, finance, language technologies, and more. It explores several factors that influence the success of MTL, including the choice of related tasks, the architecture for sharing knowledge across tasks, the methods for balancing task-specific and shared parameters, and the optimization techniques used.",
+    "claim_quote": "Multitask learning has emerged as a powerful paradigm in machine learning, enabling models to learn multiple related tasks simultaneously, resulting in improved generalization, reduced training time, and the ability to exploit relationships between tasks. The reviewed studies highlight the broad application of MTL in domains such as healthcare, agriculture, natural language processing, computer vision, and others.",
+    "author_stated_limitation_quotes": []
+  }
+}

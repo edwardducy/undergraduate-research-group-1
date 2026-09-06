@@ -1,0 +1,68 @@
+{
+  "paper_id": "jmlr-v7-demsar06a",
+  "paper_type": "survey",
+  "abstract": "While methods for comparing two learning algorithms on a single data set have been scrutinized for quite some time already, the issue of statistical tests for comparisons of more algorithms on multiple data sets, which is even more essential to typical machine learning studies, has been all but ignored. This article reviews the current practice and then theoretically and empirically examines several suitable tests. Based on that, we recommend a set of simple, yet safe and robust non-parametric tests for statistical comparisons of classifiers: the Wilcoxon signed ranks test for comparison of two classifiers and the Friedman test with the corresponding post-hoc tests for comparison of more classifiers over multiple data sets. Results of the latter can also be neatly presented with the newly introduced CD (critical difference) diagrams.",
+  "bibliographic": {
+    "title": "Statistical Comparisons of Classifiers over Multiple Data Sets",
+    "authors": [
+      {
+        "first_name": "Janez",
+        "last_name": "Demšar"
+      }
+    ],
+    "year": 2006,
+    "venue": "Journal of Machine Learning Research",
+    "venue_type": "journal",
+    "doi_or_url": "https://www.jmlr.org/papers/v7/demsar06a.html"
+  },
+  "content": {
+    "problem": "Machine learning studies frequently need to compare several classifiers over multiple data sets, yet no statistically sound, established procedure exists for this task, so researchers rely on ad hoc methods that either lack statistical grounding or misuse statistical tests.",
+    "proposed_solution": "The authors review current practice and, based on theoretical and empirical analysis, recommend simple, safe, and robust non-parametric tests: the Wilcoxon signed-ranks test for comparing two classifiers and the Friedman test with its corresponding post-hoc tests for comparing more classifiers over multiple data sets, with results visualized using newly introduced critical difference (CD) diagrams.",
+    "algorithm_or_model": "Wilcoxon signed-ranks test and Friedman test with post-hoc procedures (Nemenyi, Bonferroni-Dunn, Holm, Hochberg, Hommel)",
+    "dataset_testbed": [
+      "14 UCI data sets with binary class attribute (C4.5 AUC worked examples)",
+      "40 real-world data sets with discrete classes from the UCI Machine Learning Repository (empirical comparison of tests)",
+      "ICML proceedings papers from 1999-2003 (analysis of statistical testing practice)"
+    ],
+    "metrics": [
+      {
+        "name": "average rank",
+        "value": 1.964,
+        "unit": "",
+        "condition": "C4.5 with m and cf tuned for optimal AUC, ranked over 14 UCI binary-class data sets in the Friedman test example"
+      },
+      {
+        "name": "average rank",
+        "value": 3.143,
+        "unit": "",
+        "condition": "C4.5 with m=0 and cf=0.25, ranked over 14 UCI binary-class data sets in the Friedman test example"
+      },
+      {
+        "name": "p",
+        "value": 0.016,
+        "unit": "",
+        "condition": "Holm post-hoc comparison of C4.5+m+cf against the control C4.5 after the Friedman test on 14 UCI data sets"
+      }
+    ],
+    "claim": "The authors conclude that non-parametric tests, namely the Wilcoxon signed-ranks test for two classifiers and the Friedman test with post-hoc tests for multiple classifiers, are safer and empirically at least as strong as parametric alternatives such as the paired t-test and ANOVA, and should therefore be preferred for comparing classifiers over multiple data sets.",
+    "author_stated_limitations": [
+      "The empirical study provided no analysis of Type 1/Type 2 error rates because the correct result, rejection or non-rejection of the null hypothesis, is not well defined and depends on the kind of difference between the algorithms the researcher intends to measure.",
+      "The empirical analysis shows that the replicability of the statistical tests may be problematic, so actual experiments should be conducted on as many data sets as possible."
+    ],
+    "themes": [
+      "statistical hypothesis testing",
+      "classifier comparison",
+      "non-parametric tests",
+      "machine learning evaluation methodology"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "While methods for comparing two learning algorithms on a single data set have been scrutinized for quite some time already, the issue of statistical tests for comparisons of more algorithms on multiple data sets, which is even more essential to typical machine learning studies, has been all but ignored.",
+    "proposed_solution_quote": "Based on that, we recommend a set of simple, yet safe and robust non-parametric tests for statistical comparisons of classifiers: the Wilcoxon signed ranks test for comparison of two classifiers and the Friedman test with the corresponding post-hoc tests for comparison of more classifiers over multiple data sets.",
+    "claim_quote": "Overall, the non-parametric tests, namely the Wilcoxon and Friedman test are suitable for our problems. They are appropriate since they assume some, but limited commensurability.",
+    "author_stated_limitation_quotes": [
+      "In the empirical study we provided no analysis of Type 1/Type 2 error rates. The main reason for this is that the correct result—rejection or non-rejection of the null-hypothesis—is not well defined and depends upon the kind of difference between the algorithms we intend to measure.",
+      "The empirical analysis also shows that replicability of the tests might be a problem, thus the actual experiments should be conducted on as many data sets as possible."
+    ]
+  }
+}

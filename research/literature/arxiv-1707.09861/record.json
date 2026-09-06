@@ -1,0 +1,78 @@
+{
+  "paper_id": "arxiv-1707.09861",
+  "paper_type": "experimental",
+  "abstract": "In this paper†† This paper is published in the proceedings of EMNLP 2017. we show that reporting a single performance score is insufficient to compare non-deterministic approaches. We demonstrate for common sequence tagging tasks that the seed value for the random number generator can result in statistically significant (p<10−4p<10^{-4}) differences for state-of-the-art systems. For two recent systems for NER, we observe an absolute difference of one percentage point F1F\\_{1}-score depending on the selected seed value, making these systems perceived either as state-of-the-art or mediocre. Instead of publishing and reporting single performance scores, we propose to compare score distributions based on multiple executions. Based on the evaluation of 50.000 LSTM-networks for five sequence tagging tasks, we present network architectures that produce both superior performance as well as are more stable with respect to the remaining hyperparameters. The full experimental results are published in [Reimers and Gurevych (2017)](#bib.bib30 \"\").11 1 [https://arxiv.org/abs/1707.06799](https://arxiv.org/abs/1707.06799 \"\") The implementation of our network is publicly available.22 2 [https://github.com/UKPLab/emnlp2017-bilstm-cnn-crf](https://github.com/UKPLab/emnlp2017-bilstm-cnn-crf \"\")",
+  "bibliographic": {
+    "title": "Reporting Score Distributions Makes a Difference: Performance Study of LSTM-networks for Sequence Tagging",
+    "authors": [
+      {
+        "first_name": "Nils",
+        "last_name": "Reimers"
+      },
+      {
+        "first_name": "Iryna",
+        "last_name": "Gurevych"
+      }
+    ],
+    "year": 2017,
+    "venue": "Proceedings of the 2017 Conference on Empirical Methods in Natural Language Processing",
+    "venue_type": "conference",
+    "doi_or_url": "https://arxiv.org/abs/1707.09861"
+  },
+  "content": {
+    "problem": "Single reported performance scores for neural networks are unreliable because their non-deterministic training makes the random seed value determine which local minimum the network converges to, and different minima generalize very differently to unseen data.",
+    "proposed_solution": "The authors propose re-running non-deterministic approaches multiple times with different random seed values and comparing the resulting score distributions instead of single scores, and they demonstrate the value of this via a large-scale study of BiLSTM network configurations across five sequence tagging tasks.",
+    "algorithm_or_model": "BiLSTM-CRF sequence tagging architecture",
+    "dataset_testbed": [
+      "Penn Treebank (reduced to 500 training sentences)",
+      "CoNLL 2000",
+      "CoNLL 2003",
+      "ACE 2005",
+      "TempEval3"
+    ],
+    "metrics": [
+      {
+        "name": "F1",
+        "value": 89.99,
+        "unit": "percent",
+        "condition": "Minimum test F1 for the Ma and Hovy (2016) NER system across 86 seed values on CoNLL 2003"
+      },
+      {
+        "name": "F1",
+        "value": 91.0,
+        "unit": "percent",
+        "condition": "Maximum test F1 for the Ma and Hovy (2016) NER system across 86 seed values on CoNLL 2003"
+      },
+      {
+        "name": "F1",
+        "value": 91.14,
+        "unit": "percent",
+        "condition": "Maximum test F1 for the Lample et al. (2016) NER system across 41 seed values on CoNLL 2003"
+      },
+      {
+        "name": "Max. Difference",
+        "value": 8.23,
+        "unit": "percent",
+        "condition": "Largest difference in F1 between networks with identical hyperparameters but different seed values, on the ACE 2005 Entities task"
+      }
+    ],
+    "claim": "The random seed value alone can shift NER F1 by up to one percentage point with statistical significance, so comparing single performance scores can lead to wrong conclusions, and based on about 50,000 trained LSTM networks the authors identify configurations (CRF classifier, variational dropout, gradient normalization, Nadam optimizer, Komninos embeddings) that are both more accurate and more stable with respect to the remaining hyperparameters.",
+    "author_stated_limitations": [
+      "The authors evaluated only pre-trained word embeddings from different authors rather than the underlying embedding-generation algorithms, and because the corpora are not comparable their results do not allow concluding that one embedding approach is superior."
+    ],
+    "themes": [
+      "sequence tagging",
+      "LSTM networks",
+      "reproducibility",
+      "hyperparameter analysis"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "The training process for neural networks is highly non-deterministic as it usually depends on a random weight initialization, a random shuffling of the training data for each epoch, and repeatedly applying random dropout masks. Depending on the seed value for the pseudo-random number generator, the network will converge to a different local minimum.",
+    "proposed_solution_quote": "Instead of publishing and reporting single performance scores, we propose to compare score distributions based on multiple executions. Based on the evaluation of 50.000 LSTM-networks for five sequence tagging tasks, we present network architectures that produce both superior performance as well as are more stable with respect to the remaining hyperparameters.",
+    "claim_quote": "In this paper, we demonstrated that the sequence of random numbers has a statistically significant impact on the test performance and that wrong conclusions can be made if performance scores based on single runs are compared.",
+    "author_stated_limitation_quotes": [
+      "Note we only evaluated the pre-trained embeddings provided by different authors, but not the underlying algorithms to generate these embeddings. As the corpora are not comparable, our results do not allow concluding that one approach is superior for generating word embeddings."
+    ]
+  }
+}

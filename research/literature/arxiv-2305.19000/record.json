@@ -1,0 +1,93 @@
+{
+  "paper_id": "arxiv-2305.19000",
+  "paper_type": "experimental",
+  "abstract": "In a multi-task learning (MTL) setting, a single model is trained to tackle a diverse set of tasks jointly. Despite rapid progress in the field, MTL remains challenging due to optimization issues such as conflicting and dominating gradients. In this work, we propose using a condition number of a linear system of gradients as a stability criterion of an MTL optimization. We theoretically demonstrate that a condition number reflects the aforementioned optimization issues. Accordingly, we present Aligned-MTL, a novel MTL optimization approach based on the proposed criterion, that eliminates instability in the training process by aligning the orthogonal components of the linear system of gradients. While many recent MTL approaches guarantee convergence to a minimum, task trade-offs cannot be specified in advance. In contrast, Aligned-MTL provably converges to an optimal point with pre-defined task-specific weights, which provides more control over the optimization result. Through experiments, we show that the proposed approach consistently improves performance on a diverse set of MTL benchmarks, including semantic and instance segmentation, depth estimation, surface normal estimation, and reinforcement learning. The source code is publicly available at [https://github.com/SamsungLabs/MTL](https://github.com/SamsungLabs/MTL \"\").",
+  "bibliographic": {
+    "title": "Independent Component Alignment for Multi-Task Learning",
+    "authors": [
+      {
+        "first_name": "Dmitry",
+        "last_name": "Senushkin"
+      },
+      {
+        "first_name": "Nikolay",
+        "last_name": "Patakin"
+      },
+      {
+        "first_name": "Arseny",
+        "last_name": "Kuznetsov"
+      },
+      {
+        "first_name": "Anton",
+        "last_name": "Konushin"
+      }
+    ],
+    "year": 2023,
+    "venue": "arXiv",
+    "venue_type": "preprint",
+    "doi_or_url": "https://arxiv.org/abs/2305.19000"
+  },
+  "content": {
+    "problem": "Training a single model on multiple tasks is destabilized by conflicting and dominating task gradients when optimizing the averaged objective, and existing multi-task gradient methods converge to arbitrary Pareto-stationary points so that task trade-offs cannot be specified in advance.",
+    "proposed_solution": "The authors use the condition number of the gradient matrix as a stability criterion for multi-task optimization and propose Aligned-MTL, which aligns the principal components of the linear system of gradients via singular value decomposition so the condition number is minimized and the resulting cumulative gradient respects pre-defined task weights.",
+    "algorithm_or_model": "Aligned-MTL (with an Aligned-MTL-UB upper-bound approximation)",
+    "dataset_testbed": [
+      "synthetic two-task MTL benchmark",
+      "Cityscapes",
+      "NYUv2",
+      "MetaWorld MT10"
+    ],
+    "metrics": [
+      {
+        "name": "Δm% (task-weighted)",
+        "value": -8.4,
+        "unit": "percent",
+        "condition": "Aligned-MTL on the NYUv2 three-task benchmark (segmentation, depth, surface normals) with the MTAN architecture, averaged over 3 seeds"
+      },
+      {
+        "name": "mIoU",
+        "value": 43.11,
+        "unit": "percent",
+        "condition": "Aligned-MTL-UB semantic segmentation on the NYUv2 three-task benchmark with the MTAN architecture, averaged over 3 seeds"
+      },
+      {
+        "name": "Δm% (task-weighted)",
+        "value": -1.55,
+        "unit": "percent",
+        "condition": "Aligned-MTL on the NYUv2 three-task benchmark with the PSPNet architecture, averaged over 3 seeds"
+      },
+      {
+        "name": "Δm%",
+        "value": -0.35,
+        "unit": "percent",
+        "condition": "Aligned-MTL-UB on the Cityscapes three-task benchmark (semantic segmentation, instance segmentation, disparity) with the PSPNet architecture, averaged over 3 seeds"
+      },
+      {
+        "name": "Success rate",
+        "value": 0.97,
+        "unit": "",
+        "condition": "Aligned-MTL on the MT10 multi-task reinforcement learning benchmark in MetaWorld with Soft Actor-Critic, averaged over 10 seeds"
+      }
+    ],
+    "claim": "Aligned-MTL consistently outperforms prior multi-task optimization methods on scene understanding and multi-task reinforcement learning benchmarks while provably converging to an optimum with pre-defined task weights, giving more control over the optimization result.",
+    "author_stated_limitations": [
+      "The full Aligned-MTL requires multiple backward passes through the shared part of the model, so training cost grows linearly with the number of tasks and may be impractical when the task count is large.",
+      "The upper-bound approximation reduces but does not eliminate instability because the Jacobian over the shared representation cannot be aligned, and for non-encoder-decoder networks it has no theoretical guarantees and works only as a heuristic."
+    ],
+    "themes": [
+      "multi-task learning",
+      "gradient-based optimization",
+      "scene understanding",
+      "reinforcement learning"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "Despite rapid progress in the field, MTL remains challenging due to optimization issues such as conflicting and dominating gradients.",
+    "proposed_solution_quote": "Accordingly, we present Aligned-MTL, a novel MTL optimization approach based on the proposed criterion, that eliminates instability in the training process by aligning the orthogonal components of the linear system of gradients.",
+    "claim_quote": "Through experiments, we show that the proposed approach consistently improves performance on a diverse set of MTL benchmarks, including semantic and instance segmentation, depth estimation, surface normal estimation, and reinforcement learning.",
+    "author_stated_limitation_quotes": [
+      "The major limitation of our approach is the need to run multiple backward passes through the shared part of the model to calculate the gradient matrix. The backward passes are computationally demanding, and the training time depends linearly on the number of tasks: if it is large, our approach may be non-applicable in practice.",
+      "This approximation reduces instability, yet, it does not eliminate it since the Jacobian cannot be aligned. For non-encoder-decoder networks, upper-bound approximation has no theoretical guarantees but still can be leveraged as a heuristic and even provide a decent performance."
+    ]
+  }
+}

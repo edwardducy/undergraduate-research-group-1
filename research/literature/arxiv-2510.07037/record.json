@@ -1,0 +1,67 @@
+{
+  "paper_id": "arxiv-2510.07037",
+  "paper_type": "survey",
+  "abstract": "Amidst the rapid advances of large language models (LLMs), most LLMs still struggle with mixed-language inputs, limited Codeswitching (CSW) datasets, and evaluation biases, which hinder their deployment in multilingual societies. This survey provides the first comprehensive analysis of CSW-aware LLM research, reviewing 327 studies spanning five research areas, 15+ NLP tasks, 30+ datasets, and 80+ languages. We categorize recent advances by architecture, training strategy, and evaluation methodology, outlining how LLMs have reshaped CSW modeling and identifying the challenges that persist. The paper concludes with a roadmap that emphasizes the need for inclusive datasets, fair evaluation, and linguistically grounded models to achieve truly multilingual capabilities.<sup>1</sup>",
+  "bibliographic": {
+    "title": "Beyond Monolingual Assumptions: A Survey on Code-Switched NLP in the Era of Large Language Models across Modalities",
+    "authors": [
+      {
+        "first_name": "Rajvee",
+        "last_name": "Sheth"
+      },
+      {
+        "first_name": "Samridhi Raj",
+        "last_name": "Sinha"
+      },
+      {
+        "first_name": "Mahavir",
+        "last_name": "Patil"
+      },
+      {
+        "first_name": "Himanshu",
+        "last_name": "Beniwal"
+      },
+      {
+        "first_name": "Mayank",
+        "last_name": "Singh"
+      }
+    ],
+    "year": 2025,
+    "venue": "arXiv",
+    "venue_type": "preprint",
+    "doi_or_url": "https://arxiv.org/abs/2510.07037"
+  },
+  "content": {
+    "problem": "Large language models still perform poorly on code-switched input because code-switching training data is scarce, evaluation is biased toward high-resource pairs, and prior surveys only cover pre-LLM, text-centric settings.",
+    "proposed_solution": "The authors present the first comprehensive survey of code-switching-aware LLM research, covering 327 studies across five research areas, 15+ NLP tasks, 30+ datasets, and 80+ languages, organized by a taxonomy of architecture, training strategy, and evaluation, and closing with a roadmap for future work.",
+    "algorithm_or_model": null,
+    "dataset_testbed": [],
+    "metrics": [],
+    "claim": "Despite LLM-driven progress, code-switching gains remain largely confined to high-resource language pairs, and meaningful progress requires inclusive datasets, fair evaluation, and linguistically grounded architectures rather than generic multilinguality.",
+    "author_stated_limitations": [
+      "The survey emphasizes widely studied language pairs and may have missed indigenous or minority code-mixed languages.",
+      "Because LLM research moves quickly, some covered approaches and benchmarks may soon become outdated or replaced.",
+      "Since speech and multimodal research lags behind text-based NLU, the taxonomy is skewed toward text NLU.",
+      "The survey mainly covers academic progress and leaves ethical, computational, and accessibility concerns of real-world deployment underexamined.",
+      "Quantitative claims are representative values from cited primary works rather than aggregated or meta-analyzed statistics."
+    ],
+    "themes": [
+      "code-switching",
+      "large language models",
+      "multilingual NLP",
+      "multimodal processing"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "Amidst the rapid advances of large language models (LLMs), most LLMs still struggle with mixed-language inputs, limited Codeswitching (CSW) datasets, and evaluation biases, which hinder their deployment in multilingual societies.",
+    "proposed_solution_quote": "This survey provides the first comprehensive analysis of CSW-aware LLM research, reviewing 327 studies spanning five research areas, 15+ NLP tasks, 30+ datasets, and 80+ languages.",
+    "claim_quote": "However, this survey shows that gains remain largely confined to high-resource language pairs, while LLMs struggle with spontaneous mixing, reasoning, and sociolinguistic variation in low-resource settings. Meaningful progress in CSW NLP therefore requires moving beyond generic multilinguality toward targeted data curation, linguistically informed architectures, and evaluation protocols grounded in real-world language-mixing.",
+    "author_stated_limitation_quotes": [
+      "The survey highlights widely studied language pairs and might have missed indigenous or minority code-mixed languages.",
+      "Given the rapid pace of LLM research, some approaches and benchmarks described may soon be outdated or replaced by newer paradigms.",
+      "While we include recent advances in speech and multimodal processing, the volume of research in these areas significantly lags behind text-based NLU, resulting in our taxonomy covering more text based NLU.",
+      "The survey mainly covers academic progress, leaving ethical, computational, and accessibility concerns in real-world deployment less examined.",
+      "All quantitative claims are representative values reported in the cited primary works rather than aggregated or meta-analyzed statistics."
+    ]
+  }
+}

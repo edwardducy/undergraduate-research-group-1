@@ -1,0 +1,112 @@
+{
+  "paper_id": "arxiv-1803.10704",
+  "paper_type": "experimental",
+  "abstract": "We propose a novel multi-task learning architecture, which allows learning of task-specific feature-level attention. Our design, the Multi-Task Attention Network (MTAN), consists of a single shared network containing a global feature pool, together with a soft-attention module for each task. These modules allow for learning of task-specific features from the global features, whilst simultaneously allowing for features to be shared across different tasks. The architecture can be trained end-to-end and can be built upon any feed-forward neural network, is simple to implement, and is parameter efficient. We evaluate our approach on a variety of datasets, across both image-to-image predictions and image classification tasks. We show that our architecture is state-of-the-art in multi-task learning compared to existing methods, and is also less sensitive to various weighting schemes in the multi-task loss function. Code is available at [https://github.com/lorenmt/mtan](https://github.com/lorenmt/mtan \"\").",
+  "bibliographic": {
+    "title": "End-to-End Multi-Task Learning with Attention",
+    "authors": [
+      {
+        "first_name": "Shikun",
+        "last_name": "Liu"
+      },
+      {
+        "first_name": "Edward",
+        "last_name": "Johns"
+      },
+      {
+        "first_name": "Andrew J.",
+        "last_name": "Davison"
+      }
+    ],
+    "year": 2018,
+    "venue": "arXiv",
+    "venue_type": "preprint",
+    "doi_or_url": "https://arxiv.org/abs/1803.10704"
+  },
+  "content": {
+    "problem": "Multi-task networks must learn both task-shared and task-specific features while balancing each task's contribution to the loss, yet most existing approaches address only one of these challenges and scale poorly in parameters as tasks are added.",
+    "proposed_solution": "The authors propose MTAN, a single shared network holding a global feature pool with a soft attention module per task at each layer that learns task-specific masks over the shared features end-to-end, together with a simple adaptive loss-weighting scheme called Dynamic Weight Average.",
+    "algorithm_or_model": "Multi-Task Attention Network (MTAN)",
+    "dataset_testbed": [
+      "CityScapes",
+      "NYUv2",
+      "Visual Decathlon Challenge"
+    ],
+    "metrics": [
+      {
+        "name": "mIoU",
+        "value": 53.04,
+        "unit": "percent",
+        "condition": "MTAN on 7-class CityScapes validation segmentation and depth, equal weighting"
+      },
+      {
+        "name": "Pix Acc",
+        "value": 91.11,
+        "unit": "percent",
+        "condition": "MTAN on 7-class CityScapes validation segmentation and depth, equal weighting"
+      },
+      {
+        "name": "Abs Err",
+        "value": 0.0144,
+        "unit": "",
+        "condition": "MTAN on CityScapes validation inverse depth estimation, equal weighting"
+      },
+      {
+        "name": "Rel Err",
+        "value": 33.63,
+        "unit": "percent",
+        "condition": "MTAN on CityScapes validation depth estimation, equal weighting"
+      },
+      {
+        "name": "mIoU",
+        "value": 17.72,
+        "unit": "percent",
+        "condition": "MTAN on NYUv2 validation 13-class segmentation, depth, and surface normals, equal weighting"
+      },
+      {
+        "name": "Abs Err",
+        "value": 0.5906,
+        "unit": "",
+        "condition": "MTAN on NYUv2 validation true depth estimation, equal weighting"
+      },
+      {
+        "name": "Angle Distance Mean",
+        "value": 31.44,
+        "unit": "degrees",
+        "condition": "MTAN on NYUv2 validation surface normal prediction, equal weighting"
+      },
+      {
+        "name": "Angle Distance Median",
+        "value": 25.37,
+        "unit": "degrees",
+        "condition": "MTAN on NYUv2 validation surface normal prediction, equal weighting"
+      },
+      {
+        "name": "Top-1 accuracy (mean)",
+        "value": 77.25,
+        "unit": "percent",
+        "condition": "MTAN on Wide Residual Network over the 10 tasks of the Visual Decathlon Challenge online test set"
+      },
+      {
+        "name": "Score",
+        "value": 2941,
+        "unit": "",
+        "condition": "Cumulative Visual Decathlon Challenge score for MTAN on Wide Residual Network, online test set"
+      }
+    ],
+    "claim": "MTAN matches or outperforms existing multi-task architectures on dense prediction and classification benchmarks while using far fewer parameters and remaining robust to the choice of loss-weighting scheme.",
+    "author_stated_limitations": [],
+    "themes": [
+      "multi-task learning",
+      "attention mechanisms",
+      "semantic segmentation",
+      "depth estimation"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "Compared to standard single-task learning, training multiple tasks whilst successfully learning a shared representation poses two key challenges:",
+    "proposed_solution_quote": "Our design, the Multi-Task Attention Network (MTAN), consists of a single shared network containing a global feature pool, together with a soft-attention module for each task. These modules allow for learning of task-specific features from the global features, whilst simultaneously allowing for features to be shared across different tasks.",
+    "claim_quote": "Experiments on the NYUv2 and CityScapes datasets with multiple dense-prediction tasks, and on the Visual Decathlon Challenge with multiple image classification tasks, show that our method outperforms or is competitive with other methods, whilst also showing robustness to the particular task weighting schemes used in the loss function. Due to our method’s ability to share weights through attention masks, our method achieves this state-of-the-art performance whilst also being highly parameter efficient.",
+    "author_stated_limitation_quotes": []
+  }
+}

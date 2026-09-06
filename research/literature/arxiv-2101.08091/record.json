@@ -1,0 +1,58 @@
+{
+  "paper_id": "arxiv-2101.08091",
+  "paper_type": "survey",
+  "abstract": "Intent classification and slot filling are two critical tasks for natural language understanding. Traditionally the two tasks have been deemed to proceed independently. However, more recently, joint models for intent classification and slot filling have achieved state-of-the-art performance, and have proved that there exists a strong relationship between the two tasks. This article is a compilation of past work in natural language understanding, especially joint intent classification and slot filling. We observe three milestones in this research so far: Intent detection to identify the speaker’s intention, slot filling to label each word token in the speech/text, and finally, joint intent classification and slot filling tasks. In this article, we describe trends, approaches, issues, data sets, evaluation metrics in intent classification and slot filling. We also discuss representative performance values, describe shared tasks, and provide pointers to future work, as given in prior works. To interpret the state-of-the-art trends, we provide multiple tables that describe and summarise past research along different dimensions, including the types of features, base approaches, and dataset domain used.",
+  "bibliographic": {
+    "title": "A survey of joint intent detection and slot-filling models in natural language understanding",
+    "authors": [
+      {
+        "first_name": "Henry",
+        "last_name": "Weld"
+      },
+      {
+        "first_name": "Xiaoqi",
+        "last_name": "Huang"
+      },
+      {
+        "first_name": "Siqu",
+        "last_name": "Long"
+      },
+      {
+        "first_name": "Josiah",
+        "last_name": "Poon"
+      },
+      {
+        "first_name": "Soyeon Caren",
+        "last_name": "Han"
+      }
+    ],
+    "year": 2021,
+    "venue": "arXiv",
+    "venue_type": "preprint",
+    "doi_or_url": "https://arxiv.org/abs/2101.08091"
+  },
+  "content": {
+    "problem": "Although joint models for intent detection and slot filling have rapidly proliferated in natural language understanding, the field lacked an up-to-date, systematic synthesis of the approaches pursued, the issues encountered, the datasets used, and the evaluation practices across this line of research.",
+    "proposed_solution": "The authors compile and organise the natural language understanding literature up to mid-2020, reviewing intent detection, slot filling, and the joint task along the dimensions of feature engineering, model architectures, addressed issues, datasets, and evaluation metrics, and summarising reported benchmark performance to expose trends and future directions.",
+    "algorithm_or_model": null,
+    "dataset_testbed": [
+      "ATIS",
+      "SNIPS"
+    ],
+    "metrics": [],
+    "claim": "The survey finds that joint intent and slot models have effectively saturated the standard ATIS and SNIPS benchmarks, with intent accuracy above 99% and slot F1 around 98%, so the field should shift toward new, more natural datasets, unannotated or few-shot settings, generalisation to new domains, and standardised experimental setups.",
+    "author_stated_limitations": [],
+    "themes": [
+      "intent detection",
+      "slot filling",
+      "natural language understanding",
+      "spoken language understanding"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "The motivation for this survey is to take stock of the state of the field in 2020 following a surge of ideas and approaches over recent years, particularly in the joint task. We collect information on the approaches pursued so far and the issues encountered and addressed.",
+    "proposed_solution_quote": "In this article, we describe trends, approaches, issues, data sets, evaluation metrics in intent classification and slot filling. We also discuss representative performance values, describe shared tasks, and provide pointers to future work, as given in prior works.",
+    "claim_quote": "Even without this re-annotated version of ATIS results reported in the literature show that the test intent accuracy being achieved is now above 99% and slot f1 above 98%. It appears that the models to date have successfully captured the joint distributions of words, slots and intents in the data set.",
+    "author_stated_limitation_quotes": []
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "paper_id": "openreview-IMPnRXEWpvr",
+  "paper_type": "experimental",
+  "abstract": "Multi-task learning (MTL) has been widely used in representation learning. However, na¨ıvely training all tasks simultaneously may lead to the partial training issue, where specific tasks are trained more adequately than others. In this paper, we propose to learn multiple tasks impartially. Specifically, for the _task-shared_ parameters, we optimize the scaling factors via a closed-form solution, such that the aggregated gradient (sum of raw gradients weighted by the scaling factors) has equal projections onto individual tasks. For the _task-specific_ parameters, we dynamically weigh the task losses so that all of them are kept at a comparable scale. Further, we find the above _gradient_ balance and _loss_ balance are complementary and thus propose a hybrid balance method to further improve the performance. Our impartial multi-task learning (IMTL) can be end-to-end trained without any heuristic hyper-parameter tuning, and is general to be applied on all kinds of losses without any distribution assumption. Moreover, our IMTL can converge to similar results even when the task losses are designed to have different scales, and thus it is scale-invariant. We extensively evaluate our IMTL on the standard MTL benchmarks including Cityscapes, NYUv2 and CelebA. It outperforms existing loss weighting methods under the same experimental settings.",
+  "bibliographic": {
+    "title": "TOWARDS IMPARTIAL MULTI-TASK LEARNING",
+    "authors": [
+      {
+        "first_name": "Liyang",
+        "last_name": "Liu"
+      },
+      {
+        "first_name": "Yi",
+        "last_name": "Li"
+      },
+      {
+        "first_name": "Zhanghui",
+        "last_name": "Kuang"
+      },
+      {
+        "first_name": "Jing-Hao",
+        "last_name": "Xue"
+      },
+      {
+        "first_name": "Yimin",
+        "last_name": "Chen"
+      },
+      {
+        "first_name": "Wenming",
+        "last_name": "Yang"
+      },
+      {
+        "first_name": "Qingmin",
+        "last_name": "Liao"
+      },
+      {
+        "first_name": "Wayne",
+        "last_name": "Zhang"
+      }
+    ],
+    "year": 2021,
+    "venue": "International Conference on Learning Representations",
+    "venue_type": "conference",
+    "doi_or_url": "https://openreview.net/forum?id=IMPnRXEWpvr"
+  },
+  "content": {
+    "problem": "Training multiple tasks simultaneously in multi-task learning causes some tasks to be learned well while others are overlooked, because tasks have different loss scales and gradient magnitudes and compete with each other.",
+    "proposed_solution": "The authors propose impartial multi-task learning (IMTL), which combines a closed-form gradient balance method (IMTL-G) that gives the aggregated gradient equal projections onto each task for shared parameters with a learnable loss balance method (IMTL-L) that keeps task-specific losses at a comparable scale.",
+    "algorithm_or_model": "Impartial Multi-task Learning (IMTL)",
+    "dataset_testbed": [
+      "Cityscapes",
+      "NYUv2",
+      "CelebA"
+    ],
+    "metrics": [
+      {
+        "name": "mIoU",
+        "value": 77.0,
+        "unit": "percent",
+        "condition": "IMTL on Cityscapes semantic segmentation"
+      },
+      {
+        "name": "L1",
+        "value": 15.96,
+        "unit": "",
+        "condition": "IMTL on Cityscapes instance segmentation (offset regression)"
+      },
+      {
+        "name": "L1",
+        "value": 2.905,
+        "unit": "pixels",
+        "condition": "IMTL on Cityscapes disparity estimation"
+      },
+      {
+        "name": "mIoU",
+        "value": 58.85,
+        "unit": "percent",
+        "condition": "IMTL on NYUv2 semantic segmentation"
+      },
+      {
+        "name": "cosine similarity",
+        "value": 0.8888,
+        "unit": "",
+        "condition": "IMTL on NYUv2 surface normal estimation"
+      },
+      {
+        "name": "L1",
+        "value": 0.4215,
+        "unit": "meters",
+        "condition": "IMTL on NYUv2 depth estimation"
+      },
+      {
+        "name": "accuracy",
+        "value": 91.12,
+        "unit": "percent",
+        "condition": "IMTL on CelebA mean multi-label classification accuracy over 40 tasks"
+      }
+    ],
+    "claim": "Combining gradient balance for task-shared parameters with loss balance for task-specific parameters yields impartial, scale-invariant multi-task learning that outperforms existing loss weighting methods on Cityscapes, NYUv2, and CelebA, and is the most robust to loss scale changes.",
+    "author_stated_limitations": [],
+    "themes": [
+      "multi-task learning",
+      "loss weighting",
+      "gradient balancing",
+      "computer vision"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "However, na¨ıvely training all tasks simultaneously may lead to the partial training issue, where specific tasks are trained more adequately than others.",
+    "proposed_solution_quote": "Specifically, for the _task-shared_ parameters, we optimize the scaling factors via a closed-form solution, such that the aggregated gradient (sum of raw gradients weighted by the scaling factors) has equal projections onto individual tasks. For the _task-specific_ parameters, we dynamically weigh the task losses so that all of them are kept at a comparable scale.",
+    "claim_quote": "We extensively evaluate our IMTL on the standard MTL benchmarks including Cityscapes, NYUv2 and CelebA. It outperforms existing loss weighting methods under the same experimental settings.",
+    "author_stated_limitation_quotes": []
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "paper_id": "arxiv-1707.08114",
+  "paper_type": "survey",
+  "abstract": "Multi-Task Learning (MTL) is a learning paradigm in machine learning and its aim is to leverage useful information contained in multiple related tasks to help improve the generalization performance of all the tasks. In this paper, we give a survey for MTL from the perspective of algorithmic modeling, applications and theoretical analyses. For algorithmic modeling, we give a definition of MTL and then classify different MTL algorithms into five categories, including feature learning approach, low-rank approach, task clustering approach, task relation learning approach and decomposition approach as well as discussing the characteristics of each approach. In order to improve the performance of learning tasks further, MTL can be combined with other learning paradigms including semi-supervised learning, active learning, unsupervised learning, reinforcement learning, multi-view learning and graphical models. When the number of tasks is large or the data dimensionality is high, we review online, parallel and distributed MTL models as well as dimensionality reduction and feature hashing to reveal their computational and storage advantages. Many real-world applications use MTL to boost their performance and we review representative works in this paper. Finally, we present theoretical analyses and discuss several future directions for MTL.",
+  "bibliographic": {
+    "title": "A Survey on Multi-Task Learning",
+    "authors": [
+      {
+        "first_name": "Yu",
+        "last_name": "Zhang"
+      },
+      {
+        "first_name": "Qiang",
+        "last_name": "Yang"
+      }
+    ],
+    "year": 2021,
+    "venue": "IEEE Transactions on Knowledge and Data Engineering",
+    "venue_type": "journal",
+    "doi_or_url": "https://arxiv.org/abs/1707.08114"
+  },
+  "content": {
+    "problem": "Individual tasks often have too few labeled examples to train accurate learners on their own, and the fast-growing multi-task learning literature lacks a systematic definition and organization of its models, applications, and theory.",
+    "proposed_solution": "The authors formally define multi-task learning and survey the field by classifying MTL algorithms into five categories (feature learning, low-rank, task clustering, task relation learning, and decomposition), and additionally review combinations with other learning paradigms, big-data techniques, applications, and theoretical analyses.",
+    "algorithm_or_model": null,
+    "dataset_testbed": [],
+    "metrics": [],
+    "claim": "Comparisons of representative models on benchmark datasets show that multi-task learning performs better than single-task learning in most cases, verifying the effectiveness of MTL.",
+    "author_stated_limitations": [],
+    "themes": [
+      "multi-task learning",
+      "machine learning",
+      "learning theory",
+      "deep learning"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "At its early stage, an important motivation of MTL is to alleviate the data sparsity problem where each task has a limited number of labeled data. In the data sparsity problem, the number of labeled data in each task is insufficient to train an accurate learner, while MTL aggregates the labeled data in all the tasks in the spirit of data augmentation to obtain a more accurate learner for each task.",
+    "proposed_solution_quote": "In this paper, we give a survey for MTL from the perspective of algorithmic modeling, applications and theoretical analyses. For algorithmic modeling, we give a definition of MTL and then classify different MTL algorithms into five categories, including feature learning approach, low-rank approach, task clustering approach, task relation learning approach and decomposition approach as well as discussing the characteristics of each approach.",
+    "claim_quote": "It is easy to see that MTL models perform better than STL counterparts in most cases, which verifies the effectiveness of MTL.",
+    "author_stated_limitation_quotes": []
+  }
+}

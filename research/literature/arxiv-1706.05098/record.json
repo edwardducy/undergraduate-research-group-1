@@ -1,0 +1,39 @@
+{
+  "paper_id": "arxiv-1706.05098",
+  "paper_type": "survey",
+  "abstract": "Multi-task learning (MTL) has led to successes in many applications of machine learning, from natural language processing and speech recognition to computer vision and drug discovery. This article aims to give a general overview of MTL, particularly in deep neural networks. It introduces the two most common methods for MTL in Deep Learning, gives an overview of the literature, and discusses recent advances. In particular, it seeks to help ML practitioners apply MTL by shedding light on how MTL works and providing guidelines for choosing appropriate auxiliary tasks.",
+  "bibliographic": {
+    "title": "An Overview of Multi-Task Learning in Deep Neural Networks",
+    "authors": [
+      {
+        "first_name": "Sebastian",
+        "last_name": "Ruder"
+      }
+    ],
+    "year": 2017,
+    "venue": "arXiv",
+    "venue_type": "preprint",
+    "doi_or_url": "https://arxiv.org/abs/1706.05098"
+  },
+  "content": {
+    "problem": "Models trained in isolation on a single task ignore the training signals of related tasks, which could otherwise help them generalize better on the metric they care about.",
+    "proposed_solution": "The author surveys multi-task learning in deep neural networks, introducing hard and soft parameter sharing, the mechanisms that explain why MTL works, recent architectures that learn what to share, and guidelines for choosing auxiliary tasks.",
+    "algorithm_or_model": null,
+    "dataset_testbed": [],
+    "metrics": [],
+    "claim": "Sharing representations across related tasks improves generalization, and while hard parameter sharing remains the dominant paradigm for neural multi-task learning, recent methods that learn what to share are promising and generally outperform it.",
+    "author_stated_limitations": [],
+    "themes": [
+      "multi-task learning",
+      "deep neural networks",
+      "transfer learning",
+      "auxiliary tasks"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "While we can generally achieve acceptable performance this way, by being laser-focused on our single task, we ignore information that might help us do even better on the metric we care about. Specifically, this information comes from the training signals of related tasks.",
+    "proposed_solution_quote": "This article aims to give a general overview of MTL, particularly in deep neural networks. It introduces the two most common methods for MTL in Deep Learning, gives an overview of the literature, and discusses recent advances.",
+    "claim_quote": "While MTL is being more frequently used, the 20-year old hard parameter sharing paradigm is still pervasive for neural-network based MTL. Recent advances on learning what to share, however, are promising.",
+    "author_stated_limitation_quotes": []
+  }
+}

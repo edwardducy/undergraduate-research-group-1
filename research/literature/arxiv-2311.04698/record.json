@@ -1,0 +1,118 @@
+{
+  "paper_id": "arxiv-2311.04698",
+  "paper_type": "experimental",
+  "abstract": "While multi-task learning (MTL) has gained significant attention in recent years, its underlying mechanisms remain poorly understood. Recent methods did not yield consistent performance improvements over single task learning (STL) baselines, underscoring the importance of gaining more profound insights about challenges specific to MTL. In our study, we investigate paradigms in MTL in the context of STL: First, the impact of the choice of optimizer has only been mildly investigated in MTL. We show the pivotal role of common STL tools such as the Adam optimizer in MTL empirically in various experiments. To further investigate Adam’s effectiveness, we theoretical derive a partial loss-scale invariance under mild assumptions. Second, the notion of gradient conflicts has often been phrased as a specific problem in MTL. We explore the role of gradient conflicts in MTL and compare it to STL. For angular gradient alignment we find no evidence that this is a unique problem in MTL. We emphasize differences in gradient magnitude as the main distinguishing factor. Overall, we find surprising similarities between STL and MTL suggesting to consider methods from both fields in a broader context.",
+  "bibliographic": {
+    "title": "Examining Common Paradigms in Multi-Task Learning",
+    "authors": [
+      {
+        "first_name": "Cathrin",
+        "last_name": "Elich"
+      },
+      {
+        "first_name": "Lukas",
+        "last_name": "Kirchdorfer"
+      },
+      {
+        "first_name": "Jan M.",
+        "last_name": "Köhler"
+      },
+      {
+        "first_name": "Lukas",
+        "last_name": "Schott"
+      }
+    ],
+    "year": 2023,
+    "venue": "arXiv",
+    "venue_type": "preprint",
+    "doi_or_url": "https://arxiv.org/abs/2311.04698"
+  },
+  "content": {
+    "problem": "It is poorly understood why multi-task learning (MTL) methods often fail to consistently outperform single-task learning, because basic experimental choices such as the optimizer are rarely examined and gradient conflicts are assumed without verification to be a problem unique to training multiple tasks together.",
+    "proposed_solution": "The authors systematically vary optimizers, learning rates, and multi-task optimization methods on standard multi-task computer vision benchmarks, theoretically analyze the loss-scale invariance of Adam and of an optimal variant of uncertainty weighting, and compare gradient conflicts between tasks with conflicts between samples within a single task.",
+    "algorithm_or_model": "Adam optimizer (benchmarked against SGD+mom across MTO methods such as EW, UW, RLW, IMTL, PCGrad, CAGrad, Aligned-MTL, AdaTask, signSGD, and MTL-IO)",
+    "dataset_testbed": [
+      "Cityscapes",
+      "NYUv2",
+      "CelebA",
+      "SegNet",
+      "DeepLabV3+",
+      "ResNet-18 (CelebA backbone)",
+      "synthetic two-task toy regression problem",
+      "common-corruption versions of Cityscapes and NYUv2 for the robustness analysis",
+      "Bosch GPU clusters"
+    ],
+    "metrics": [
+      {
+        "name": "Δm",
+        "value": 5.44,
+        "unit": "percent",
+        "condition": "Uncertainty weighting (UW) with Adam on Cityscapes using SegNet; the best MTO method with Adam in this setup, mean over three seeds"
+      },
+      {
+        "name": "Δm",
+        "value": -3.65,
+        "unit": "percent",
+        "condition": "UW with Adam on Cityscapes using DeepLabV3+; the negative value means the MTL model outperforms the single-task baselines"
+      },
+      {
+        "name": "Δm",
+        "value": -0.8,
+        "unit": "percent",
+        "condition": "Equal weighting (EW) with Adam on Cityscapes using DeepLabV3+, mean over three seeds"
+      },
+      {
+        "name": "Δm",
+        "value": 46.88,
+        "unit": "percent",
+        "condition": "The same EW method with SGD+mom on Cityscapes using DeepLabV3+, showing the large degradation caused by switching the optimizer"
+      },
+      {
+        "name": "Δm",
+        "value": -0.86,
+        "unit": "percent",
+        "condition": "Aligned-MTL with Adam on NYUv2 using SegNet, mean over three seeds"
+      },
+      {
+        "name": "Δm",
+        "value": -0.39,
+        "unit": "percent",
+        "condition": "IMTL with Adam on NYUv2 using DeepLabV3+, mean over three seeds"
+      },
+      {
+        "name": "Pareto optimal runs with Adam",
+        "value": 5,
+        "unit": "runs",
+        "condition": "Cityscapes with SegNet; five Adam-trained runs reached the Pareto front while zero SGD+mom-trained runs did"
+      },
+      {
+        "name": "Iterations to reach the global minimum",
+        "value": 22,
+        "unit": "iterations",
+        "condition": "Toy task from the CAGrad paper with EW and Adam at learning rate 1.0, maximum over three seeds; the fastest of the tested combinations, whereas EW with gradient descent did not converge within 100k iterations at most learning rates"
+      }
+    ],
+    "claim": "The choice of optimizer, in particular Adam over SGD+mom, can matter more than the choice of multi-task optimization method, and since gradient alignment conflicts also arise between samples within one task, differences in gradient magnitude—not alignment conflicts—are what distinguish multi-task from single-task training.",
+    "author_stated_limitations": [
+      "The comparison between inter-task and inter-sample gradient conflicts is not direct and only serves as a coarse indicator of their impact during training.",
+      "The theoretical partial loss-scale invariance derived for Adam holds only for constant loss scalings; with dynamic weights such as uncertainty weighting the cancellation is not exact because of accumulated gradient history in Adam.",
+      "Focusing on Pareto-optimal solutions as the primary comparison criterion is limited because not every point on the Pareto front is relevant in practice."
+    ],
+    "themes": [
+      "multi-task learning",
+      "multi-task optimization",
+      "gradient conflicts",
+      "computer vision"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "While multi-task learning (MTL) has gained significant attention in recent years, its underlying mechanisms remain poorly understood. Recent methods did not yield consistent performance improvements over single task learning (STL) baselines, underscoring the importance of gaining more profound insights about challenges specific to MTL.",
+    "proposed_solution_quote": "The current understanding of MTL still lacks a deeper comprehension of its underlying mechanisms. To address this gap, our study aims to examine commonly held paradigms, such as the choice of optimizer, as well as the notion of gradient alignment and gradient magnitudes.",
+    "claim_quote": "Not only a well-tuned learning rate but also the optimizer is crucial for MTL performance. In a fair and extensive experimental comparison, we were able to show that Adam shows superior performance in MTL setup compared to SGD+mom.",
+    "author_stated_limitation_quotes": [
+      "We are aware that our comparison between samples and tasks is not direct. Nonetheless, it serves as a coarse indicator to estimate their impact during network training.",
+      "We would like to note that our derivation for Adam is only valid for constant αt, e.g., measuring depth in different units or unitary weightings. In case of dynamic loss weights that are not constant (e.g., UW), the weights do not cancel out fully due to the accumulation of gradient histories within Adam.",
+      "However, it is important to note that not every point on the Pareto front is relevant in practice, especially when one metric significantly dominates while others are close to chance level."
+    ]
+  }
+}
