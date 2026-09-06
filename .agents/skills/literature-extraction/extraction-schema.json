@@ -1,0 +1,184 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Literature extraction record",
+  "description": "Extract information from one research paper using only what the authors state. Include all required fields. Use empty brackets [] for empty lists and null for unused single fields. Never invent data. Summarize content fields in your own words. Copy evidence fields word for word as one or two consecutive sentences.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["paper_id", "paper_type", "bibliographic", "content", "evidence"],
+  "properties": {
+    "paper_id": {
+      "type": "string",
+      "pattern": "^(arxiv|acl|doi|jmlr|pmlr|openreview)-.+$",
+      "description": "Extract the paper ID from the URL using the format source-id.",
+      "examples": ["arxiv-2301.01967", "acl-2020.calcs-1.3", "doi-10.1007/s41060-025-00892-y"]
+    },
+    "paper_type": {
+      "type": "string",
+      "enum": ["experimental", "survey", "dataset-benchmark", "methodology-theory", "position", "tool-system"],
+      "description": "Select the category matching the main contribution of the paper. If the paper reports original experiments, select experimental. If multiple categories fit, pick the primary contribution. This label describes the paper type and does not restrict any other fields."
+    },
+    "abstract": {
+      "type": "string",
+      "pattern": "\\S",
+      "description": "Copy the paper's abstract word for word from the paper text. Do not summarize, paraphrase, or truncate. Keep the text exactly as printed, including any typos or PDF conversion artifacts present in the paper text."
+    },
+    "bibliographic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "authors", "year", "venue", "venue_type", "doi_or_url"],
+      "description": "Provide the publication details for the paper. Fill every field completely. Do not write full citation strings like APA citations.",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Copy the paper title exactly as printed. Keep the original capitalization, spelling, and punctuation."
+        },
+        "authors": {
+          "type": "array",
+          "minItems": 1,
+          "description": "List all authors in the exact order shown on the paper. Include every author and do not use et al.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["last_name"],
+            "properties": {
+              "first_name": {
+                "type": "string",
+                "description": "Enter the first name and any middle names or initials. Omit this field if the author uses only one legal name."
+              },
+              "last_name": {
+                "type": "string",
+                "description": "Enter the last name, family name, or single legal name."
+              }
+            }
+          }
+        },
+        "year": {
+          "type": "integer",
+          "minimum": 1950,
+          "maximum": 2026,
+          "description": "Enter the publication year as a four digit number. If the paper text notes publication in a conference or journal, enter that venue year. For an unpublished preprint, use the year it was first posted."
+        },
+        "venue": {
+          "type": "string",
+          "description": "Enter the full name of the publication venue. If the paper text notes that it was accepted at a conference or journal, enter that formal venue name. For an unpublished paper, enter the repository name.",
+          "examples": ["Proceedings of the 59th Annual Meeting of the Association for Computational Linguistics", "arXiv"]
+        },
+        "venue_type": {
+          "type": "string",
+          "enum": ["journal", "conference", "workshop", "preprint"],
+          "description": "Select the category for the published version. Choose journal, conference, workshop, or preprint. If the paper text notes it was accepted or published at a conference or journal, choose that type rather than preprint."
+        },
+        "doi_or_url": {
+          "type": "string",
+          "pattern": "^https?://\\S+$",
+          "description": "Provide the full web link. If a DOI exists, format it as https://doi.org/ followed by the DOI. If there is no DOI, provide the official paper landing page URL."
+        }
+      }
+    },
+    "content": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["problem", "proposed_solution", "algorithm_or_model", "dataset_testbed", "metrics", "claim", "author_stated_limitations", "themes"],
+      "description": "Summarize the core content of the paper across these fields. Write each text summary in your own words. Do not copy sentences directly from the paper into these fields.",
+      "properties": {
+        "problem": {
+          "type": "string",
+          "pattern": "\\S",
+          "description": "State the specific research problem and what causes it according to the authors. Write one sentence using your own words."
+        },
+        "proposed_solution": {
+          "type": "string",
+          "pattern": "\\S",
+          "description": "Explain the core method or approach that the authors propose to solve this problem. Write one sentence using your own words."
+        },
+        "algorithm_or_model": {
+          "type": ["string", "null"],
+          "description": "Name the primary method, model, or algorithm proposed or tested in the paper. Write a short phrase. Return null when the paper itself presents no method to name, which is typical for surveys and position papers."
+        },
+        "dataset_testbed": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "List every dataset, benchmark, and hardware platform used in experiments the authors themselves run. Include any new dataset created by the paper. Return an empty list if the paper runs no experiments of its own, which is typical for surveys."
+        },
+        "metrics": {
+          "type": "array",
+          "maxItems": 10,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "value", "unit", "condition"],
+            "properties": {
+              "name": {
+                "type": "string",
+                "pattern": "\\S",
+                "description": "Enter the metric name as printed in the paper.",
+                "examples": ["F1", "BLEU", "accuracy"]
+              },
+              "value": {
+                "type": "number",
+                "description": "Enter the exact number reported in the paper. If a range or error margin is given, enter only the main mean or best score. Do not include units or percentage signs."
+              },
+              "unit": {
+                "type": "string",
+                "description": "Enter the unit of measurement. Leave this as an empty string if the number has no unit.",
+                "examples": ["percent", "milliseconds", "gigabytes"]
+              },
+              "condition": {
+                "type": "string",
+                "pattern": "\\S",
+                "description": "Describe the experimental setup, dataset, or model variation used to produce this number."
+              }
+            }
+          },
+          "description": "List the most important headline quantitative results produced directly by this paper. Include at most ten metric entries. Do not copy numbers from comparison tables of other papers. Return an empty list if the paper reports no experimental numbers."
+        },
+        "claim": {
+          "type": "string",
+          "pattern": "\\S",
+          "description": "State the most important claim or finding of the paper in one sentence using your own words. Focus on the final outcome or improvement. Never leave this field empty."
+        },
+        "author_stated_limitations": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "\\S" },
+          "description": "List all limitations stated by the authors about their own paper, methodology, or scope. Do not include gaps in the broader research field, missing work in existing literature, or calls for future work. Look only in the Discussion, Conclusion, or Limitations sections. Paraphrase each limitation briefly in your own words. Return an empty list if the authors state no limitations about their own work."
+        },
+        "themes": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 4,
+          "items": { "type": "string", "pattern": "\\S" },
+          "description": "Provide one to four short topic tags that describe the research area. Use simple phrases.",
+          "examples": [["multi task learning", "speech recognition"]]
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["problem_quote", "proposed_solution_quote", "claim_quote", "author_stated_limitation_quotes"],
+      "description": "Provide verbatim quotes from the paper to support the content fields. Copy the text exactly without fixing typos or changing punctuation. Each quote must contain at most two consecutive sentences.",
+      "properties": {
+        "problem_quote": {
+          "type": "string",
+          "pattern": "\\S",
+          "description": "Copy one or two consecutive sentences where the authors define the problem. Copy the text exactly as printed."
+        },
+        "proposed_solution_quote": {
+          "type": "string",
+          "pattern": "\\S",
+          "description": "Copy one or two consecutive sentences where the authors introduce their proposed solution. Copy the text exactly as printed."
+        },
+        "claim_quote": {
+          "type": "string",
+          "pattern": "\\S",
+          "description": "Copy one or two consecutive sentences where the authors present their primary claim or result. Copy the text exactly as printed."
+        },
+        "author_stated_limitation_quotes": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "\\S" },
+          "description": "List verbatim quotes that support each reported limitation. Ensure the first quote matches the first limitation, the second quote matches the second limitation, and so on. Include one or two consecutive sentences for each quote. Return an empty list if no limitations are mentioned."
+        }
+      }
+    }
+  }
+}
