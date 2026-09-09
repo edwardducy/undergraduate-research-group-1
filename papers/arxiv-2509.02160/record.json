@@ -1,0 +1,119 @@
+{
+  "paper_id": "arxiv-2509.02160",
+  "paper_type": "experimental",
+  "abstract": "Named-entity recognition (NER) in low-resource languages is usually tackled by finetuning very large multilingual LMs, an option that is often infeasible in memory- or latency-constrained settings. We ask whether small decoder LMs can be pretrained so that they adapt quickly and transfer zero-shot to languages unseen during pretraining. To this end we replace part of the autoregressive objective with first-order model-agnostic meta-learning (MAML). Tagalog and Cebuano are typologically similar yet structurally different in their actor/non-actor voice systems, and hence serve as a challenging test-bed. Across four model sizes (11 M – 570 M) MAML lifts zero-shot micro-F1 by 2–6 pp under head-only tuning and 1–3 pp after full tuning, while cutting convergence time by up to 8%. Gains are largest for single-token person entities that co-occur with Tagalog case particles *si*/*ni*, highlighting the importance of surface anchors.",
+  "bibliographic": {
+    "title": "Meta-Pretraining for Zero-Shot Cross-Lingual Named Entity Recognition in Low-Resource Philippine Languages",
+    "authors": [
+      {
+        "first_name": "David Demitri",
+        "last_name": "Africa"
+      },
+      {
+        "first_name": "Suchir",
+        "last_name": "Salhan"
+      },
+      {
+        "first_name": "Yuval",
+        "last_name": "Weiss"
+      },
+      {
+        "first_name": "Paula",
+        "last_name": "Buttery"
+      },
+      {
+        "first_name": "Richard",
+        "last_name": "Diehl Martinez"
+      }
+    ],
+    "year": 2025,
+    "venue": "Proceedings of the 5th Workshop on Multilingual Representation Learning (MRL 2025)",
+    "venue_type": "workshop",
+    "doi_or_url": "https://doi.org/10.18653/v1/2025.mrl-main.8"
+  },
+  "content": {
+    "problem": "Zero-shot named entity recognition in low-resource languages normally requires finetuning very large multilingual language models, which is impractical when memory or latency is constrained, and standard pretraining fails to adapt to languages with unfamiliar morphosyntactic cues.",
+    "proposed_solution": "The authors propose meta-pretraining small decoder language models by replacing part of the autoregressive pretraining objective with first-order model-agnostic meta-learning (MAML) episodes, so that the initialization transfers zero-shot to unseen low-resource languages without any in-language exposure.",
+    "algorithm_or_model": "First-order MAML meta-pretrained Pico decoder language models (Pico-MAML)",
+    "dataset_testbed": [
+      "Pico decoder language models (11M, 65M, 181M, 570M parameters)",
+      "Pico pre-tokenized Dolma pretraining corpus",
+      "Paloma perplexity benchmark",
+      "Universal NER v1 zero-shot test sets (Tagalog tl_trg, Tagalog tl_ugnayan, Cebuano ceb_gja)",
+      "Universal NER v1 high-resource finetuning sets (da_ddt, en_ewt, hr_set, pt_bosque, sk_snk, sr_set, sv_talbanken, zh_gsd, zh_gsdsimp)",
+      "4x NVIDIA A100-80GB GPUs"
+    ],
+    "metrics": [
+      {
+        "name": "zero-shot micro-F1 lift",
+        "value": 6,
+        "unit": "percentage points",
+        "condition": "MAML vs vanilla pretraining, head-only tuning, zero-shot Tagalog and Cebuano NER, best across four model sizes (11M-570M)"
+      },
+      {
+        "name": "zero-shot micro-F1 lift",
+        "value": 3,
+        "unit": "percentage points",
+        "condition": "MAML vs vanilla pretraining, full tuning, zero-shot Tagalog and Cebuano NER, best across four model sizes (11M-570M)"
+      },
+      {
+        "name": "convergence time reduction",
+        "value": 8,
+        "unit": "percent",
+        "condition": "MAML vs vanilla initialization, time to 90% of final loss (t90) during full-model finetuning, largest and smallest models"
+      },
+      {
+        "name": "relative zero-shot micro-F1 gain",
+        "value": 38,
+        "unit": "percent",
+        "condition": "11M tiny model, MAML vs vanilla, zero-shot Tagalog and Cebuano"
+      },
+      {
+        "name": "relative zero-shot micro-F1 gain",
+        "value": 6,
+        "unit": "percent",
+        "condition": "570M large model, MAML vs vanilla, zero-shot Tagalog and Cebuano"
+      },
+      {
+        "name": "relative zero-shot micro-F1 lift",
+        "value": 18,
+        "unit": "percent",
+        "condition": "zero-shot Tagalog and Cebuano transfer after finetuning on Slovak (sk_snk)"
+      },
+      {
+        "name": "PER F1",
+        "value": 0.7,
+        "unit": "",
+        "condition": "person entity F1 after head-only finetuning of the 181M MAML model on Slovak, while LOC and ORG remain at zero"
+      }
+    ],
+    "claim": "Replacing part of autoregressive pretraining with first-order MAML lets small decoder language models improve zero-shot NER transfer to Tagalog and Cebuano by 2-6 micro-F1 percentage points under head-only tuning and 1-3 points after full tuning, with the largest gains on single-token person entities anchored by Tagalog case particles.",
+    "author_stated_limitations": [
+      "Gains concentrate on person entities and head-only finetuning and are strongest at larger model capacities, so the improvements are not expected to generalize to multi-token or highly contextual entity types.",
+      "All training runs stop at exactly six thousand outer steps, a horizon that may be too short for the largest model, so the conclusions cover only a fraction of the training budget a larger setup might use.",
+      "A more diverse and multilingual pretraining corpus could change both the quantitative and qualitative conclusions.",
+      "The qualitative analysis was conducted on a single configuration with a single seed due to cost and GPU constraints.",
+      "The qualitative analysis was performed by one native Tagalog speaker with a Manila-typical register, so a wider variety of perspectives would improve robustness.",
+      "Focusing on only two Austronesian languages limits the generality of the typological conclusions."
+    ],
+    "themes": [
+      "meta-learning",
+      "cross-lingual transfer",
+      "named entity recognition",
+      "low-resource languages"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "Named-entity recognition (NER) in low-resource languages is usually tackled by finetuning very large multilingual LMs, an option that is often infeasible in memory- or latency-constrained settings.",
+    "proposed_solution_quote": "To this end we replace part of the autoregressive objective with first-order model-agnostic meta-learning (MAML).",
+    "claim_quote": "Across four model sizes (11 M – 570 M) MAML lifts zero-shot micro-F1 by 2–6 pp under head-only tuning and 1–3 pp after full tuning, while cutting convergence time by up to 8%.",
+    "author_stated_limitation_quotes": [
+      "The gains are most pronounced for person entities and head-only finetuning, and scale best with larger model capacities.",
+      "All training runs stop at exactly six thousand outer steps, a horizon that may be too short for the largest model, so the conclusions derived only cover a fraction of the training budget a corporate setup might have.",
+      "A more diverse and multilingual corpus may alter both quantitative and qualitative conclusions, and varying languages in the meta-task is a natural way to extend this work.",
+      "Qualitative analysis was conducted on a single configuration and single seed due to cost and GPU constraints.",
+      "Qualitative analysis was conducted by a native Tagalog speaker with a register typical of Manila, and a wide variety of perspectives would improve the robustness of the analysis.",
+      "Finally (and most naturally), our focus on only two Austronesian languages controls for certain lexical and syntactic divergences but limits the generality of the typological conclusions; extending to a broader set of Philippine and Malayo-Polynesian languages is a natural next step."
+    ]
+  }
+}

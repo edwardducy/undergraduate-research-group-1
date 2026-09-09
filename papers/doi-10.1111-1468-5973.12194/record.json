@@ -1,0 +1,97 @@
+{
+  "paper_id": "doi-10.1111-1468-5973.12194",
+  "paper_type": "experimental",
+  "abstract": "Social media platforms such as Twitter provide valuable information for aiding disaster response during emergency events. Machine learning could be used to identify such information. However, supervised learning algorithms rely on labeled data, which is not readily available for an emerging target disaster. While labeled data might be available for a prior source disaster, supervised classifiers learned only from the source disaster may not perform well on the target disaster, as each event has unique characteristics (e.g., type, location, culture) and may cause different social media responses. To address this limitation, we propose to use a domain adaptation approach, which learns classifiers from unlabeled target data, in addition to source labeled data. Our approach uses the Naïve Bayes classifier, together with an iterative Self-­Training strategy. Experimental results on the task of identifying tweets relevant to a disaster of interest show that the domain adaptation classifiers are better as compared to the supervised classifiers learned only from labeled source data.",
+  "bibliographic": {
+    "title": "Disaster Response Aided by Tweet Classification with a Domain Adaptation Approach",
+    "authors": [
+      {
+        "first_name": "Hongmin",
+        "last_name": "Li"
+      },
+      {
+        "first_name": "Doina",
+        "last_name": "Caragea"
+      },
+      {
+        "first_name": "Cornelia",
+        "last_name": "Caragea"
+      },
+      {
+        "first_name": "Nic",
+        "last_name": "Herndon"
+      }
+    ],
+    "year": 2018,
+    "venue": "Journal of Contingencies and Crisis Management",
+    "venue_type": "journal",
+    "doi_or_url": "https://doi.org/10.1111/1468-5973.12194"
+  },
+  "content": {
+    "problem": "Supervised classifiers learned from one disaster perform poorly on a new disaster because each event produces unique social media responses, and labeled data for the new event is unavailable.",
+    "proposed_solution": "The authors adapt a weighted Naïve Bayes domain adaptation algorithm that uses self-training with hard labels to combine source labeled tweets with target unlabeled tweets.",
+    "algorithm_or_model": "weighted Naïve Bayes domain adaptation with iterative self-training (NB-ST)",
+    "dataset_testbed": [
+      "CrisisLexT6 dataset of tweets from six disasters (Olteanu et al., 2014)",
+      "Beocat Research Cluster at Kansas State University"
+    ],
+    "metrics": [
+      {
+        "name": "accuracy",
+        "value": 84.06,
+        "unit": "percent",
+        "condition": "NB-ST domain adaptation for pair P2 with Hurricane Sandy as source and Boston Bombings as target, averaged over five target test folds"
+      },
+      {
+        "name": "accuracy",
+        "value": 68.66,
+        "unit": "percent",
+        "condition": "supervised NB-S baseline trained on Hurricane Sandy source only and tested on Boston Bombings target, pair P2"
+      },
+      {
+        "name": "accuracy",
+        "value": 90.82,
+        "unit": "percent",
+        "condition": "NB-ST domain adaptation for pair P3 with Hurricane Sandy as source and West Texas Explosion as target"
+      },
+      {
+        "name": "weighted auROC",
+        "value": 0.974,
+        "unit": "",
+        "condition": "NB-ST domain adaptation for pair P1 with Hurricane Sandy as source and Queensland Floods as target, exceeding the labeled target upper bound of 0.969"
+      },
+      {
+        "name": "accuracy",
+        "value": 94.77,
+        "unit": "percent",
+        "condition": "supervised NB-S for pair P11 with Boston Bombings as source and West Texas Explosion as target, showing strong transfer between similar disasters"
+      },
+      {
+        "name": "accuracy",
+        "value": 86.01,
+        "unit": "percent",
+        "condition": "NB-ST domain adaptation for pair P10 with Queensland Floods as source and Alberta Floods as target"
+      }
+    ],
+    "claim": "Domain adaptation classifiers beat supervised classifiers trained only on source data, with self-training generally better than expectation maximization, and results close to an ideal classifier trained on labeled target data.",
+    "author_stated_limitations": [
+      "Domain adaptation results still have room for improvement compared with an ideal supervised classifier that has access to labeled target data.",
+      "More datasets and experiments are needed before concluding that disaster similarity depends on event timing rather than location or type."
+    ],
+    "themes": [
+      "domain adaptation",
+      "disaster response",
+      "tweet classification",
+      "naive bayes"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "However, supervised learning algorithms rely on labeled data, which is not readily available for an emerging target disaster. While labeled data might be available for a prior source disaster, supervised classifiers learned only from the source disaster may not perform well on the target disaster, as each event has unique characteristics (e.g., type, location, culture) and may cause different social media responses.",
+    "proposed_solution_quote": "To address this limitation, we propose to use a domain adaptation approach, which learns classifiers from unlabeled target data, in addition to source labeled data. Our approach uses the Naïve Bayes classifier, together with an iterative Self-­Training strategy.",
+    "claim_quote": "However, the domain adaptation approaches are always better than the supervised learning with source data only. Between the NB-­ST and NB-­EM approaches, generally the NB-­ST approach is better.",
+    "author_stated_limitation_quotes": [
+      "However, in general, there is still room for improving the results of domain adaptation classifiers as compared to the ideal supervised classifier that would have access to labeled target data.",
+      "However, this is not the case as can be seen in Table 4a, which suggests that domain similarity or closeness of disasters can be more sensitive to the occurring times of the disasters rather than geo-locations, or other facts about the disaster types. More datasets and experiments are needed to get a firmer conclusion in this respect."
+    ]
+  }
+}

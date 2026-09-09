@@ -1,0 +1,102 @@
+{
+  "paper_id": "arxiv-1905.07553",
+  "paper_type": "experimental",
+  "abstract": "Many computer vision applications require solving multiple tasks in real-time. A neural network can be trained to solve multiple tasks simultaneously using _multi-task learning_ . This can save computation at inference time as only a single network needs to be evaluated. Unfortunately, this often leads to inferior overall performance as task objectives can compete, which consequently poses the question: **which tasks should and should not be learned together in one network when employing multi-task learning?** We study task cooperation and competition in several different learning settings and propose a framework for assigning tasks to a few neural networks such that cooperating tasks are computed by the same neural network, while competing tasks are computed by different networks. Our framework offers a time-accuracy trade-off and can produce better accuracy using less inference time than not only a single large multi-task neural network but also many single-task networks.",
+  "bibliographic": {
+    "title": "Which Tasks Should Be Learned Together in Multi-task Learning?",
+    "authors": [
+      {
+        "first_name": "Trevor",
+        "last_name": "Standley"
+      },
+      {
+        "first_name": "Amir",
+        "last_name": "Zamir"
+      },
+      {
+        "first_name": "Dawn",
+        "last_name": "Chen"
+      },
+      {
+        "first_name": "Leonidas",
+        "last_name": "Guibas"
+      },
+      {
+        "first_name": "Jitendra",
+        "last_name": "Malik"
+      },
+      {
+        "first_name": "Silvio",
+        "last_name": "Savarese"
+      }
+    ],
+    "year": 2020,
+    "venue": "Proceedings of the 37th International Conference on Machine Learning",
+    "venue_type": "conference",
+    "doi_or_url": "https://arxiv.org/abs/1905.07553"
+  },
+  "content": {
+    "problem": "Competing task objectives in multi-task networks cause negative transfer, making it unclear which tasks should be grouped together under an inference budget.",
+    "proposed_solution": "The authors propose a task grouping framework that evaluates candidate task subsets and selects network assignments that minimize total loss within a computational budget.",
+    "algorithm_or_model": "Task grouping framework with branch-and-bound network selection",
+    "dataset_testbed": [
+      "Taskonomy dataset"
+    ],
+    "metrics": [
+      {
+        "name": "relative total loss change",
+        "value": -19.0,
+        "unit": "percent",
+        "condition": "Five-task 1-SNT multi-task network compared with five 1-SNT single-task networks in Setting 1"
+      },
+      {
+        "name": "Total Loss",
+        "value": 0.435,
+        "unit": "",
+        "condition": "Optimal task grouping at a 5 SNT inference-time budget in Setting 1"
+      },
+      {
+        "name": "Total Loss",
+        "value": 0.503,
+        "unit": "",
+        "condition": "Single traditional multi-task network with all five tasks in Setting 1"
+      },
+      {
+        "name": "training time reduction",
+        "value": 20,
+        "unit": "x",
+        "condition": "Early Stopping Approximation compared with fully training all candidate networks"
+      },
+      {
+        "name": "Pearson's r",
+        "value": 0.49,
+        "unit": "",
+        "condition": "Correlation between validation loss after one pass through 20% of data and final validation loss of the 36 candidate networks in Setting 1"
+      }
+    ],
+    "claim": "Assigning tasks to multiple networks based on compatibility consistently achieves lower total loss across computational budgets than either a single multi-task network or independent single-task networks.",
+    "author_stated_limitations": [
+      "The full task grouping framework can be computationally expensive during training.",
+      "Because the experiments used only five tasks, the Higher Order Approximation still required fully training more than half of the candidate networks.",
+      "The Early Stopping Approximation yielded task groupings that performed worse than the optimal solutions.",
+      "Adaptive learning rates prevented evaluating the Early Stopping Approximation across different quantities of training data."
+    ],
+    "themes": [
+      "multi-task learning",
+      "computer vision",
+      "task grouping",
+      "task relationships"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "Unfortunately, the quality of predictions are often observed to suffer when a network is tasked with making multiple predictions due to a phenomenon called _negative transfer_ . In fact, multi-task performance can suffer so much that smaller independent networks are often superior.",
+    "proposed_solution_quote": "We study task cooperation and competition in several different learning settings and propose a framework for assigning tasks to a few neural networks such that cooperating tasks are computed by the same neural network, while competing tasks are computed by different networks.",
+    "claim_quote": "Our methods outperform single-task networks, a multi-task network with all tasks trained jointly, as well as other baselines.",
+    "author_stated_limitation_quotes": [
+      "For many use cases, this framework is sufficient, but it can be costly at training time.",
+      "However, because we had five tasks, more than half of the candidate set was fully trained for this approximation.",
+      "The Early Stopping Approximation was usually competitive, but the solutions tended to be worse than optimal.",
+      "We could not test ESA with other data amounts because our adaptive learning rates resulted in networks that were no longer comparable after being trained on more data."
+    ]
+  }
+}

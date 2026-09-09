@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Validate literature extraction records against the skill's bundled schema.
 
-Each paper lives in research/literature/{paper_id}/ with record.json,
+Each paper lives in papers/{paper_id}/ with record.json,
 paper.md, and the original PDF. Per record:
 
   1. JSON Schema validation (draft 2020-12).
@@ -24,11 +24,16 @@ import jsonschema
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 SCHEMA_PATH = Path(__file__).resolve().parent / "extraction-schema.json"
-LIT_DIR = REPO_ROOT / "research" / "literature"
+LIT_DIR = REPO_ROOT / "papers"
 
 
 def normalize(text):
     """Make text comparable across PDF conversion artifacts."""
+    text = text.replace("\xad", "").replace("\u200b", "")
+    text = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", text)
+    text = re.sub(r"</?[a-zA-Z][^>]*>", "", text)
+    text = re.sub(r"[*_#`$]", "", text)
+    text = re.sub(r"\\+", "", text)
     for curly, plain in (
         ("\u2018", "'"),
         ("\u2019", "'"),
@@ -40,6 +45,8 @@ def normalize(text):
         text = text.replace(curly, plain)
     text = re.sub(r"-\s+", "", text)
     text = re.sub(r"\s+", " ", text)
+    text = re.sub(r"\s+([,.:;!?\)\]])", r"\1", text)
+    text = re.sub(r"([\(\[])\s+", r"\1", text)
     text = text.replace("-", "")
     return text.strip()
 

@@ -1,0 +1,103 @@
+{
+  "paper_id": "arxiv-2507.07485",
+  "paper_type": "experimental",
+  "abstract": "Multi-Task Learning (MTL) enables multiple tasks to be learned within a shared network, but differences in objectives across tasks can cause negative transfer, where the learning of one task degrades another task’s performance. While pre-trained transformers significantly improve MTL performance, their fixed network capacity and rigid structure limit adaptability. Previous dynamic network architectures attempt to address this but are inefficient as they directly convert shared parameters into task-specific ones. We propose Dynamic Token Modulation and Expansion (DTME-MTL), a framework applicable to any transformer-based MTL architecture. DTME-MTL enhances adaptability and reduces overfitting by identifying gradient conflicts in token space and applying adaptive solutions based on conflict type. Unlike prior methods that mitigate negative transfer by duplicating network parameters, DTME-MTL operates entirely in token space, enabling efficient adaptation without excessive parameter growth. Extensive experiments demonstrate that DTME-MTL consistently improves multi-task performance with minimal computational overhead, offering a scalable and effective solution for enhancing transformer-based MTL models.",
+  "bibliographic": {
+    "title": "Resolving Token-Space Gradient Conflicts: Token Space Manipulation for Transformer-Based Multi-Task Learning",
+    "authors": [
+      {
+        "first_name": "Wooseong",
+        "last_name": "Jeong"
+      },
+      {
+        "first_name": "Kuk-Jin",
+        "last_name": "Yoon"
+      }
+    ],
+    "year": 2025,
+    "venue": "Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV 2025)",
+    "venue_type": "conference",
+    "doi_or_url": "https://doi.org/10.1109/iccv51701.2025.00277"
+  },
+  "content": {
+    "problem": "Conflicting objectives among tasks cause negative transfer in multi-task learning, while the fixed capacity and rigid structure of pre-trained transformers limit model adaptability.",
+    "proposed_solution": "The authors propose DTME-MTL, which decomposes token space using singular value decomposition and mitigates negative transfer through affine token modulation and task-specific token expansion.",
+    "algorithm_or_model": "Dynamic Token Modulation and Expansion (DTME-MTL)",
+    "dataset_testbed": [
+      "NYUD-v2",
+      "PASCAL-Context",
+      "Taskonomy",
+      "NVIDIA RTX A6000 GPU"
+    ],
+    "metrics": [
+      {
+        "name": "mIoU",
+        "value": 38.27,
+        "unit": "percent",
+        "condition": "Semantic segmentation on NYUD-v2 with full DTME-MTL (TM+TE) using a shared ViT-T encoder and task-specific decoders"
+      },
+      {
+        "name": "RMSE",
+        "value": 0.637,
+        "unit": "",
+        "condition": "Depth estimation on NYUD-v2 with full DTME-MTL (TM+TE) using a ViT-T backbone"
+      },
+      {
+        "name": "mErr",
+        "value": 21.64,
+        "unit": "",
+        "condition": "Surface normal prediction on NYUD-v2 with full DTME-MTL (TM+TE) using a ViT-T backbone"
+      },
+      {
+        "name": "odsF",
+        "value": 57.9,
+        "unit": "",
+        "condition": "Edge detection on NYUD-v2 with full DTME-MTL (TM+TE) using a ViT-T backbone"
+      },
+      {
+        "name": "mIoU",
+        "value": 66.18,
+        "unit": "percent",
+        "condition": "Semantic segmentation on PASCAL-Context with full DTME-MTL (TM+TE) using a ViT-T backbone"
+      },
+      {
+        "name": "mIoU",
+        "value": 56.29,
+        "unit": "percent",
+        "condition": "Human parts parsing on PASCAL-Context with full DTME-MTL (TM+TE) using a ViT-T backbone"
+      },
+      {
+        "name": "average per-task improvement",
+        "value": 4.67,
+        "unit": "percent",
+        "condition": "Taskonomy benchmark with 11 tasks using ViT-B, compared with previous multi-task optimization methods"
+      },
+      {
+        "name": "parameter increase",
+        "value": 0.118,
+        "unit": "percent",
+        "condition": "Additional parameters introduced by DTME-MTL on Taskonomy with ViT-B"
+      },
+      {
+        "name": "inference time increase",
+        "value": 13.4,
+        "unit": "percent",
+        "condition": "Per-task inference overhead of DTME-MTL with ViT-B"
+      }
+    ],
+    "claim": "DTME-MTL consistently improves multi-task performance across multiple vision benchmarks with minimal computational overhead and parameter growth by resolving gradient conflicts in token space.",
+    "author_stated_limitations": [],
+    "themes": [
+      "multi-task learning",
+      "vision transformers",
+      "negative transfer",
+      "gradient conflict"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "Multi-Task Learning (MTL) enables multiple tasks to be learned within a shared network, but differences in objectives across tasks can cause negative transfer, where the learning of one task degrades another task’s performance. While pre-trained transformers significantly improve MTL performance, their fixed network capacity and rigid structure limit adaptability.",
+    "proposed_solution_quote": "To address these challenges, we propose Dynamic Token Modulation and Expansion (DTME-MTL), a novel framework designed to improve pre-trained transformer-based MTL architectures. Unlike previous methods that directly manipulate network parameters, our approach mitigates negative transfer by restructuring the token space of multi-task networks.",
+    "claim_quote": "Extensive experiments demonstrate that DTME-MTL consistently improves multi-task performance with minimal computational overhead, offering a scalable and effective solution for enhancing transformer-based MTL models.",
+    "author_stated_limitation_quotes": []
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "paper_id": "arxiv-2504.16144",
+  "paper_type": "experimental",
+  "abstract": "Natural disasters often result in a surge of social media activity, including requests for assistance, offers of help, sentiments, and general updates. To enable humanitarian organizations to respond more efficiently, we propose a fine-grained hierarchical taxonomy to systematically organize crisis-related information about requests and offers into three critical dimensions: supplies, emergency personnel, and actions. Leveraging the capabilities of Large Language Models (LLMs), we introduce Query-Specific Few-shot Learning (QSF Learning) that retrieves class-specific labeled examples from an embedding database to enhance the model's performance in detecting and classifying posts. Beyond classification, we assess the actionability of messages to prioritize posts requiring immediate attention. Extensive experiments demonstrate that our approach outperforms baseline prompting strategies, effectively identifying and prioritizing actionable requests and offers.",
+  "bibliographic": {
+    "title": "Detecting Actionable Requests and Offers on Social Media During Crises Using LLMs",
+    "authors": [
+      {
+        "first_name": "Ahmed El Fekih",
+        "last_name": "Zguir"
+      },
+      {
+        "first_name": "Ferda",
+        "last_name": "Ofli"
+      },
+      {
+        "first_name": "Muhammad",
+        "last_name": "Imran"
+      }
+    ],
+    "year": 2025,
+    "venue": "Proceedings of the International ISCRAM Conference (ISCRAM 2025)",
+    "venue_type": "conference",
+    "doi_or_url": "https://doi.org/10.59297/r9q00255"
+  },
+  "content": {
+    "problem": "Existing crisis social media systems classify posts only at a coarse request versus offer level with single labels, and supervised models need costly human annotation that is hard to obtain during disasters.",
+    "proposed_solution": "The authors build a fine-grained hierarchical taxonomy of supplies, actions, and emergency personnel and classify posts with instruction-tuned LLMs using QSF Learning, a RAG-based prompting method that retrieves query-specific labeled examples for each input message.",
+    "algorithm_or_model": "Query-Specific Few-shot Learning (QSF Learning)",
+    "dataset_testbed": [
+      "Synthetic dataset of 1,346 disaster tweets generated with GPT-4o",
+      "300 manually annotated Hurricane Sandy tweets from Purohit et al. 2014, later improved by Lamsal et al. 2024"
+    ],
+    "metrics": [
+      {
+        "name": "micro F1",
+        "value": 0.92,
+        "unit": "",
+        "condition": "Type classification on synthetic data with GPT-4o mini using QSF Learning"
+      },
+      {
+        "name": "micro F1",
+        "value": 0.88,
+        "unit": "",
+        "condition": "Supplies classification on synthetic data with GPT-4o mini using QSF Learning"
+      },
+      {
+        "name": "micro F1",
+        "value": 0.77,
+        "unit": "",
+        "condition": "Actions classification on synthetic data with Mistral 7B using QSF Learning, up from 0.62 with the BL5 baseline"
+      },
+      {
+        "name": "macro F1",
+        "value": 0.81,
+        "unit": "",
+        "condition": "Actionability classification on synthetic data with Llama 3 using QSF Learning, up from about 0.58 with the BL5 baseline"
+      },
+      {
+        "name": "micro F1",
+        "value": 0.85,
+        "unit": "",
+        "condition": "Supplies classification on real-world Hurricane Sandy data with GPT-4o mini using QSF Learning"
+      },
+      {
+        "name": "micro F1",
+        "value": 0.61,
+        "unit": "",
+        "condition": "Actions classification on real-world Hurricane Sandy data with GPT-4o mini using QSF Learning"
+      },
+      {
+        "name": "micro F1",
+        "value": 0.47,
+        "unit": "",
+        "condition": "Personnel classification on real-world Hurricane Sandy data with Llama 3.1 using QSF Learning, up from 0.27 with the BL5 baseline"
+      },
+      {
+        "name": "macro F1",
+        "value": 0.7,
+        "unit": "",
+        "condition": "Actionability classification on real-world Hurricane Sandy data with Gemma 2 using QSF Learning"
+      }
+    ],
+    "claim": "QSF Learning consistently beats static baseline prompting strategies across models and datasets, with the largest gains on the complex actions and personnel tasks.",
+    "author_stated_limitations": [
+      "The real-world evaluation set of 300 manually labeled tweets is small, so it cannot fully capture the variability and noise of crisis social media posts.",
+      "Synthetic data generated with GPT-4o may not fully reproduce the informal language and unpredictability of real social media streams.",
+      "The study covers only English-language posts and so excludes multilingual crisis communication.",
+      "The taxonomy has been evaluated mainly qualitatively, without a systematic quantitative assessment of its depth, completeness, and effect on classification."
+    ],
+    "themes": [
+      "crisis informatics",
+      "social media classification",
+      "large language models",
+      "few-shot learning"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "Previous efforts to identify such posts have primarily focused on high-level categorization into requests and offers, with limited attention to fine-grained distinctions based on specific types of assistance. Moreover, while supervised machine learning models trained on human-labeled data are ideal for such tasks, they are often impractical in disaster scenarios due to the time, resources, and effort required for data annotation.",
+    "proposed_solution_quote": "Leveraging the capabilities of Large Language Models (LLMs), we introduce Query-Specific Few-shot Learning (QSF Learning) that retrieves class-specific labeled examples from an embedding database to enhance the model's performance in detecting and classifying posts.",
+    "claim_quote": "Across both synthetic and real-world datasets, QSF learning consistently delivers the most substantial performance gains, particularly for tasks with complex label structures such as Actions and Personnel.",
+    "author_stated_limitation_quotes": [
+      "While a portion of our evaluation is conducted on a real-world dataset comprising 300 manually labeled tweets, the relatively small size of this dataset limits its ability to fully capture the variability, noise, and evolving nature of social media posts during crises.",
+      "Although GPT-4o provides diverse and partially grounded examples, it may not entirely replicate the informal language, emerging trends, or unpredictability present in real-world streams.",
+      "Another limitation is the focus solely on English-language posts, which excludes the multilingual nature of crisis communication in many global contexts.",
+      "Additionally, while the taxonomy introduces valuable structure and granularity to the classification process, its evaluation has primarily been qualitative. A more systematic, quantitative assessment of the taxonomy's depth, completeness, and impact on classification performance would provide deeper insights and potentially inform refinements to better support crisis response applications."
+    ]
+  }
+}

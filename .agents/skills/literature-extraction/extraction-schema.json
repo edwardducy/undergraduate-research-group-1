@@ -8,7 +8,7 @@
   "properties": {
     "paper_id": {
       "type": "string",
-      "pattern": "^(arxiv|acl|doi|jmlr|pmlr|openreview)-.+$",
+      "pattern": "^(arxiv|acl|doi|jmlr|pmlr|openreview|hf)-.+$",
       "description": "Extract the paper ID from the URL using the format source-id.",
       "examples": ["arxiv-2301.01967", "acl-2020.calcs-1.3", "doi-10.1007/s41060-025-00892-y"]
     },

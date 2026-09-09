@@ -1,0 +1,120 @@
+{
+ "paper_id": "arxiv-2103.06874",
+ "paper_type": "experimental",
+ "abstract": "Pipelined NLP systems have largely been superseded by end-to-end neural modeling, yet nearly all commonly-used models still require an explicit tokenization step. While recent tokenization approaches based on data-derived subword lexicons are less brittle than manually engineered tokenizers, these techniques are not equally suited to all languages, and the use of any fixed vocabulary may limit a model’s ability to adapt. In this paper, we present Canine, a neural encoder that operates directly on character sequences—without explicit tokenization or vocabulary—and a pre-training strategy that operates either directly on characters or optionally uses subwords as a soft inductive bias. To use its finer-grained input effectively and efficiently, Canine combines downsampling, which reduces the input sequence length, with a deep transformer stack, which encodes context. Canine outperforms a comparable mBert model by 5.7 F1 on TyDi QA, a challenging multilingual benchmark, despite having fewer model parameters.",
+ "bibliographic": {
+  "title": "Canine: Pre-training an Efficient Tokenization-Free Encoder for Language Representation",
+  "authors": [
+   {
+    "first_name": "Jonathan H.",
+    "last_name": "Clark"
+   },
+   {
+    "first_name": "Dan",
+    "last_name": "Garrette"
+   },
+   {
+    "first_name": "Iulia",
+    "last_name": "Turc"
+   },
+   {
+    "first_name": "John",
+    "last_name": "Wieting"
+   }
+  ],
+  "year": 2022,
+  "venue": "Transactions of the Association for Computational Linguistics",
+  "venue_type": "journal",
+  "doi_or_url": "https://doi.org/10.1162/tacl_a_00448"
+ },
+ "content": {
+  "problem": "Explicit tokenization with fixed subword vocabularies is brittle across languages and restricts how well pretrained encoders can represent and adapt to diverse text.",
+  "proposed_solution": "The authors propose Canine, a tokenization-free encoder that embeds raw Unicode characters with hash embeddings and downsamples the sequence with strided convolutions before its deep transformer stack.",
+  "algorithm_or_model": "Canine (Canine-C and Canine-S variants)",
+  "dataset_testbed": [
+   "TyDi QA (multilingual question answering, 11 languages)",
+   "CoNLL 2002 and CoNLL 2003 named entity recognition data (Spanish, Dutch, English, German)",
+   "MasakhaNER (ten African languages)",
+   "multilingual Wikipedia corpus of mBert (104 languages) for pre-training",
+   "64 Cloud TPUs v3"
+  ],
+  "metrics": [
+   {
+    "name": "F1",
+    "value": 68.1,
+    "unit": "percent",
+    "condition": "TyDi QA SelectP task, Canine-C with vocabulary-free n-grams, macro-averaged across languages, averaged over 3 fine-tuning replicas"
+   },
+   {
+    "name": "F1",
+    "value": 57.0,
+    "unit": "percent",
+    "condition": "TyDi QA MinSpan task, Canine-C with vocabulary-free n-grams, macro-averaged across languages"
+   },
+   {
+    "name": "F1",
+    "value": 66.0,
+    "unit": "percent",
+    "condition": "TyDi QA SelectP task, Canine-S with subword pre-training loss, macro-averaged across languages"
+   },
+   {
+    "name": "F1",
+    "value": 65.7,
+    "unit": "percent",
+    "condition": "TyDi QA SelectP task, Canine-C with autoregressive character loss, macro-averaged across languages"
+   },
+   {
+    "name": "F1",
+    "value": 53.0,
+    "unit": "percent",
+    "condition": "TyDi QA MinSpan task, Canine-C with autoregressive character loss, macro-averaged across languages"
+   },
+   {
+    "name": "F1",
+    "value": 86.7,
+    "unit": "percent",
+    "condition": "CoNLL named entity recognition, Canine-C with vocabulary-free n-grams, macro-averaged across Spanish, Dutch, English, and German"
+   },
+   {
+    "name": "F1",
+    "value": 76.8,
+    "unit": "percent",
+    "condition": "MasakhaNER named entity recognition, Canine-C with vocabulary-free n-grams, macro-averaged across ten African languages"
+   },
+   {
+    "name": "parameters",
+    "value": 127,
+    "unit": "millions",
+    "condition": "Canine model size at fine-tuning time, against 179 million for the re-implemented mBert baseline"
+   },
+   {
+    "name": "pre-training examples/sec",
+    "value": 6050,
+    "unit": "examples per second",
+    "condition": "Canine-C pre-training throughput on 64 Cloud TPUs v3, against 9000 for the re-implemented mBert"
+   }
+  ],
+  "claim": "A tokenization-free character encoder with downsampling outperforms a comparable mBert on multilingual question answering while using fewer parameters, and with vocabulary-free n-grams it stays competitive on named entity recognition.",
+  "author_stated_limitations": [
+   "Canine-C without n-gram features scores far below mBert on named entity recognition because mBert's vocabulary favors memorization, though adding the n-grams recovers most of the gap.",
+   "Canine-C often fails to label rarer lexical items that mBert has memorized.",
+   "Canine-C tends to split long entity mentions into multiple separate spans."
+  ],
+  "themes": [
+   "tokenization-free encoding",
+   "character-level modeling",
+   "multilingual language models",
+   "pre-training"
+  ]
+ },
+ "evidence": {
+  "problem_quote": "While recent tokenization approaches based on data-derived subword lexicons are less brittle than manually engineered tokenizers, these techniques are not equally suited to all languages, and the use of any fixed vocabulary may limit a model’s ability to adapt.",
+  "proposed_solution_quote": "In this paper, we present Canine, a neural encoder that operates directly on character sequences—without explicit tokenization or vocabulary—and a pre-training strategy that operates either directly on characters or optionally uses subwords as a soft inductive bias.",
+  "claim_quote": "Canine outperforms a comparable mBert model by 5.7 F1 on TyDi QA, a challenging multilingual benchmark, despite having fewer model parameters.",
+  "author_stated_limitation_quotes": [
+   "Canine-C performs significantly worse than mBert on NER, likely due to mBert’s memorization-friendly vocabulary. However, when (tokenization-free) n-gram features are added to Canine-C, performance rebounds, showing that it is possible to cheaply boost a model’s memorization ability while remaining fully tokenization-free.",
+   "Canine-C tends not to label rarer lexical items that mBert appears to have memorized. For example, with Canine-C, JCPenney (a relatively rare lexical item) is not recognized as an entity.",
+   "Canine-C also tends to separate long entities; for example, “State Street Bank and Trust Company” is labeled as two separate spans: “State Street Bank” and “Trust Company”; and the location TAMPA BAY is recognized only as TAMPA."
+  ]
+ }
+}

@@ -1,0 +1,39 @@
+{
+  "paper_id": "doi-10.1109-cvpr52733.2024.00042",
+  "paper_type": "experimental",
+  "abstract": "The goal of multi-task learning is to learn diverse tasks within a single unified network. As each task has its own unique objective function, conflicts emerge during training, resulting in negative transfer among them. Earlier research identified these conflicting gradients in shared parameters between tasks and attempted to realign them in the same direction. However, we prove that such optimization strategies lead to sub-optimal Pareto solutions due to their inability to accurately determine the individual contributions of each parameter across various tasks. In this paper, we propose the concept of task priority to evaluate parameter contributions across different tasks. To learn task priority, we identify the type of connections related to links between parameters influenced by task-specific losses during backpropagation. The strength of connections is gauged by the magnitude of parameters to determine task priority. Based on these, we present a new method named connection strength-based optimization for multi-task learning which consists of two phases. The first phase learns the task priority within the network, while the second phase modifies the gradients while upholding this priority. This ultimately leads to finding new Pareto optimal solutions for multiple tasks. Through extensive experiments, we show that our approach greatly enhances multi-task performance in comparison to earlier gradient manipulation methods.",
+  "bibliographic": {
+    "title": "Quantifying Task Priority for Multi-Task Optimization",
+    "authors": [
+      {"first_name": "Wooseong", "last_name": "Jeong"},
+      {"first_name": "Kuk-Jin", "last_name": "Yoon"}
+    ],
+    "year": 2024,
+    "venue": "Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)",
+    "venue_type": "conference",
+    "doi_or_url": "https://doi.org/10.1109/cvpr52733.2024.00042"
+  },
+  "content": {
+    "problem": "Gradient manipulation methods realign conflicting gradients without knowing which shared parameters matter for each task, so multi-task learning ends at sub-optimal Pareto solutions with negative transfer.",
+    "proposed_solution": "The authors quantify task priority with the strength of task-specific connections and split optimization into a phase that learns the priority and a phase that projects gradients to preserve it.",
+    "algorithm_or_model": "connection strength-based optimization",
+    "dataset_testbed": ["NYUD-v2", "PASCAL-Context", "Cityscapes"],
+    "metrics": [
+      {"name": "MTP Δm", "value": 15.0, "unit": "percent", "condition": "Multi-task performance gain on NYUD-v2 with HRNet-18 and manually tuned loss weights, averaged over 3 random seeds"},
+      {"name": "MTP Δm", "value": 3.7, "unit": "percent", "condition": "Multi-task performance gain on PASCAL-Context with HRNet-18 and manually tuned loss weights, averaged over 3 random seeds"},
+      {"name": "MTP Δm", "value": -10.08, "unit": "percent", "condition": "Cityscapes with SegNet, where the negative value is much closer to zero than the baseline optimization methods"},
+      {"name": "rmse", "value": 0.565, "unit": "", "condition": "Depth estimation on NYUD-v2 with HRNet-18 and manually tuned loss weights"},
+      {"name": "mIoU", "value": 41.1, "unit": "percent", "condition": "Semantic segmentation on NYUD-v2 with HRNet-18 and manually tuned loss weights"},
+      {"name": "mIoU", "value": 63.86, "unit": "percent", "condition": "Semantic segmentation on PASCAL-Context with HRNet-18 and manually tuned loss weights"}
+    ],
+    "claim": "Learning and preserving task priority enables the method to find new Pareto optimal solutions and to consistently outperform earlier gradient manipulation methods on multiple datasets, loss scalings, and architectures.",
+    "author_stated_limitations": [],
+    "themes": ["multi-task learning", "multi-task optimization", "conflicting gradients", "dense prediction"]
+  },
+  "evidence": {
+    "problem_quote": "However, these techniques are not effective at preventing negative transfer, as they don't pinpoint which shared parameters are crucial for the tasks. This results in sub-optimal Pareto solutions for MTL, leading to pool multi-task performance.",
+    "proposed_solution_quote": "In this paper, we propose the concept of task priority to address negative transfer in MTL and suggest connection strength as a quantifiable measure for this purpose. The task priority is defined over shared parameters by comparing the influence of each task's gradient on the overall multi-task loss.",
+    "claim_quote": "Compared to previous methods, our approach shows better performance on most tasks and datasets. It proves our method tends to induce less task interference.",
+    "author_stated_limitation_quotes": []
+  }
+}

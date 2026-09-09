@@ -1,0 +1,82 @@
+{
+  "paper_id": "arxiv-2211.11468",
+  "paper_type": "experimental",
+  "abstract": "Social media has become an important information source for crisis management and provides quick access to ongoing developments and critical information. However, classification models suffer from event-related biases and highly imbalanced label distributions which still poses a challenging task. To address these challenges, we propose a combination of entity-masked language modeling and hierarchical multi-label classification as a multi-task learning problem. We evaluate our method on tweets from the TREC-IS dataset and show an absolute performance gain w.r.t. F1-score of up to 10% for actionable information types. Moreover, we found that entity-masking reduces the effect of overfitting to in-domain events and enables improvements in cross-event generalization. Our source code is publicly available on GitHub.",
+  "bibliographic": {
+    "title": "Enhancing Crisis-Related Tweet Classification with Entity-Masked Language Modeling and Multi-Task Learning",
+    "authors": [
+      {
+        "first_name": "Philipp",
+        "last_name": "Seeberger"
+      },
+      {
+        "first_name": "Korbinian",
+        "last_name": "Riedhammer"
+      }
+    ],
+    "year": 2022,
+    "venue": "Proceedings of the Second Workshop on NLP for Positive Impact (NLP4PI)",
+    "venue_type": "workshop",
+    "doi_or_url": "https://doi.org/10.18653/v1/2022.nlp4pi-1.9"
+  },
+  "content": {
+    "problem": "Crisis tweet classifiers overfit to event-specific entities and biases and face highly imbalanced labels, so they perform poorly on rare actionable information types for unseen disaster events.",
+    "proposed_solution": "The authors combine adaptive pre-training with entity-masked language modeling and hierarchical multi-label classification heads trained as a multi-task problem on top of BERT.",
+    "algorithm_or_model": "Entity-masked language modeling (E-MLM) with hierarchical multi-task classification heads (HMCN) on BERT",
+    "dataset_testbed": [
+      "TREC-IS (2020B split of crisis-related tweets)"
+    ],
+    "metrics": [
+      {
+        "name": "AIT F1",
+        "value": 0.335,
+        "unit": "",
+        "condition": "Best proposed model with E-MLM pre-training and hierarchical multi-task head, macro-averaged over actionable information types, TREC-IS 2020B test events"
+      },
+      {
+        "name": "LB F1",
+        "value": 0.314,
+        "unit": "",
+        "condition": "Best proposed model, macro-averaged over lower-level information types, TREC-IS 2020B test events"
+      },
+      {
+        "name": "LT F1",
+        "value": 0.558,
+        "unit": "",
+        "condition": "Best proposed model, macro-averaged over upper-level information types, TREC-IS 2020B test events"
+      },
+      {
+        "name": "strict F1",
+        "value": 0.692,
+        "unit": "",
+        "condition": "Entity extraction quality of the Google Cloud Natural Language API measured on 300 manually annotated tweets"
+      },
+      {
+        "name": "absolute F1 gain",
+        "value": 10,
+        "unit": "percent",
+        "condition": "Actionable information types, proposed approach versus baselines as reported for the TREC-IS evaluation"
+      }
+    ],
+    "claim": "The combination of entity-masked pre-training and hierarchical multi-task learning raises actionable information type F1 by up to 10 percent and improves generalization to unseen crisis events.",
+    "author_stated_limitations": [
+      "The HMCNlocal model improves detection of rare actionable information types but lowers performance on the category containing the most information types.",
+      "Training with entity tokens could be task-specific and errors from named entity recognition systems can propagate into the model."
+    ],
+    "themes": [
+      "crisis informatics",
+      "tweet classification",
+      "multi-task learning",
+      "domain generalization"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "However, event-related biases and entities as shown in Figure 1 prevent models from generalizing to unseen disaster events and therefore degrade w.r.t. detection performance.",
+    "proposed_solution_quote": "To address these challenges, we propose a combination of entity-masked language modeling and hierarchical multi-label classification as a multi-task learning problem.",
+    "claim_quote": "We evaluate our method on tweets from the TREC-IS dataset and show an absolute performance gain w.r.t. F1-score of up to 10% for actionable information types. Moreover, we found that entity-masking reduces the effect of overfitting to in-domain events and enables improvements in cross-event generalization.",
+    "author_stated_limitation_quotes": [
+      "As depicted in Figure 3, the HMCNlocal model improves the detection of rare actionable information types over the single-task model while at the same time decreasing the performance on the category with the most information types.",
+      "However, model training with such entities could be task-specific and prone to error propagation by named entity recognition systems."
+    ]
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "paper_id": "arxiv-2506.06130",
+  "paper_type": "experimental",
+  "abstract": "The multi-task learning (MTL) paradigm aims to simultaneously learn multiple tasks within a single model capturing higher-level, more general hidden patterns that are shared by the tasks. In deep learning, a significant challenge in the backpropagation training process is the design of advanced optimisers to improve the convergence speed and stability of the gradient descent learning rule. In particular, in multi-task deep learning (MTDL) the multitude of tasks may generate potentially conflicting gradients that would hinder the concurrent convergence of the diverse loss functions. This challenge arises when the gradients of the task objectives have either different magnitudes or opposite directions, causing one or a few to dominate or to interfere with each other, thus degrading the training process. Gradient surgery methods address the problem explicitly dealing with conflicting gradients by adjusting the overall gradient trajectory. This work introduces a novel gradient surgery method, the Similarity-Aware Momentum Gradient Surgery (SAM-GS), which provides an effective and scalable approach based on a gradient magnitude similarity measure to guide the optimisation process. The SAM-GS surgery adopts gradient equalisation and modulation of the first-order momentum. A series of experimental tests have shown the effectiveness of SAM-GS on synthetic problems and MTL benchmarks. Gradient magnitude similarity plays a crucial role in regularising gradient aggregation in MTDL for the optimisation of the learning process. Code is available at https://unibzmlgroup.github.io/SAMGS/",
+  "bibliographic": {
+    "title": "Gradient Similarity Surgery in Multi-Task Deep Learning",
+    "authors": [
+      {
+        "first_name": "Thomas",
+        "last_name": "Borsani"
+      },
+      {
+        "first_name": "Andrea",
+        "last_name": "Rosani"
+      },
+      {
+        "first_name": "Giuseppe",
+        "last_name": "Nicosia"
+      },
+      {
+        "first_name": "Giuseppe",
+        "last_name": "Di Fatta"
+      }
+    ],
+    "year": 2025,
+    "venue": "Proceedings of the European Conference on Machine Learning and Principles and Practice of Knowledge Discovery in Databases (ECML PKDD 2025)",
+    "venue_type": "conference",
+    "doi_or_url": "https://doi.org/10.1007/978-3-662-72243-5_6"
+  },
+  "content": {
+    "problem": "In multi-task deep learning, task gradients can conflict in direction or magnitude, and simple averaging lets dominant gradients steer updates, which degrades convergence of the task losses.",
+    "proposed_solution": "The authors propose SAM-GS, a gradient surgery optimiser that measures task gradient magnitude similarity to trigger gradient equalisation on conflict and to modulate the first-order momentum otherwise.",
+    "algorithm_or_model": "Similarity-Aware Momentum Gradient Surgery (SAM-GS)",
+    "dataset_testbed": [
+      "Two-task synthetic 2D optimisation problem with one global optimum",
+      "Novel two-task synthetic 2D optimisation problem with two global optima",
+      "CelebA (40 binary facial attribute classification tasks with a CNN)",
+      "NYU-v2 (depth estimation, semantic segmentation, and surface normal prediction with MTAN)",
+      "CityScapes (depth estimation and semantic segmentation with MTAN)",
+      "MetaWorld MT10 multi-task reinforcement learning benchmark (10 robot manipulation tasks with Soft Actor-Critic)"
+    ],
+    "metrics": [
+      {
+        "name": "MR",
+        "value": 2.4,
+        "unit": "",
+        "condition": "SAM-GS on NYU-v2 with MTAN, averaged over three random seeds, where lower is better and 1 is the best rank"
+      },
+      {
+        "name": "Δm%",
+        "value": -5.3,
+        "unit": "percent",
+        "condition": "SAM-GS on NYU-v2 with MTAN, relative to single-task baselines, averaged over three random seeds"
+      },
+      {
+        "name": "Δm%",
+        "value": 3.33,
+        "unit": "percent",
+        "condition": "SAM-GS on CelebA with 40 binary classification tasks, averaged over three random seeds, where lower is better"
+      },
+      {
+        "name": "MR",
+        "value": 5.0,
+        "unit": "",
+        "condition": "SAM-GS on CityScapes with MTAN for depth estimation and semantic segmentation, where lower is better"
+      },
+      {
+        "name": "Δm%",
+        "value": 6.41,
+        "unit": "percent",
+        "condition": "SAM-GS on CityScapes with MTAN for depth estimation and semantic segmentation, where lower is better"
+      },
+      {
+        "name": "Steps to convergence",
+        "value": 18000,
+        "unit": "steps",
+        "condition": "SAM-GS on the two-task synthetic problem with one global optimum from all seven starting points, within a 20,000 step limit"
+      }
+    ],
+    "claim": "SAM-GS outperforms previous multi-task optimisation methods on two synthetic problems and achieves the best mean ranking and improvement score on NYU-v2 while remaining competitive on other benchmarks.",
+    "author_stated_limitations": [
+      "The method has no theoretical convergence analysis or optimisation guarantees.",
+      "SAM-GS can fail at strict stationary states such as saddle points, where task gradients have very similar magnitudes and opposite directions."
+    ],
+    "themes": [
+      "multi-task learning",
+      "gradient surgery",
+      "conflicting gradients",
+      "gradient descent optimisation"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "In training deep learning models on multiple tasks simultaneously, the issue of conflicting gradients arises when different tasks produce gradients that interfere with each other, leading to inefficient or suboptimal learning. This detrimental interference hinders the performance of the model across tasks.",
+    "proposed_solution_quote": "To address the issue of conflicting gradients while accounting for the varying nature of task loss functions, we introduce a novel gradient surgery method, the Similarity-Aware Momentum Gradient Surgery (SAM-GS). This method dynamically adapts the gradient descent optimisation process based on the task gradient magnitude similarity.",
+    "claim_quote": "An extensive evaluation has demonstrated that SAM-GS effectively addresses a range of challenges with respect to task gradient conflicts and outperforms previous optimisation methods in two synthetic problems, several benchmarks from real-world computer vision applications, and a benchmark for reinforcement learning tasks.",
+    "author_stated_limitation_quotes": [
+      "Future work may include a theoretical analysis of convergence to provide optimisation guarantees.",
+      "Moreover, a direction for further improvements is the analysis of the current limitations to address strict stationary states such as saddle points, where task gradients have very similar magnitude and opposite directions."
+    ]
+  }
+}

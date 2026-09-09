@@ -1,0 +1,46 @@
+{
+  "paper_id": "doi-10.1109-iccv51701.2025.00235",
+  "paper_type": "experimental",
+  "abstract": "Multi-task learning (MTL) trains deep neural networks to optimize several objectives simultaneously using a shared backbone, which leads to reduced computational costs, improved data efficiency, and enhanced performance through cross-task knowledge sharing. Although recent gradient manipulation techniques aim to find a common descent direction that benefits all tasks, conventional empirical loss minimization still leaves models vulnerable to overfitting and gradient conflicts. To address this, we introduce a novel MTL framework that leverages weight perturbation to regulate gradient norms, thus improving generalization. By carefully modulating weight perturbations, our approach harmonizes task-specific gradients, reducing conflicts and encouraging more robust learning across tasks. Theoretical insights reveal that controlling the gradient norm through weight perturbation directly contributes to better generalization. Extensive experiments across diverse applications demonstrate that our method significantly outperforms existing gradientbased MTL techniques in terms of task performance and overall model robustness.",
+  "bibliographic": {
+    "title": "Beyond Losses Reweighting: Empowering Multi-Task Learning via the Generalization Perspective",
+    "authors": [
+      {"first_name": "Hoang", "last_name": "Phan"},
+      {"first_name": "Lam", "last_name": "Tran"},
+      {"first_name": "Quyen", "last_name": "Tran"},
+      {"first_name": "Ngoc", "last_name": "Tran"},
+      {"first_name": "Tuan", "last_name": "Truong"},
+      {"first_name": "Qi", "last_name": "Lei"},
+      {"first_name": "Nhat", "last_name": "Ho"},
+      {"first_name": "Dinh", "last_name": "Phung"},
+      {"first_name": "Trung", "last_name": "Le"}
+    ],
+    "year": 2025,
+    "venue": "Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)",
+    "venue_type": "conference",
+    "doi_or_url": "https://doi.org/10.1109/iccv51701.2025.00235"
+  },
+  "content": {
+    "problem": "Existing gradient manipulation methods for multi-task learning minimize only empirical losses and ignore loss landscape geometry, so shared models overfit and task gradients conflict with each other.",
+    "proposed_solution": "The paper proposes a sharpness-aware framework that penalizes each task sharpness through weight perturbation and aggregates separate loss and flatness gradients on top of existing gradient manipulation methods.",
+    "algorithm_or_model": "Flat-based (F-) variants of gradient-based MTL methods, such as F-MGDA, F-PCGrad, F-CAGrad, F-IMTL, F-NashMTL, and F-FairGrad",
+    "dataset_testbed": ["Multi-MNIST (MultiFashion, MultiMNIST, MultiFashion+MNIST)", "CelebA", "NYUv2", "CityScapes"],
+    "metrics": [
+      {"name": "Average accuracy", "value": 87.82, "unit": "percent", "condition": "MultiFashion benchmark with ResNet18, using F-CAGrad"},
+      {"name": "Average accuracy", "value": 95.95, "unit": "percent", "condition": "MultiMNIST benchmark with ResNet18, using F-CAGrad"},
+      {"name": "Average accuracy", "value": 93.54, "unit": "percent", "condition": "MultiFashion+MNIST benchmark with ResNet18, using F-CAGrad"},
+      {"name": "Mean of error per category", "value": 8.22, "unit": "percent", "condition": "CelebA 40-attribute multi-label classification, using F-CAGrad"},
+      {"name": "Average relative task improvement", "value": -4.77, "unit": "percent", "condition": "NYUv2 scene understanding with SegNet, using F-IMTL, where lower is better"},
+      {"name": "Average relative task improvement", "value": 0.67, "unit": "percent", "condition": "CityScapes scene understanding with SegNet, using F-MGDA, where lower is better"}
+    ],
+    "claim": "Adding sharpness-aware flat minima seeking to gradient-based multi-task learning methods improves task performance, robustness, and calibration across image classification and scene understanding benchmarks.",
+    "author_stated_limitations": [],
+    "themes": ["multi-task learning", "sharpness-aware minimization", "loss landscape flatness", "gradient conflict"]
+  },
+  "evidence": {
+    "problem_quote": "However, learning such a shared backbone faces performance degradation due to gradient conflict [78], where task-specific gradients may differ in direction and magnitude, resulting in tasks canceling each other and a subset of tasks being under-optimized.",
+    "proposed_solution_quote": "To address the above desideratum, we propose a novel MTL training method that enhances existing gradient manipulation strategies by promoting the learning of flat loss landscapes across all tasks. Specifically, we penalize each task's sharpness, the gap between the largest and the empirical losses within a weight perturbation [20, 82], to improve the generalization of all tasks.",
+    "claim_quote": "Extensive experiments across diverse applications demonstrate that our method significantly outperforms existing gradientbased MTL techniques in terms of task performance and overall model robustness.",
+    "author_stated_limitation_quotes": []
+  }
+}

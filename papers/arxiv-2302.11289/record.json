@@ -1,0 +1,80 @@
+{
+  "paper_id": "arxiv-2302.11289",
+  "paper_type": "experimental",
+  "abstract": "A fundamental challenge for multi-task learning is that different tasks may conflict with each other when they are solved jointly, and a cause of this phenomenon is *conflicting gradients* during optimization. Recent works attempt to mitigate the influence of conflicting gradients by directly altering the gradients based on some criteria. However, our empirical study shows that “gradient surgery” cannot effectively reduce the occurrence of conflicting gradients. In this paper, we take a different approach to reduce conflicting gradients *from the root*. In essence, we investigate the task gradients w.r.t. each *shared* network layer, select the layers with high conflict scores, and turn them to *task-specific* layers. Our experiments show that such a simple approach can greatly reduce the occurrence of conflicting gradients in the remaining shared layers and achieve better performance, with only a slight increase in model parameters in many cases. Our approach can be easily applied to improve various state-of-the-art methods including gradient manipulation methods and branched architecture search methods. Given a network architecture (e.g., ResNet18), it only needs to search for the conflict layers once, and the network can be modified to be used with different methods on the same or even different datasets to gain performance improvement. The source code is available at [https://github.com/moukamisama/Recon](https://github.com/moukamisama/Recon \"\").",
+  "bibliographic": {
+    "title": "Recon: Reducing Conflicting Gradients from the Root for Multi-Task Learning",
+    "authors": [
+      {
+        "first_name": "Guangyuan",
+        "last_name": "Shi"
+      },
+      {
+        "first_name": "Qimai",
+        "last_name": "Li"
+      },
+      {
+        "first_name": "Wenlong",
+        "last_name": "Zhang"
+      },
+      {
+        "first_name": "Jiaxin",
+        "last_name": "Chen"
+      },
+      {
+        "first_name": "Xiao-Ming",
+        "last_name": "Wu"
+      }
+    ],
+    "year": 2023,
+    "venue": "11th International Conference on Learning Representations (ICLR 2023)",
+    "venue_type": "conference",
+    "doi_or_url": "https://arxiv.org/abs/2302.11289"
+  },
+  "content": {
+    "problem": "Multi-task learning suffers from negative transfer because task gradients can conflict during joint optimization, allowing dominant gradients to hurt the performance of other tasks and preventing convergence to a good solution.",
+    "proposed_solution": "The authors propose Recon, which measures layer-wise task gradient conflicts during an initial training run, converts the shared layers with the highest conflict scores into task-specific layers, and retrains the modified network from scratch.",
+    "algorithm_or_model": "Recon",
+    "dataset_testbed": [
+      "Multi-Fashion+MNIST",
+      "CityScapes",
+      "NYUv2",
+      "PASCAL-Context",
+      "CelebA"
+    ],
+    "metrics": [
+      {
+        "name": "Reduction",
+        "value": 79.62,
+        "unit": "percent",
+        "condition": "MGDA combined with Recon compared with joint-training, for gradient pairs with cos phi in (-0.01, -1.0] on Multi-Fashion+MNIST"
+      },
+      {
+        "name": "Δm%",
+        "value": 5.8,
+        "unit": "percent",
+        "condition": "Best average relative task improvement over the single-task baseline on NYUv2 with MTAN backbone"
+      },
+      {
+        "name": "model size increase",
+        "value": 0.52,
+        "unit": "percent",
+        "condition": "Smallest increase in model size caused by applying Recon across the five multi-task benchmark datasets"
+      }
+    ],
+    "claim": "Recon greatly reduces the occurrence of severe conflicting gradients in the remaining shared layers and consistently improves the performance of existing multi-task learning methods while adding only a small number of parameters.",
+    "author_stated_limitations": [],
+    "themes": [
+      "multi-task learning",
+      "conflicting gradients",
+      "negative transfer",
+      "network architecture design"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "A major challenge for multi-task learning is *negative transfer* (Ruder, 2017), which refers to the performance drop on a task caused by the learning of other tasks, resulting in worse overall performance than learning them separately. This is caused by *task conflicts*, i.e., tasks compete with each other and unrelated information of individual tasks may impede the learning of common structures.",
+    "proposed_solution_quote": "We first train the network with a regular MTL algorithm (e.g., joint-training) for a number of iterations, compute the conflict scores for all shared layers, and select those with highest conflict scores (indicating severe conflicts). We then set the selected shared layers task-specific and train the modified network from scratch.",
+    "claim_quote": "Our experiments show that such a simple approach can greatly reduce the occurrence of conflicting gradients in the remaining shared layers and achieve better performance, with only a slight increase in model parameters in many cases.",
+    "author_stated_limitation_quotes": []
+  }
+}

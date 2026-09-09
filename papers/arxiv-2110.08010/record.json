@@ -1,0 +1,99 @@
+{
+  "paper_id": "arxiv-2110.08010",
+  "paper_type": "experimental",
+  "abstract": "Social media has enabled people to circulate information in a timely fashion, thus motivating people to post messages seeking help during crisis situations. These messages can contribute to the situational awareness of emergency responders, who have a need for them to be categorised according to information types (i.e. the type of aid services the messages are requesting). We introduce a transformer-based multi-task learning (MTL) technique for classifying information types and estimating the priority of these messages. We evaluate the effectiveness of our approach with a variety of metrics by submitting runs to the TREC Incident Streams (IS) track: a research initiative specifically designed for disaster tweet classification and prioritisation. The results demonstrate that our approach achieves competitive performance in most metrics as compared to other participating runs. Subsequently, we find that an ensemble approach combining disparate transformer encoders within our approach helps to improve the overall effectiveness to a significant extent, achieving state-of-the-art performance in almost every metric. We make the code publicly available so that our work can be reproduced and used as a baseline for the community for future work in this domain1.",
+  "bibliographic": {
+    "title": "Transformer-based Multi-task Learning for Disaster Tweet Categorisation",
+    "authors": [
+      {
+        "first_name": "Congcong",
+        "last_name": "Wang"
+      },
+      {
+        "first_name": "Paul",
+        "last_name": "Nulty"
+      },
+      {
+        "first_name": "David",
+        "last_name": "Lillis"
+      }
+    ],
+    "year": 2021,
+    "venue": "Proceedings of the 18th International Conference on Information Systems for Crisis Response and Management (ISCRAM 2021)",
+    "venue_type": "conference",
+    "doi_or_url": "https://arxiv.org/abs/2110.08010"
+  },
+  "content": {
+    "problem": "Emergency responders need crisis-related social media messages to be automatically categorised by information type and priority, because the volume of tweets grows explosively during a disaster and manual identification of useful messages is not feasible.",
+    "proposed_solution": "The authors fine-tune transformer encoders in a multi-task learning framework that jointly performs multi-label information type classification and priority estimation on disaster tweets, and further combine multiple such models through a simple ensemble of their predictions.",
+    "algorithm_or_model": "Transformer-based multi-task learning (MTL) with ensemble of transformer encoders",
+    "dataset_testbed": [
+      "TREC-IS 2018",
+      "TREC-IS 2019A",
+      "TREC-IS 2019B",
+      "TREC-IS 2020A",
+      "RTX-2080Ti GPU",
+      "RTX-2070 Super GPU"
+    ],
+    "metrics": [
+      {
+        "name": "HarM",
+        "value": 0.3141,
+        "unit": "",
+        "condition": "EnsembleD ensemble of four fine-tuned transformer encoders (BERT, DistilBERT, ELECTRA, ALBERT) evaluated on TREC-IS 2020A test set"
+      },
+      {
+        "name": "NDCG",
+        "value": 0.5176,
+        "unit": "",
+        "condition": "EnsembleD ensemble run on TREC-IS 2020A test set"
+      },
+      {
+        "name": "AW-HC",
+        "value": -0.1613,
+        "unit": "",
+        "condition": "EnsembleD ensemble run on TREC-IS 2020A test set"
+      },
+      {
+        "name": "PErr-A",
+        "value": 0.2966,
+        "unit": "",
+        "condition": "EnsembleD ensemble run on TREC-IS 2020A test set"
+      },
+      {
+        "name": "CF1-A",
+        "value": 0.2084,
+        "unit": "",
+        "condition": "EnsembleD ensemble run on TREC-IS 2020A test set"
+      },
+      {
+        "name": "NDCG",
+        "value": 0.5101,
+        "unit": "",
+        "condition": "BERT_base + MTL single-model run on TREC-IS 2020A test set"
+      }
+    ],
+    "claim": "The transformer-based multi-task approach outperforms single-task and traditional machine learning baselines, and an ensemble of four multi-task transformer models achieves state-of-the-art performance in almost every TREC-IS evaluation metric, reaching an overall harmonic mean score of 0.3141.",
+    "author_stated_limitations": [
+      "The approach currently uses only the raw text of tweets and does not incorporate linked content such as web pages or images.",
+      "The current approach only addresses two tasks from a single corpus.",
+      "The efficiency (speed of message handling) of the approach has not yet been examined."
+    ],
+    "themes": [
+      "disaster response",
+      "multi-task learning",
+      "transformers",
+      "tweet classification"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "Social media has enabled people to circulate information in a timely fashion, thus motivating people to post messages seeking help during crisis situations. These messages can contribute to the situational awareness of emergency responders, who have a need for them to be categorised according to information types (i.e. the type of aid services the messages are requesting).",
+    "proposed_solution_quote": "We propose a transformer-based multi-task learning (MTL) technique that categorises the crisis tweets through a joint learning of two sub-tasks, namely, information type classification and priority estimation.",
+    "claim_quote": "This ensemble approach turns out to be more effective than its constituents, and achieves state-of-the-art performance when compared with participating runs in the TREC-IS track.",
+    "author_stated_limitation_quotes": [
+      "Our approach is currently limited to using the raw text of tweets.",
+      "In addition, since our current approach only focuses on two tasks from a single corpus, we plan to extend our approach to support more tasks from multiple corpora.",
+      "Our approach has not yet been examined regarding its efficiency, which also requires further exploration."
+    ]
+  }
+}

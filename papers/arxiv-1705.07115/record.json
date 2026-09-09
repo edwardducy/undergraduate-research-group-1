@@ -1,0 +1,92 @@
+{
+  "paper_id": "arxiv-1705.07115",
+  "paper_type": "experimental",
+  "abstract": "Numerous deep learning applications benefit from multi-task learning with multiple regression and classification objectives. In this paper we make the observation that the performance of such systems is strongly dependent on the relative weighting between each task’s loss. Tuning these weights by hand is a difficult and expensive process, making multi-task learning prohibitive in practice. We propose a principled approach to multi-task deep learning which weighs multiple loss functions by considering the homoscedastic uncertainty of each task. This allows us to simultaneously learn various quantities with different units or scales in both classification and regression settings. We demonstrate our model learning per-pixel depth regression, semantic and instance segmentation from a monocular input image. Perhaps surprisingly, we show our model can learn multi-task weightings and outperform separate models trained individually on each task.",
+  "bibliographic": {
+    "title": "Multi-Task Learning Using Uncertainty to Weigh Losses for Scene Geometry and Semantics",
+    "authors": [
+      {
+        "first_name": "Alex",
+        "last_name": "Kendall"
+      },
+      {
+        "first_name": "Yarin",
+        "last_name": "Gal"
+      },
+      {
+        "first_name": "Roberto",
+        "last_name": "Cipolla"
+      }
+    ],
+    "year": 2018,
+    "venue": "Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR 2018)",
+    "venue_type": "conference",
+    "doi_or_url": "https://doi.org/10.1109/CVPR.2018.00781"
+  },
+  "content": {
+    "problem": "Multi-task deep learning performance depends strongly on the relative weighting between each task's loss, and hand-tuning these weights is expensive and difficult, which makes multi-task learning impractical.",
+    "proposed_solution": "The authors derive a principled multi-task loss function that automatically learns the relative weights of multiple classification and regression losses by maximizing the likelihood of each task under its homoscedastic (task-dependent) uncertainty.",
+    "algorithm_or_model": "homoscedastic uncertainty-weighted multi-task loss with a DeepLabV3/ResNet101 encoder-decoder scene understanding network",
+    "dataset_testbed": [
+      "CityScapes",
+      "Tiny CityScapes (downsampled to 128x256 resolution)",
+      "NVIDIA GeForce GTX 1080Ti GPU"
+    ],
+    "metrics": [
+      {
+        "name": "Segmentation",
+        "value": 63.4,
+        "unit": "percent",
+        "condition": "joint model trained on all three tasks with the uncertainty-weighted multi-task loss, Tiny CityScapes validation set at 128x256 resolution"
+      },
+      {
+        "name": "Segmentation",
+        "value": 59.4,
+        "unit": "percent",
+        "condition": "single-task semantic segmentation baseline, Tiny CityScapes validation set at 128x256 resolution"
+      },
+      {
+        "name": "Instance",
+        "value": 3.5,
+        "unit": "px",
+        "condition": "joint model trained on all three tasks with the uncertainty-weighted multi-task loss, Tiny CityScapes validation set at 128x256 resolution"
+      },
+      {
+        "name": "Inverse Depth",
+        "value": 0.522,
+        "unit": "px",
+        "condition": "joint model trained on all three tasks with the uncertainty-weighted multi-task loss, Tiny CityScapes validation set at 128x256 resolution"
+      },
+      {
+        "name": "IoU class",
+        "value": 78.5,
+        "unit": "percent",
+        "condition": "full-resolution CityScapes test benchmark with a single model jointly learning all three tasks"
+      },
+      {
+        "name": "Mean Error",
+        "value": 2.92,
+        "unit": "px",
+        "condition": "disparity (inverse depth) prediction on the full-resolution CityScapes test benchmark"
+      }
+    ],
+    "claim": "Weighting task losses by learned homoscedastic uncertainty allows a single model to jointly learn semantic segmentation, instance segmentation, and per-pixel depth regression while outperforming separately trained single-task models.",
+    "author_stated_limitations": [
+      "The authors' results indicate that there is usually no single optimal loss weighting that works for all tasks."
+    ],
+    "themes": [
+      "multi-task learning",
+      "scene understanding",
+      "semantic segmentation",
+      "depth estimation"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "However, we show that performance is highly dependent on an appropriate choice of weighting between each task’s loss. Searching for an optimal weighting is prohibitively expensive and difficult to resolve with manual tuning.",
+    "proposed_solution_quote": "In this work we propose a principled way of combining multiple loss functions to simultaneously learn multiple objectives using homoscedastic uncertainty. We interpret homoscedastic uncertainty as task-dependent weighting and show how to derive a principled multi-task loss function which can learn to balance various regression and classification losses.",
+    "claim_quote": "Perhaps surprisingly, we show our model can learn multi-task weightings and outperform separate models trained individually on each task.",
+    "author_stated_limitation_quotes": [
+      "Firstly, our results show that there is usually not a single optimal weighting for all tasks."
+    ]
+  }
+}

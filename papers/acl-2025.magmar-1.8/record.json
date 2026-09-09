@@ -1,0 +1,51 @@
+{
+  "paper_id": "acl-2025.magmar-1.8",
+  "paper_type": "experimental",
+  "abstract": "We propose MT2ST, a general and efficient framework for accelerating multi-task training by progressively transitioning to single-task optimization. Unlike conventional multi-task learning (MTL) or singletask fine-tuning (STL), MT2ST dynamically adjusts the training focus via two complementary strategies: Diminish, which gradually down-weights auxiliary losses, and Switch, which explicitly switches to the primary task at a scheduled point. We demonstrate the effectiveness of MT2ST across three key paradigms: representation learning, transformers, and diffusion models, covering both unimodal (text/image) and multimodal (vision-language) tasks. Extensive experiments show that MT2ST significantly improves training efficiency—achieving up to 56% FLOPs compression—while maintaining or surpassing task performance. These results suggest MT2ST as a general-purpose solution for scalable and adaptive multi-task training. Although this work is general-purpose, it is especially suitable for multimodal settings such as VQA or vision-language retrieval, where auxiliary pretraining (e.g., masked language modeling or contrastive learning) often diverges from final objectives. We include a VQA case study and outline its efficiency for multimodal retrieval in §4.",
+  "bibliographic": {
+    "title": "MT2ST: Adaptive Multi-Task to Single-Task Learning",
+    "authors": [
+      {"first_name": "Dong", "last_name": "Liu"},
+      {"first_name": "Yanxuan", "last_name": "Yu"}
+    ],
+    "year": 2025,
+    "venue": "Proceedings of the 1st Workshop on Multimodal Augmented Generation via Multimodal Retrieval (MAGMaR 2025)",
+    "venue_type": "workshop",
+    "doi_or_url": "https://aclanthology.org/2025.magmar-1.8/"
+  },
+  "content": {
+    "problem": "Multi-task training helps generalization but causes gradient conflicts, task interference, and extra computation, while single-task training lacks representation reuse, so efficient training is hard to achieve.",
+    "proposed_solution": "They propose MT2ST, a framework that starts with multi-task learning and then transitions to single-task optimization through decaying auxiliary weights or a scheduled hard switch.",
+    "algorithm_or_model": "MT2ST with Diminish and Switch transition strategies",
+    "dataset_testbed": [
+      "MNLI (GLUE)",
+      "SST-2 and QQP (GLUE)",
+      "VQA v2.0",
+      "Visual7W Telling",
+      "Flickr30k Entities",
+      "CIFAR-100",
+      "TinyImageNet",
+      "MS-COCO",
+      "4x NVIDIA A100 GPUs"
+    ],
+    "metrics": [
+      {"name": "accuracy", "value": 85.0, "unit": "percent", "condition": "BERT-base on MNLI with the Switch strategy vs 83.1 for single-task training"},
+      {"name": "VQA accuracy", "value": 71.8, "unit": "percent", "condition": "ViLT on VQA v2.0 with the Switch strategy vs 69.4 for single-task training"},
+      {"name": "FLOPs compression", "value": 47.6, "unit": "percent", "condition": "BERT-base on MNLI with the Switch strategy vs single-task training"},
+      {"name": "compression rate", "value": 56.1, "unit": "percent", "condition": "Skip-Gram word embeddings with the Switch strategy vs single-task training"},
+      {"name": "Top-1 accuracy", "value": 74.2, "unit": "percent", "condition": "ResNet-18 on CIFAR-100 with the Switch strategy vs 71.3 for single-task training"},
+      {"name": "ITM R@1", "value": 63.8, "unit": "percent", "condition": "ViLT multimodal retrieval setup on VQA and Visual7W with the Switch strategy"},
+      {"name": "FID", "value": 10.5, "unit": "", "condition": "DiT-XL/2 latent diffusion on MS-COCO with the Switch strategy, lower is better"},
+      {"name": "IS", "value": 29.8, "unit": "", "condition": "DiT-XL/2 latent diffusion on MS-COCO with the Switch strategy, higher is better"}
+    ],
+    "claim": "Across text, vision, and multimodal models, MT2ST improves or keeps task accuracy while cutting training time and computation by a large margin.",
+    "author_stated_limitations": ["Task transition schedules in both strategies are predefined rather than adaptive or learned."],
+    "themes": ["multi-task learning", "training efficiency", "representation learning", "multimodal learning"]
+  },
+  "evidence": {
+    "problem_quote": "Nevertheless, MTL is not without cost: task interference, gradient conflict [Sener and Koltun, 2018], and heterogeneous learning dynamics can degrade both convergence speed and final task performance [Zhang et al., 2023, Zhang and Yang, 2021, Yu et al., 2020].",
+    "proposed_solution_quote": "To address this dilemma, we propose the **Multi-Task to Single-Task (MT2ST)** framework—an adaptive training strategy that combines the strengths of MTL and STL by dynamically shifting the training focus from a multi-task setup to a single-task objective.",
+    "claim_quote": "Empirical results on text, image, and multimodal tasks show that MT2ST consistently improves accuracy while reducing training time and computational overhead.",
+    "author_stated_limitation_quotes": ["Currently, task transition schedules in both strategies are predefined; future work may benefit from more adaptive or learned scheduling."]
+  }
+}

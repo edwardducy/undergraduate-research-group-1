@@ -1,0 +1,51 @@
+{
+  "paper_id": "doi-10.2307-25148625",
+  "paper_type": "methodology-theory",
+  "abstract": "Two paradigms characterize much of the research in the Information Systems discipline:  behavioral science and design science.  The behavioralscience paradigm seeks to develop and verify theories that explain or predict human or organizational behavior.  The design-science paradigm seeks to extend the boundaries of human and organizational capabilities by creating new and innovative artifacts.  Both paradigms are foundational to the IS discipline, positioned as it is at the confluence of people, organizations, and technology.  Our objective is to describe the performance of design-science research in Information Systems via a concise conceptual framework and clear guidelines for understanding, executing, and evaluating the research.   In the design-science paradigm, knowledge and understanding of a problem domain and its solution are achieved in the building and application of the designed artifact.  Three recent exemplars in the research literature are used to demonstrate the application of these guidelines.  We conclude with an analysis of the challenges of performing high-quality design-science research in the context of the broader IS community.",
+  "bibliographic": {
+    "title": "Design Science in Information Systems Research",
+    "authors": [
+      {
+        "first_name": "Alan R.",
+        "last_name": "Hevner"
+      },
+      {
+        "first_name": "Sudha",
+        "last_name": "Ram"
+      },
+      {
+        "first_name": "Salvatore T.",
+        "last_name": "March"
+      },
+      {
+        "first_name": "Jinsoo",
+        "last_name": "Park"
+      }
+    ],
+    "year": 2004,
+    "venue": "MIS Quarterly",
+    "venue_type": "journal",
+    "doi_or_url": "https://doi.org/10.2307/25148625"
+  },
+  "content": {
+    "problem": "Information systems research lacks clear standards for design science, which makes it hard to distinguish design research from routine system building.",
+    "proposed_solution": "The authors propose a conceptual framework combining design science and behavioral science, supported by seven practical guidelines for conducting and evaluating design-science research.",
+    "algorithm_or_model": "Information Systems research framework and seven design-science research guidelines",
+    "dataset_testbed": [],
+    "metrics": [],
+    "claim": "The authors argue that both design science and behavioral science are essential to ensure the rigor, relevance, and effectiveness of information systems research.",
+    "author_stated_limitations": [],
+    "themes": [
+      "design science",
+      "information systems research methodology",
+      "design evaluation",
+      "IT artifacts"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "One issue that must be addressed in designscience research is differentiating routine design or system building from design research. The difference is in the nature of the problems and solutions.",
+    "proposed_solution_quote": "The primary goal of this paper is to inform the community of IS researchers and practitioners of how to conduct, evaluate, and present designscience research. We do so by describing the boundaries of design science within the IS discipline via a conceptual framework for understanding information systems research and by developing a set of guidelines for conducting and evaluating good design-science research.",
+    "claim_quote": "We argue that both designscience and behavioral-science paradigms are needed to ensure the relevance and effectiveness of IS research. Given the artificial nature of organizations and the information systems that support them, the design-science paradigm can play a significant role in resolving the fundamental dilemmas that have plagued IS research: rigor, relevance, discipline boundaries, behavior, and technology (Lee 2000).",
+    "author_stated_limitation_quotes": []
+  }
+}

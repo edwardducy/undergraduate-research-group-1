@@ -1,0 +1,52 @@
+{
+  "paper_id": "doi-10.12720-jait.16.2.233-242",
+  "paper_type": "experimental",
+  "abstract": "Code-switching, the alternation between languages within a sentence or discourse, poses significant challenges in Natural Language Processing (NLP). Effective NLP systems must employ advanced modeling techniques to accurately process and generate code-switched text, capturing the linguistic nuances and contextual dependencies. This study evaluates five open-source Large Language Models (LLMs)—Mistral, SeaLLM, Falcon, Phi-3-mini, and Gemma—on their performance with code-switched Tagalog-English (Taglish) queries in a retrieval-augmented generation (RAG) task. Mistral and SeaLLM outperformed the others in generating contextually grounded and relevant answers, attributed to their advanced architectures and extensive multilingual training data. In contrast, Falcon, Phi-3-mini, and Gemma struggled with effective code-switching handling. The models performed best on English queries, followed by Taglish, with the lowest performance on Tagalog queries, highlighting the need for more balanced training data for low-resource languages. Additionally, models retrieved context better from .pdf documents compared to .txt files. Future research should focus on analyzing language composition in datasets, investigating real-world codeswitching behavior, and studying the effects of code-switching on model understanding to enhance NLP accessibility for underrepresented languages.",
+  "bibliographic": {
+    "title": "Benchmarking Open-Source Large Language Models on Code-Switched Tagalog-English Retrieval Augmented Generation",
+    "authors": [
+      {"first_name": "Aunhel John M.", "last_name": "Adoptante"},
+      {"first_name": "Jasper Adrian Dwight V.", "last_name": "Castro"},
+      {"first_name": "Micholo Lanz B.", "last_name": "Medrana"},
+      {"first_name": "Alyssa Patricia B.", "last_name": "Ocampo"},
+      {"first_name": "Elmer C.", "last_name": "Peramo"},
+      {"first_name": "Melissa Ruth M.", "last_name": "Miranda"}
+    ],
+    "year": 2025,
+    "venue": "Journal of Advances in Information Technology",
+    "venue_type": "journal",
+    "doi_or_url": "https://doi.org/10.12720/jait.16.2.233-242"
+  },
+  "content": {
+    "problem": "It is unclear how well open-source LLMs handle Tagalog-English code-switched queries in retrieval-augmented generation, and code-switching raises the risk of hallucinated answers.",
+    "proposed_solution": "The authors built a RAG question answering pipeline around five open-source LLMs and benchmarked their answers to English, Tagalog, and Taglish questions with overlap metrics and LLM-judged quality metrics.",
+    "algorithm_or_model": "Five open-source LLMs (Mistral-7B-Instruct-v0.3, SeaLLMs-v3-1.5B-Chat, Falcon-7b-instruct, Phi-3-mini-4k-instruct, Gemma-7b-it) in a LangChain and FAISS RAG pipeline",
+    "dataset_testbed": [
+      "Curated corpus of nine .txt and .pdf documents covering news articles, short stories, and academic literature written in English, Tagalog, or Taglish",
+      "Manually built evaluation set of 15 question-answer pairs per document, grouped into five questions each in English, Tagalog, and Taglish"
+    ],
+    "metrics": [
+      {"name": "BLEU", "value": 0.106744, "unit": "", "condition": "Gemma-7b-it, the highest overall BLEU score among the five evaluated models"},
+      {"name": "ROUGE-1", "value": 0.234581, "unit": "", "condition": "SeaLLMs-v3-1.5B-Chat, the best ROUGE-1 F1 score among the five evaluated models"},
+      {"name": "ROUGE-2", "value": 0.137146, "unit": "", "condition": "SeaLLMs-v3-1.5B-Chat, the best ROUGE-2 F1 score among the five evaluated models"},
+      {"name": "ROUGE-L", "value": 0.208251, "unit": "", "condition": "SeaLLMs-v3-1.5B-Chat, the best ROUGE-L F1 score among the five evaluated models"},
+      {"name": "Answer Relevance", "value": 7.5, "unit": "", "condition": "SeaLLMs-v3-1.5B-Chat on English questions with intra-sentence code-switching, scored by gpt-4o-mini on a 0 to 10 scale"},
+      {"name": "ANOVA p-value", "value": 5.04e-17, "unit": "", "condition": "Effect of code-switching on Context Relevance across the evaluated models"}
+    ],
+    "claim": "Mistral and SeaLLM clearly beat Falcon, Phi-3-mini, and Gemma at producing grounded and relevant answers for code-switched queries, while all models performed best on English, next on Taglish, and worst on Tagalog.",
+    "author_stated_limitations": [
+      "The overlap metrics BLEU and ROUGE have limitations, so the authors also used the RAG triad metrics to capture semantic meaning and sentence structure.",
+      "Improperly parsed documents can produce semantically inaccurate context chunks that strongly influence the LLM responses in their pipeline."
+    ],
+    "themes": ["large language models", "retrieval augmented generation", "code switching", "low-resource languages"]
+  },
+  "evidence": {
+    "problem_quote": "However, the challenge of code-switching—where speakers alternate between two or more languages within a single conversation or sentence—poses unique difficulties for LLMs [7]. Code-switching introduces linguistic complexity that goes beyond simple bilingualism, requiring models to not only understand multiple languages but also to navigate the nuanced and dynamic transitions between them [8].",
+    "proposed_solution_quote": "This paper aims to benchmark the performance of opensource large language models on code-switched TagalogEnglish retrieval-augmented generation tasks.",
+    "claim_quote": "The study revealed Mistral and SeaLLM consistently outperformed the others in generating contextually grounded and relevant answers, attributable to their advanced architectures and extensive multilingual training data. Performance analysis indicated that the models excelled with English queries, followed by Taglish, and performed the worst with Tagalog queries, underscoring the need for more balanced training data that includes low-resource languages.",
+    "author_stated_limitation_quotes": [
+      "Since BLEU and ROUGE have their limitations, the RAG triad was also employed for evaluation to account for semantic meaning and sentence structure.",
+      "Improperly parsed documents may lead to semantically inaccurate context chunks which can greatly influence the LLM's response."
+    ]
+  }
+}

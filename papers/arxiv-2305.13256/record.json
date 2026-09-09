@@ -1,0 +1,131 @@
+{
+  "paper_id": "arxiv-2305.13256",
+  "paper_type": "experimental",
+  "abstract": "Recent work in NLP has shown promising results in training models on large amounts of tasks to achieve better generalization. However, it is not well-understood how tasks are related, and how helpful training tasks can be chosen for a new task. In this work, we investigate whether knowing task relationships via pairwise task transfer improves choosing one or more source tasks that help to learn a new target task. We provide TaskWeb, a large-scale benchmark of pairwise task transfers for 22 NLP tasks using three different model types, sizes, and adaptation methods, spanning about 25,000 experiments. Then, we design a new method TaskShop based on our analysis of TaskWeb. TaskShop uses TaskWeb to estimate the benefit of using a source task for learning a new target task, and to choose a subset of helpful training tasks for multi-task training. Our method improves overall rankings and top-kk precision of source tasks by 10% and 38%, respectively. We also use TaskShop to build much smaller multi-task training sets that improve zero-shot performances across 11 different target tasks by at least 4.3%. 11 1 Our code is available at [https://github.com/danieljkim0118/TaskWeb](https://github.com/danieljkim0118/TaskWeb \"\").",
+  "bibliographic": {
+    "title": "TaskWeb: Selecting Better Source Tasks for Multi-task NLP",
+    "authors": [
+      {
+        "first_name": "Joongwon",
+        "last_name": "Kim"
+      },
+      {
+        "first_name": "Akari",
+        "last_name": "Asai"
+      },
+      {
+        "first_name": "Gabriel",
+        "last_name": "Ilharco"
+      },
+      {
+        "first_name": "Hannaneh",
+        "last_name": "Hajishirzi"
+      }
+    ],
+    "year": 2023,
+    "venue": "Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing (EMNLP 2023)",
+    "venue_type": "conference",
+    "doi_or_url": "https://doi.org/10.18653/v1/2023.emnlp-main.680"
+  },
+  "content": {
+    "problem": "Because inter-task relationships are poorly understood, researchers lack principled ways to select helpful source tasks for learning a new target task.",
+    "proposed_solution": "The authors introduce TaskWeb to benchmark pairwise transfers and propose TaskShop, a method that uses pivot tasks and transfer scores to select source tasks for an unseen target.",
+    "algorithm_or_model": "TaskShop",
+    "dataset_testbed": [
+      "TaskWeb",
+      "ANLI",
+      "CB",
+      "QNLI",
+      "RTE",
+      "SciTail",
+      "SNLI",
+      "MRPC",
+      "QQP",
+      "STSB",
+      "IMDB",
+      "Rotten Tomatoes",
+      "COPA",
+      "CosmosQA",
+      "HellaSwag",
+      "PIQA",
+      "Quartz",
+      "SocialIQA",
+      "Winogrande",
+      "WiC",
+      "WSC",
+      "BoolQ",
+      "SQuAD2.0",
+      "Story Cloze"
+    ],
+    "metrics": [
+      {
+        "name": "NDCG improvement",
+        "value": 10,
+        "unit": "percent",
+        "condition": "TaskShop improvement in overall ranking of source tasks over base task selection methods"
+      },
+      {
+        "name": "top-k precision improvement",
+        "value": 38,
+        "unit": "percent",
+        "condition": "TaskShop improvement in top-k precision of identifying helpful source tasks over base task selection methods"
+      },
+      {
+        "name": "NDCG",
+        "value": 71.54,
+        "unit": "",
+        "condition": "TaskShop with RoE as the base method evaluated against TaskWeb gold labels"
+      },
+      {
+        "name": "Regret@5",
+        "value": 2.66,
+        "unit": "",
+        "condition": "TaskShop with RoE as the base method evaluated against TaskWeb gold labels"
+      },
+      {
+        "name": "zero-shot performance",
+        "value": 60.69,
+        "unit": "percent",
+        "condition": "Mean zero-shot accuracy across 11 target tasks for T5-3B finetuned on the top-5 source tasks selected by TaskShop with RoE"
+      },
+      {
+        "name": "improvement over T0-3B",
+        "value": 14.7,
+        "unit": "percent",
+        "condition": "Mean zero-shot gain of TaskShop multi-task training sets over the T0-3B baseline across 11 target tasks"
+      },
+      {
+        "name": "improvement over strongest baseline",
+        "value": 4.3,
+        "unit": "percent",
+        "condition": "Mean zero-shot gain of TaskShop small multi-task training sets over the strongest baseline"
+      }
+    ],
+    "claim": "TaskShop effectively selects source tasks using pairwise transfer scores, enabling small multi-task training sets to achieve superior zero-shot performance compared to models trained on much larger task sets.",
+    "author_stated_limitations": [
+      "The evaluated tasks do not cover all NLP domains because long-form and domain-specific tasks are omitted to support diverse model architectures.",
+      "The benchmark is limited to English datasets and does not evaluate multilingual settings.",
+      "The findings are restricted to models with at most three billion parameters and may not apply to much larger language models.",
+      "Multi-task finetuning only uses uniform sampling of two thousand examples per task, which may behave differently under other sampling strategies.",
+      "The method assumes discrete task boundaries rather than diverse instruction-output pairs commonly used in modern instruction tuning."
+    ],
+    "themes": [
+      "multi-task learning",
+      "task transfer",
+      "task selection",
+      "natural language processing"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "Recent work in NLP has shown promising results in training models on large amounts of tasks to achieve better generalization. However, it is not well-understood how tasks are related, and how helpful training tasks can be chosen for a new task.",
+    "proposed_solution_quote": "Then, we design a new method TaskShop based on our analysis of TaskWeb. TaskShop uses TaskWeb to estimate the benefit of using a source task for learning a new target task, and to choose a subset of helpful training tasks for multi-task training.",
+    "claim_quote": "Our method improves overall rankings and top-kk precision of source tasks by 10% and 38%, respectively. We also use TaskShop to build much smaller multi-task training sets that improve zero-shot performances across 11 different target tasks by at least 4.3%.",
+    "author_stated_limitation_quotes": [
+      "First, our set of tasks does not constitute the entirety of NLP tasks. While we use 22 NLP tasks that are representative enough to cover various types of reasoning, we do not include long-form tasks (e.g., summarization, LFQA) or domain-specific tasks (e.g., law, medicine) to facilitate experiments across various model architectures such as encoder-only models.",
+      "Moreover, our datasets are in English and we do not incorporate multilinguality in our experiments.",
+      "Second, our work focuses on models with at most three billion parameters. Our finding may not be directly applicable to models with orders of magnitude more parameters considering factors such as emergence [Wei et al. (2022b)](#bib.bib61 \"\"), which can be explored in future work.",
+      "Third, we perform our multi-task finetuning experiments by uniformly sampling 2,000 examples from each source task following the style of [Wang et al. (2022b)](#bib.bib58 \"\"). Therefore, different behavior may arise when other sampling strategies are used.",
+      "Finally, recent work shows the effectiveness of using diverse instruction-output pairs which do not necessarily have clear boundaries as our tasks do [Ouyang et al. (2022)](#bib.bib38 \"\"); [Wang et al. (2022a)](#bib.bib57 \"\"); [Wang et al. (2023)](#bib.bib56 \"\")."
+    ]
+  }
+}

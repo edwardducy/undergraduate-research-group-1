@@ -1,0 +1,114 @@
+{
+  "paper_id": "arxiv-2111.10603",
+  "paper_type": "experimental",
+  "abstract": "Multi-Task Learning (MTL) has achieved success in various fields. However, how to balance different tasks to achieve good performance is a key problem. To achieve the task balancing, there are many works to carefully design dynamical loss/gradient weighting strategies but the basic random experiments are ignored to examine their effectiveness. In this paper, we propose the Random Weighting (RW) methods, including Random Loss Weighting (RLW) and Random Gradient Weighting (RGW), where an MTL model is trained with random loss/gradient weights sampled from a distribution. To show the effectiveness and necessity of RW methods, theoretically we analyze the convergence of RW and reveal that RW has a higher probability to escape local minima, resulting in better generalization ability. Empirically, we extensively evaluate the proposed RW methods to compare with twelve state-of-the-art methods on five image datasets and two multilingual problems from the XTREME benchmark to show RW methods can achieve comparable performance with state-of-the-art baselines. Therefore, we think that the RW methods are important baselines for MTL and should attract more attentions.",
+  "bibliographic": {
+    "title": "Reasonable Effectiveness of Random Weighting: A Litmus Test for Multi-Task Learning",
+    "authors": [
+      {
+        "first_name": "Baijiong",
+        "last_name": "Lin"
+      },
+      {
+        "first_name": "Feiyang",
+        "last_name": "Ye"
+      },
+      {
+        "first_name": "Yu",
+        "last_name": "Zhang"
+      },
+      {
+        "first_name": "Ivor W.",
+        "last_name": "Tsang"
+      }
+    ],
+    "year": 2022,
+    "venue": "Transactions on Machine Learning Research (TMLR)",
+    "venue_type": "journal",
+    "doi_or_url": "https://arxiv.org/abs/2111.10603"
+  },
+  "content": {
+    "problem": "Task balancing methods in multi-task learning are only checked against fixed equal weighting, so their true benefit is unclear because basic random weighting experiments were never used as a baseline.",
+    "proposed_solution": "The paper trains multi-task models with random loss or gradient weights sampled from a distribution each iteration and shows these simple methods match carefully designed balancing strategies.",
+    "algorithm_or_model": "Random Weighting (Random Loss Weighting and Random Gradient Weighting)",
+    "dataset_testbed": [
+      "NYUv2",
+      "CityScapes",
+      "CelebA",
+      "Office-31",
+      "Office-Home",
+      "PAWS-X and Universal Dependencies v2.5 from the XTREME benchmark",
+      "NVIDIA GeForce RTX 3090 GPU"
+    ],
+    "metrics": [
+      {
+        "name": "Delta_p",
+        "value": 1.04,
+        "unit": "percent",
+        "condition": "RLW relative improvement over Equal Weighting on the NYUv2 dataset with the Hard-Parameter Sharing architecture"
+      },
+      {
+        "name": "Delta_p",
+        "value": 0.62,
+        "unit": "percent",
+        "condition": "RGW relative improvement over Equal Weighting on the NYUv2 dataset"
+      },
+      {
+        "name": "Delta_p",
+        "value": 2.36,
+        "unit": "percent",
+        "condition": "RGW relative improvement over Equal Weighting on the CityScapes dataset"
+      },
+      {
+        "name": "average accuracy",
+        "value": 90.25,
+        "unit": "percent",
+        "condition": "RLW on the paraphrase identification problem of the XTREME benchmark averaged over four languages"
+      },
+      {
+        "name": "average F1",
+        "value": 91.16,
+        "unit": "percent",
+        "condition": "RGW on the POS tagging problem of the XTREME benchmark averaged over four languages"
+      },
+      {
+        "name": "average accuracy",
+        "value": 90.73,
+        "unit": "percent",
+        "condition": "RLW on the CelebA dataset with forty binary classification tasks"
+      },
+      {
+        "name": "average accuracy",
+        "value": 92.55,
+        "unit": "percent",
+        "condition": "RGW on the Office-31 dataset averaged over the three domains"
+      },
+      {
+        "name": "average accuracy",
+        "value": 78.07,
+        "unit": "percent",
+        "condition": "RGW on the Office-Home dataset averaged over the four domains"
+      },
+      {
+        "name": "Delta_p",
+        "value": 3.53,
+        "unit": "percent",
+        "condition": "RLW combined with CAGrad under the NDDR-CNN architecture on the NYUv2 dataset"
+      }
+    ],
+    "claim": "Random weighting consistently beats equal weighting and performs comparably with state-of-the-art balancing methods, which makes it a necessary baseline for judging new multi-task learning methods.",
+    "author_stated_limitations": [],
+    "themes": [
+      "multi-task learning",
+      "task balancing",
+      "random weighting",
+      "optimization"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "However, all of the existing works take Equal Weighting (EW) which uses the fixed and equal weights in the whole training process as a basic baseline to test the effectiveness of their methods. We think that this baseline is not sufficient and it is quite necessary to conduct random experiments, which is missing in existing works, as a baseline to test them.",
+    "proposed_solution_quote": "Therefore, in this paper, we propose the Random Weighting (RW) methods including Random Loss Weighting (RLW) and Random Gradient Weighting (RGW) as more reasonable baselines to test loss and gradient balancing methods, respectively.",
+    "claim_quote": "On five Computer Vision (CV) datasets and two multilingual problems from the XTREME benchmark [11], we show that RW methods can consistently outperform EW and have competitive performance with existing SOTA methods.",
+    "author_stated_limitation_quotes": []
+  }
+}

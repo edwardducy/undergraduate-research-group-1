@@ -1,0 +1,98 @@
+{
+  "paper_id": "arxiv-2311.07171",
+  "paper_type": "tool-system",
+  "abstract": "We introduce calamanCy, an open-source toolkit for constructing natural language processing (NLP) pipelines for Tagalog. It is built on top of spaCy, enabling easy experimentation and integration with other frameworks. calamanCy addresses the development gap by providing a consistent API for building NLP applications and offering general-purpose multitask models with out-of-the-box support for dependency parsing, parts-of-speech (POS) tagging, and named entity recognition (NER). calamanCy aims to accelerate the progress of Tagalog NLP by consolidating disjointed resources in a unified framework. The calamanCy toolkit is available on GitHub: https://github.com/ljvmiranda921/calamanCy",
+  "bibliographic": {
+    "title": "calamanCy: A Tagalog Natural Language Processing Toolkit",
+    "authors": [
+      {
+        "first_name": "Lester James V.",
+        "last_name": "Miranda"
+      }
+    ],
+    "year": 2023,
+    "venue": "Proceedings of the 3rd Workshop for Natural Language Processing Open Source Software (NLP-OSS 2023)",
+    "venue_type": "workshop",
+    "doi_or_url": "https://doi.org/10.18653/v1/2023.nlposs-1.1"
+  },
+  "content": {
+    "problem": "Tagalog is a low-resource language whose corpora, treebanks, and language models are scattered, and no unified framework exists for building its NLP pipelines.",
+    "proposed_solution": "The authors built calamanCy, an open-source toolkit on top of spaCy that provides ready-to-use multitask pipelines for POS tagging, dependency parsing, and named entity recognition in Tagalog.",
+    "algorithm_or_model": "calamanCy multitask pipelines (tl_calamancy_md, lg, trf)",
+    "dataset_testbed": [
+      "TLUnified pretraining corpus",
+      "TLUnified-NER (annotated NER corpus created in this paper)",
+      "Merged Universal Dependencies treebanks (TRG and Ugnayan)",
+      "Hatespeech election tweets dataset (10k tweets)",
+      "Dengue tweets dataset (4k tweets)",
+      "64 vCPU machine with 256 GB RAM for pretraining",
+      "T4 or V100 GPU for transformer pipelines"
+    ],
+    "metrics": [
+      {
+        "name": "F1",
+        "value": 90.34,
+        "unit": "percent",
+        "condition": "Named entity recognition on the TLUnified-NER held-out test split with the tl_calamancy_trf pipeline, averaged over five trials"
+      },
+      {
+        "name": "F1",
+        "value": 78.25,
+        "unit": "percent",
+        "condition": "Binary hate speech text classification with the tl_calamancy_trf pipeline, averaged over five trials"
+      },
+      {
+        "name": "F1",
+        "value": 72.45,
+        "unit": "percent",
+        "condition": "Multilabel dengue text classification with the tl_calamancy_trf pipeline, averaged over five trials"
+      },
+      {
+        "name": "UAS",
+        "value": 92.48,
+        "unit": "percent",
+        "condition": "Dependency parsing on the merged UD treebanks with the tl_calamancy_trf pipeline using 10-fold cross-validation"
+      },
+      {
+        "name": "LAS",
+        "value": 80.9,
+        "unit": "percent",
+        "condition": "Dependency parsing on the merged UD treebanks with the tl_calamancy_trf pipeline using 10-fold cross-validation"
+      },
+      {
+        "name": "POS accuracy",
+        "value": 97.8,
+        "unit": "percent",
+        "condition": "POS tagging on the merged UD treebanks with the tl_calamancy_trf pipeline using 10-fold cross-validation"
+      },
+      {
+        "name": "Cohen's kappa",
+        "value": 0.81,
+        "unit": "",
+        "condition": "Inter-annotator agreement on all tokens, averaged over all three annotator pairs during TLUnified-NER annotation"
+      }
+    ],
+    "claim": "CalamanCy pipelines are competitive on core Tagalog NLP tasks with a smaller compute footprint, and users with low compute budgets can match multilingual language models using the static vector models.",
+    "author_stated_limitations": [
+      "The news articles in TLUnified-NER date from the early 2000s to the present, which could constrain test-time performance.",
+      "The UD corpora for the POS tagger and dependency parser are small, with fewer than 10k tokens, which could constrain performance.",
+      "Reproducing the transformer pipelines needs a T4 or V100 GPU, and pretraining on the whole TLUnified corpus takes about three days on a large machine."
+    ],
+    "themes": [
+      "low-resource languages",
+      "Tagalog NLP",
+      "NLP toolkits",
+      "named entity recognition"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "Thus, consolidating these disjointed resources in a coherent framework is still an open problem. The lack of such framework hampers model development, experimental workflows, and the overall advancement of Tagalog NLP.",
+    "proposed_solution_quote": "We introduce calamanCy, an open-source toolkit for constructing natural language processing (NLP) pipelines for Tagalog. It is built on top of spaCy, enabling easy experimentation and integration with other frameworks.",
+    "claim_quote": "The calamanCy pipelines are competitive across all core NLP tasks while maintaining a smaller compute footprint. As shown in the text categorization and NER results, users with low compute budgets can attain similar performance to multilingual LMs by using medium- or large-sized calamanCy models.",
+    "author_stated_limitation_quotes": [
+      "The TLUnified-NER corpus utilized for training the NER component of calamanCy comprises of new articles from early 2000s to the present.",
+      "In addition the Universal Dependencies (UD) corpora for the POS tagger and dependency parser components are relatively modest in size, containing fewer than 10k tokens. Hence, the performance for these tasks during test-time could potentially be constrained by these factors.",
+      "Finally, reproducing the transformer pipelines may require a T4 or V100 GPU. The biggest bottleneck for reproduction is pretraining on the whole TLUnified corpus."
+    ]
+  }
+}

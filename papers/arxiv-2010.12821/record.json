@@ -1,0 +1,122 @@
+{
+  "paper_id": "arxiv-2010.12821",
+  "paper_type": "experimental",
+  "abstract": "We re-evaluate the standard practice of sharing weights between input and output embeddings in state-of-the-art pre-trained language models. We show that decoupled embeddings provide increased modeling flexibility, allowing us to significantly improve the efficiency of parameter allocation in the input embedding of multilingual models. By reallocating the input embedding parameters in the Transformer layers, we achieve dramatically better performance on standard natural language understanding tasks with the same number of parameters during fine-tuning. We also show that allocating additional capacity to the output embedding provides benefits to the model that persist through the fine-tuning stage even though the output embedding is discarded after pre-training. Our analysis shows that larger output embeddings prevent the model’s last layers from overspecializing to the pre-training task and encourage Transformer representations to be more general and more transferable to other tasks and languages. Harnessing these findings, we are able to train models that achieve strong performance on the xtreme benchmark without increasing the number of parameters at the fine-tuning stage.",
+  "bibliographic": {
+    "title": "Rethinking embedding coupling in pre-trained language models",
+    "authors": [
+      {
+        "first_name": "Hyung Won",
+        "last_name": "Chung"
+      },
+      {
+        "first_name": "Thibault",
+        "last_name": "Févry"
+      },
+      {
+        "first_name": "Henry",
+        "last_name": "Tsai"
+      },
+      {
+        "first_name": "Melvin",
+        "last_name": "Johnson"
+      },
+      {
+        "first_name": "Sebastian",
+        "last_name": "Ruder"
+      }
+    ],
+    "year": 2021,
+    "venue": "9th International Conference on Learning Representations (ICLR 2021)",
+    "venue_type": "conference",
+    "doi_or_url": "https://openreview.net/forum?id=xpFFI_NtgpW"
+  },
+  "content": {
+    "problem": "Tying input and output embeddings forces both matrices to share one dimensionality, which pushes multilingual models to spend a large share of their parameter budget on input embeddings.",
+    "proposed_solution": "The authors decouple input and output embedding shapes, shrink input embeddings, enlarge pre-training output embeddings, and reinvest saved parameters into wider or deeper Transformer layers.",
+    "algorithm_or_model": "Rebalanced mBERT (RemBERT)",
+    "dataset_testbed": [
+      "XTREME benchmark tasks: XNLI, PAWS-X, Wikiann NER, XQuAD, MLQA, TyDiQA-GoldP",
+      "Wikipedia dumps in 104 languages for mBERT-scale pre-training",
+      "Wikipedia and Common Crawl text in 110 languages for RemBERT pre-training",
+      "MNLI",
+      "SQuAD",
+      "Word embedding association test datasets: MEN, MTurk771, Rare-Word, SimLex999, Verb-143",
+      "WMT16 English-German sentence pairs for nearest-neighbor translation",
+      "NLP probing tasks from Tenney et al. (2019)",
+      "Google Cloud TPUs (64 for pre-training, 8 for fine-tuning)"
+    ],
+    "metrics": [
+      {
+        "name": "Average XTREME score",
+        "value": 75.4,
+        "unit": "percent",
+        "condition": "RemBERT fine-tuned only on English task training data, averaged over XTREME task categories"
+      },
+      {
+        "name": "XNLI accuracy",
+        "value": 84.2,
+        "unit": "percent",
+        "condition": "RemBERT fine-tuned on English training data"
+      },
+      {
+        "name": "Average XTREME score",
+        "value": 62.7,
+        "unit": "percent",
+        "condition": "Coupled mBERT baseline with 177M fine-tuning parameters"
+      },
+      {
+        "name": "Average XTREME score",
+        "value": 66.2,
+        "unit": "percent",
+        "condition": "Model with input embedding dimension 128, output embedding dimension 768, and 23 Transformer layers, with 178M fine-tuning parameters"
+      },
+      {
+        "name": "Average XTREME score",
+        "value": 60.2,
+        "unit": "percent",
+        "condition": "Model with input embedding dimension 128 and output embedding dimension 768, with 100M fine-tuning parameters"
+      },
+      {
+        "name": "Average XTREME score",
+        "value": 61.8,
+        "unit": "percent",
+        "condition": "Model with input embedding dimension 128 and output embedding dimension 3072, with 100M fine-tuning parameters"
+      },
+      {
+        "name": "Average XTREME score",
+        "value": 56.6,
+        "unit": "percent",
+        "condition": "Model with input and output embedding dimension 128, with 100M fine-tuning parameters"
+      },
+      {
+        "name": "Masked language modeling accuracy",
+        "value": 62.3,
+        "unit": "percent",
+        "condition": "Model with input embedding dimension 128 and output embedding dimension 3072 during pre-training"
+      }
+    ],
+    "claim": "Reallocating parameters away from input embeddings improves performance at identical fine-tuning parameter counts, allowing RemBERT to outperform XLM-R on XTREME despite using 3.5 times fewer pre-training tokens.",
+    "author_stated_limitations": [
+      "The study covers only encoder-only models and excludes encoder-decoder models such as T5, where no embedding matrices are discarded after pre-training.",
+      "The XTREME evaluation skips retrieval tasks because they require intermediate task data.",
+      "The probing tasks are in English even though the encoder is multilingual."
+    ],
+    "themes": [
+      "pre-trained language models",
+      "embedding decoupling",
+      "multilingual models",
+      "parameter efficiency"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "On the other hand, tying input and output embeddings constrains the model to use the same dimensionality for both embeddings. This restriction limits the researcher’s flexibility in parameterizing the model and can lead to allocating too much capacity to the input embeddings, which may be wasteful.",
+    "proposed_solution_quote": "We show that decoupled embeddings provide increased modeling flexibility, allowing us to significantly improve the efficiency of parameter allocation in the input embedding of multilingual models.",
+    "claim_quote": "By reallocating the input embedding parameters in the Transformer layers, we achieve dramatically better performance on standard natural language understanding tasks with the same number of parameters during fine-tuning.",
+    "author_stated_limitation_quotes": [
+      "We focus on encoder-only models, and do not consider encoder-decoder models like T5 (Raffel et al., 2020) where none of the embedding matrices are discarded after pre-training.",
+      "We do not consider retrieval tasks as they require intermediate task data (Phang et al., 2020).",
+      "The probing tasks are in English while our encoder is multilingual."
+    ]
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "paper_id": "arxiv-2509.07252",
+  "paper_type": "experimental",
+  "abstract": "In multi-task learning (MTL), gradient conflict poses a significant challenge. Effective methods for addressing this problem, including PCGrad, CAGrad, and GradNorm, in their original implementations are computationally demanding, which significantly limits their application in modern large models such as transformers. We propose Gradient Conductor (GCond), a method that builds upon PCGrad principles by combining them with gradient accumulation and an adaptive arbitration mechanism. We evaluated GCond on self-supervised multi-task learning tasks using MobileNetV3-Small and ConvNeXt architectures on the ImageNet 1K dataset and a combined head and neck CT scan dataset, comparing the proposed method against baseline linear combinations and state-of-the-art gradient conflict resolution methods. The classical and stochastic approaches of GCond were analyzed. The stochastic mode of GCond achieved a two-fold computational speedup while maintaining optimization quality, and demonstrated superior performance across all evaluated metrics, achieving lower L1 and SSIM losses compared to other methods on both datasets, and demonstrating superior generalization in heterogeneous scenarios: GCond improved ImageNet Top-1 Accuracy by 4.5% over baselines and prevented confidence overfitting in medical diagnosis tasks. GCond exhibited high scalability, being successfully applied to both compact models: MobileNetV3-Small and ConvNeXt-tiny; and large architecture ConvNeXtV2-Base. It also showed compatibility with modern optimizers such as AdamW and Lion/LARS. Therefore, GCond offers a scalable and efficient solution to the problem of gradient conflicts in multi-task learning.",
+  "bibliographic": {
+    "title": "GCond: Gradient Conflict Resolution via Accumulation-Based Stabilization for Large-Scale Multi-Task Learning",
+    "authors": [
+      {
+        "first_name": "Evgeny Alves",
+        "last_name": "Limarenko"
+      },
+      {
+        "first_name": "Anastasiia",
+        "last_name": "Studenikina"
+      },
+      {
+        "first_name": "Svetlana",
+        "last_name": "Illarionova"
+      },
+      {
+        "first_name": "Maxim",
+        "last_name": "Sharaev"
+      }
+    ],
+    "year": 2026,
+    "venue": "IEEE Access",
+    "venue_type": "journal",
+    "doi_or_url": "https://doi.org/10.1109/access.2026.3673372"
+  },
+  "content": {
+    "problem": "In multi-task learning, gradient conflicts degrade performance, while existing resolution methods fail to scale because they require excessive memory and compute on noisy single mini-batches.",
+    "proposed_solution": "The authors propose Gradient Conductor, which accumulates gradients across micro-batches to reduce variance before applying an adaptive multi-zone arbitration mechanism to resolve conflicts.",
+    "algorithm_or_model": "GCond (Gradient Conductor)",
+    "dataset_testbed": [
+      "Combined head and neck CT dataset from RSNA Intracranial Hemorrhage Detection, RSNA Cervical Spine Fracture Detection, and RADCURE (2,199,444 DICOM files)",
+      "ImageNet-1k (ILSVRC 2012, benjamin-paine/imagenet-1k-256x256 version)",
+      "NVIDIA RTX 4080 GPU (16 GB VRAM)",
+      "NVIDIA RTX 5090 GPU (32 GB VRAM)",
+      "NVIDIA H200 GPU (140 GB VRAM)"
+    ],
+    "metrics": [
+      {
+        "name": "computational speedup",
+        "value": 2,
+        "unit": "fold",
+        "condition": "stochastic GCond mode versus exact sequential GCond mode during MobileNetV3-Small training"
+      },
+      {
+        "name": "Top-1 Accuracy improvement",
+        "value": 4.5,
+        "unit": "percent",
+        "condition": "ImageNet-1k classification plus MAE reconstruction multi-task training with ConvNeXtV2-Base, GCond versus baselines"
+      },
+      {
+        "name": "L1 reconstruction loss",
+        "value": 0.0701,
+        "unit": "",
+        "condition": "RSNA intracranial hemorrhage detection with ConvNeXtV2-Base, lowest value among compared multi-task strategies"
+      },
+      {
+        "name": "Validation BCE",
+        "value": 0.55,
+        "unit": "",
+        "condition": "RSNA intracranial hemorrhage with ConvNeXtV2-Base, GCond stayed calibrated while competing methods diverged above 1.0"
+      },
+      {
+        "name": "maximum batch size",
+        "value": 70,
+        "unit": "images",
+        "condition": "ConvNeXtV2-Base on 16 GB VRAM, where PCGrad and CAGrad failed to run even with a batch size of 1"
+      }
+    ],
+    "claim": "GCond resolves gradient conflicts efficiently across medical CT and ImageNet benchmarks, achieving a two-fold stochastic speedup and scaling to large models where prior methods fail.",
+    "author_stated_limitations": [
+      "The default conflict thresholds and arbitration weights require systematic sensitivity analysis and automated tuning mechanisms.",
+      "GCond relies on deep gradient accumulation in large batches, leaving its behavior in small-batch and high-variance settings unexplored.",
+      "The current implementation relies on PyTorch 2.0 features and requires adaptation for older library versions or other frameworks."
+    ],
+    "themes": [
+      "multi-task learning",
+      "gradient conflict resolution",
+      "self-supervised learning",
+      "medical imaging"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "These methods have several significant limitations: they work on noisy gradients from single mini-batches and require substantial computational resources. Moreover, in their original implementation, PCGrad and CAGrad require significant memory costs due to the need to preserve computational graphs of weights between iterations, making them inapplicable in their original implementation for modern architectures like Transformer or ConvNeXt with large effective batch sizes [26].",
+    "proposed_solution_quote": "In this work, we propose Gradient Conductor (GCond) - a method that builds upon the ideas of PCGrad by combining them with gradient accumulation. Unlike reactive strategies that eliminate conflicts at each step, GCond implements a two-phase ‘‘accumulate-then-resolve’’ process: during the accumulation phase, averaged gradients with low variance are computed.",
+    "claim_quote": "Through an ‘‘accumulate-then-resolve’’ paradigm and adaptive arbitration, GCond achieves superior performance while maintaining excellent scalability properties. Our experiments demonstrate significant improvements over SOTA on both medical imaging and natural image datasets.",
+    "author_stated_limitation_quotes": [
+      "Although these defaults proved robust across two different datasets, a systematic analysis of their sensitivity and the potential development of auto-tuning mechanisms are required.",
+      "GCond is explicitly designed for regimes utilizing deep gradient accumulation to ensure low-variance gradient estimates. Consequently, the method’s behavior in small-batch settings characterized by high-frequency gradient noise and high variance remains unexplored in this study.",
+      "The current implementation of GCond is tailored for PyTorch ≥ 2.0 and utilizes torch.func.functionalcall, AMP/GradScaler, and optional DDP synchronization. Porting it to other frameworks or versions _<_ 2.0 would require adapting these components."
+    ]
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "paper_id": "arxiv-2301.10472",
+  "paper_type": "experimental",
+  "abstract": "Large multilingual language models typically rely on a single vocabulary shared across 100+ languages. As these models have increased in parameter count and depth, vocabulary size has remained largely unchanged. This vocabulary bottleneck limits the representational capabilities of multilingual models like XLM-R. In this paper, we introduce a new approach for scaling to very large multilingual vocabularies by de-emphasizing token sharing between languages with little lexical overlap and assigning vocabulary capacity to achieve sufficient coverage for each individual language. Tokenizations using our vocabulary are typically more semantically meaningful and shorter compared to XLM-R. Leveraging this improved vocabulary, we train XLM-V, a multilingual language model with a one million token vocabulary. XLM-V outperforms XLM-R on every task we tested on ranging from natural language inference (XNLI), question answering (MLQA, XQuAD, TyDiQA), to named entity recognition (WikiAnn). XLM-V is particularly effective on low-resource language tasks and outperforms XLM-R by 11.2% and 5.8% absolute on MasakhaNER and Americas NLI, respectively.",
+  "bibliographic": {
+    "title": "XLM-V: Overcoming the Vocabulary Bottleneck in Multilingual Masked Language Models",
+    "authors": [
+      {
+        "first_name": "Davis",
+        "last_name": "Liang"
+      },
+      {
+        "first_name": "Hila",
+        "last_name": "Gonen"
+      },
+      {
+        "first_name": "Yuning",
+        "last_name": "Mao"
+      },
+      {
+        "first_name": "Rui",
+        "last_name": "Hou"
+      },
+      {
+        "first_name": "Naman",
+        "last_name": "Goyal"
+      },
+      {
+        "first_name": "Marjan",
+        "last_name": "Ghazvininejad"
+      },
+      {
+        "first_name": "Luke",
+        "last_name": "Zettlemoyer"
+      },
+      {
+        "first_name": "Madian",
+        "last_name": "Khabsa"
+      }
+    ],
+    "year": 2023,
+    "venue": "Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing (EMNLP 2023)",
+    "venue_type": "conference",
+    "doi_or_url": "https://doi.org/10.18653/v1/2023.emnlp-main.813"
+  },
+  "content": {
+    "problem": "Multilingual language models keep a vocabulary near 250,000 tokens even as parameter counts grow, and this fixed size limits token coverage and representation quality across more than 100 languages.",
+    "proposed_solution": "The authors build a one million token vocabulary by clustering lexically similar languages, allocating vocabulary capacity per cluster, and pretraining a masked language model named XLM-V with this vocabulary.",
+    "algorithm_or_model": "XLM-V",
+    "dataset_testbed": [
+      "CC100",
+      "MultiNLI",
+      "SQuAD v1.1",
+      "XNLI",
+      "MLQA",
+      "XQuAD",
+      "TyDiQA-GoldP",
+      "WikiAnn (PAN-X)",
+      "Americas NLI",
+      "MasakhaNER",
+      "FLoRes-200",
+      "256 NVIDIA A100 GPUs"
+    ],
+    "metrics": [
+      {
+        "name": "Accuracy",
+        "value": 76.0,
+        "unit": "percent",
+        "condition": "XLM-V average over 15 languages on XNLI with cross-lingual transfer from English fine-tuning"
+      },
+      {
+        "name": "EM",
+        "value": 47.7,
+        "unit": "percent",
+        "condition": "XLM-V average on MLQA after fine-tuning on English SQuAD v1.1"
+      },
+      {
+        "name": "F1",
+        "value": 66.0,
+        "unit": "percent",
+        "condition": "XLM-V average on MLQA after fine-tuning on English SQuAD v1.1"
+      },
+      {
+        "name": "EM",
+        "value": 56.3,
+        "unit": "percent",
+        "condition": "XLM-V average on XQuAD after fine-tuning on English SQuAD v1.1"
+      },
+      {
+        "name": "F1",
+        "value": 71.9,
+        "unit": "percent",
+        "condition": "XLM-V average on XQuAD after fine-tuning on English SQuAD v1.1"
+      },
+      {
+        "name": "EM",
+        "value": 39.7,
+        "unit": "percent",
+        "condition": "XLM-V average on TyDiQA-GoldP after fine-tuning on English data"
+      },
+      {
+        "name": "F1",
+        "value": 56.9,
+        "unit": "percent",
+        "condition": "XLM-V average on TyDiQA-GoldP after fine-tuning on English data"
+      },
+      {
+        "name": "Accuracy",
+        "value": 64.7,
+        "unit": "percent",
+        "condition": "XLM-V average on WikiAnn named entity recognition across languages"
+      },
+      {
+        "name": "F1",
+        "value": 45.4,
+        "unit": "percent",
+        "condition": "XLM-V average on Americas NLI in zero-shot cross-lingual transfer from English"
+      },
+      {
+        "name": "F1",
+        "value": 32.1,
+        "unit": "percent",
+        "condition": "XLM-V average on MasakhaNER in zero-shot cross-lingual transfer from English, 11.2 absolute above XLM-R"
+      }
+    ],
+    "claim": "A one million token vocabulary lets XLM-V outperform XLM-R on every tested multilingual understanding task, with the largest gains on low-resource languages.",
+    "author_stated_limitations": [
+      "Pretraining becomes slower because the softmax must be computed over the entire large vocabulary.",
+      "A larger vocabulary embedding matrix increases the memory footprint of the model."
+    ],
+    "themes": [
+      "multilingual language models",
+      "vocabulary construction",
+      "tokenization",
+      "low-resource languages"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "For models like mT5 and XLM-R, this 250K vocabulary is shared across 100+ languages. Discounting shared tokens, this results in an average of 2,500 unique tokens per language, calling into question the vocabulary’s ability to represent the diverse selection of languages that it was intended to model.",
+    "proposed_solution_quote": "In this paper, we introduce a new approach for scaling to very large multilingual vocabularies by de-emphasizing token sharing between languages with little lexical overlap and assigning vocabulary capacity to achieve sufficient coverage for each individual language.",
+    "claim_quote": "XLM-V outperforms XLM-R on every task we tested on ranging from natural language inference (XNLI), question answering (MLQA, XQuAD, TyDiQA), to named entity recognition (WikiAnn). XLM-V is particularly effective on low-resource language tasks and outperforms XLM-R by 11.2% and 5.8% absolute on MasakhaNER and Americas NLI, respectively.",
+    "author_stated_limitation_quotes": [
+      "First, while scaling the vocabulary is an efficient form of conditional compute, it can result in increased pre-training times due to the computational complexity of the softmax over the entire vocabulary.",
+      "Additionally, scaling the vocabulary can also significantly increase the memory footprint of a model."
+    ]
+  }
+}

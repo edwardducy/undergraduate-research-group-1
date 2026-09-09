@@ -1,0 +1,119 @@
+{
+  "paper_id": "arxiv-2202.01017",
+  "paper_type": "experimental",
+  "abstract": "In Multi-task learning (MTL), a joint model is trained to simultaneously make predictions for several tasks. Joint training reduces computation costs and improves data efficiency; however, since the gradients of these different tasks may conflict, training a joint model for MTL often yields lower performance than its corresponding single-task counterparts. A common method for alleviating this issue is to combine per-task gradients into a joint update direction using a particular heuristic. In this paper, we propose viewing the gradients combination step as a bargaining game, where tasks negotiate to reach an agreement on a joint direction of parameter update. Under certain assumptions, the bargaining problem has a unique solution, known as the *Nash Bargaining Solution*, which we propose to use as a principled approach to multi-task learning. We describe a new MTL optimization procedure, Nash-MTL, and derive theoretical guarantees for its convergence. Empirically, we show that Nash-MTL achieves state-of-the-art results on multiple MTL benchmarks in various domains.",
+  "bibliographic": {
+    "title": "Multi-Task Learning as a Bargaining Game",
+    "authors": [
+      {
+        "first_name": "Aviv",
+        "last_name": "Navon"
+      },
+      {
+        "first_name": "Aviv",
+        "last_name": "Shamsian"
+      },
+      {
+        "first_name": "Idan",
+        "last_name": "Achituve"
+      },
+      {
+        "first_name": "Haggai",
+        "last_name": "Maron"
+      },
+      {
+        "first_name": "Kenji",
+        "last_name": "Kawaguchi"
+      },
+      {
+        "first_name": "Gal",
+        "last_name": "Chechik"
+      },
+      {
+        "first_name": "Ethan",
+        "last_name": "Fetaya"
+      }
+    ],
+    "year": 2022,
+    "venue": "International Conference on Machine Learning (ICML 2022)",
+    "venue_type": "conference",
+    "doi_or_url": "https://arxiv.org/abs/2202.01017"
+  },
+  "content": {
+    "problem": "In multi-task learning, per-task gradients can conflict in direction or differ in magnitude, causing a jointly trained model to perform worse than dedicated single-task models.",
+    "proposed_solution": "The authors model gradient aggregation as a cooperative bargaining game and use the proportionally fair Nash bargaining solution as the parameter update direction.",
+    "algorithm_or_model": "Nash-MTL",
+    "dataset_testbed": [
+      "QM9",
+      "NYUv2",
+      "CityScapes",
+      "MT10 (Meta-World)"
+    ],
+    "metrics": [
+      {
+        "name": "Mean Rank (MR)",
+        "value": 2.5,
+        "unit": "",
+        "condition": "QM9 molecular property prediction (11 tasks), test performance averaged over 3 random seeds"
+      },
+      {
+        "name": "Δm%",
+        "value": 62.0,
+        "unit": "percent",
+        "condition": "QM9 molecular property prediction (11 tasks), test performance averaged over 3 random seeds"
+      },
+      {
+        "name": "Success",
+        "value": 0.91,
+        "unit": "",
+        "condition": "Meta-World MT10 multi-task reinforcement learning, mean success over 10 random seeds"
+      },
+      {
+        "name": "Mean Rank (MR)",
+        "value": 1.55,
+        "unit": "",
+        "condition": "NYUv2 scene understanding (3 tasks), test performance averaged over 3 random seeds"
+      },
+      {
+        "name": "Δm%",
+        "value": -4.04,
+        "unit": "percent",
+        "condition": "NYUv2 scene understanding (3 tasks), test performance averaged over 3 random seeds"
+      },
+      {
+        "name": "Mean Rank (MR)",
+        "value": 1.75,
+        "unit": "",
+        "condition": "CityScapes scene understanding (2 tasks), test performance averaged over 3 random seeds"
+      },
+      {
+        "name": "Δm%",
+        "value": 6.82,
+        "unit": "percent",
+        "condition": "CityScapes scene understanding (2 tasks), test performance averaged over 3 random seeds"
+      }
+    ],
+    "claim": "Nash-MTL achieves state-of-the-art performance across multiple multi-task benchmarks while providing theoretical convergence guarantees to Pareto stationary or Pareto optimal points.",
+    "author_stated_limitations": [
+      "Nash-MTL requires computing all per-task gradients at each optimization step, so its computational cost scales poorly with the number of tasks.",
+      "Using feature-level gradients as a cheaper surrogate for the shared-parameter gradients dramatically degrades the performance of Nash-MTL.",
+      "Updating the task weights less frequently reduces runtime but can cause a noticeable drop in performance compared with the standard per-step approach."
+    ],
+    "themes": [
+      "multi-task learning",
+      "gradient conflict",
+      "game theory",
+      "multi-objective optimization"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "In Multi-task learning (MTL), a joint model is trained to simultaneously make predictions for several tasks. Joint training reduces computation costs and improves data efficiency; however, since the gradients of these different tasks may conflict, training a joint model for MTL often yields lower performance than its corresponding single-task counterparts.",
+    "proposed_solution_quote": "In this paper, we propose viewing the gradients combination step as a bargaining game, where tasks negotiate to reach an agreement on a joint direction of parameter update.",
+    "claim_quote": "Empirically, we show that Nash-MTL achieves state-of-the-art results on multiple MTL benchmarks in various domains.",
+    "author_stated_limitation_quotes": [
+      "One shortcoming of many leading MTL methods is that all task gradients are required for obtaining the joint update direction. When the number of tasks KK becomes large, this may be too computationally expensive as it requires one to perform KK backward passes through the shared backbone to compute the KK gradients.",
+      "In practice, we found that using feature-level gradients as a surrogate to the gradient of the shared parameters dramatically degrades the performance of our method.",
+      "Our results show that Nash-MTL runtime can be reduced to about the same as linear scalarization (or STL) while maintaining competitive results compared to other baselines; However, in some cases, we do see a noticeable drop in performance compared with our standard approach."
+    ]
+  }
+}

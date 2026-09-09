@@ -1,0 +1,109 @@
+{
+  "paper_id": "arxiv-2103.07792",
+  "paper_type": "experimental",
+  "abstract": "Predicting user intent and detecting the corresponding slots from text are two key problems in Natural Language Understanding (NLU). In the context of zero-shot learning, this task is typically approached by either using representations from pre-trained multilingual transformers such as mBERT, or by machine translating the source data into the known target language and then fine-tuning. Our work focuses on a particular scenario where the target language is unknown during training. To this goal, we propose a novel method to augment the monolingual source data using multilingual code-switching via random translations to enhance a transformer’s language neutrality when fine-tuning it for a downstream task. This method also helps discover novel insights on how code-switching with different language families around the world impact the performance on the target language. Experiments on the benchmark dataset of MultiATIS++ yielded an average improvement of +4.2%+4.2\\% in accuracy for intent task and +1.8%+1.8\\% in F1 for slot task using our method over the state-of-the-art across 88 different languages11 1 Languages that have different morphological structures compared to English, such as Hindi, Turkish, Chinese, and Japanese, yielded higher benefits.. Furthermore, we present an application of our method for crisis informatics using a new human-annotated tweet dataset of slot filling in English and Haitian Creole, collected during Haiti earthquake disaster22 2 Dataset and implementation available at [https://github.com/jitinkrishnan/Multilingual-ZeroShot-SlotFilling](https://github.com/jitinkrishnan/Multilingual-ZeroShot-SlotFilling \"\")..",
+  "bibliographic": {
+    "title": "Multilingual Code-Switching for Zero-Shot Cross-Lingual Intent Prediction and Slot Filling",
+    "authors": [
+      {
+        "first_name": "Jitin",
+        "last_name": "Krishnan"
+      },
+      {
+        "first_name": "Antonios",
+        "last_name": "Anastasopoulos"
+      },
+      {
+        "first_name": "Hemant",
+        "last_name": "Purohit"
+      },
+      {
+        "first_name": "Huzefa",
+        "last_name": "Rangwala"
+      }
+    ],
+    "year": 2021,
+    "venue": "Proceedings of the 1st Workshop on Multilingual Representation Learning",
+    "venue_type": "workshop",
+    "doi_or_url": "https://doi.org/10.18653/v1/2021.mrl-1.18"
+  },
+  "content": {
+    "problem": "Multilingual transformers retain representations clustered by language, which hurts zero-shot transfer for joint intent prediction and slot filling when the target language is unknown during training.",
+    "proposed_solution": "The authors augment English training data with chunk-level multilingual code-switching into random languages to improve the language neutrality of a fine-tuned joint transformer model.",
+    "algorithm_or_model": "Chunk-level multilingual code-switching data augmentation with a jointly trained mBERT model",
+    "dataset_testbed": [
+      "MultiATIS++ benchmark dataset",
+      "New human-annotated disaster tweet dataset in English and Haitian Creole from the Haiti earthquake",
+      "Google Colab K80 GPU",
+      "ARGO research computing cluster at George Mason University"
+    ],
+    "metrics": [
+      {
+        "name": "intent accuracy improvement",
+        "value": 4.2,
+        "unit": "percent",
+        "condition": "Average gain over the state-of-the-art jointly trained English-only baseline on MultiATIS++ when using multilingual code-switching augmentation"
+      },
+      {
+        "name": "slot F1 improvement",
+        "value": 1.8,
+        "unit": "percent",
+        "condition": "Average gain over the state-of-the-art jointly trained English-only baseline on MultiATIS++ when using multilingual code-switching augmentation"
+      },
+      {
+        "name": "intent accuracy improvement",
+        "value": 16.1,
+        "unit": "percent",
+        "condition": "Hindi target language on MultiATIS++ with chunk-level code-switching"
+      },
+      {
+        "name": "intent accuracy improvement",
+        "value": 9.8,
+        "unit": "percent",
+        "condition": "Turkish target language on MultiATIS++ with chunk-level code-switching"
+      },
+      {
+        "name": "slot F1 improvement",
+        "value": 6.0,
+        "unit": "percent",
+        "condition": "Hindi target language on MultiATIS++ with chunk-level code-switching"
+      },
+      {
+        "name": "slot F1 improvement",
+        "value": 4.3,
+        "unit": "percent",
+        "condition": "Chinese target language on MultiATIS++ with chunk-level code-switching"
+      },
+      {
+        "name": "intent accuracy",
+        "value": 63.73,
+        "unit": "percent",
+        "condition": "Haitian Creole disaster tweets with the joint English-only model plus chunk-level code-switching"
+      },
+      {
+        "name": "slot F1",
+        "value": 70.27,
+        "unit": "percent",
+        "condition": "Haitian Creole disaster tweets with chunk-level code-switching"
+      }
+    ],
+    "claim": "Multilingual code-switching augmentation improved zero-shot intent accuracy by 4.2 percent and slot F1 by 1.8 percent on average without needing the target language during training.",
+    "author_stated_limitations": [
+      "The code-switching augmentation and the training on its enlarged dataset are computationally expensive, so the number of code-switchings per sentence must be chosen carefully."
+    ],
+    "themes": [
+      "zero-shot cross-lingual transfer",
+      "intent detection and slot filling",
+      "code-switching data augmentation",
+      "crisis informatics"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "Figure [1](#S0.F1 \"Figure 1 ‣ Multilingual Code-Switching for Zero-Shot Cross-Lingual Intent Prediction and Slot Filling\") shows that the representations across the 1212 multi-head attention layers of mBERT are still clustered according to the languages. This leads to a fundamental challenge that we address in this work: enhancing the language neutrality so that the fine-tuned model is generalizable across languages for the downstream task.",
+    "proposed_solution_quote": "To this goal, we introduce a data augmentation method via multilingual code-switching, where the original sentence in English is code-switched into randomly selected languages.",
+    "claim_quote": "When compared to the state-of-the-art jointly trained English-only baseline, we see a +4.2%+4.2\\% boost in intent accuracy and +1.8%+1.8\\% boost in slot F1 scores on average by augmenting the dataset via multilingual code-switching without requiring the target language.",
+    "author_stated_limitation_quotes": [
+      "The running time of the models in Table [5](#S5.T5 \"Table 5 ‣ 5.1 Baselines & Upper Bound ‣ 5 Experimental Setup ‣ Multilingual Code-Switching for Zero-Shot Cross-Lingual Intent Prediction and Slot Filling\") show that code-switching is expensive which can take up to 55 hours for k\\=5k=5. Its training is also expensive because there is kk times more data as compared to the monolingual source data."
+    ]
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "paper_id": "arxiv-2010.01683",
+  "paper_type": "experimental",
+  "abstract": "People increasingly use social media to report emergencies, seek help or share information during disasters, which makes social networks an important tool for disaster management. To meet these time-critical needs, we present a weakly supervised approach for rapidly building high-quality classifiers that label each individual Twitter message with fine-grained event categories. Most importantly, we propose a novel method to create high-quality labeled data in a timely manner that automatically clusters tweets containing an event keyword and asks a domain expert to disambiguate event word senses and label clusters quickly. In addition, to process extremely noisy and often rather short user-generated messages, we enrich tweet representations using preceding context tweets and reply tweets in building event recognition classifiers. The evaluation on two hurricanes, Harvey and Florence, shows that using only 1-2 person-hours of human supervision, the rapidly trained weakly supervised classifiers outperform supervised classifiers trained using more than ten thousand annotated tweets created in over 50 person-hours.",
+  "bibliographic": {
+    "title": "Weakly-supervised Fine-grained Event Recognition on Social Media Texts for Disaster Management",
+    "authors": [
+      {
+        "first_name": "Wenlin",
+        "last_name": "Yao"
+      },
+      {
+        "first_name": "Cheng",
+        "last_name": "Zhang"
+      },
+      {
+        "first_name": "Shiva",
+        "last_name": "Saravanan"
+      },
+      {
+        "first_name": "Ruihong",
+        "last_name": "Huang"
+      },
+      {
+        "first_name": "Ali",
+        "last_name": "Mostafavi"
+      }
+    ],
+    "year": 2020,
+    "venue": "AAAI Conference on Artificial Intelligence",
+    "venue_type": "conference",
+    "doi_or_url": "https://doi.org/10.1609/aaai.v34i01.5391"
+  },
+  "content": {
+    "problem": "Supervised training of fine-grained event recognizers for individual disaster tweets needs large manually labeled datasets that take days to create, which is too slow for time-critical disaster response.",
+    "proposed_solution": "The approach clusters keyword-matched tweets so an expert can quickly confirm pertinent word senses, then trains a multi-channel BiLSTM using context and reply tweets, and improves coverage through bootstrapping.",
+    "algorithm_or_model": "multi-channel BiLSTM classifier with clustering-assisted word sense disambiguation labeling",
+    "dataset_testbed": [
+      "Hurricane Harvey Twitter dataset (about 65k unlabeled tweets and 11,782 annotated evaluation tweets collected via the GNIP API)",
+      "Hurricane Florence Twitter dataset (about 69.8k unlabeled tweets and 4,059 annotated evaluation tweets collected via the GNIP API)",
+      "NVIDIA GeForce GTX 1080 GPU"
+    ],
+    "metrics": [
+      {
+        "name": "macro-average F1-score",
+        "value": 65.5,
+        "unit": "percent",
+        "condition": "Full weakly supervised system evaluated on the Hurricane Harvey test hour over all event categories"
+      },
+      {
+        "name": "macro-average F1-score",
+        "value": 61.9,
+        "unit": "percent",
+        "condition": "Supervised multi-channel classifier trained on annotated tweets under 10-fold cross validation on Hurricane Harvey"
+      },
+      {
+        "name": "macro-average F1-score",
+        "value": 59.7,
+        "unit": "percent",
+        "condition": "Full weakly supervised system evaluated on the Hurricane Florence test period"
+      },
+      {
+        "name": "macro-average F1-score",
+        "value": 47.9,
+        "unit": "percent",
+        "condition": "Supervised multi-channel classifier evaluated on Hurricane Florence"
+      },
+      {
+        "name": "macro-average F1-score",
+        "value": 51.8,
+        "unit": "percent",
+        "condition": "Keyword matching unsupervised baseline on Hurricane Harvey"
+      },
+      {
+        "name": "kappa score",
+        "value": 0.67,
+        "unit": "",
+        "condition": "Agreement between two annotators on a common set of 600 Hurricane Harvey tweets"
+      }
+    ],
+    "claim": "Using only 1 to 2 person-hours of labeling effort, the weakly supervised classifiers outperform supervised classifiers trained on more than ten thousand tweets that took over 50 person-hours to annotate.",
+    "author_stated_limitations": [],
+    "themes": [
+      "weak supervision",
+      "event recognition",
+      "social media mining",
+      "disaster management"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "To facilitate disaster management, especially during the time-critical disaster response phase, it is vital to build event recognizers rapidly. However, the typical supervised learning paradigm requires a carefully labeled dataset that is normally created by asking human annotators to go through a large number of data instances and label them one by one, and the data labeling procedure usually takes days at least.",
+    "proposed_solution_quote": "For fast deployment, we propose a novel data labeling method and an overall weakly supervised learning approach that quickly builds reliable fine-grained event recognizers.",
+    "claim_quote": "The evaluation on two hurricanes, Harvey and Florence, shows that using only 1-2 person-hours of human supervision, the rapidly trained weakly supervised classifiers outperform supervised classifiers trained using more than ten thousand annotated tweets created in over 50 person-hours.",
+    "author_stated_limitation_quotes": []
+  }
+}

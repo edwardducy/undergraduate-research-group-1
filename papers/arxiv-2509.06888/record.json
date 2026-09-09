@@ -1,0 +1,142 @@
+{
+  "paper_id": "arxiv-2509.06888",
+  "paper_type": "experimental",
+  "abstract": "Encoder-only languages models are frequently used for a variety of standard machine learning tasks, including classification and retrieval. However, there has been a lack of recent research for encoder models, especially with respect to multilingual models. We introduce mmBERT, an encoder-only language model pretrained on 3T tokens of multilingual text in over 1800 languages. To build mmBERT we introduce several novel elements, including an inverse mask ratio schedule and an inverse temperature sampling ratio. We add over 1700 low-resource languages to the data mix only during the decay phase, showing that it boosts performance dramatically and maximizes the gains from the relatively small amount of training data. Despite only including these low-resource languages in the short decay phase we achieve similar classification performance to models like OpenAI’s o3 and Google’s Gemini 2.5 Pro. Overall, we show that mmBERT significantly outperforms the previous generation of models on classification and retrieval tasks – on both high and low-resource languages.",
+  "bibliographic": {
+    "title": "mmBERT: A Modern Multilingual Encoder with Annealed Language Learning",
+    "authors": [
+      {
+        "first_name": "Marc",
+        "last_name": "Marone"
+      },
+      {
+        "first_name": "Orion",
+        "last_name": "Weller"
+      },
+      {
+        "first_name": "William",
+        "last_name": "Fleshman"
+      },
+      {
+        "first_name": "Eugene",
+        "last_name": "Yang"
+      },
+      {
+        "first_name": "Dawn",
+        "last_name": "Lawrie"
+      },
+      {
+        "first_name": "Benjamin",
+        "last_name": "Van Durme"
+      }
+    ],
+    "year": 2026,
+    "venue": "International Conference on Machine Learning (ICML 2026)",
+    "venue_type": "conference",
+    "doi_or_url": "https://icml.cc/virtual/2026/poster/62254"
+  },
+  "content": {
+    "problem": "Recent encoder-only language model research has largely ignored multilinguality, so the six-year-old XLM-R model remains the strongest multilingual encoder for classification and retrieval tasks.",
+    "proposed_solution": "The authors pre-train mmBERT, a ModernBERT-style encoder, and progressively add languages while lowering the masking rate, holding over 1700 low-resource languages until the short decay phase.",
+    "algorithm_or_model": "mmBERT",
+    "dataset_testbed": [
+      "FineWeb2 (pre-training corpus)",
+      "FineWeb2-HQ (pre-training corpus)",
+      "MegaWika v2 (pre-training corpus)",
+      "Dolma (pre-training corpus)",
+      "Dolmino (mid-training corpus)",
+      "GLUE",
+      "XTREME",
+      "MTEB (MMTEB v2, English and multilingual)",
+      "CoIR",
+      "MS MARCO (embedding fine-tuning)",
+      "XNLI",
+      "PAWS-X",
+      "TiQuaD",
+      "FoQA",
+      "NVIDIA H100 and L40S GPUs"
+    ],
+    "metrics": [
+      {
+        "name": "GLUE average",
+        "value": 86.3,
+        "unit": "percent",
+        "condition": "mmBERT base fine-tuned on English GLUE, approaching ModernBERT at 87.4"
+      },
+      {
+        "name": "GLUE average",
+        "value": 84.7,
+        "unit": "percent",
+        "condition": "mmBERT small on English GLUE, exceeding all previous base-sized multilingual models"
+      },
+      {
+        "name": "XTREME average",
+        "value": 72.8,
+        "unit": "percent",
+        "condition": "mmBERT base on the XTREME benchmark, versus XLM-R at 70.4"
+      },
+      {
+        "name": "XNLI accuracy",
+        "value": 77.1,
+        "unit": "percent",
+        "condition": "mmBERT base on cross-lingual XNLI classification, versus XLM-R at 74.6"
+      },
+      {
+        "name": "TyDiQA F1",
+        "value": 74.5,
+        "unit": "percent",
+        "condition": "mmBERT base on TyDiQA question answering, versus XLM-R at 70.5"
+      },
+      {
+        "name": "MTEB v2 English average",
+        "value": 53.9,
+        "unit": "percent",
+        "condition": "mmBERT base after MS MARCO fine-tuning, versus mGTE at 52.7 and ModernBERT at 53.8"
+      },
+      {
+        "name": "MTEB v2 multilingual average",
+        "value": 54.1,
+        "unit": "percent",
+        "condition": "mmBERT base on multilingual MTEB v2, versus XLM-R at 52.4"
+      },
+      {
+        "name": "CoIR average",
+        "value": 42.2,
+        "unit": "percent",
+        "condition": "mmBERT base on code retrieval, versus XLM-R at 33.6"
+      },
+      {
+        "name": "TiQuaD F1 gain",
+        "value": 12.1,
+        "unit": "F1 points",
+        "condition": "mmBERT base on Tigray TiQuaD when the decay phase covers 1833 languages instead of 110, a 68 percent increase"
+      },
+      {
+        "name": "FoQA F1 gain",
+        "value": 15.4,
+        "unit": "F1 points",
+        "condition": "mmBERT on Faroese FoQA with the 1833-language decay phase, a 26 percent increase"
+      }
+    ],
+    "claim": "mmBERT outperforms previous multilingual encoders on classification and retrieval, while decay-phase training on low-resource languages matches or exceeds large models like o3 and Gemini 2.5 Pro.",
+    "author_stated_limitations": [
+      "Many languages still have very small amounts of training data or none at all, so low-resource coverage remains incomplete.",
+      "High-quality filtered data, such as edu-style filtering, is especially lacking for these languages."
+    ],
+    "themes": [
+      "multilingual language models",
+      "encoder-only models",
+      "low-resource languages",
+      "language model pre-training"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "In this encoder-only model revival there has been a conspicuous lack of large-scale multilinguality. Although it is over six years old, XLM-R is still SOTA – especially surprising when you consider the fast-paced nature of the LM field.",
+    "proposed_solution_quote": "Unlike previous work which uses a fixed set of languages and a set temperature to sample multilingual data, we use a novel approach that changes the temperature during training and iteratively adds new languages (i.e. annealing over languages).",
+    "claim_quote": "We further show that leaving out low-resource languages until the decay phase allows us to rapidly learn the languages on minute amounts of data, improving performance to levels past even SoTA large LMs like OpenAI’s o3 and Google’s Gemini 2.5 Pro.",
+    "author_stated_limitation_quotes": [
+      "Although mmBERT shows significant improvements on low-resource languages, there are still many languages that have very small amounts of data, or even none at all.",
+      "This is especially notable for high-quality data, such as edu-style filtering (Lozhkov et al., 2024)."
+    ]
+  }
+}

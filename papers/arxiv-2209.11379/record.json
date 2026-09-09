@@ -1,0 +1,105 @@
+{
+  "paper_id": "arxiv-2209.11379",
+  "paper_type": "experimental",
+  "abstract": "Recent research has proposed a series of specialized optimization algorithms for deep multi-task models. It is often claimed that these multi-task optimization (MTO) methods yield solutions that are superior to the ones found by simply optimizing a weighted average of the task losses. In this paper, we perform large-scale experiments on a variety of language and vision tasks to examine the empirical validity of these claims. We show that, despite the added design and computational complexity of these algorithms, MTO methods do not yield any performance improvements beyond what is achievable via traditional optimization approaches. We highlight alternative strategies that consistently yield improvements to the performance profile and point out common training pitfalls that might cause suboptimal results. Finally, we outline challenges in reliably evaluating the performance of MTO algorithms and discuss potential solutions.",
+  "bibliographic": {
+    "title": "Do Current Multi-Task Optimization Methods in Deep Learning Even Help?",
+    "authors": [
+      {
+        "first_name": "Derrick",
+        "last_name": "Xin"
+      },
+      {
+        "first_name": "Behrooz",
+        "last_name": "Ghorbani"
+      },
+      {
+        "first_name": "Ankush",
+        "last_name": "Garg"
+      },
+      {
+        "first_name": "Orhan",
+        "last_name": "Firat"
+      },
+      {
+        "first_name": "Justin",
+        "last_name": "Gilmer"
+      }
+    ],
+    "year": 2022,
+    "venue": "Advances in Neural Information Processing Systems 35 (NeurIPS 2022)",
+    "venue_type": "conference",
+    "doi_or_url": "https://arxiv.org/abs/2209.11379"
+  },
+  "content": {
+    "problem": "Specialized multi-task optimization (MTO) algorithms are widely claimed to beat simply optimizing a weighted average of task losses, but their reported gains may be artifacts of under-tuned baselines and unreliable evaluation practices rather than genuinely better optimization.",
+    "proposed_solution": "The authors run a large-scale empirical study comparing popular MTO algorithms against the Pareto frontier traced by sweeping static task-weight scalarization on multilingual machine translation and vision benchmarks, and they analyze how hyperparameter sensitivity and evaluation choices distort reported comparisons.",
+    "algorithm_or_model": "scalarization with static task weights (implemented as proportional sampling)",
+    "dataset_testbed": [
+      "Multilingual machine translation data for English→French, English→Chinese, English→German, and English→Romanian translation",
+      "CityScapes",
+      "CelebA",
+      "Multi-MNIST",
+      "Google Cloud Platform v3 TPUs",
+      "Nvidia A100 GPUs"
+    ],
+    "metrics": [
+      {
+        "name": "average test error (scalarization)",
+        "value": 9.23,
+        "unit": "percent",
+        "condition": "CelebA 40-task benchmark, scalarization baseline on the test set after extensive learning rate and weight decay grid search"
+      },
+      {
+        "name": "average test error (PCGrad)",
+        "value": 9.35,
+        "unit": "percent",
+        "condition": "CelebA 40-task benchmark, PCGrad on the test set in the authors' reruns"
+      },
+      {
+        "name": "average test error (MGDA)",
+        "value": 9.53,
+        "unit": "percent",
+        "condition": "CelebA 40-task benchmark, MGDA on the test set in the authors' reruns"
+      },
+      {
+        "name": "training steps per second (single averaged gradient)",
+        "value": 12,
+        "unit": "steps per second",
+        "condition": "NMT training when a single averaged gradient is computed, without per-task gradients"
+      },
+      {
+        "name": "training steps per second (per-task gradients)",
+        "value": 5,
+        "unit": "steps per second",
+        "condition": "NMT training when per-task gradients required by many MTO algorithms are computed"
+      },
+      {
+        "name": "ratio of sparse learning-rate tuning standard deviation to seed standard deviation",
+        "value": 6.5,
+        "unit": "",
+        "condition": "Simulated 3-point sparse learning-rate grid searches on En→{Zh, Fr} NMT versus the standard deviation from varying the random seed at a fixed hyperparameter point"
+      }
+    ],
+    "claim": "Across language and vision tasks, no tested MTO algorithm improves on a well-tuned scalarization sweep, whose solutions form a superset of MTO solutions, and apparent MTO gains largely stem from under-tuned baselines and evaluation pitfalls.",
+    "author_stated_limitations": [
+      "The grid search used to compute the scalarization Pareto frontier is computationally prohibitive.",
+      "The analysis is restricted to supervised learning benchmarks, leaving the behavior for reinforcement learning and self-supervised learning an open question."
+    ],
+    "themes": [
+      "multi-task learning",
+      "optimization",
+      "machine translation",
+      "empirical evaluation"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "It is often claimed that these multi-task optimization (MTO) methods yield solutions that are superior to the ones found by simply optimizing a weighted average of the task losses. In this paper, we perform large-scale experiments on a variety of language and vision tasks to examine the empirical validity of these claims.",
+    "proposed_solution_quote": "The goal of this paper is not to provide another MTO algorithm. Instead, we provide a large-scale empirical study of the algorithms presented in the literature; we examine to what degree the improvements presented in the literature are reproducible and whether these algorithms really reduce loss interference between different tasks.",
+    "claim_quote": "Our results suggest the contrary. Across a variety of language and vision tasks, we showed that scalarization, with appropriate weights, can match both the optimization and the generalization behaviors of MTO algorithms.",
+    "author_stated_limitation_quotes": [
+      "However, the grid search approach we used for computing the scalarization Pareto frontier is computationally prohibitive.",
+      "Finally, to keep the discussion tractable, we focused our analysis to supervised learning benchmarks. Whether the same behavior holds for reinforcement learning and self-supervised learning setups is still an open question."
+    ]
+  }
+}

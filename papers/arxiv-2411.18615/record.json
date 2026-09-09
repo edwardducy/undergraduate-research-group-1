@@ -1,0 +1,52 @@
+{
+  "paper_id": "arxiv-2411.18615",
+  "paper_type": "experimental",
+  "abstract": "Advancing towards generalist agents necessitates the concurrent processing of multiple tasks using a unified model, thereby underscoring the growing significance of simultaneous model training on multiple downstream tasks. A common issue in multi-task learning is the occurrence of gradient conflict, which leads to potential competition among different tasks during joint training. This competition often results in improvements in one task at the expense of deterioration in another. Although several optimization methods have been developed to address this issue by manipulating task gradients for better task balancing, they cannot decrease the incidence of gradient conflict. In this paper, we systematically investigate the occurrence of gradient conflict across different methods and propose a strategy to reduce such conflicts through sparse training (ST), wherein only a portion of the model's parameters are updated during training while keeping the rest unchanged. Our extensive experiments demonstrate that ST effectively mitigates conflicting gradients and leads to superior performance. Furthermore, ST can be easily integrated with gradient manipulation techniques, thus enhancing their effectiveness.",
+  "bibliographic": {
+    "title": "Proactive Gradient Conflict Mitigation in Multi-Task Learning: A Sparse Training Perspective",
+    "authors": [
+      {"first_name": "Zhi", "last_name": "Zhang"},
+      {"first_name": "Jiayi", "last_name": "Shen"},
+      {"first_name": "Congfeng", "last_name": "Cao"},
+      {"first_name": "Gaole", "last_name": "Dai"},
+      {"first_name": "Shiji", "last_name": "Zhou"},
+      {"first_name": "Qizhe", "last_name": "Zhang"},
+      {"first_name": "Shanghang", "last_name": "Zhang"},
+      {"first_name": "Ekaterina", "last_name": "Shutova"}
+    ],
+    "year": 2024,
+    "venue": "arXiv",
+    "venue_type": "preprint",
+    "doi_or_url": "https://arxiv.org/abs/2411.18615"
+  },
+  "content": {
+    "problem": "Gradient conflicts between task gradients during joint multi-task training cause task competition, and existing gradient manipulation methods react to conflicts without reducing how often they occur.",
+    "proposed_solution": "The authors propose sparse training that updates only a selected subset of parameters chosen per neuron by magnitude, and they combine it with gradient manipulation methods.",
+    "algorithm_or_model": "Sparse training (ST) with parameter selection per neuron (PSN)",
+    "dataset_testbed": ["NYUv2", "CityScapes", "CelebA", "Clevr (from VTAB)", "SmallNORB (from VTAB)"],
+    "metrics": [
+      {"name": "average incidence of GC", "value": 31.89, "unit": "percent", "condition": "Joint Train on SAM with NYUv2, averaged over all training epochs"},
+      {"name": "average incidence of GC", "value": 26.33, "unit": "percent", "condition": "Joint Train combined with sparse training on SAM with NYUv2, averaged over all training epochs"},
+      {"name": "average incidence of GC", "value": 35.85, "unit": "percent", "condition": "Joint Train on SAM with NYUv2, averaged over the last 50 percent of training epochs"},
+      {"name": "average incidence of GC", "value": 29.14, "unit": "percent", "condition": "Joint Train combined with sparse training on SAM with NYUv2, averaged over the last 50 percent of training epochs"},
+      {"name": "relative task drop", "value": 2.03, "unit": "percent", "condition": "Joint Train with sparse training on CelebA using Swin Transformer, improving on 3.12 without sparse training"},
+      {"name": "relative task drop", "value": 17.48, "unit": "percent", "condition": "Joint Train with sparse training on NYUv2 using MTAN, improving on 26.87 without sparse training"},
+      {"name": "relative task drop", "value": -0.21, "unit": "percent", "condition": "Joint Train with sparse training on Clevr using ViT, improving on 5.84 without sparse training"}
+    ],
+    "claim": "Sparse training lowers the frequency of gradient conflict during training and consistently improves multi-task performance across datasets and architectures, both alone and combined with gradient manipulation methods.",
+    "author_stated_limitations": [
+      "Limited computing resources forced them to tune the number of trainable parameters only through grid search on Joint Train and share it across all gradient manipulation methods, so other methods may do better with their own tuned values.",
+      "Their theoretical explanation is incomplete because regularization is only one of the reasons why sparse training mitigates gradient conflicts."
+    ],
+    "themes": ["multi-task learning", "gradient conflict", "sparse training", "parameter selection"]
+  },
+  "evidence": {
+    "problem_quote": "The primary concern for MTL lies in the phenomenon of task competition when the model is jointly trained by optimizing the average loss across all tasks. As a result, a subset of tasks demonstrates superior performance while others remain sub-optimized compared to their individual learning counterparts.",
+    "proposed_solution_quote": "To tackle this issue, we propose a novel perspective on mitigating gradient conflict in MTL, termed Sparse Training (ST), wherein a subset of parameters from the original model are selected to learn multiple tasks simultaneously while keeping the remaining parameters frozen.",
+    "claim_quote": "Extensive experiments demonstrate that sparse training transferring high-dimensional space into low-dimensional space effectively reduces the incidence of gradient conflict during training while preserving the integrity of the original model. Furthermore, combining sparse training with other gradient manipulation methods significantly improves performance for multi-task learning.",
+    "author_stated_limitation_quotes": [
+      "Due to the limited computational resources, we employ grid searches in the Joint train method to determine the optimal hyperparameter for the number of trainable parameters, which is then utilized across all gradient manipulation methods. However, it is possible that these methods may benefit from a more optimized hyperparameter selection for the number of trainable parameters.",
+      "Furthermore, sparse training can effectively mitigate gradient conflicts between tasks in MTL by reducing the dimensionality of parameter space and limiting their impact on updates between tasks. The regularization constitutes one of the theory's reasons."
+    ]
+  }
+}

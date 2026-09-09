@@ -1,0 +1,124 @@
+{
+  "paper_id": "doi-10.1609-icwsm.v11i1.14950",
+  "paper_type": "experimental",
+  "abstract": "The role of social media, in particular microblogging platforms such as Twitter, as a conduit for actionable and tactical information during disasters is increasingly acknowledged. However, time-critical analysis of big crisis data on social media streams brings challenges to machine learning techniques, especially the ones that use supervised learning. The scarcity of labeled data, particularly in the early hours of a crisis, delays the learning process. Existing classification methods require a significant amount of labeled data specific to a particular event for training plus a lot of feature engineering to achieve best results. In this work, we introduce neural network based classification methods for identifying useful tweets during a crisis situation. At the onset of a disaster when no labeled data is available, our proposed method makes the best use of the out-of-event data and achieves good results.",
+  "bibliographic": {
+    "title": "Robust Classification of Crisis-Related Data on Social Networks Using Convolutional Neural Networks",
+    "authors": [
+      {
+        "first_name": "Dat Tien",
+        "last_name": "Nguyen"
+      },
+      {
+        "first_name": "Kamela Ali",
+        "last_name": "Al Mannai"
+      },
+      {
+        "first_name": "Shafiq",
+        "last_name": "Joty"
+      },
+      {
+        "first_name": "Hassan",
+        "last_name": "Sajjad"
+      },
+      {
+        "first_name": "Muhammad",
+        "last_name": "Imran"
+      },
+      {
+        "first_name": "Prasenjit",
+        "last_name": "Mitra"
+      }
+    ],
+    "year": 2017,
+    "venue": "Proceedings of the Eleventh International AAAI Conference on Web and Social Media (ICWSM 2017)",
+    "venue_type": "conference",
+    "doi_or_url": "https://doi.org/10.1609/icwsm.v11i1.14950"
+  },
+  "content": {
+    "problem": "Supervised classifiers for detecting useful crisis tweets need event-specific labeled data, which is scarce in the early hours of a disaster when it is needed most.",
+    "proposed_solution": "The authors classify tweets with a convolutional neural network that learns features from word embeddings and can reuse labeled data from past crises when new event labels are missing.",
+    "algorithm_or_model": "convolutional neural network (CNN)",
+    "dataset_testbed": [
+      "CrisisNLP dataset of human-labeled crisis tweets",
+      "CrisisLex dataset of human-labeled crisis tweets",
+      "AIDR dataset of volunteer-labeled crisis tweets",
+      "300-dimensional Google News word2vec embeddings",
+      "Crisis embeddings trained with word2vec skip-gram on 57,908 disaster tweets"
+    ],
+    "metrics": [
+      {
+        "name": "AUC",
+        "value": 86.89,
+        "unit": "percent",
+        "condition": "CNN with crisis embeddings trained on Nepal Earthquake event data only"
+      },
+      {
+        "name": "AUC",
+        "value": 81.14,
+        "unit": "percent",
+        "condition": "CNN with crisis embeddings trained on out-of-event data only, Nepal Earthquake"
+      },
+      {
+        "name": "AUC",
+        "value": 87.83,
+        "unit": "percent",
+        "condition": "CNN with crisis embeddings trained on Typhoon Hagupit event data only"
+      },
+      {
+        "name": "AUC",
+        "value": 82.35,
+        "unit": "percent",
+        "condition": "CNN with crisis embeddings trained on out-of-event data only, Typhoon Hagupit"
+      },
+      {
+        "name": "AUC",
+        "value": 81.21,
+        "unit": "percent",
+        "condition": "CNN with crisis embeddings trained on California Earthquake event data only"
+      },
+      {
+        "name": "AUC",
+        "value": 62.08,
+        "unit": "percent",
+        "condition": "CNN with crisis embeddings trained on out-of-event data only, California Earthquake"
+      },
+      {
+        "name": "AUC",
+        "value": 94.17,
+        "unit": "percent",
+        "condition": "CNN with crisis embeddings trained on Cyclone PAM event data only"
+      },
+      {
+        "name": "AUC",
+        "value": 85.62,
+        "unit": "percent",
+        "condition": "CNN with crisis embeddings trained on out-of-event data only, Cyclone PAM"
+      },
+      {
+        "name": "improvement over SVM",
+        "value": 11,
+        "unit": "percent",
+        "condition": "largest margin by which the CNN beat SVM when both were trained on out-of-event data only"
+      }
+    ],
+    "claim": "Convolutional neural networks classified crisis tweets more reliably than non-neural classifiers in all training settings and gave reasonable predictions from out-of-event data when no event labels existed.",
+    "author_stated_limitations": [
+      "Classifier performance degraded when out-of-event training samples were added to event-specific data."
+    ],
+    "themes": [
+      "crisis informatics",
+      "tweet classification",
+      "convolutional neural networks",
+      "word embeddings"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "However, time-critical analysis of big crisis data on social media streams brings challenges to machine learning techniques, especially the ones that use supervised learning. The scarcity of labeled data, particularly in the early hours of a crisis, delays the learning process.",
+    "proposed_solution_quote": "In this work, we introduce neural network based classification methods for identifying useful tweets during a crisis situation. At the onset of a disaster when no labeled data is available, our proposed method makes the best use of the out-of-event data and achieves good results.",
+    "claim_quote": "Experiments results show that neural network models perform better than non-neural models.They can be used reliably with the already available out-of-event data.",
+    "author_stated_limitation_quotes": [
+      "The performance of the classifiers degraded from event data when out-of-event training samples were added to training samples."
+    ]
+  }
+}

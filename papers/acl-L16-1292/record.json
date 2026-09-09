@@ -1,0 +1,57 @@
+{
+  "paper_id": "acl-L16-1292",
+  "paper_type": "methodology-theory",
+  "abstract": "Social media texts are often fairly informal and conversational, and when produced by bilinguals tend to be written in several different languages simultaneously, in the same way as conversational speech. The recent availability of large social media corpora has thus also made large-scale code-switched resources available for research. The paper addresses the issues of evaluation and comparison these new corpora entail, by defining an objective measure of corpus level complexity of code-switched texts. It is also shown how this formal measure can be used in practice, by applying it to several code-switched corpora.",
+  "bibliographic": {
+    "title": "Comparing the Level of Code-Switching in Corpora",
+    "authors": [
+      {"first_name": "Björn", "last_name": "Gambäck"},
+      {"first_name": "Amitava", "last_name": "Das"}
+    ],
+    "year": 2016,
+    "venue": "Proceedings of the Tenth International Conference on Language Resources and Evaluation (LREC 2016)",
+    "venue_type": "conference",
+    "doi_or_url": "https://aclanthology.org/L16-1292/"
+  },
+  "content": {
+    "problem": "Social media made large code-switched corpora available for research, but existing corpus comparison measures assume monolingual text and cannot compare the level of code-switching between corpora.",
+    "proposed_solution": "The paper extends an earlier utterance-level Code-Mixing Index into a revised utterance measure and a corpus-level complexity score combining matrix language fraction, code alternation points, and switching frequency.",
+    "algorithm_or_model": "Code-Mixing Index (corpus-level Cc measure)",
+    "dataset_testbed": [
+      "Dutch-Turkish online chat corpus (DU-TR)",
+      "English-Hindi Twitter and Facebook chat corpus (EN-HI)",
+      "EMNLP 2014 shared task English-Spanish corpus (EN-ES)",
+      "EMNLP 2014 shared task English-Mandarin Chinese corpus (EN-ZH)",
+      "EMNLP 2014 shared task English-Nepali corpus (EN-NE)",
+      "EMNLP 2014 shared task Standard Arabic and Egyptian Arabic corpus (ARB-ARZ)"
+    ],
+    "metrics": [
+      {"name": "Cc", "value": 49.06, "unit": "", "condition": "English-Nepali corpus (EN-NE), corpus-level code-switching complexity"},
+      {"name": "Cc", "value": 31.06, "unit": "", "condition": "English-Mandarin Chinese corpus (EN-ZH), corpus-level code-switching complexity"},
+      {"name": "Cc", "value": 21.97, "unit": "", "condition": "English-Spanish corpus (EN-ES), corpus-level code-switching complexity"},
+      {"name": "Cc", "value": 20.26, "unit": "", "condition": "English-Hindi corpus (EN-HI), corpus-level code-switching complexity"},
+      {"name": "Cc", "value": 17.06, "unit": "", "condition": "Standard Arabic and Egyptian Arabic corpus (ARB-ARZ), corpus-level code-switching complexity"},
+      {"name": "Cc", "value": 14.5, "unit": "", "condition": "Dutch-Turkish corpus (DU-TR), corpus-level code-switching complexity"},
+      {"name": "Cavg", "value": 7.98, "unit": "", "condition": "English-Nepali corpus (EN-NE), average utterance-level switching over all utterances"},
+      {"name": "Cavg", "value": 33.02, "unit": "", "condition": "Dutch-Turkish corpus (DU-TR), average utterance-level switching over utterances that contain switching"},
+      {"name": "switched utterances", "value": 49.29, "unit": "percent", "condition": "English-Nepali corpus (EN-NE), percentage of utterances that contain code-switching"}
+    ],
+    "claim": "The measure objectively ranks code-switching levels across six corpora and identifies the English-Nepali EMNLP 2014 corpus as the most code-switched with a Cc value of 49.06.",
+    "author_stated_limitations": [
+      "The measure cannot capture all types of differences between corpora, so corpus collection, annotation, and intended usage must also be considered by users.",
+      "Tagging errors may have caused the extremely high switching levels measured for the English-Nepalese and Mandarin Chinese corpora.",
+      "The measure is language independent, so closely related dialect pairs such as the Arabic varieties can show low mixing even though the potential overlap between them is high."
+    ],
+    "themes": ["code-switching", "corpus complexity", "corpus evaluation", "social media text"]
+  },
+  "evidence": {
+    "problem_quote": "This new availability of large-scale code-switched resources in turn raises questions of evaluation: how do we compare the results of applying language processing tools to one code-switched corpus to those on another? Or more specifically: how can we compare the level of codeswitching in corpora?",
+    "proposed_solution_quote": "The paper addresses the issues of evaluation and comparison these new corpora entail, by defining an objective measure of corpus level complexity of code-switched texts. It is also shown how this formal measure can be used in practice, by applying it to several code-switched corpora.",
+    "claim_quote": "The English-Nepalese EMNLP corpus showed an extremely high level of switching and the Mandarin Chinese a fairly high level.",
+    "author_stated_limitation_quotes": [
+      "Certainly, though, no such measure will ever be able to capture all types of differences between corpora. In particular, the ways corpora were collected and annotated, and their intended usage also need to be taken into account.",
+      "This could of course possibly have been caused by errors and problems in tagging, but in contrast to other corpora, the tagset used in the EMNLP shared task included a tag for words that are ambiguous in a context (i.e., words that even given the contextual information could potentially belong to two or more of the languages in the corpus), which potentially should ease the annotation task.",
+      "It is important to keep in mind that the code-switching corpus complexity measurement is intended to be independent of the languages contained in the corpus, while the performance of a language processing system of course also will depend on the actual languages, their relationship, and their annotation schemes."
+    ]
+  }
+}

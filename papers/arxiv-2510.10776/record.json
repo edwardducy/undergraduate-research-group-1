@@ -1,0 +1,108 @@
+{
+  "paper_id": "arxiv-2510.10776",
+  "paper_type": "dataset-benchmark",
+  "abstract": "The language of Hiligaynon, spoken predominantly by the people of Panay Island, Negros Occidental, and Soccsksargen in the Philippines, remains underrepresented in language processing research due to the absence of annotated corpora and baseline models. This study introduces HiligayNER, the first publicly available baseline model for the task of Named Entity Recognition (NER) in Hiligaynon. The dataset used to build HiligayNER contains over 8,000 annotated sentences collected from publicly available news articles, social media posts, and literary texts. Two Transformer-based models, mBERT and XLM-RoBERTa, were fine-tuned on this collected corpus to build versions of HiligayNER. Evaluation results show strong performance, with both models achieving over 80% in precision, recall, and F1-score across entity types. Furthermore, cross-lingual evaluation with Cebuano and Tagalog demonstrates promising transferability, suggesting the broader applicability of HiligayNER for multilingual NLP in low-resource settings. This work aims to contribute to language technology development for underrepresented Philippine languages, specifically for Hiligaynon, and support future research in regional language processing.",
+  "bibliographic": {
+    "title": "HiligayNER: A Baseline Named Entity Recognition Model for Hiligaynon",
+    "authors": [
+      {
+        "first_name": "James Ald",
+        "last_name": "Teves"
+      },
+      {
+        "first_name": "Ray Daniel",
+        "last_name": "Cal"
+      },
+      {
+        "first_name": "Josh Magdiel",
+        "last_name": "Villaluz"
+      },
+      {
+        "first_name": "Jean",
+        "last_name": "Malolos"
+      },
+      {
+        "first_name": "Mico",
+        "last_name": "Magtira"
+      },
+      {
+        "first_name": "Ramon",
+        "last_name": "Rodriguez"
+      },
+      {
+        "first_name": "Mideth",
+        "last_name": "Abisado"
+      },
+      {
+        "first_name": "Joseph Marvin",
+        "last_name": "Imperial"
+      }
+    ],
+    "year": 2025,
+    "venue": "Proceedings of the 39th Pacific Asia Conference on Language, Information and Computation",
+    "venue_type": "conference",
+    "doi_or_url": "https://arxiv.org/abs/2510.10776"
+  },
+  "content": {
+    "problem": "Hiligaynon, a regional Philippine language spoken by over 10 million people, has no publicly available NER corpus or baseline model, which leaves it underrepresented in language processing research.",
+    "proposed_solution": "The authors compiled an annotated corpus of over 8,000 Hiligaynon sentences with BIO entity tags and fine-tuned mBERT and XLM-RoBERTa on it to create baseline NER models.",
+    "algorithm_or_model": "HiligayNER, fine-tuned mBERT and XLM-RoBERTa token classifiers",
+    "dataset_testbed": [
+      "HiligayNER corpus of 8,082 cleaned Hiligaynon sentences collected from online news articles, social media posts, and literary texts",
+      "Cebuano test data for zero-shot cross-lingual evaluation",
+      "Tagalog test data for zero-shot cross-lingual evaluation"
+    ],
+    "metrics": [
+      {
+        "name": "macro F1",
+        "value": 0.86,
+        "unit": "",
+        "condition": "finetuned mBERT model evaluated at token level on the HiligayNER test data"
+      },
+      {
+        "name": "macro F1",
+        "value": 0.86,
+        "unit": "",
+        "condition": "finetuned XLM-RoBERTa model evaluated at token level on the HiligayNER test data"
+      },
+      {
+        "name": "F1",
+        "value": 0.96,
+        "unit": "",
+        "condition": "B-PER tag, the best performing category, for both finetuned models"
+      },
+      {
+        "name": "Cohen's kappa",
+        "value": 0.8141,
+        "unit": "",
+        "condition": "inter-annotator agreement on a stratified 10 percent subset of the corpus annotated independently by all three annotators"
+      },
+      {
+        "name": "F1",
+        "value": 0.46,
+        "unit": "",
+        "condition": "zero-shot cross-lingual evaluation on Cebuano and Tagalog with models finetuned on HiligayNER"
+      }
+    ],
+    "claim": "Both finetuned models exceed 0.80 F1 on all main entity tags, and zero-shot transfer to Cebuano and Tagalog reaches about 0.46 macro F1, showing cross-lingual utility.",
+    "author_stated_limitations": [
+      "Evaluation was only done at the token level, and the authors leave stricter span-level or entity-level evaluation as future work.",
+      "Organization entities are the hardest to recognize, with residual errors concentrated at organization and location boundaries."
+    ],
+    "themes": [
+      "named entity recognition",
+      "low-resource languages",
+      "Philippine languages",
+      "cross-lingual transfer"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "The language of Hiligaynon, spoken predominantly by the people of Panay Island, Negros Occidental, and Soccsksargen in the Philippines, remains underrepresented in language processing research due to the absence of annotated corpora and baseline models.",
+    "proposed_solution_quote": "This study introduces HiligayNER, the first publicly available baseline model for the task of Named Entity Recognition (NER) in Hiligaynon. The dataset used to build HiligayNER contains over 8,000 annotated sentences collected from publicly available news articles, social media posts, and literary texts.",
+    "claim_quote": "Evaluation results show strong performance, with both models achieving over 80% in precision, recall, and F1-score across entity types. Furthermore, cross-lingual evaluation with Cebuano and Tagalog demonstrates promising transferability, suggesting the broader applicability of HiligayNER for multilingual NLP in low-resource settings.",
+    "author_stated_limitation_quotes": [
+      "Entity-level evaluation was not conducted, as the scope of this work is to establish a baseline for Hiligaynon NER using token-level annotation and modeling.",
+      "The matrices, therefore, corroborate the aggregate metrics where the entity segmentation is reliable for PER, adequate for LOC, and bottlenecked by ORG boundary precision."
+    ]
+  }
+}

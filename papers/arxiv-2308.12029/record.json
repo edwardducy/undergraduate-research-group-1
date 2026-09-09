@@ -1,0 +1,136 @@
+{
+  "paper_id": "arxiv-2308.12029",
+  "paper_type": "experimental",
+  "abstract": "Multi-task learning aims to learn multiple related tasks simultaneously and has achieved great success in various fields. However, the disparity in loss and gradient scales among tasks often leads to performance compromises, and the balancing of tasks remains a significant challenge. In this paper, we propose Dual-Balancing Multi-Task Learning (DB-MTL) to achieve task balancing from both the loss and gradient perspectives. Specifically, DB-MTL achieves loss-scale balancing by performing logarithm transformation on each task loss, and rescales gradient magnitudes by normalizing all task gradients to comparable magnitudes using the maximum gradient norm. Extensive experiments on a number of benchmark datasets demonstrate that DB-MTL consistently performs better than the current state-of-the-art.",
+  "bibliographic": {
+    "title": "Dual-Balancing for Multi-Task Learning",
+    "authors": [
+      {
+        "first_name": "Baijiong",
+        "last_name": "Lin"
+      },
+      {
+        "first_name": "Weisen",
+        "last_name": "Jiang"
+      },
+      {
+        "first_name": "Feiyang",
+        "last_name": "Ye"
+      },
+      {
+        "first_name": "Yu",
+        "last_name": "Zhang"
+      },
+      {
+        "first_name": "Pengguang",
+        "last_name": "Chen"
+      },
+      {
+        "first_name": "Ying-Cong",
+        "last_name": "Chen"
+      },
+      {
+        "first_name": "Shu",
+        "last_name": "Liu"
+      },
+      {
+        "first_name": "Ivor W.",
+        "last_name": "Tsang"
+      },
+      {
+        "first_name": "James T.",
+        "last_name": "Kwok"
+      }
+    ],
+    "year": 2026,
+    "venue": "Neural Networks",
+    "venue_type": "journal",
+    "doi_or_url": "https://doi.org/10.1016/j.neunet.2025.108317"
+  },
+  "content": {
+    "problem": "In multi-task learning, tasks differ in loss and gradient scales, so tasks with large values can dominate model updates and leave other tasks with poor performance.",
+    "proposed_solution": "The authors propose DB-MTL, which applies a logarithm transformation to each task loss for loss-scale balancing and normalizes every task gradient to the maximum gradient norm for gradient-magnitude balancing.",
+    "algorithm_or_model": "DB-MTL (Dual-Balancing Multi-Task Learning)",
+    "dataset_testbed": [
+      "NYUv2",
+      "Cityscapes",
+      "QM9",
+      "Office-31",
+      "Office-Home",
+      "NVIDIA GeForce RTX 3090 GPU"
+    ],
+    "metrics": [
+      {
+        "name": "Δp",
+        "value": 1.15,
+        "unit": "percent",
+        "condition": "DB-MTL on NYUv2 with 3 tasks, average relative performance change versus single-task learning"
+      },
+      {
+        "name": "Δp",
+        "value": 0.2,
+        "unit": "percent",
+        "condition": "DB-MTL on Cityscapes with 2 tasks, average relative performance change versus single-task learning"
+      },
+      {
+        "name": "Δp",
+        "value": -58.1,
+        "unit": "percent",
+        "condition": "DB-MTL on QM9, best among multi-task methods but still below single-task learning"
+      },
+      {
+        "name": "Δp",
+        "value": 1.05,
+        "unit": "percent",
+        "condition": "DB-MTL on Office-31, average relative performance change versus single-task learning"
+      },
+      {
+        "name": "Δp",
+        "value": 0.17,
+        "unit": "percent",
+        "condition": "DB-MTL on Office-Home, average relative performance change versus single-task learning"
+      },
+      {
+        "name": "Δp",
+        "value": 8.91,
+        "unit": "percent",
+        "condition": "DB-MTL on NYUv2 with SegNet backbone, average relative performance change versus single-task learning"
+      },
+      {
+        "name": "mIoU",
+        "value": 53.92,
+        "unit": "percent",
+        "condition": "DB-MTL on NYUv2 semantic segmentation with DeepLabV3+ ResNet-50 encoder"
+      },
+      {
+        "name": "accuracy",
+        "value": 94.09,
+        "unit": "percent",
+        "condition": "DB-MTL average classification accuracy across the Amazon, DSLR, and Webcam tasks on Office-31"
+      },
+      {
+        "name": "accuracy",
+        "value": 78.95,
+        "unit": "percent",
+        "condition": "DB-MTL average classification accuracy across the Artistic, Clipart, Product, and Real tasks on Office-Home"
+      }
+    ],
+    "claim": "Balancing both loss scales and gradient magnitudes lets DB-MTL consistently outperform the state of the art across benchmark datasets.",
+    "author_stated_limitations": [
+      "DB-MTL trains more slowly per epoch than loss balancing methods because it computes each task gradient at every iteration."
+    ],
+    "themes": [
+      "multi-task learning",
+      "loss balancing",
+      "gradient balancing"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "However, the disparity in loss and gradient scales among tasks often leads to performance compromises, and the balancing of tasks remains a significant challenge.",
+    "proposed_solution_quote": "In this paper, we propose Dual-Balancing Multi-Task Learning (DB-MTL) to achieve task balancing from both the loss and gradient perspectives. Specifically, DB-MTL achieves loss-scale balancing by performing logarithm transformation on each task loss, and rescales gradient magnitudes by normalizing all task gradients to comparable magnitudes using the maximum gradient norm.",
+    "claim_quote": "Extensive experiments on a number of benchmark datasets demonstrate that DB-MTL consistently performs better than the current state-of-the-art.",
+    "author_stated_limitation_quotes": [
+      "This is a common disadvantage for gradient balancing methods \\[[52](#bib.bib16 \"\"), [8](#bib.bib27 \"\"), [38](#bib.bib9 \"\"), [28](#bib.bib7 \"\"), [42](#bib.bib12 \"\"), [29](#bib.bib29 \"\"), [59](#bib.bib8 \"\"), [43](#bib.bib50 \"\"), [35](#bib.bib53 \"\"), [20](#bib.bib52 \"\")\\]. Although DB-MTL is slower than loss balancing methods, it achieves better performance, as shown in Tables [1](#S4.T1 \"Table 1 ‣ Implementation Details ‣ 4.1 Evaluation on Scene Understanding ‣ 4 Experiments ‣ Dual-Balancing for Multi-Task Learning\"), [2](#S4.T2 \"Table 2 ‣ Implementation Details ‣ 4.1 Evaluation on Scene Understanding ‣ 4 Experiments ‣ Dual-Balancing for Multi-Task Learning\"), [3](#S4.T3 \"Table 3 ‣ Implementation Details ‣ 4.1 Evaluation on Scene Understanding ‣ 4 Experiments ‣ Dual-Balancing for Multi-Task Learning\"), [4](#S4.T4 \"Table 4 ‣ Dataset ‣ 4.2 Evaluation on Molecular Property Prediction ‣ 4 Experiments ‣ Dual-Balancing for Multi-Task Learning\"), and [6](#S4.T6 \"Table 6 ‣ Effectiveness of Logarithm Transformation ‣ 4.4 Effectiveness of Loss and Gradient Balancing Components ‣ 4 Experiments ‣ Dual-Balancing for Multi-Task Learning\")."
+    ]
+  }
+}

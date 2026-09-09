@@ -1,0 +1,128 @@
+{
+  "paper_id": "arxiv-1804.07461",
+  "paper_type": "dataset-benchmark",
+  "abstract": "For natural language understanding (NLU) technology to be maximally useful, it must be able to process language in a way that is not exclusive to a single task, genre, or dataset. In pursuit of this objective, we introduce the General Language Understanding Evaluation (GLUE) benchmark, a collection of tools for evaluating the performance of models across a diverse set of existing NLU tasks. By including tasks with limited training data, GLUE is designed to favor and encourage models that share general linguistic knowledge across tasks. GLUE also includes a hand-crafted diagnostic test suite that enables detailed linguistic analysis of models. We evaluate baselines based on current methods for transfer and representation learning and find that multi-task training on all tasks performs better than training a separate model per task. However, the low absolute performance of our best model indicates the need for improved general NLU systems.",
+  "bibliographic": {
+    "title": "GLUE: A Multi-Task Benchmark and Analysis Platform for Natural Language Understanding",
+    "authors": [
+      {
+        "first_name": "Alex",
+        "last_name": "Wang"
+      },
+      {
+        "first_name": "Amanpreet",
+        "last_name": "Singh"
+      },
+      {
+        "first_name": "Julian",
+        "last_name": "Michael"
+      },
+      {
+        "first_name": "Felix",
+        "last_name": "Hill"
+      },
+      {
+        "first_name": "Omer",
+        "last_name": "Levy"
+      },
+      {
+        "first_name": "Samuel R.",
+        "last_name": "Bowman"
+      }
+    ],
+    "year": 2019,
+    "venue": "7th International Conference on Learning Representations (ICLR 2019)",
+    "venue_type": "conference",
+    "doi_or_url": "https://arxiv.org/abs/1804.07461"
+  },
+  "content": {
+    "problem": "Most NLU models are built for one specific task and generalize poorly across tasks and domains, and before this work the field lacked a unified benchmark for measuring genuinely general language understanding.",
+    "proposed_solution": "The authors assemble GLUE, a benchmark of nine existing sentence- and sentence-pair-level NLU tasks served through an online evaluation platform, together with a hand-crafted diagnostic dataset, and deliberately include low-resource tasks so that strong models must share linguistic knowledge across tasks.",
+    "algorithm_or_model": "multi-task BiLSTM sentence encoder with attention and ELMo/CoVe transfer learning",
+    "dataset_testbed": [
+      "CoLA (Corpus of Linguistic Acceptability)",
+      "SST-2 (Stanford Sentiment Treebank)",
+      "MRPC (Microsoft Research Paraphrase Corpus)",
+      "QQP (Quora Question Pairs)",
+      "STS-B (Semantic Textual Similarity Benchmark)",
+      "MNLI (Multi-Genre Natural Language Inference Corpus)",
+      "QNLI (Question-answering NLI, derived from SQuAD)",
+      "RTE (combined RTE1, RTE2, RTE3, and RTE5)",
+      "WNLI (Winograd NLI)",
+      "GLUE diagnostic dataset (new hand-crafted NLI analysis set created by this paper)",
+      "SNLI (used as 550k examples of auxiliary training data for MNLI)"
+    ],
+    "metrics": [
+      {
+        "name": "average score",
+        "value": 70.0,
+        "unit": "percent",
+        "condition": "best multi-task BiLSTM with attention and ELMo, macro-averaged over the nine GLUE test task scores (scaled by 100)"
+      },
+      {
+        "name": "Matthews corr.",
+        "value": 33.6,
+        "unit": "",
+        "condition": "best multi-task attention+ELMo model on the CoLA test set"
+      },
+      {
+        "name": "acc.",
+        "value": 90.4,
+        "unit": "percent",
+        "condition": "best multi-task attention+ELMo model on the SST-2 test set"
+      },
+      {
+        "name": "matched acc.",
+        "value": 74.1,
+        "unit": "percent",
+        "condition": "best multi-task attention+ELMo model on the MNLI matched test set"
+      },
+      {
+        "name": "acc.",
+        "value": 79.8,
+        "unit": "percent",
+        "condition": "best multi-task attention+ELMo model on the QNLI test set"
+      },
+      {
+        "name": "acc.",
+        "value": 58.9,
+        "unit": "percent",
+        "condition": "best multi-task attention+ELMo model on the RTE test set"
+      },
+      {
+        "name": "R3",
+        "value": 28,
+        "unit": "",
+        "condition": "best baseline (single-task BiLSTM with attention and ELMo), MNLI classifier evaluated on the diagnostic set, coefficient scaled by 100"
+      },
+      {
+        "name": "R3",
+        "value": 0.8,
+        "unit": "",
+        "condition": "human baseline, average over six NLP researchers annotating 50 randomly sampled diagnostic sentence pairs"
+      }
+    ],
+    "claim": "Multi-task training on all GLUE tasks, especially when combined with attention and ELMo, outperforms per-task training and pretrained sentence encoders, yet the best model's absolute scores remain low enough that GLUE stays beyond the reach of the then-current methods.",
+    "author_stated_limitations": [
+      "The best baseline models still reach only low absolute performance on the benchmark, leaving considerable room for improvement.",
+      "Their baseline models fail, often badly, on many of the linguistic phenomena probed by the diagnostic dataset.",
+      "Their simple multi-task training regime likely causes destructive interference between MNLI and the other tasks, which is why multi-task models mostly scored below their single-task counterparts on the diagnostic set."
+    ],
+    "themes": [
+      "natural language understanding",
+      "multi-task learning",
+      "benchmark evaluation",
+      "transfer learning"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "The human ability to understand language is general, flexible, and robust. In contrast, most NLU models above the word level are designed for a specific task and struggle with out-of-domain data.",
+    "proposed_solution_quote": "To facilitate research in this direction, we present the General Language Understanding Evaluation (GLUE) benchmark: a collection of NLU tasks including question answering, sentiment analysis, and textual entailment, and an associated online platform for model evaluation, comparison, and analysis.",
+    "claim_quote": "We evaluate baselines based on current methods for transfer and representation learning and find that multi-task training on all tasks performs better than training a separate model per task. However, the low absolute performance of our best model indicates the need for improved general NLU systems.",
+    "author_stated_limitation_quotes": [
+      "We confirm the utility of attention mechanisms and transfer learning methods such as ELMo in NLU systems, which combine to outperform the best sentence representation models on the GLUE benchmark, but still leave room for improvement.",
+      "When evaluating these models on our diagnostic dataset, we find that they fail (often spectacularly) on many linguistic phenomena, suggesting possible avenues for future work.",
+      "This is perhaps unsurprising, since with our simple multi-task training regime, there is likely some destructive interference between MNLI and the other tasks."
+    ]
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "paper_id": "arxiv-2505.18995",
+  "paper_type": "experimental",
+  "abstract": "This study presents FiLLM, a Filipino-optimized large language model, designed to enhance natural language processing (NLP) capabilities in the Filipino language. Built upon the SeaLLM-7B 2.5 model, FiLLM leverages Low-Rank Adaptation (LoRA) finetuning to optimize memory efficiency while maintaining taskspecific performance. The model was trained and evaluated on diverse Filipino datasets to address key NLP tasks, including Named Entity Recognition (NER), Part-of-Speech (POS) tagging, Dependency Parsing, and Text Summarization. Performance comparisons with the CalamanCy model were conducted using F1 Score, Precision, Recall, Compression Rate, and Keyword Overlap metrics. Results indicate that Calamancy outperforms FILLM in several aspects, demonstrating its effectiveness in processing Filipino text with improved linguistic comprehension and adaptability. This research contributes to the advancement of Filipino NLP applications by providing an optimized, efficient, and scalable language model tailored for local linguistic needs.",
+  "bibliographic": {
+    "title": "A Filipino-Optimized Large Language Model",
+    "authors": [
+      {
+        "first_name": "Carlos Jude G.",
+        "last_name": "Maminta"
+      },
+      {
+        "first_name": "Isaiah Job",
+        "last_name": "Enriquez"
+      },
+      {
+        "first_name": "Deandre Nigel",
+        "last_name": "Nuñez"
+      },
+      {
+        "first_name": "Michael B.",
+        "last_name": "Dela Fuente"
+      }
+    ],
+    "year": 2025,
+    "venue": "Novel and Intelligent Digital Systems: Proceedings of the 5th International Conference (NiDS 2025), Lecture Notes in Networks and Systems",
+    "venue_type": "conference",
+    "doi_or_url": "https://doi.org/10.1007/978-3-032-06634-3_21"
+  },
+  "content": {
+    "problem": "Large language models for the Filipino language remain underdeveloped because labeled Filipino datasets and computational resources are scarce.",
+    "proposed_solution": "The authors build FiLLM by applying LoRA fine-tuning to the SeaLLM-7B 2.5 model on Filipino datasets, then compare it with CalamanCy on several NLP tasks.",
+    "algorithm_or_model": "FiLLM, a LoRA fine-tuned SeaLLM-7B 2.5 model",
+    "dataset_testbed": [
+      "Filipino Hatespeech Dataset (10,000 tweets)",
+      "Filipino Dengue Dataset (4,000 tweets)",
+      "TLUnified-NER Dataset",
+      "Merged UD Dataset (Ugnayan and TRG treebanks)",
+      "Asian Language Treebank",
+      "NewsPHNLI Dataset"
+    ],
+    "metrics": [
+      {
+        "name": "Precision",
+        "value": 0.86,
+        "unit": "",
+        "condition": "FiLLM on Named Entity Recognition"
+      },
+      {
+        "name": "Recall",
+        "value": 0.93,
+        "unit": "",
+        "condition": "FiLLM on Named Entity Recognition"
+      },
+      {
+        "name": "F1 Score",
+        "value": 0.89,
+        "unit": "",
+        "condition": "FiLLM on Named Entity Recognition"
+      },
+      {
+        "name": "F1 Score",
+        "value": 0.89,
+        "unit": "",
+        "condition": "FiLLM on Part-of-Speech tagging"
+      },
+      {
+        "name": "F1 Score",
+        "value": 0.73,
+        "unit": "",
+        "condition": "FiLLM on Dependency Parsing"
+      },
+      {
+        "name": "F1 Score",
+        "value": 90,
+        "unit": "percent",
+        "condition": "CalamanCy on Named Entity Recognition in the FiLLM comparison"
+      },
+      {
+        "name": "F1 Score",
+        "value": 97,
+        "unit": "percent",
+        "condition": "CalamanCy on Part-of-Speech tagging in the FiLLM comparison"
+      },
+      {
+        "name": "F1 Score",
+        "value": 97,
+        "unit": "percent",
+        "condition": "CalamanCy on Dependency Parsing in the FiLLM comparison"
+      },
+      {
+        "name": "p-value",
+        "value": 0.03,
+        "unit": "",
+        "condition": "Paired t-test comparing mean F1 performance of FiLLM (83.67) and CalamanCy (94.67) at the 0.05 significance level"
+      }
+    ],
+    "claim": "FiLLM performs well on Named Entity Recognition and Part-of-Speech tagging, but CalamanCy significantly outperforms it overall, especially on Dependency Parsing.",
+    "author_stated_limitations": [
+      "Dependency parsing is the weakest task, showing the model still struggles with Filipino syntax.",
+      "Summarization performance may vary with the complexity and quality of the input text.",
+      "The practical importance of the statistically significant performance gap still needs to be evaluated for real use cases.",
+      "The quality and variability of the evaluation data may have influenced the observed outcomes.",
+      "Differences in methodology and group characteristics may affect the comparison in ways the statistical test does not capture."
+    ],
+    "themes": [
+      "low-resource language NLP",
+      "large language models",
+      "parameter-efficient fine-tuning",
+      "Filipino language processing"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "Despite the increasing adoption of artificial intelligence (AI) in natural language processing (NLP), the development of large language models (LLMs) for Filipino remains limited due to the scarcity of labeled datasets and computational resources [9].",
+    "proposed_solution_quote": "This linguistic gap has motivated the development of FiLLM, a Filipino-optimized large language model fine-tuned using Low-Rank Adaptation (LoRA). This study aims to evaluate FiLLM's performance on key NLP tasks, comparing it with CalamanCy, an existing Filipino NLP model.",
+    "claim_quote": "Results indicate that Calamancy outperforms FILLM in several aspects, demonstrating its effectiveness in processing Filipino text with improved linguistic comprehension and adaptability.",
+    "author_stated_limitation_quotes": [
+      "However, Dependency Parsing remains a challenge, with precision and recall both at 71%, suggesting the need for improvements in handling Filipino syntax.",
+      "However, it is important to note that the specific performance may vary depending on the complexity of the summarized text and its quality",
+      "Despite the statistical significance, the practical importance of this difference should be evaluated, such as its impact on specific use cases or resource utilization.",
+      "The quality, variability, or specific characteristics of the data used for evaluation may affect the observed outcomes.",
+      "Differences in methodology, underlying assumptions, or external factors influencing the groups may still have an impact that is not captured in this test."
+    ]
+  }
+}

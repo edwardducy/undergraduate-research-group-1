@@ -1,0 +1,139 @@
+{
+  "paper_id": "acl-2023.icnlsp-1.34",
+  "paper_type": "dataset-benchmark",
+  "abstract": "Benchmark datasets are crucial for evaluating algorithms and models objectively. They provide a standardized basis for comparisons, promote reproducibility, and drive innovation by establishing baselines and encouraging advancements in the field. Limited benchmark datasets exist for various natural language processing tasks in low-resource languages, including most Philippine languages. As part of iTANONG's 10 billion token dataset initiative, the authors release the first iteration of iTANONG-DS1, a collection of unlabeled and labeled datasets for different NLP tasks such as sentiment analysis, part-of-speech tagging, named entity recognition for Tagalog, and language modeling for Cebuano.",
+  "bibliographic": {
+    "title": "iTANONG-DS : A Collection of Benchmark Datasets for Downstream Natural Language Processing Tasks on Select Philippine Languages",
+    "authors": [
+      {
+        "first_name": "Moses",
+        "last_name": "Visperas"
+      },
+      {
+        "first_name": "Christalline Joie",
+        "last_name": "Borjal"
+      },
+      {
+        "first_name": "Aunhel John",
+        "last_name": "Adoptante"
+      },
+      {
+        "first_name": "Elmer",
+        "last_name": "Peramo"
+      },
+      {
+        "first_name": "Danielle Shine",
+        "last_name": "Abacial"
+      },
+      {
+        "first_name": "Ma. Miciella",
+        "last_name": "Decano"
+      }
+    ],
+    "year": 2023,
+    "venue": "Proceedings of the 6th International Conference on Natural Language and Speech Processing (ICNLSP 2023)",
+    "venue_type": "conference",
+    "doi_or_url": "https://aclanthology.org/2023.icnlsp-1.34/"
+  },
+  "content": {
+    "problem": "Benchmark datasets for low-resource Philippine languages such as Tagalog and Cebuano are scarce, and existing corpora overrepresent formal text and miss informal everyday usage.",
+    "proposed_solution": "The authors release iTANONG-DS, unlabeled and labeled datasets for sentiment analysis, part-of-speech tagging, named entity recognition, and language modeling, plus pretrained word embeddings and language models.",
+    "algorithm_or_model": "iTANONG-DS datasets with pretrained BERT and RoBERTa language models",
+    "dataset_testbed": [
+      "iTANONG unlabeled Tagalog and Cebuano corpus scraped from government and media websites, social media, and online forums",
+      "iTANONG-DS sentiment analysis dataset with balanced, unbalanced-A, and unbalanced-B subsets",
+      "iTANONG-POS part-of-speech tagging dataset with 3,919 tagged sequences",
+      "iTANONG-NER dataset with 6,230 data points",
+      "HateSpeech dataset by Cruz and Cheng (2022) for sentiment benchmark comparison",
+      "WikiAnn NER dataset for benchmark comparison"
+    ],
+    "metrics": [
+      {
+        "name": "Validation Acc.",
+        "value": 63.55,
+        "unit": "percent",
+        "condition": "Fine-tuned uncased Tagalog RoBERTa on the balanced iTANONG sentiment dataset"
+      },
+      {
+        "name": "Test Acc.",
+        "value": 65.33,
+        "unit": "percent",
+        "condition": "Fine-tuned uncased Tagalog RoBERTa on the balanced iTANONG sentiment dataset"
+      },
+      {
+        "name": "Validation Acc.",
+        "value": 75.44,
+        "unit": "percent",
+        "condition": "Fine-tuned uncased Tagalog RoBERTa on the unbalanced-A iTANONG sentiment subset"
+      },
+      {
+        "name": "Test Acc.",
+        "value": 76.11,
+        "unit": "percent",
+        "condition": "Fine-tuned uncased Tagalog RoBERTa on the unbalanced-A iTANONG sentiment subset"
+      },
+      {
+        "name": "Validation Acc.",
+        "value": 93.1,
+        "unit": "percent",
+        "condition": "iTANONG-POS token classification with a fine-tuned Tagalog RoBERTa model"
+      },
+      {
+        "name": "Test Acc.",
+        "value": 92.84,
+        "unit": "percent",
+        "condition": "iTANONG-POS token classification with a fine-tuned Tagalog RoBERTa model"
+      },
+      {
+        "name": "Validation Acc.",
+        "value": 92.63,
+        "unit": "percent",
+        "condition": "iTANONG-NER token classification with a fine-tuned Tagalog RoBERTa model"
+      },
+      {
+        "name": "Test Acc.",
+        "value": 91.1,
+        "unit": "percent",
+        "condition": "iTANONG-NER token classification with a fine-tuned Tagalog RoBERTa model"
+      },
+      {
+        "name": "Validation Perplexity",
+        "value": 8.3493,
+        "unit": "",
+        "condition": "BERT pretrained from scratch on the unlabeled Tagalog corpus"
+      },
+      {
+        "name": "Validation Perplexity",
+        "value": 52.3625,
+        "unit": "",
+        "condition": "BERT pretrained from scratch on the unlabeled Cebuano corpus"
+      }
+    ],
+    "claim": "The collection closes a resource gap for Tagalog and Cebuano NLP and includes what the authors describe as the first BERT-based language model trained exclusively for Cebuano.",
+    "author_stated_limitations": [
+      "Automated sentiment labeling through ChatGPT and label propagation produced correct labels for only about 86 percent of the dataset on average.",
+      "The label sets are small, with only three sentiment labels and seven NER tags.",
+      "Task-specific Cebuano datasets could not be curated because the team had no native Cebuano speakers.",
+      "The pretrained language models may handle long sequences poorly because most training data came from short social media posts.",
+      "The released word embeddings cover only word2vec and fasttext formats and exclude GloVe."
+    ],
+    "themes": [
+      "benchmark datasets",
+      "low-resource languages",
+      "Philippine languages",
+      "pretrained language models"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "Despite the fact that both languages are widely used by a lot of people, they are still considered to be low-resource languages in the research community. This is mainly because there are not any extensive datasets for them that would be useful for the creation and testing of NLP models and algorithms.",
+    "proposed_solution_quote": "As part of iTANONG's 10 billion token dataset initiative, the authors release the first iteration of iTANONG-DS1 , a collection of unlabeled and labeled datasets for different NLP tasks such as sentiment analysis, part-of-speech tagging, named entity recognition for Tagalog, and language modeling for Cebuano.",
+    "claim_quote": "In a noteworthy development, the authors pretrained a BERT-Cebuano model, which was a ground-breaking feat. This innovative initiative is, to the best of their knowledge, the first-ever attempt to train a BERT-based language model exclusively for Cebuano.",
+    "author_stated_limitation_quotes": [
+      "On average, approximately 86% of the entire dataset was correctly labeled through automation – from ChatGPT labeling up to the label propagation. However, there is room for improvement in terms of accuracy, especially if there are plans to expand the dataset with additional labels in the future.",
+      "In the dataset presented in this paper, the tags for sentiment analysis are currently limited to three, and for Named Entity Recognition (NER), there are seven tags. However, there is room for expansion in terms of the number of possible labels.",
+      "Additionally, it's worth noting that although there is a substantial amount of unlabeled Cebuano dataset, curation of task specific datasets was impossible due to the lack of native Cebuano speakers in the team.",
+      "Also note that the pre-trained language models may lack capability when dealing with long sequences since the majority of the data used to train the models were taken from social media posts where sequence lengths are limited.",
+      "However, these are only in the word2vec and fasttext formats. GloVE embeddings were not included in the collection."
+    ]
+  }
+}

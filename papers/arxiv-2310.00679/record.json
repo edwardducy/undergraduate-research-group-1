@@ -1,0 +1,142 @@
+{
+  "paper_id": "arxiv-2310.00679",
+  "paper_type": "experimental",
+  "abstract": "Despite being one of the most linguistically diverse groups of countries, computational linguistics and language processing research in Southeast Asia has struggled to match the level of countries from the Global North. Thus, initiatives such as open-sourcing corpora and the development of baseline models for basic language processing tasks are important stepping stones to encourage the growth of research efforts in the field. To answer this call, we introduce CebuaNER, a new baseline model for named entity recognition (NER) in the Cebuano language. Cebuano is the second most-used native language in the Philippines with over 20 million speakers. To build the model, we collected and annotated over 4,000 news articles, the largest of any work in the language, retrieved from online local Cebuano platforms to train algorithms such as Conditional Random Field and Bidirectional LSTM. Our findings show promising results as a new baseline model, achieving over 70% performance on precision, recall, and F1 across all entity tags as well as potential efficacy in a crosslingual setup with Tagalog.",
+  "bibliographic": {
+    "title": "CebuaNER: A New Baseline Cebuano Named Entity Recognition Model",
+    "authors": [
+      {
+        "first_name": "Ma. Beatrice Emanuela",
+        "last_name": "Pilar"
+      },
+      {
+        "first_name": "Ellyza Mari",
+        "last_name": "Papas"
+      },
+      {
+        "first_name": "Mary Loise",
+        "last_name": "Buenaventura"
+      },
+      {
+        "first_name": "Dane",
+        "last_name": "Dedoroy"
+      },
+      {
+        "first_name": "Myron Darrel",
+        "last_name": "Montefalcon"
+      },
+      {
+        "first_name": "Jay Rhald",
+        "last_name": "Padilla"
+      },
+      {
+        "first_name": "Lany",
+        "last_name": "Maceda"
+      },
+      {
+        "first_name": "Mideth",
+        "last_name": "Abisado"
+      },
+      {
+        "first_name": "Joseph Marvin",
+        "last_name": "Imperial"
+      }
+    ],
+    "year": 2023,
+    "venue": "Proceedings of the 37th Pacific Asia Conference on Language, Information and Computation",
+    "venue_type": "conference",
+    "doi_or_url": "https://aclanthology.org/2023.paclic-1.79/"
+  },
+  "content": {
+    "problem": "Cebuano lacks gold-standard named entity recognition data and baseline models because low-resource Southeast Asian languages receive far less research support than high-resource languages.",
+    "proposed_solution": "The authors collected and annotated 4,258 Cebuano news articles with native speaker annotators, then trained Conditional Random Field and BiLSTM models on this corpus as a public baseline.",
+    "algorithm_or_model": "CebuaNER, a CRF and BiLSTM baseline for Cebuano NER",
+    "dataset_testbed": [
+      "CebuaNER corpus of 4,258 annotated Cebuano news articles from Yes the Best Dumaguete, Filipinas Bisaya, and SunStar Cebu (new dataset)",
+      "cebtenten Cebuano corpus from Sketch Engine for word cluster features",
+      "Corrected Tagalog WikiANN dataset from the calamanCy library with 782 documents for the crosslingual experiment"
+    ],
+    "metrics": [
+      {
+        "name": "F1",
+        "value": 0.901,
+        "unit": "",
+        "condition": "Mean score for the PER tagset with the optimized CRF model on the Cebuano dataset"
+      },
+      {
+        "name": "F1",
+        "value": 0.768,
+        "unit": "",
+        "condition": "Mean score for the ORG tagset with the optimized CRF model on the Cebuano dataset"
+      },
+      {
+        "name": "F1",
+        "value": 0.811,
+        "unit": "",
+        "condition": "Mean score for the LOC tagset with the optimized CRF model on the Cebuano dataset"
+      },
+      {
+        "name": "F1",
+        "value": 0.865,
+        "unit": "",
+        "condition": "Mean score for the PER tagset with the BiLSTM model on the Cebuano dataset"
+      },
+      {
+        "name": "F1",
+        "value": 0.64,
+        "unit": "",
+        "condition": "Mean score for the ORG tagset with the BiLSTM model on the Cebuano dataset"
+      },
+      {
+        "name": "F1",
+        "value": 0.725,
+        "unit": "",
+        "condition": "Mean score for the LOC tagset with the BiLSTM model on the Cebuano dataset"
+      },
+      {
+        "name": "F1",
+        "value": 0.713,
+        "unit": "",
+        "condition": "Mean score for PER when the CRF model trained on Cebuano is tested on the Tagalog WikiANN dataset"
+      },
+      {
+        "name": "F1",
+        "value": 0.395,
+        "unit": "",
+        "condition": "Mean score for ORG when the CRF model trained on Cebuano is tested on the Tagalog WikiANN dataset"
+      },
+      {
+        "name": "F1",
+        "value": 0.589,
+        "unit": "",
+        "condition": "Mean score for LOC when the CRF model trained on Cebuano is tested on the Tagalog WikiANN dataset"
+      },
+      {
+        "name": "Cohen's kappa",
+        "value": 0.9315,
+        "unit": "",
+        "condition": "Inter-annotator agreement on the annotated Cebuano corpus"
+      }
+    ],
+    "claim": "The optimized CRF model exceeded 0.70 in precision, recall, and F1 for every entity tag, setting a stronger baseline for Cebuano NER with crosslingual potential.",
+    "author_stated_limitations": [
+      "The models still misclassify entities by skipping real ones or labeling non-entities, especially for entities spanning more than one word.",
+      "The limited size of the training data lowers model performance, most visibly for organization and location tags."
+    ],
+    "themes": [
+      "named entity recognition",
+      "low-resource languages",
+      "Cebuano",
+      "corpus annotation"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "Aside from works on Filipino data, there are small research efforts to adapt the NER methodology for the Cebuano language. However, most of these works claim to be preliminary results due to the limited availability of gold-standard annotations.",
+    "proposed_solution_quote": "In this study, we introduce CebuaNER, a new baseline named entity recognition model for the language Cebuano as a response to the call for new initiatives of tool, model, and dataset creation for low-resource languages. We collected and annotated over 4,000 articles written in Cebuano to train NER models using modern machine learning algorithms such as including Conditional Random Fields (CRF) and Bidirectional Long Short-Term Memory (Bi-LSTM).",
+    "claim_quote": "In terms of performance, the best model for CebuaNER surpassed the mean standard threshold of 0.70 for precision, recall, and F1 across all entity tag list.",
+    "author_stated_limitation_quotes": [
+      "Within this subset, it was observed that certain named entities had been skipped by the model while other non-entity words were mistakenly labeled as qualified entities. For this, we further recommend further refinement of annotations, particularly with spans or entities longer than one word, in order to enhance the precision and efficiency of the NER model for this specific language.",
+      "We infer that this relatively lower performance can be attributed to the size of the data used. Specifically, this can be seen with the reduced performance in the F1 score, especially with identifying organization and location entities."
+    ]
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "paper_id": "arxiv-2508.03523",
+  "paper_type": "dataset-benchmark",
+  "abstract": "Despite the impressive performance of LLMs on English-based tasks, little is known about their capabilities in specific languages such as Filipino. In this work, we address this gap by introducing FilBench, a Filipino-centric benchmark designed to evaluate LLMs across a diverse set of tasks and capabilities in Filipino, Tagalog, and Cebuano. We carefully curate the tasks in FilBench to reflect the priorities and trends of NLP research in the Philippines such as Cultural Knowledge, Classical NLP, Reading Comprehension, and Generation. By evaluating 27 state-of-the-art LLMs on FilBench, we find that several LLMs suffer from reading comprehension and translation capabilities. Our results indicate that FilBench is challenging, with the best model, GPT-4o, achieving only a score of 72.23%. Moreover, we also find that models trained specifically for Southeast Asian languages tend to underperform on FilBench, with the highest-performing model, SEA-LION v3 70B, achieving only a score of 61.07%. Our work demonstrates the value of curating language-specific LLM benchmarks to aid in driving progress on Filipino NLP and increasing the inclusion of Philippine languages in LLM development.",
+  "bibliographic": {
+    "title": "FilBench: Can LLMs Understand and Generate Filipino?",
+    "authors": [
+      {
+        "first_name": "Lester James V.",
+        "last_name": "Miranda"
+      },
+      {
+        "first_name": "Elyanah",
+        "last_name": "Aco"
+      },
+      {
+        "first_name": "Conner",
+        "last_name": "Manuel"
+      },
+      {
+        "first_name": "Jan Christian Blaise",
+        "last_name": "Cruz"
+      },
+      {
+        "first_name": "Joseph Marvin",
+        "last_name": "Imperial"
+      }
+    ],
+    "year": 2025,
+    "venue": "Proceedings of the 2025 Conference on Empirical Methods in Natural Language Processing",
+    "venue_type": "conference",
+    "doi_or_url": "https://doi.org/10.18653/v1/2025.emnlp-main.127"
+  },
+  "content": {
+    "problem": "Existing LLM benchmarks either exclude Filipino and other Philippine languages or lack the task and language diversity needed to measure how well models handle them.",
+    "proposed_solution": "The authors curate FilBench, a benchmark with four task categories and twelve subtasks built from expert-annotated Filipino, Tagalog, and Cebuano datasets, and use it to evaluate 27 state-of-the-art LLMs.",
+    "algorithm_or_model": "FilBench",
+    "dataset_testbed": [
+      "FilBench",
+      "Dengue Filipino",
+      "BalitaNLP",
+      "SIB-200",
+      "CebuaNER",
+      "TLUnified-NER",
+      "Universal NER",
+      "FiReCS",
+      "INCLUDE",
+      "Global MMLU",
+      "KALAHI",
+      "StingrayBench",
+      "Cebuano Readability Corpus",
+      "Belebele",
+      "NewsPH NLI",
+      "NTREX-128",
+      "Tatoeba",
+      "TICO-19"
+    ],
+    "metrics": [
+      {
+        "name": "FilBench Score",
+        "value": 72.23,
+        "unit": "percent",
+        "condition": "GPT-4o, the best performing model among the 27 evaluated LLMs"
+      },
+      {
+        "name": "FilBench Score",
+        "value": 67.67,
+        "unit": "percent",
+        "condition": "Llama 4 Maverick, the second best model"
+      },
+      {
+        "name": "FilBench Score",
+        "value": 63.08,
+        "unit": "percent",
+        "condition": "Qwen2.5 72B, the best open-source dense model"
+      },
+      {
+        "name": "FilBench Score",
+        "value": 61.07,
+        "unit": "percent",
+        "condition": "SEA-LION v3 70B, the best Southeast Asian-specific model"
+      },
+      {
+        "name": "Generation score",
+        "value": 17.03,
+        "unit": "percent",
+        "condition": "average across the evaluated models on the Generation category"
+      },
+      {
+        "name": "Classical NLP score",
+        "value": 85.75,
+        "unit": "percent",
+        "condition": "average across the evaluated models on the Classical NLP category"
+      },
+      {
+        "name": "Cultural Knowledge score",
+        "value": 60.72,
+        "unit": "percent",
+        "condition": "average across the evaluated models on the Cultural Knowledge category"
+      },
+      {
+        "name": "Spearman rho",
+        "value": 0.81,
+        "unit": "",
+        "condition": "correlation between parameter size and FilBench score for dense open-source models"
+      },
+      {
+        "name": "Fleiss' kappa",
+        "value": 0.8756,
+        "unit": "",
+        "condition": "agreement between the native-speaker majority answers and FilBench gold answers on multiple-choice tasks"
+      },
+      {
+        "name": "Overgeneration share",
+        "value": 47,
+        "unit": "percent",
+        "condition": "share of 100 manually inspected GPT-4o generation failure cases"
+      }
+    ],
+    "claim": "FilBench is difficult even for leading models, since GPT-4o tops it at only 72.23 percent, the best Southeast Asian-focused model reaches 61.07 percent, and generation tasks are the weakest area across models.",
+    "author_stated_limitations": [
+      "Models were grouped as multilingual or SEA-specific without accounting for the share of Filipino-centric training data, which is hard to trace especially for closed models, and the effect of that share is left unexplored.",
+      "The suite covers only Filipino (Tagalog) and Cebuano because labeled data for other Philippine languages remains sparse."
+    ],
+    "themes": [
+      "large language models",
+      "benchmark evaluation",
+      "low-resource languages",
+      "machine translation"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "While large language models (LLMs) have shown impressive performance on a variety of English-based tasks and capabilities, their effectiveness remains largely unexplored for low-resource languages such as Filipino.",
+    "proposed_solution_quote": "In this work, we perform a comprehensive study of the strengths and limitations of LLM capabilities on Filipino-centric tasks. We introduce an evaluation suite called FilBench, consisting of 4 categories and 12 diverse sub-tasks that are formulated for LLM evaluation.",
+    "claim_quote": "Our results indicate that FilBench is challenging, with the best model, GPT-4o, achieving only a score of 72.23%. Moreover, we also find that models trained specifically for Southeast Asian languages tend to underperform on FilBench, with the highest-performing model, SEA-LION v3 70B, achieving only a score of 61.07%.",
+    "author_stated_limitation_quotes": [
+      "When selecting models for evaluation on FilBench, we categorized based on whether these models were originally presented as multilingual or SEA-specific, rather than considering the proportion of Filipino-centric training data used for fine-tuning. The training data provenance is difficult to track, especially for closed-source models.",
+      "While some of the datasets in FilBench support other Philippine languages (i.e. Ilokano for Belebele), data for these (labeled or otherwise) remain sparse. We focus our suite on the relatively better-resourced Filipino and Cebuano, with the hope of supporting more languages once more datasets become available."
+    ]
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "paper_id": "arxiv-2511.10120",
+  "paper_type": "experimental",
+  "abstract": "Due to the rapid growth of social media platforms, these tools have become essential for monitoring information during ongoing disaster events. However, extracting valuable insights requires real-time processing of vast amounts of data. A major challenge in existing systems is their exposure to event-related biases, which negatively affects their ability to generalize to emerging events. While recent advancements in debiasing and causal learning offer promising solutions, they remain underexplored in the disaster event domain. In this work, we approach bias mitigation through a causal lens and propose a method to reduce event- and domain-related biases, enhancing generalization to future events. Our approach outperforms multiple baselines by up to +1.9% F1 and significantly improves a PLM-based classifier across three disaster classification tasks.",
+  "bibliographic": {
+    "title": "Generalizing to Unseen Disaster Events: A Causal View",
+    "authors": [
+      {
+        "first_name": "Philipp",
+        "last_name": "Seeberger"
+      },
+      {
+        "first_name": "Steffen",
+        "last_name": "Freisinger"
+      },
+      {
+        "first_name": "Tobias",
+        "last_name": "Bocklet"
+      },
+      {
+        "first_name": "Korbinian",
+        "last_name": "Riedhammer"
+      }
+    ],
+    "year": 2025,
+    "venue": "Proceedings of the 14th International Joint Conference on Natural Language Processing and the 4th Conference of the Asia-Pacific Chapter of the Association for Computational Linguistics",
+    "venue_type": "conference",
+    "doi_or_url": "https://doi.org/10.18653/v1/2025.findings-ijcnlp.2"
+  },
+  "content": {
+    "problem": "Classifiers for disaster posts rely on spurious event-specific and domain-specific cues from past events, which hurts generalization to emerging disaster events.",
+    "proposed_solution": "The authors propose a causal debiasing framework that combines an event bias model, domain-specific attention experts, and masking augmentation.",
+    "algorithm_or_model": "Causal debiasing framework with domain-specific experts and bias model",
+    "dataset_testbed": [
+      "HumAID",
+      "CrisisLex T26",
+      "Trecis (TREC Incident Streams)",
+      "NVIDIA A100 GPU (40GB)"
+    ],
+    "metrics": [
+      {
+        "name": "F1",
+        "value": 70.71,
+        "unit": "percent",
+        "condition": "Proposed method on HumAID, macro F1 averaged over five seeds with a temporal split"
+      },
+      {
+        "name": "F1",
+        "value": 56.26,
+        "unit": "percent",
+        "condition": "Proposed method on CrisisLex, macro F1 averaged over five seeds with a temporal split"
+      },
+      {
+        "name": "F1",
+        "value": 54.12,
+        "unit": "percent",
+        "condition": "Proposed method on Trecis, macro F1 averaged over five seeds with a temporal split"
+      },
+      {
+        "name": "Delta (F1)",
+        "value": 2.12,
+        "unit": "percent",
+        "condition": "Difference to the BERT baseline on HumAID"
+      },
+      {
+        "name": "Delta (F1)",
+        "value": 4.42,
+        "unit": "percent",
+        "condition": "Difference to the BERT baseline on CrisisLex"
+      },
+      {
+        "name": "Delta (F1)",
+        "value": 3.69,
+        "unit": "percent",
+        "condition": "Difference to the BERT baseline on Trecis"
+      }
+    ],
+    "claim": "The proposed causal debiasing framework outperforms all baselines across three disaster classification tasks under temporal splits to unseen events.",
+    "author_stated_limitations": [
+      "Named entity recognition systems and heuristics are prone to errors and may not transfer well to other tasks.",
+      "The evaluation is restricted to English Twitter data containing platform-specific features like hashtags."
+    ],
+    "themes": [
+      "disaster classification",
+      "bias mitigation",
+      "causal learning",
+      "social media"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "A major challenge in existing systems is their exposure to event-related biases, which negatively affects their ability to generalize to emerging events.",
+    "proposed_solution_quote": "In this work, we approach bias mitigation through a causal lens and propose a method to reduce event- and domain-related biases, enhancing generalization to future events.",
+    "claim_quote": "Our approach consistently outperforms all baselines across the three tasks in terms of F1 score, achieving improvements of at least +1.3% on HumAid, +1.9% on CrisisLex, and + 1.1% on Trecis, respectively.",
+    "author_stated_limitation_quotes": [
+      "However, these systems are prone to errors, and the reliance on this types of features may limit their applicability to other use cases.",
+      "Although social networks are a valuable supplement to formal sources (e.g., news), our considered datasets consists only of Twitter data in English language, which includes platform-specific features such as hashtags."
+    ]
+  }
+}

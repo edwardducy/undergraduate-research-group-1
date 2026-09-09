@@ -1,0 +1,123 @@
+{
+  "paper_id": "arxiv-2409.15380",
+  "paper_type": "dataset-benchmark",
+  "abstract": "Multilingual large language models (LLMs) today may not necessarily provide culturally appropriate and relevant responses to its Filipino users. We introduce Kalahi, a cultural LLM evaluation suite that is part of SEA-HELM. It was collaboratively created by native Filipino speakers, and is composed of 150 high-quality, handcrafted and nuanced prompts that test LLMs for generations that are relevant to shared Filipino cultural knowledge and values. Strong LLM performance in Kalahi indicates a model's ability to generate responses similar to what an average Filipino would say or do in a given situation. We conducted experiments on LLMs with multilingual and Filipino language support. Results show that Kalahi, while trivial for Filipinos, is challenging for LLMs, with the best model answering only 46.0% of the questions correctly compared to native Filipino performance of 89.10%. Thus, Kalahi can be used to accurately and reliably evaluate Filipino cultural representation in LLMs.",
+  "bibliographic": {
+    "title": "Kalahi: A handcrafted, grassroots cultural LLM evaluation suite for Filipino",
+    "authors": [
+      {
+        "first_name": "Jann Railey",
+        "last_name": "Montalan"
+      },
+      {
+        "first_name": "Jian Gang",
+        "last_name": "Ngui"
+      },
+      {
+        "first_name": "Wei Qi",
+        "last_name": "Leong"
+      },
+      {
+        "first_name": "Yosephine",
+        "last_name": "Susanto"
+      },
+      {
+        "first_name": "Hamsawardhini",
+        "last_name": "Rengarajan"
+      },
+      {
+        "first_name": "Alham Fikri",
+        "last_name": "Aji"
+      },
+      {
+        "first_name": "William Chandra",
+        "last_name": "Tjhi"
+      }
+    ],
+    "year": 2024,
+    "venue": "Proceedings of the 38th Pacific Asia Conference on Language, Information and Computation",
+    "venue_type": "conference",
+    "doi_or_url": "https://aclanthology.org/2024.paclic-1.49/"
+  },
+  "content": {
+    "problem": "Current multilingual LLMs often fail to give culturally fitting answers to Filipino users because most cultural evaluations are built top-down from large surveys and translated English datasets.",
+    "proposed_solution": "The authors built Kalahi, a set of 150 handcrafted Filipino situation prompts with culturally relevant and irrelevant answer options, written and validated together with native Filipino speakers.",
+    "algorithm_or_model": "Kalahi cultural evaluation suite",
+    "dataset_testbed": [
+      "Kalahi (new 150-prompt handcrafted Filipino cultural evaluation suite)",
+      "Aya 23 8B",
+      "Qwen 2 7B Instruct",
+      "Sailor 7B Chat",
+      "SeaLLMs 3 7B Chat",
+      "BLOOMZ 7B1",
+      "Falcon 7B Instruct",
+      "Gemma 2 9B Instruct",
+      "Llama 3.1 8B Instruct",
+      "SEA-LION 2.1 8B Instruct"
+    ],
+    "metrics": [
+      {
+        "name": "MC1",
+        "value": 0.891,
+        "unit": "",
+        "condition": "average score of three native Filipino validators on Kalahi, used as the human baseline"
+      },
+      {
+        "name": "MC1",
+        "value": 0.46,
+        "unit": "",
+        "condition": "SeaLLMs 3 7B Chat, the best of nine evaluated LLMs in the zero-shot multiple-choice setting"
+      },
+      {
+        "name": "MC1",
+        "value": 0.2429,
+        "unit": "",
+        "condition": "random baseline on the Kalahi MC1 task"
+      },
+      {
+        "name": "Cohen's kappa",
+        "value": 0.761,
+        "unit": "",
+        "condition": "inter-rater agreement among the three native Filipino validators on the MC1 task"
+      },
+      {
+        "name": "Krippendorf's alpha",
+        "value": 0.762,
+        "unit": "",
+        "condition": "inter-rater agreement among the three native Filipino validators on the MC1 task"
+      },
+      {
+        "name": "share of best responses chosen by at least two of three validators",
+        "value": 94.7,
+        "unit": "percent",
+        "condition": "agreement across the 150 Kalahi prompts in the validator study"
+      },
+      {
+        "name": "Pearson correlation between MC1 and MC2",
+        "value": 0.988,
+        "unit": "",
+        "condition": "correlation across the nine evaluated LLMs on the multiple-choice tasks"
+      }
+    ],
+    "claim": "Native Filipino validators answered most Kalahi items correctly while the best of nine tested LLMs reached only 46.0 percent, so the benchmark reliably measures Filipino cultural representation in LLMs.",
+    "author_stated_limitations": [
+      "The study treats Filipino culture as the values of speakers who grew up mostly in Metro Manila, so the consensus view may not represent all Filipinos.",
+      "Kalahi does not aim to cover every possible aspect of Filipino culture."
+    ],
+    "themes": [
+      "cultural evaluation of LLMs",
+      "Filipino NLP",
+      "benchmark datasets",
+      "low-resource languages"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "Multilingual large language models (LLMs) today may not necessarily provide culturally appropriate and relevant responses to its Filipino users.",
+    "proposed_solution_quote": "We introduce Kalahi, a cultural LLM evaluation suite that is part of SEA-HELM. It was collaboratively created by native Filipino speakers, and is composed of 150 high-quality, handcrafted and nuanced prompts that test LLMs for generations that are relevant to shared Filipino cultural knowledge and values.",
+    "claim_quote": "Results show that Kalahi, while trivial for Filipinos, is challenging for LLMs, with the best model answering only 46.0% of the questions correctly compared to native Filipino performance of 89.10%. Thus, Kalahi can be used to accurately and reliably evaluate Filipino cultural representation in LLMs.",
+    "author_stated_limitation_quotes": [
+      "While Kalahi is the result of the consensus views of the involved native Filipino speakers, the Filipino culture in this study refers only to cultural values acquired by Filipino speakers who were born and grew up in or at least spent most of their lives in Metro Manila. Individuals who have had different upbringings may have different perspectives on Filipino culture, such that the consensus view arrived at in this study does not fully represent the opinions of all Filipino individuals.",
+      "Additionally, while Kalahi is designed to accurately represent Filipino culture, it is not intended to encompass all possible aspects of Filipino culture."
+    ]
+  }
+}

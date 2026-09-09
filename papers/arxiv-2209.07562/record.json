@@ -1,0 +1,105 @@
+{
+ "paper_id": "arxiv-2209.07562",
+ "paper_type": "experimental",
+ "abstract": "Pre-trained language models (PLMs) are fundamental for natural language processing applications. Most existing PLMs are not tailored to the noisy user-generated text on social media, and the pre-training does not factor in the valuable social engagement logs available in a social network. We present TwHIN-BERT, a multilingual language model productionized at Twitter, trained on in-domain data from the popular social network. TwHIN-BERT differs from prior pre-trained language models as it is trained with not only text-based self-supervision but also with a social objective based on the rich social engagements within a Twitter heterogeneous information network (TwHIN). Our model is trained on 77 billion tweets covering over 100100 distinct languages, providing a valuable representation to model short, noisy, user-generated text. We evaluate our model on various multilingual social recommendation and semantic understanding tasks and demonstrate significant metric improvement over established pre-trained language models. We open-source TwHIN-BERT and our curated hashtag prediction and social engagement benchmark datasets to the research community1.",
+ "bibliographic": {
+  "title": "TwHIN-BERT: A Socially-Enriched Pre-trained Language Model for Multilingual Tweet Representations at Twitter",
+  "authors": [
+   {
+    "first_name": "Xinyang",
+    "last_name": "Zhang"
+   },
+   {
+    "first_name": "Yury",
+    "last_name": "Malkov"
+   },
+   {
+    "first_name": "Omar",
+    "last_name": "Florez"
+   },
+   {
+    "first_name": "Serim",
+    "last_name": "Park"
+   },
+   {
+    "first_name": "Brian",
+    "last_name": "McWilliams"
+   },
+   {
+    "first_name": "Jiawei",
+    "last_name": "Han"
+   },
+   {
+    "first_name": "Ahmed",
+    "last_name": "El-Kishky"
+   }
+  ],
+  "year": 2023,
+  "venue": "Proceedings of the 29th ACM SIGKDD Conference on Knowledge Discovery and Data Mining",
+  "venue_type": "conference",
+  "doi_or_url": "https://doi.org/10.1145/3580305.3599921"
+ },
+ "content": {
+  "problem": "Most pre-trained language models target general text corpora, so they handle short, noisy user-generated text on social media poorly and ignore the social engagement signals inside social networks.",
+  "proposed_solution": "TwHIN-BERT is a multilingual Twitter language model pre-trained with masked language modeling plus a contrastive social objective built from socially similar Tweet pairs mined through network embedding.",
+  "algorithm_or_model": "TwHIN-BERT",
+  "dataset_testbed": [
+   "7 billion Tweets in 100 languages collected from Jan. 2020 to Jun. 2022 for pre-training, with 100 billion user-Tweet engagement records covering 1 billion Tweets",
+   "Twitter Heterogeneous Information Network (TwHIN) with about 200 million users, 1 billion Tweets, and over 100 billion engagement edges",
+   "Curated Tweet engagement prediction dataset sampled from the 50 most popular languages on Twitter",
+   "Curated multilingual Tweet hashtag prediction dataset covering 50 popular languages",
+   "SemEval2017 Task 4A English sentiment dataset",
+   "SemEval2018 Task 2 emoji prediction datasets in English and Spanish",
+   "SemEval2020 Task 9 code-mixed sentiment datasets in Hindi+English and Spanish+English",
+   "ASAD Arabic Tweet sentiment dataset",
+   "COVID-JA Japanese Tweet topic classification dataset",
+   "16 Nvidia A100 GPUs (a2-megagpu-16g) and a FAISS index on a 16 A100 GPU node for training and pair mining"
+  ],
+  "metrics": [
+   {
+    "name": "HITS@10",
+    "value": 0.1497,
+    "unit": "",
+    "condition": "TwHIN-BERT-large, averaged over all 50 languages of the curated social engagement prediction dataset"
+   },
+   {
+    "name": "HITS@10",
+    "value": 0.1436,
+    "unit": "",
+    "condition": "TwHIN-BERT-base, averaged over all 50 languages of the curated social engagement prediction dataset"
+   },
+   {
+    "name": "HITS@10",
+    "value": 0.1161,
+    "unit": "",
+    "condition": "TwHIN-BERT-base MLM-only ablation without the social loss, averaged over all 50 languages of the engagement prediction dataset"
+   },
+   {
+    "name": "Macro-F1",
+    "value": 55.23,
+    "unit": "percent",
+    "condition": "TwHIN-BERT-large, averaged over all 50 languages of the curated multilingual hashtag prediction dataset"
+   },
+   {
+    "name": "Macro-F1",
+    "value": 60.06,
+    "unit": "percent",
+    "condition": "TwHIN-BERT-large, averaged over the five external classification benchmark datasets of Table 4 (seven task-language evaluation columns)"
+   }
+  ],
+  "claim": "TwHIN-BERT outperforms established multilingual and Twitter-specific language models on both social engagement prediction and semantic classification tasks, and the social objective produces the largest gains on social tasks.",
+  "author_stated_limitations": [],
+  "themes": [
+   "pre-trained language models",
+   "social media mining",
+   "multilingual NLP",
+   "contrastive learning"
+  ]
+ },
+ "evidence": {
+  "problem_quote": "Despite the success of PLMs in general-domain NLP, fewer attempts have been made in language model pre-training for user-generated text on social media. In this work, we pre-train a language model for Twitter – a prominent social media platform where users post short messages called Tweets.",
+  "proposed_solution_quote": "We introduce TwHIN-BERT– a multilingual language model for Twitter pre-trained with social engagements. The key idea of our method is to leverage *socially similar Tweets* for pre-training.",
+  "claim_quote": "We perform a variety of downstream tasks using TwHIN-BERT on Tweet data. Our experiments demonstrate that TwHIN-BERT outperforms previously released language models on both semantic and social engagement prediction tasks.",
+  "author_stated_limitation_quotes": []
+ }
+}

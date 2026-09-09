@@ -1,0 +1,138 @@
+{
+  "paper_id": "arxiv-1911.02116",
+  "paper_type": "experimental",
+  "abstract": "This paper shows that pretraining multilingual language models at scale leads to significant performance gains for a wide range of cross-lingual transfer tasks. We train a Transformer-based masked language model on one hundred languages, using more than two terabytes of filtered CommonCrawl data. Our model, dubbed XLM-R, significantly outperforms multilingual BERT (mBERT) on a variety of cross-lingual benchmarks, including +14.6% average accuracy on XNLI, +13% average F1 score on MLQA, and +2.4% F1 score on NER. XLM-R performs particularly well on low-resource languages, improving 15.7% in XNLI accuracy for Swahili and 11.4% for Urdu over previous XLM models. We also present a detailed empirical analysis of the key factors that are required to achieve these gains, including the trade-offs between (1) positive transfer and capacity dilution and (2) the performance of high and low resource languages at scale. Finally, we show, for the first time, the possibility of multilingual modeling without sacrificing per-language performance; XLM-R is very competitive with strong monolingual models on the GLUE and XNLI benchmarks. We will make our code, data and models publicly available.",
+  "bibliographic": {
+    "title": "Unsupervised Cross-lingual Representation Learning at Scale",
+    "authors": [
+      {
+        "first_name": "Alexis",
+        "last_name": "Conneau"
+      },
+      {
+        "first_name": "Kartikay",
+        "last_name": "Khandelwal"
+      },
+      {
+        "first_name": "Naman",
+        "last_name": "Goyal"
+      },
+      {
+        "first_name": "Vishrav",
+        "last_name": "Chaudhary"
+      },
+      {
+        "first_name": "Guillaume",
+        "last_name": "Wenzek"
+      },
+      {
+        "first_name": "Francisco",
+        "last_name": "Guzmán"
+      },
+      {
+        "first_name": "Edouard",
+        "last_name": "Grave"
+      },
+      {
+        "first_name": "Myle",
+        "last_name": "Ott"
+      },
+      {
+        "first_name": "Luke",
+        "last_name": "Zettlemoyer"
+      },
+      {
+        "first_name": "Veselin",
+        "last_name": "Stoyanov"
+      }
+    ],
+    "year": 2020,
+    "venue": "Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics (ACL 2020)",
+    "venue_type": "conference",
+    "doi_or_url": "https://doi.org/10.18653/v1/2020.acl-main.747"
+  },
+  "content": {
+    "problem": "Multilingual language models pretrain on Wikipedia, which gives limited data, especially for low-resource languages, and the trade-offs of scaling such models to many languages remain poorly understood.",
+    "proposed_solution": "The authors pretrain a large Transformer masked language model named XLM-R on cleaned CommonCrawl data in 100 languages while evaluating capacity, sampling, and vocabulary trade-offs.",
+    "algorithm_or_model": "XLM-RoBERTa (XLM-R)",
+    "dataset_testbed": [
+      "CC-100 (2.5 TB filtered CommonCrawl corpus in 100 languages, created by the authors)",
+      "Wikipedia corpora (used in ablations and monolingual BERT baselines)",
+      "XNLI",
+      "CoNLL-2002",
+      "CoNLL-2003",
+      "MLQA",
+      "SQuAD (English training set)",
+      "GLUE",
+      "500 Nvidia V100 GPUs with 32 GB memory"
+    ],
+    "metrics": [
+      {
+        "name": "accuracy",
+        "value": 80.9,
+        "unit": "percent",
+        "condition": "Average XNLI accuracy for XLM-R under cross-lingual transfer from English across 15 languages"
+      },
+      {
+        "name": "accuracy",
+        "value": 83.6,
+        "unit": "percent",
+        "condition": "Average XNLI accuracy for XLM-R with translate-train-all multilingual fine-tuning"
+      },
+      {
+        "name": "F1",
+        "value": 70.7,
+        "unit": "percent",
+        "condition": "Average MLQA F1 for XLM-R fine-tuned on the English SQuAD training set and evaluated on the 7 MLQA languages"
+      },
+      {
+        "name": "EM",
+        "value": 52.7,
+        "unit": "percent",
+        "condition": "Average MLQA exact match score for XLM-R in the same zero-shot transfer setting"
+      },
+      {
+        "name": "F1",
+        "value": 89.43,
+        "unit": "percent",
+        "condition": "Average NER F1 for XLM-R trained on all CoNLL-2002 and CoNLL-2003 languages"
+      },
+      {
+        "name": "GLUE average",
+        "value": 91.8,
+        "unit": "percent",
+        "condition": "XLM-R average dev score on the English GLUE benchmark"
+      },
+      {
+        "name": "XNLI accuracy gain",
+        "value": 15.7,
+        "unit": "percent",
+        "condition": "Improvement of XLM-R over XLM-100 for Swahili under cross-lingual transfer"
+      },
+      {
+        "name": "XNLI accuracy gain",
+        "value": 11.4,
+        "unit": "percent",
+        "condition": "Improvement of XLM-R over XLM-100 for Urdu under cross-lingual transfer"
+      }
+    ],
+    "claim": "XLM-R sets a new state of the art on XNLI, NER, and MLQA, and shows that a single multilingual model can match strong monolingual models without losing per-language performance.",
+    "author_stated_limitations": [
+      "Multilingual masked language models such as XLM-R remain subject to a high-resource versus low-resource trade-off, the curse of multilinguality, and sensitivity to key hyperparameters."
+    ],
+    "themes": [
+      "multilingual language models",
+      "cross-lingual transfer",
+      "masked language model pretraining",
+      "low-resource languages"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "However, all of these studies pre-train on Wikipedia, which provides a relatively limited scale especially for lower resource languages.",
+    "proposed_solution_quote": "We present XLM-R a transformer-based multilingual masked language model pre-trained on text in 100 languages, which obtains state-of-the-art performance on cross-lingual classification, sequence labeling and question answering.",
+    "claim_quote": "XLM-R sets a new state of the art on XNLI. On cross-lingual transfer, XLM-R obtains 80.9% accuracy, outperforming the XLM-100 and mBERT open-source models by 10.2% and 14.6% average accuracy.",
+    "author_stated_limitation_quotes": [
+      "We exposed the limitations of multilingual MLMs, in particular by uncovering the high-resource versus low-resource trade-off, the curse of multilinguality and the importance of key hyperparameters."
+    ]
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "paper_id": "arxiv-2305.15425",
+  "paper_type": "experimental",
+  "abstract": "Recent language models have shown impressive multilingual performance, even when not explicitly trained for it. Despite this, there are concerns about the quality of their outputs across different languages. In this paper, we show how disparity in the treatment of different languages arises at the tokenization stage, well before a model is even invoked. The same text translated into different languages can have drastically different tokenization lengths, with differences up to 15 times in some cases. These disparities persist even for tokenizers that are intentionally trained for multilingual support. Character-level and byte-level models also exhibit over 4 times the difference in the encoding length for some language pairs. This induces unfair treatment for some language communities in regard to the cost of accessing commercial language services, the processing time and latency, as well as the amount of content that can be provided as context to the models. Therefore, we make the case that we should train future language models using multilingually fair subword tokenizers.",
+  "bibliographic": {
+    "title": "Language Model Tokenizers Introduce Unfairness Between Languages",
+    "authors": [
+      {
+        "first_name": "Aleksandar",
+        "last_name": "Petrov"
+      },
+      {
+        "first_name": "Emanuele",
+        "last_name": "La Malfa"
+      },
+      {
+        "first_name": "Philip H.S.",
+        "last_name": "Torr"
+      },
+      {
+        "first_name": "Adel",
+        "last_name": "Bibi"
+      }
+    ],
+    "year": 2023,
+    "venue": "Advances in Neural Information Processing Systems 36 (NeurIPS 2023)",
+    "venue_type": "conference",
+    "doi_or_url": "https://arxiv.org/abs/2305.15425"
+  },
+  "content": {
+    "problem": "Language model tokenizers encode the same content into vastly different numbers of tokens depending on the language, so users of some languages face higher costs, longer latency, and less usable context length for identical services.",
+    "proposed_solution": "The authors introduce a tokenizer parity measure (the tokenization premium of equivalent sentences across languages, computed on a parallel corpus) and argue that future language models should be trained from scratch with multilingually fair subword tokenizers built on UTF-8 that cover all Unicode codepoints.",
+    "algorithm_or_model": "Tokenizer parity (tokenization premium) metric",
+    "dataset_testbed": [
+      "FLORES-200 parallel corpus"
+    ],
+    "metrics": [
+      {
+        "name": "Tokenization premium",
+        "value": 15.05,
+        "unit": "times",
+        "condition": "Shan relative to English with the cl100k_base tokenizer of ChatGPT/GPT-4 on FLORES-200"
+      },
+      {
+        "name": "Tokenization premium",
+        "value": 18.76,
+        "unit": "times",
+        "condition": "Shan relative to English with the GPT-2/RoBERTa tokenizers on FLORES-200"
+      },
+      {
+        "name": "Tokenization premium",
+        "value": 1.48,
+        "unit": "times",
+        "condition": "Portuguese, the cheapest language, relative to English with the cl100k_base tokenizer on FLORES-200"
+      },
+      {
+        "name": "Tokenization premium",
+        "value": 12.71,
+        "unit": "times",
+        "condition": "Santali relative to English with the BLOOM tokenizer on FLORES-200"
+      },
+      {
+        "name": "Tokenization premium",
+        "value": 3.94,
+        "unit": "times",
+        "condition": "Shan relative to English with the ByT5 UTF-8 byte-level tokenizer on FLORES-200"
+      },
+      {
+        "name": "Tokenization premium",
+        "value": 4.58,
+        "unit": "times",
+        "condition": "Shan relative to English with the GPT-2 tokenizer, measured on English-Shan parallel data outside FLORES-200"
+      }
+    ],
+    "claim": "No examined tokenizer, including multilingual and byte-level ones, achieves parity across languages: the ChatGPT/GPT-4 tokenizer needs up to 15 times more tokens for the same content in some languages than in English, multilingual tokenizers vary by up to a factor of 13, and byte-level models differ by more than 4 times, so the authors call for multilingually fair tokenizers.",
+    "author_stated_limitations": [
+      "The evaluation depends on the FLORES-200 parallel corpus, whose unbalanced topics, English-centric named entities, and multiple valid translations with varying tokenization lengths could skew the parity results, and these corpus limitations also apply to the paper's own findings."
+    ],
+    "themes": [
+      "tokenization",
+      "multilingual NLP",
+      "fairness in language models",
+      "large language models"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "In this paper, we show how disparity in the treatment of different languages arises at the tokenization stage, well before a model is even invoked. The same text translated into different languages can have drastically different tokenization lengths, with differences up to 15 times in some cases.",
+    "proposed_solution_quote": "Therefore, we make the case for _multilingual tokenization parity_ : tokenizers should produce similar encoded lengths for the same content across languages. Hence, we advocate for multilingually fair tokenizers for the next generation of language models.",
+    "claim_quote": "The findings reveal that even tokenizers explicitly trained for multilingual support exhibit tokenization lengths that vary by up to a factor of 13. Furthermore, character-level and byte-level models also demonstrate encoding length discrepancies that are more than 4 times longer.",
+    "author_stated_limitation_quotes": [
+      "To account for this, a diversity of translations could ensure tokenization fairness across languages. These limitations also hold for the results in this paper."
+    ]
+  }
+}

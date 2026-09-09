@@ -1,0 +1,54 @@
+{
+  "paper_id": "hf-aisingapore-sea-lion-modernbert",
+  "paper_type": "tool-system",
+  "abstract": "SEA-LION is a collection of Large Language Models (LLMs) which have been pretrained and fine-tuned for the Southeast Asia (SEA) region.\n\nThis encoder-only model leverages the advanced ModernBERT architecture combined with the Gemma 3 SentencePiece tokenizer. The adoption of the Gemma 3 tokenizer with ModernBERT allows the model to achieve highly efficient and culturally nuanced text processing. This combination significantly improves the tokenization fertility and compression rates for complex regional scripts and diverse Southeast Asian languages, enabling the model to handle longer context windows and cross-lingual tasks with greater computational efficiency.\n\nTo achieve this level of performance, the model was developed through a rigorous, multi-stage training pipeline. The foundation was established through extensive pre-training on 2 Trillion (2T) tokens, followed by a mid-training phase on an additional 1 Trillion (1T) tokens. Both of these massive training phases comprehensively covered code alongside 13 specific languages: Burmese, Chinese, English, Filipino, Indonesian, Javanese, Khmer, Lao, Malay, Sundanese, Tamil, Thai, and Vietnamese.",
+  "bibliographic": {
+    "title": "SEA-LION-ModernBERT and Embedding",
+    "authors": [
+      {
+        "first_name": "AI Products Pillar",
+        "last_name": "AI Singapore"
+      }
+    ],
+    "year": 2026,
+    "venue": "Hugging Face",
+    "venue_type": "preprint",
+    "doi_or_url": "https://huggingface.co/collections/aisingapore/sea-lion-modernbert-and-embedding"
+  },
+  "content": {
+    "problem": "Complex regional scripts and diverse Southeast Asian languages suffer from high tokenization fertility and poor representation in standard encoder models.",
+    "proposed_solution": "The authors combine ModernBERT with a Gemma 3 SentencePiece tokenizer and train encoder models on three trillion tokens across 13 regional languages.",
+    "algorithm_or_model": "SEA-LION-ModernBERT (300M and 600M variants)",
+    "dataset_testbed": [
+      "2T pre-training token corpus (code and 13 Southeast Asian and regional languages)",
+      "1T mid-training token corpus (code and 13 Southeast Asian and regional languages)",
+      "245 million EN-EN and EN-SEA text pairs for contrastive pre-training (600M variant)",
+      "8 million multilingual text pairs for fine-tuning (600M variant)",
+      "SEA-BED (Southeast Asia Embedding Benchmark, 169 datasets across 10 SEA languages)",
+      "CMTEB (Chinese Massive Text Embedding Benchmark)",
+      "MTEB (Massive Text Embedding Benchmark)",
+      "Nvidia H200 140GB GPUs (SMC H200 cloud infrastructure)"
+    ],
+    "metrics": [],
+    "claim": "Adopting the Gemma 3 tokenizer with ModernBERT improves tokenization fertility and computational efficiency for cross-lingual tasks across Southeast Asian languages.",
+    "author_stated_limitations": [
+      "The authors did not evaluate the model for robustness against adversarial inputs.",
+      "The model may produce inconsistent outputs that require validation during deployment."
+    ],
+    "themes": [
+      "multilingual encoders",
+      "Southeast Asian languages",
+      "tokenization efficiency",
+      "ModernBERT"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "This combination significantly improves the tokenization fertility and compression rates for complex regional scripts and diverse Southeast Asian languages, enabling the model to handle longer context windows and cross-lingual tasks with greater computational efficiency.",
+    "proposed_solution_quote": "This encoder-only model leverages the advanced ModernBERT architecture combined with the Gemma 3 SentencePiece tokenizer.",
+    "claim_quote": "The adoption of the Gemma 3 tokenizer with ModernBERT allows the model to achieve highly efficient and culturally nuanced text processing.",
+    "author_stated_limitation_quotes": [
+      "The model was not tested for robustness against adversarial usage.",
+      "Users should also exercise caution in continue-implementing and validating the model's responses due to the potential inconsistencies."
+    ]
+  }
+}

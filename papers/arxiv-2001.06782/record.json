@@ -1,0 +1,138 @@
+{
+  "paper_id": "arxiv-2001.06782",
+  "paper_type": "experimental",
+  "abstract": "While deep learning and deep reinforcement learning (RL) systems have demonstrated impressive results in domains such as image classification, game playing, and robotic control, data efficiency remains a major challenge. Multi-task learning has emerged as a promising approach for sharing structure across multiple tasks to enable more efficient learning. However, the multi-task setting presents a number of optimization challenges, making it difficult to realize large efficiency gains compared to learning tasks independently. The reasons why multi-task learning is so challenging compared to single-task learning are not fully understood. In this work, we identify a set of three conditions of the multi-task optimization landscape that cause detrimental gradient interference, and develop a simple yet general approach for avoiding such interference between task gradients. We propose a form of gradient surgery that projects a task’s gradient onto the normal plane of the gradient of any other task that has a *conflicting* gradient. On a series of challenging multi-task supervised and multi-task RL problems, this approach leads to substantial gains in efficiency and performance. Further, it is model-agnostic and can be combined with previously-proposed multi-task architectures for enhanced performance.",
+  "bibliographic": {
+    "title": "Gradient Surgery for Multi-Task Learning",
+    "authors": [
+      {
+        "first_name": "Tianhe",
+        "last_name": "Yu"
+      },
+      {
+        "first_name": "Saurabh",
+        "last_name": "Kumar"
+      },
+      {
+        "first_name": "Abhishek",
+        "last_name": "Gupta"
+      },
+      {
+        "first_name": "Sergey",
+        "last_name": "Levine"
+      },
+      {
+        "first_name": "Karol",
+        "last_name": "Hausman"
+      },
+      {
+        "first_name": "Chelsea",
+        "last_name": "Finn"
+      }
+    ],
+    "year": 2020,
+    "venue": "Advances in Neural Information Processing Systems 33 (NeurIPS 2020)",
+    "venue_type": "conference",
+    "doi_or_url": "https://arxiv.org/abs/2001.06782"
+  },
+  "content": {
+    "problem": "Jointly training multiple tasks often degrades performance and data efficiency because conflicting gradients, dominating gradient magnitudes, and high loss curvature cause destructive gradient interference.",
+    "proposed_solution": "The authors propose PCGrad, which detects conflicting task gradients by negative cosine similarity and projects each conflicting gradient onto the normal plane of the other.",
+    "algorithm_or_model": "PCGrad (Projecting Conflicting Gradients)",
+    "dataset_testbed": [
+      "MultiMNIST",
+      "CityScapes",
+      "CelebA",
+      "CIFAR-100",
+      "NYUv2",
+      "Meta-World MT10 benchmark",
+      "Meta-World MT50 benchmark",
+      "Meta-World Sawyer robot pushing task",
+      "NVIDIA TITAN RTX GPU"
+    ],
+    "metrics": [
+      {
+        "name": "accuracy",
+        "value": 71,
+        "unit": "percent",
+        "condition": "multi-task CIFAR-100 with PCGrad applied to a single shared network"
+      },
+      {
+        "name": "accuracy",
+        "value": 77.5,
+        "unit": "percent",
+        "condition": "multi-task CIFAR-100 with routing networks and PCGrad"
+      },
+      {
+        "name": "average classification error",
+        "value": 8.69,
+        "unit": "percent",
+        "condition": "CelebA 40-attribute multi-task classification with PCGrad"
+      },
+      {
+        "name": "mIoU",
+        "value": 20.17,
+        "unit": "percent",
+        "condition": "NYUv2 13-class semantic segmentation with MTAN and PCGrad using uncertainty weights"
+      },
+      {
+        "name": "Pix Acc",
+        "value": 56.65,
+        "unit": "percent",
+        "condition": "NYUv2 13-class semantic segmentation with MTAN and PCGrad using uncertainty weights"
+      },
+      {
+        "name": "Abs Err",
+        "value": 0.5904,
+        "unit": "",
+        "condition": "NYUv2 depth estimation with MTAN and PCGrad using uncertainty weights"
+      },
+      {
+        "name": "Mean Angle Distance",
+        "value": 30.01,
+        "unit": "degrees",
+        "condition": "NYUv2 surface normal prediction with MTAN and PCGrad using uncertainty weights"
+      },
+      {
+        "name": "success rate",
+        "value": 100,
+        "unit": "percent",
+        "condition": "Meta-World MT10 benchmark with SAC and PCGrad"
+      },
+      {
+        "name": "success rate",
+        "value": 70,
+        "unit": "percent",
+        "condition": "Meta-World MT50 benchmark with SAC and PCGrad"
+      },
+      {
+        "name": "absolute improvement",
+        "value": 30,
+        "unit": "percent",
+        "condition": "multi-task reinforcement learning problems compared to prior approaches"
+      }
+    ],
+    "claim": "PCGrad significantly improves optimization speed, data efficiency, and final performance across multi-task supervised and reinforcement learning benchmarks, while combining effectively with existing multi-task network architectures.",
+    "author_stated_limitations": [
+      "In theory PCGrad convergence can slow down when the cosine similarity between task gradients stays near minus one, though this was not observed in practice.",
+      "On the first task of the NYUv2 dataset, both baseline and PCGrad models exhibited overfitting, indicating that better regularization is required.",
+      "The method remains subject to broader machine learning risks, including safety hazards, difficult reward specification in reinforcement learning, dataset bias, and heavy computation demands."
+    ],
+    "themes": [
+      "multi-task learning",
+      "optimization",
+      "reinforcement learning",
+      "computer vision"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "However, the multi-task setting presents a number of optimization challenges, making it difficult to realize large efficiency gains compared to learning tasks independently. The reasons why multi-task learning is so challenging compared to single-task learning are not fully understood.",
+    "proposed_solution_quote": "In this work, we identify a set of three conditions of the multi-task optimization landscape that cause detrimental gradient interference, and develop a simple yet general approach for avoiding such interference between task gradients. We propose a form of gradient surgery that projects a task’s gradient onto the normal plane of the gradient of any other task that has a *conflicting* gradient.",
+    "claim_quote": "Across the board, we find PCGrad leads to substantial improvements in terms of data efficiency, optimization speed, and final performance compared to prior approaches, including a more than 30% absolute improvement in multi-task reinforcement learning problems.",
+    "author_stated_limitation_quotes": [
+      "Note that, in theory, convergence may be slow if cos⁡(ϕ12)\\cos(\\phi\\_{12}) hovers near −1-1. However, we don’t observe this in practice, as seen in the objective-wise learning curves in Appendix [B](#A2 \"Appendix B Empirical Objective-Wise Evaluations of PCGrad ‣ Gradient Surgery for Multi-Task Learning\").",
+      "Note that in task 0 of the NYUv2 dataset, both methods seem to overfit, suggesting a better regularization scheme for this domain.",
+      "However, there are potential risks that apply to all machine learning and reinforcement learning systems including ours, including but not limited to safety, reward specification in RL which is often difficult to acquire in the real world, bias in supervised learning systems due to the composition of training data, and compute/data-intensive training procedures."
+    ]
+  }
+}

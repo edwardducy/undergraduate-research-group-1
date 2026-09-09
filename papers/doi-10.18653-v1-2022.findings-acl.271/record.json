@@ -1,0 +1,40 @@
+{
+  "paper_id": "doi-10.18653-v1-2022.findings-acl.271",
+  "paper_type": "experimental",
+  "abstract": "Task weighting, which assigns weights on the including tasks during training, significantly matters the performance of Multi-task Learning (MTL); thus, recently, there has been an explosive interest in it. However, existing task weighting methods assign weights only based on the training loss, while ignoring the gap between the training loss and generalization loss. It degenerates MTL's performance. To address this issue, the present paper proposes a novel task weighting algorithm, which automatically weights the tasks via a learning-to-learn paradigm, referred to as MetaWeighting. Extensive experiments are conducted to validate the superiority of our proposed method in multitask text classification.",
+  "bibliographic": {
+    "title": "MetaWeighting: Learning to Weight Tasks in Multi-Task Learning",
+    "authors": [
+      {"first_name": "Yuren", "last_name": "Mao"},
+      {"first_name": "Zekai", "last_name": "Wang"},
+      {"first_name": "Weiwei", "last_name": "Liu"},
+      {"first_name": "Xuemin", "last_name": "Lin"},
+      {"first_name": "Pengtao", "last_name": "Xie"}
+    ],
+    "year": 2022,
+    "venue": "Findings of the Association for Computational Linguistics: ACL 2022",
+    "venue_type": "conference",
+    "doi_or_url": "https://doi.org/10.18653/v1/2022.findings-acl.271"
+  },
+  "content": {
+    "problem": "Existing task weighting methods in multi-task learning compute task weights only from training losses and ignore the gap between training loss and generalization loss, which degrades MTL performance.",
+    "proposed_solution": "The authors propose MetaWeighting, which learns task weights automatically by solving a multi-objective bi-level optimization problem in a learning-to-learn manner so that the weights target generalization performance.",
+    "algorithm_or_model": "MetaWeighting",
+    "dataset_testbed": [
+      "Amazon product reviews sentiment analysis dataset with 14 binary classification domains (Blitzer et al., 2007)",
+      "20 Newsgroups dataset reduced to 16 newsgroups and grouped into four 4-class topic classification tasks",
+      "TextCNN encoder with pre-trained GloVe embeddings",
+      "pre-trained BERT-base model"
+    ],
+    "metrics": [],
+    "claim": "MetaWeighting learns task weights without any predefined heuristic and outperforms all tested baselines on multi-task text classification with both TextCNN and BERT encoders.",
+    "author_stated_limitations": [],
+    "themes": ["multi-task learning", "task weighting", "meta learning", "text classification"]
+  },
+  "evidence": {
+    "problem_quote": "However, existing task weighting methods assign weights only based on the training loss, while ignoring the gap between the training loss and generalization loss. It degenerates MTL's performance.",
+    "proposed_solution_quote": "To tackle this issue, this paper proposes a novel task weighting method based on a bi-level optimization problem, which aims to find task weights that explicitly optimize the generalization performance. Our proposed method computes task weights by solving this bi-level optimization problem and performs in a learning-to-learn manner; thus, dubbed MetaWeighting.",
+    "claim_quote": "MetaWeighting automatically learns the task weights without any predefined heuristic and achieves state-of-the-art performance.",
+    "author_stated_limitation_quotes": []
+  }
+}

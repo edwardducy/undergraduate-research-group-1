@@ -1,0 +1,113 @@
+{
+  "paper_id": "arxiv-2505.10347",
+  "paper_type": "experimental",
+  "abstract": "Specialized Multi-Task Optimizers (SMTOs) balance task learning in Multi-Task Learning by addressing issues like conflicting gradients and differing gradient norms, which hinder equal-weighted task training. However, recent critiques suggest that equally weighted tasks can achieve competitive results compared to SMTOs, arguing that previous SMTO results were influenced by poor hyperparameter optimization and lack of regularization. In this work, we evaluate these claims through an extensive empirical evaluation of SMTOs, including some of the latest methods, on more complex multi-task problems to clarify this behavior. More specifically, we start our analysis by evaluating all SMTOs on a simple MNIST problem to identify the promising optimizers and assess them further on progressively more complex multi-task problems. Our findings indicate that SMTOs perform well compared to uniform loss and that fixed weights can achieve competitive performance compared to SMTOs. Furthermore, we demonstrate why uniform loss performs similarly to SMTOs in some instances. The source code is available at [https://github.com/Gabriel-SGama/UnitScal\\_vs\\_SMTOs](https://github.com/Gabriel-SGama/UnitScal_vs_SMTOs \"\").",
+  "bibliographic": {
+    "title": "Uniform Loss vs. Specialized Optimization: A Comparative Analysis in Multi-Task Learning",
+    "authors": [
+      {
+        "first_name": "Gabriel S.",
+        "last_name": "Gama"
+      },
+      {
+        "first_name": "Valdir",
+        "last_name": "Grassi Jr"
+      }
+    ],
+    "year": 2025,
+    "venue": "arXiv",
+    "venue_type": "preprint",
+    "doi_or_url": "https://arxiv.org/abs/2505.10347"
+  },
+  "content": {
+    "problem": "Recent critiques question whether specialized multi-task optimizers outperform uniform loss because previous comparisons lacked standardized evaluation and sufficient hyperparameter tuning.",
+    "proposed_solution": "The authors evaluate sixteen specialized multi-task optimizers against tuned uniform loss baselines across multiple datasets with increasing multi-task balancing complexity.",
+    "algorithm_or_model": "Evaluation of 16 SMTOs, including Nash-MTL, CAGrad, IMTL, and FAMO, against uniform loss (Unitary Scalarization)",
+    "dataset_testbed": [
+      "Multi-MNIST",
+      "Cityscapes",
+      "QM9",
+      "AMD Ryzen 9 5950X CPU with two NVIDIA RTX 3090 GPUs"
+    ],
+    "metrics": [
+      {
+        "name": "Delta_mtm",
+        "value": -2.137,
+        "unit": "percent",
+        "condition": "Best performing SMTO on the Multi-MNIST classification and reconstruction problem"
+      },
+      {
+        "name": "Delta_mtm",
+        "value": -3.251,
+        "unit": "percent",
+        "condition": "Fixed weights on the Multi-MNIST classification and reconstruction problem"
+      },
+      {
+        "name": "Delta_mtm",
+        "value": -8.952,
+        "unit": "percent",
+        "condition": "Unitary Scalarization baseline on the Multi-MNIST classification and reconstruction problem"
+      },
+      {
+        "name": "Delta_mtm",
+        "value": 0.57,
+        "unit": "percent",
+        "condition": "Best performing SMTO on the most complex Cityscapes configuration with 19 semantic classes, instance segmentation, and disparity estimation"
+      },
+      {
+        "name": "Delta_mtm",
+        "value": 0.145,
+        "unit": "percent",
+        "condition": "Fixed weights on the most complex Cityscapes configuration with 19 semantic classes"
+      },
+      {
+        "name": "Delta_mtm",
+        "value": -5.312,
+        "unit": "percent",
+        "condition": "Unitary Scalarization baseline on the most complex Cityscapes configuration with 19 semantic classes"
+      },
+      {
+        "name": "Delta_mtm",
+        "value": -53.62,
+        "unit": "percent",
+        "condition": "Best performing SMTO, Nash-MTL, on the QM9 dataset"
+      },
+      {
+        "name": "Delta_mtm",
+        "value": -135.7,
+        "unit": "percent",
+        "condition": "Unitary Scalarization baseline on the QM9 dataset"
+      },
+      {
+        "name": "MR",
+        "value": 2.09,
+        "unit": "",
+        "condition": "Nash-MTL mean rank on the QM9 dataset"
+      }
+    ],
+    "claim": "SMTOs clearly outperform uniform loss once multi-task problems become complex enough, although well-chosen fixed weights can still match them.",
+    "author_stated_limitations": [
+      "The study evaluates only supervised learning tasks and excludes language processing or reinforcement learning problems.",
+      "The initial filter on MNIST excluded several optimizers that might have demonstrated advantages under more exhaustive analysis.",
+      "The experiments tested only vanilla optimizer versions without exploring combinations of different optimizers due to time limits.",
+      "The evaluation considers only equally weighted multi-task learning and omits scenarios designed for auxiliary tasks."
+    ],
+    "themes": [
+      "multi-task learning",
+      "multi-task optimization",
+      "loss weighting",
+      "empirical evaluation"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "One notable issue in the SMTO field is the lack of a standardized evaluation framework and procedure, leading to concerns about reproducibility \\[[23](#bib.bib24 \"\")\\]. Understandably, some works have begun questioning the efficacy of SMTOs \\[[24](#bib.bib23 \"\"), [23](#bib.bib24 \"\")\\].",
+    "proposed_solution_quote": "In this work, we evaluate these claims through an extensive empirical evaluation of SMTOs, including some of the latest methods, on more complex multi-task problems to clarify this behavior. More specifically, we start our analysis by evaluating all SMTOs on a simple MNIST problem to identify the promising optimizers and assess them further on progressively more complex multi-task problems.",
+    "claim_quote": "Our findings indicate that SMTOs perform well compared to uniform loss and that fixed weights can achieve competitive performance compared to SMTOs. Furthermore, we demonstrate why uniform loss performs similarly to SMTOs in some instances.",
+    "author_stated_limitation_quotes": [
+      "However, it is important to note that we only focused on the supervised setting and did not include problems from NLP or reinforcement learning, fields in which MTL is commonly evaluated \\[[24](#bib.bib23 \"\"), [23](#bib.bib24 \"\")\\].",
+      "Also, our initial selection process involved filtering certain SMTOs based on their norm balancing performance on the MNIST classification-reconstruction problem. Despite this strong preliminary evidence, a more exhaustive analysis of the excluded methods may reveal unknown advantages.",
+      "Furthermore, some SMTOs were reported to provide better results when combining them with other SMTOs \\[[12](#bib.bib17 \"\"), [18](#bib.bib19 \"\")\\], but because of time constraints, we limited the experiments to only the vanilla version.",
+      "Finally, we only considered the MTL problem, where all tasks are equally weighted, and did not consider scenarios designed for auxiliary tasks."
+    ]
+  }
+}

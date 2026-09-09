@@ -1,0 +1,138 @@
+{
+  "paper_id": "arxiv-2004.12376",
+  "paper_type": "dataset-benchmark",
+  "abstract": "Code-switching is the use of more than one language in the same conversation or utterance. Recently, multilingual contextual embedding models, trained on multiple monolingual corpora, have shown promising results on cross-lingual and multilingual tasks. We present an evaluation benchmark, GLUECoS, for code-switched languages, that spans several NLP tasks in English-Hindi and English-Spanish. Specifically, our evaluation benchmark includes Language Identification from text, POS tagging, Named Entity Recognition, Sentiment Analysis, Question Answering and a new task for code-switching, Natural Language Inference. We present results on all these tasks using cross-lingual word embedding models and multilingual models. In addition, we fine-tune multilingual models on artificially generated code-switched data. Although multilingual models perform significantly better than cross-lingual models, our results show that in most tasks, across both language pairs, multilingual models fine-tuned on code-switched data perform best, showing that multilingual models can be further optimized for code-switching tasks.",
+  "bibliographic": {
+    "title": "GLUECoS : An Evaluation Benchmark for Code-Switched NLP",
+    "authors": [
+      {
+        "first_name": "Simran",
+        "last_name": "Khanuja"
+      },
+      {
+        "first_name": "Sandipan",
+        "last_name": "Dandapat"
+      },
+      {
+        "first_name": "Anirudh",
+        "last_name": "Srinivasan"
+      },
+      {
+        "first_name": "Sunayana",
+        "last_name": "Sitaram"
+      },
+      {
+        "first_name": "Monojit",
+        "last_name": "Choudhury"
+      }
+    ],
+    "year": 2020,
+    "venue": "Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics (ACL 2020)",
+    "venue_type": "conference",
+    "doi_or_url": "https://doi.org/10.18653/v1/2020.acl-main.329"
+  },
+  "content": {
+    "problem": "Annotated data and standardized multi-task evaluations are scarce for code-switched text, so there has been no comprehensive way to compare embedding and multilingual models across code-switched language understanding tasks.",
+    "proposed_solution": "The authors introduce GLUECoS, a GLUE-style benchmark of six code-switched NLP tasks in English-Hindi and English-Spanish, and use it to evaluate cross-lingual word embeddings against multilingual BERT, including a variant further fine-tuned on synthetic and real code-switched text.",
+    "algorithm_or_model": "GLUECoS benchmark and modified mBERT",
+    "dataset_testbed": [
+      "FIRE 2013 LID dataset (English-Hindi language identification)",
+      "UD POS code-switched dependency dataset (English-Hindi)",
+      "FG POS dataset from the ICON 2016 shared task (English-Hindi)",
+      "IIITH Twitter NER corpus (English-Hindi)",
+      "SAIL code-mixed sentiment corpus from ICON 2017 (English-Hindi)",
+      "Code-mixed question answering dataset of Chandu et al. 2018 (English-Hindi)",
+      "New conversational code-switched NLI dataset (English-Hindi)",
+      "EMNLP 2014 LID shared task dataset (English-Spanish)",
+      "Bangor Miami corpus (English-Spanish POS tagging)",
+      "CALCS 2018 NER shared task corpus (English-Spanish)",
+      "English-Spanish Twitter sentiment corpus of Vilares et al. 2016",
+      "IITB English-Hindi parallel corpus used to generate synthetic code-switched data",
+      "Twitter and internal parallel corpora used to train cross-lingual embeddings"
+    ],
+    "metrics": [
+      {
+        "name": "F1",
+        "value": 96.6,
+        "unit": "percent",
+        "condition": "Modified mBERT on the FIRE 2013 English-Hindi language identification dataset"
+      },
+      {
+        "name": "F1",
+        "value": 96.24,
+        "unit": "percent",
+        "condition": "Modified mBERT on the EMNLP 2014 English-Spanish language identification dataset"
+      },
+      {
+        "name": "F1",
+        "value": 88.06,
+        "unit": "percent",
+        "condition": "Modified mBERT on the English-Hindi UD POS dataset"
+      },
+      {
+        "name": "F1",
+        "value": 93.62,
+        "unit": "percent",
+        "condition": "Modified mBERT on the Bangor Miami English-Spanish POS dataset"
+      },
+      {
+        "name": "F1",
+        "value": 78.21,
+        "unit": "percent",
+        "condition": "Modified mBERT on the IIITH English-Hindi Twitter NER corpus"
+      },
+      {
+        "name": "F1",
+        "value": 61.77,
+        "unit": "percent",
+        "condition": "Modified mBERT on the CALCS 2018 English-Spanish NER corpus"
+      },
+      {
+        "name": "F1",
+        "value": 59.35,
+        "unit": "percent",
+        "condition": "Modified mBERT on the SAIL English-Hindi code-mixed sentiment corpus"
+      },
+      {
+        "name": "F1",
+        "value": 69.31,
+        "unit": "percent",
+        "condition": "Modified mBERT on the English-Spanish Twitter sentiment dataset"
+      },
+      {
+        "name": "F1",
+        "value": 71.96,
+        "unit": "percent",
+        "condition": "mBERT on the English-Hindi code-mixed question answering dataset"
+      },
+      {
+        "name": "Accuracy",
+        "value": 63.1,
+        "unit": "percent",
+        "condition": "Modified mBERT on the new English-Hindi conversational NLI dataset"
+      }
+    ],
+    "claim": "Multilingual BERT outperforms cross-lingual word embeddings on every GLUECoS task, and fine-tuning it on synthetic plus a small amount of real code-switched data gives the best results on most tasks, showing multilingual models can be further optimized for code-switching.",
+    "author_stated_limitations": [
+      "Each task was solved individually with standard architectures while only varying embeddings, without a multi-task setup.",
+      "Non-standardized spellings of romanized Hindi and transliterator errors may have influenced the results.",
+      "English-Hindi cross-lingual embeddings had to be trained on generic-domain parallel corpora rather than domain-matched social media data because of limited resources."
+    ],
+    "themes": [
+      "code-switching",
+      "evaluation benchmark",
+      "multilingual BERT",
+      "cross-lingual word embeddings"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "Data and annotated resources are scarce for code-switched languages, even if one or both languages being mixed are high resource. Due to this, there is a lack of standardized datasets in code-switched languages other than those used in shared tasks in a few language pairs.",
+    "proposed_solution_quote": "We present an evaluation benchmark, GLUECoS, for code-switched languages, that spans several NLP tasks in English-Hindi and English-Spanish. Specifically, our evaluation benchmark includes Language Identification from text, POS tagging, Named Entity Recognition, Sentiment Analysis, Question Answering and a new task for code-switching, Natural Language Inference.",
+    "claim_quote": "We test various embedding techniques across all tasks and datasets and find that multilingual BERT outperforms cross-lingual embedding techniques on all tasks. We also find that for most datasets, a modified version of mBERT that has been fine-tuned on synthetically generated code-switched data with a small amount of real code-switched data performs best.",
+    "author_stated_limitation_quotes": [
+      "In this work, we use standard architectures to solve each NLP task individually and vary the embeddings used.",
+      "Romanized Hindi does not use standardized spellings, and errors made by the transliterator could have influenced the results.",
+      "We use Twitter and social media data to train cross lingual word embeddings for English-Spanish which are similar in domain to the task datasets, while we use the IITB and query-based parallel corpora for English-Hindi which is generic in domain, constrained by the available resources at hand."
+    ]
+  }
+}

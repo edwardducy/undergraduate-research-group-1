@@ -1,0 +1,110 @@
+{
+  "paper_id": "arxiv-1810.04805",
+  "paper_type": "experimental",
+  "abstract": "We introduce a new language representation model called BERT, which stands for Bidirectional Encoder Representations from Transformers. Unlike recent language representation models [Peters et al. (2018a)](#bib.bib36 \"\"); [Radford et al. (2018)](#bib.bib38 \"\"), BERT is designed to pre-train deep bidirectional representations from unlabeled text by jointly conditioning on both left and right context in all layers. As a result, the pre-trained BERT model can be fine-tuned with just one additional output layer to create state-of-the-art models for a wide range of tasks, such as question answering and language inference, without substantial task-specific architecture modifications.\nBERT is conceptually simple and empirically powerful. It obtains new state-of-the-art results on eleven natural language processing tasks, including pushing the GLUE score to 80.5% (7.7% point absolute improvement), MultiNLI accuracy to 86.7% (4.6% absolute improvement), SQuAD v1.1 question answering Test F1 to 93.2 (1.5 point absolute improvement) and SQuAD v2.0 Test F1 to 83.1 (5.1 point absolute improvement).",
+  "bibliographic": {
+    "title": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
+    "authors": [
+      {
+        "first_name": "Jacob",
+        "last_name": "Devlin"
+      },
+      {
+        "first_name": "Ming-Wei",
+        "last_name": "Chang"
+      },
+      {
+        "first_name": "Kenton",
+        "last_name": "Lee"
+      },
+      {
+        "first_name": "Kristina",
+        "last_name": "Toutanova"
+      }
+    ],
+    "year": 2019,
+    "venue": "Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies (NAACL-HLT 2019)",
+    "venue_type": "conference",
+    "doi_or_url": "https://doi.org/10.18653/v1/N19-1423"
+  },
+  "content": {
+    "problem": "Pre-trained language representations relied on unidirectional language models, and this unidirectionality restricted pre-training architectures and harmed downstream tasks that need context from both directions.",
+    "proposed_solution": "The authors pre-train a bidirectional Transformer using masked language modeling and next sentence prediction objectives, then fine-tune all parameters with one task-specific output layer.",
+    "algorithm_or_model": "BERT (Bidirectional Encoder Representations from Transformers)",
+    "dataset_testbed": [
+      "BooksCorpus (800M words)",
+      "English Wikipedia (2,500M words)",
+      "GLUE benchmark (MNLI, QQP, QNLI, SST-2, CoLA, STS-B, MRPC, RTE, WNLI)",
+      "SQuAD v1.1",
+      "SQuAD v2.0",
+      "TriviaQA (augmentation data for SQuAD v1.1)",
+      "SWAG",
+      "CoNLL-2003 Named Entity Recognition",
+      "Cloud TPU"
+    ],
+    "metrics": [
+      {
+        "name": "GLUE score",
+        "value": 80.5,
+        "unit": "percent",
+        "condition": "Official GLUE leaderboard score for BERT_LARGE, which includes WNLI. The paper's Table 1 average excludes WNLI and is 82.1."
+      },
+      {
+        "name": "average accuracy",
+        "value": 79.6,
+        "unit": "percent",
+        "condition": "BERT_BASE average across GLUE test tasks in Table 1, which excludes WNLI."
+      },
+      {
+        "name": "accuracy",
+        "value": 86.7,
+        "unit": "percent",
+        "condition": "BERT_LARGE on the GLUE MultiNLI matched test set in Table 1."
+      },
+      {
+        "name": "F1",
+        "value": 93.2,
+        "unit": "percent",
+        "condition": "Ensemble of 7 BERT_LARGE systems fine-tuned on TriviaQA and then SQuAD v1.1, test set."
+      },
+      {
+        "name": "F1",
+        "value": 91.8,
+        "unit": "percent",
+        "condition": "Single BERT_LARGE system with TriviaQA augmentation on the SQuAD v1.1 test set."
+      },
+      {
+        "name": "F1",
+        "value": 83.1,
+        "unit": "percent",
+        "condition": "BERT_LARGE on the SQuAD v2.0 test set."
+      },
+      {
+        "name": "accuracy",
+        "value": 86.3,
+        "unit": "percent",
+        "condition": "BERT_LARGE on the SWAG test set."
+      },
+      {
+        "name": "F1",
+        "value": 92.8,
+        "unit": "percent",
+        "condition": "BERT_LARGE fine-tuned on CoNLL-2003 named entity recognition, test set averaged over 5 random restarts."
+      }
+    ],
+    "claim": "Pre-training a deep bidirectional Transformer with masked language modeling and next sentence prediction achieved new state-of-the-art results on eleven NLP tasks and outperformed task-specific architectures after simple fine-tuning.",
+    "author_stated_limitations": [],
+    "themes": [
+      "language model pre-training",
+      "transfer learning",
+      "natural language understanding",
+      "bidirectional transformers"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "We argue that current techniques restrict the power of the pre-trained representations, especially for the fine-tuning approaches. The major limitation is that standard language models are unidirectional, and this limits the choice of architectures that can be used during pre-training.",
+    "proposed_solution_quote": "In this paper, we improve the fine-tuning based approaches by proposing BERT: Bidirectional Encoder Representations from Transformers. BERT alleviates the previously mentioned unidirectionality constraint by using a “masked language model” (MLM) pre-training objective, inspired by the Cloze task [Taylor (1953)](#bib.bib43 \"\").",
+    "claim_quote": "It obtains new state-of-the-art results on eleven natural language processing tasks, including pushing the GLUE score to 80.5% (7.7% point absolute improvement), MultiNLI accuracy to 86.7% (4.6% absolute improvement), SQuAD v1.1 question answering Test F1 to 93.2 (1.5 point absolute improvement) and SQuAD v2.0 Test F1 to 83.1 (5.1 point absolute improvement).",
+    "author_stated_limitation_quotes": []
+  }
+}

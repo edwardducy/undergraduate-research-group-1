@@ -1,0 +1,114 @@
+{
+  "paper_id": "arxiv-2406.15477",
+  "paper_type": "experimental",
+  "abstract": "In the field of crisis/disaster informatics, social media is increasingly being used for improving situational awareness to inform response and relief efforts. Efficient and accurate text classification tools have been a focal area of investigation in crisis informatics. This study introduces a novel approach to disaster text classification by enhancing a pre-trained Large Language Model (LLM) through instruction fine-tuning targeted for multi-label classification of disaster-related tweets. Our methodology involves creating a comprehensive instruction dataset with more than 60,000 samples from disaster-related tweets, which is then used to fine-tune an open-source LLM, thereby embedding it with disaster-specific knowledge. This fine-tuned model can classify multiple aspects of disaster-related information simultaneously, such as the type of event, informativeness, and involvement of human aid, significantly improving the utility of social media data for situational awareness in disasters. Our results show a significant improvement in categorizing critical information, with an overall accuracy of 63.8% across multiple labels. The overall accuracy of the fine-tuned model is nearly 15 times better than baseline models, whose overall accuracy is 4.27%, demonstrating its effectiveness in enhancing situational awareness. This research paves the way for more advanced, adaptable, and robust disaster management tools, leveraging the capabilities of LLMs to improve real-time situational awareness and response strategies in disaster scenarios. The source code and data relevant to this work is openly accessible in https://github.com/KaiYin97/CrsisLLM",
+  "bibliographic": {
+    "title": "CrisisSense-LLM: Instruction Fine-Tuned Large Language Model for Multi-label Social Media Text Classification in Disaster Informatics",
+    "authors": [
+      {
+        "first_name": "Kai",
+        "last_name": "Yin"
+      },
+      {
+        "first_name": "Bo",
+        "last_name": "Li"
+      },
+      {
+        "first_name": "Chengkai",
+        "last_name": "Liu"
+      },
+      {
+        "first_name": "Ali",
+        "last_name": "Mostafavi"
+      },
+      {
+        "first_name": "Xia",
+        "last_name": "Hu"
+      }
+    ],
+    "year": 2026,
+    "venue": "Advanced Engineering Informatics",
+    "venue_type": "journal",
+    "doi_or_url": "https://doi.org/10.1016/j.aei.2026.104836"
+  },
+  "content": {
+    "problem": "Disaster text classification studies usually train one model per label, which creates redundancy and inefficiency, and general pre-trained LLMs lack the disaster-specific knowledge needed for reliable use on these tasks.",
+    "proposed_solution": "The authors build an instruction dataset of over 60,000 labeled disaster tweets and use it to instruction fine-tune the open-source LLaMA2 model so that one model predicts event type, informativeness, and human aid type at the same time.",
+    "algorithm_or_model": "CrisisSense-LLM (instruction fine-tuned LLaMA2)",
+    "dataset_testbed": [
+      "CrisisBench disaster tweet dataset",
+      "computation node with 3 A40 GPUs for LoRA fine-tuning",
+      "computation node with 16 A100 GPUs for full parameter tuning"
+    ],
+    "metrics": [
+      {
+        "name": "overall accuracy",
+        "value": 63.8,
+        "unit": "percent",
+        "condition": "majority vote ensemble of the top 8 checkpoints of the fine-tuned model on the CrisisBench multi-label task"
+      },
+      {
+        "name": "overall accuracy",
+        "value": 4.27,
+        "unit": "percent",
+        "condition": "zero-shot LLaMa2-chat foundation model baseline"
+      },
+      {
+        "name": "overall accuracy",
+        "value": 61.3,
+        "unit": "percent",
+        "condition": "best single checkpoint, full parameter tuning of LLaMa2-base stopped at 0.315 epochs"
+      },
+      {
+        "name": "overall accuracy",
+        "value": 59.3,
+        "unit": "percent",
+        "condition": "best LoRA setting with rank 32 applied to all linear layers of LLaMa2-chat at 1 epoch"
+      },
+      {
+        "name": "event type accuracy",
+        "value": 29.18,
+        "unit": "percent",
+        "condition": "zero-shot LLaMa2-chat foundation model baseline"
+      },
+      {
+        "name": "informativeness accuracy",
+        "value": 53.4,
+        "unit": "percent",
+        "condition": "zero-shot LLaMa2-chat foundation model baseline"
+      },
+      {
+        "name": "human aid type accuracy",
+        "value": 23.9,
+        "unit": "percent",
+        "condition": "zero-shot LLaMa2-chat foundation model baseline"
+      },
+      {
+        "name": "overall accuracy decrease ratio",
+        "value": 52.8,
+        "unit": "percent",
+        "condition": "Chat_Lora_32_1 model evaluated with a different prompt template than the one used in fine-tuning"
+      }
+    ],
+    "claim": "Instruction fine-tuning a single LLM for simultaneous multi-label disaster tweet classification raises overall accuracy to 63.8 percent, nearly 15 times better than the zero-shot baseline models.",
+    "author_stated_limitations": [
+      "Fine-tuned models are sensitive to prompt structures and risk overfitting, which can limit practical deployment.",
+      "The study only analyzes textual information in social media posts and does not cover visual content."
+    ],
+    "themes": [
+      "disaster informatics",
+      "multi-label text classification",
+      "instruction fine-tuning",
+      "large language models"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "The existing studies (e.g., Alam et al., 2021, 2016; Suwaileh et al., 2022) in disaster text classification usually focus on one-label classification. This approach, while functional for specific tasks, introduces significant redundancy and inefficiency as it requires the development and maintenance of multiple distinct models for various one-label classification needs.",
+    "proposed_solution_quote": "This study introduces a novel approach to disaster text classification by enhancing a pre-trained Large Language Model (LLM) through instruction fine-tuning targeted for multi-label classification of disaster-related tweets. Our methodology involves creating a comprehensive instruction dataset with more than 60,000 samples from disaster-related tweets, which is then used to fine-tune an open-source LLM, thereby embedding it with disaster-specific knowledge.",
+    "claim_quote": "Our results show a significant improvement in categorizing critical information, with an overall accuracy of 63.8% across multiple labels. The overall accuracy of the fine-tuned model is nearly 15 times better than baseline models, whose overall accuracy is 4.27%, demonstrating its effectiveness in enhancing situational awareness.",
+    "author_stated_limitation_quotes": [
+      "However, our research also uncovered several challenges, such as the sensitivity of the finetuned models to prompt structures and the risk of overfitting, which can limit their practical deployment.",
+      "Also, the focus of this study was only on textual information within social media posts. Future studies can enhance the LLM presented in this study to also perform tasks on visual information available in social media posts to complement the textual information."
+    ]
+  }
+}

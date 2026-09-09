@@ -1,0 +1,120 @@
+{
+  "paper_id": "arxiv-1910.01108",
+  "paper_type": "experimental",
+  "abstract": "As Transfer Learning from large-scale pre-trained models becomes more prevalent in Natural Language Processing (NLP), operating these large models in on-the-edge and/or under constrained computational training or inference budgets remains challenging. In this work, we propose a method to pre-train a smaller general-purpose language representation model, called DistilBERT, which can then be fine-tuned with good performances on a wide range of tasks like its larger counterparts. While most prior work investigated the use of distillation for building task-specific models, we leverage knowledge distillation during the pre-training phase and show that it is possible to reduce the size of a BERT model by 40%, while retaining 97% of its language understanding capabilities and being 60% faster. To leverage the inductive biases learned by larger models during pre-training, we introduce a triple loss combining language modeling, distillation and cosine-distance losses. Our smaller, faster and lighter model is cheaper to pre-train and we demonstrate its capabilities for on-device computations in a proof-of-concept experiment and a comparative on-device study.",
+  "bibliographic": {
+    "title": "DistilBERT, a distilled version of BERT: smaller, faster, cheaper and lighter",
+    "authors": [
+      {
+        "first_name": "Victor",
+        "last_name": "Sanh"
+      },
+      {
+        "first_name": "Lysandre",
+        "last_name": "Debut"
+      },
+      {
+        "first_name": "Julien",
+        "last_name": "Chaumond"
+      },
+      {
+        "first_name": "Thomas",
+        "last_name": "Wolf"
+      }
+    ],
+    "year": 2019,
+    "venue": "arXiv",
+    "venue_type": "preprint",
+    "doi_or_url": "https://arxiv.org/abs/1910.01108"
+  },
+  "content": {
+    "problem": "Growing parameter counts in pre-trained language models inflate computational and memory costs, hindering deployment on edge devices and under constrained operational budgets.",
+    "proposed_solution": "The authors pre-train a smaller general-purpose model, DistilBERT, from a BERT teacher with a triple loss that combines masked language modeling, distillation, and cosine-distance objectives.",
+    "algorithm_or_model": "DistilBERT",
+    "dataset_testbed": [
+      "English Wikipedia and Toronto Book Corpus (pre-training corpus)",
+      "GLUE benchmark",
+      "IMDb",
+      "SQuAD v1.1",
+      "8 16GB V100 GPUs (pre-training)",
+      "Intel Xeon E5-2690 v3 CPU (inference timing)",
+      "iPhone 7 Plus (on-device inference)"
+    ],
+    "metrics": [
+      {
+        "name": "percentage of BERT performance retained",
+        "value": 97,
+        "unit": "percent",
+        "condition": "DistilBERT versus BERT-base macro-score on the GLUE dev sets"
+      },
+      {
+        "name": "parameter reduction",
+        "value": 40,
+        "unit": "percent",
+        "condition": "DistilBERT (66M parameters) relative to BERT-base (110M parameters)"
+      },
+      {
+        "name": "inference speed-up",
+        "value": 60,
+        "unit": "percent",
+        "condition": "full inference pass on the GLUE STS-B dev set on CPU with a batch size of 1"
+      },
+      {
+        "name": "GLUE macro-score",
+        "value": 77.0,
+        "unit": "percent",
+        "condition": "DistilBERT, median of 5 runs with different seeds, on the GLUE dev sets"
+      },
+      {
+        "name": "accuracy",
+        "value": 92.82,
+        "unit": "percent",
+        "condition": "DistilBERT on the IMDb sentiment classification test set"
+      },
+      {
+        "name": "F1",
+        "value": 85.8,
+        "unit": "",
+        "condition": "DistilBERT fine-tuned on SQuAD 1.1, dev set"
+      },
+      {
+        "name": "exact match (EM)",
+        "value": 77.7,
+        "unit": "",
+        "condition": "DistilBERT fine-tuned on SQuAD 1.1, dev set"
+      },
+      {
+        "name": "F1",
+        "value": 79.8,
+        "unit": "",
+        "condition": "DistilBERT with an additional distillation step during fine-tuning on SQuAD 1.1"
+      },
+      {
+        "name": "on-device inference speed-up",
+        "value": 71,
+        "unit": "percent",
+        "condition": "question answering application on iPhone 7 Plus versus a BERT-base model, excluding tokenization"
+      },
+      {
+        "name": "model size",
+        "value": 207,
+        "unit": "megabytes",
+        "condition": "DistilBERT question answering model prepared for on-device use"
+      }
+    ],
+    "claim": "Knowledge distillation during pre-training produces a 40% smaller and 60% faster general-purpose model that retains 97% of BERT's language understanding performance and supports on-device use.",
+    "author_stated_limitations": [],
+    "themes": [
+      "knowledge distillation",
+      "model compression",
+      "pre-trained language models",
+      "efficient inference"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "As Transfer Learning from large-scale pre-trained models becomes more prevalent in Natural Language Processing (NLP), operating these large models in on-the-edge and/or under constrained computational training or inference budgets remains challenging.",
+    "proposed_solution_quote": "In this work, we propose a method to pre-train a smaller general-purpose language representation model, called DistilBERT, which can then be fine-tuned with good performances on a wide range of tasks like its larger counterparts. While most prior work investigated the use of distillation for building task-specific models, we leverage knowledge distillation during the pre-training phase and show that it is possible to reduce the size of a BERT model by 40%, while retaining 97% of its language understanding capabilities and being 60% faster.",
+    "claim_quote": "We introduced DistilBERT, a general-purpose pre-trained version of BERT, 40% smaller, 60% faster, that retains 97% of the language understanding capabilities.",
+    "author_stated_limitation_quotes": []
+  }
+}

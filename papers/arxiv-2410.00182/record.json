@@ -1,0 +1,108 @@
+{
+  "paper_id": "arxiv-2410.00182",
+  "paper_type": "experimental",
+  "abstract": "Social media posts are frequently identified as a valuable source of open-source intelligence for disaster response, and pre-LLM NLP techniques have been evaluated on datasets of crisis tweets. We assess three commercial large language models (OpenAI GPT-4o, Gemini 1.5-flash-001 and Anthropic Claude-3-5 Sonnet) capabilities in zero-shot classification of short social media posts. In one prompt, the models are asked to perform two classification tasks: 1) identify if the post is informative in a humanitarian context; and 2) rank and provide probabilities for the post in relation to 16 possible humanitarian classes. The posts being classified are from the consolidated crisis tweet dataset, CrisisBench. Results are evaluated using macro, weighted, and binary F1-scores. The informative classification task, generally performed better without extra information, while for the humanitarian label classification providing the event that occurred during which the tweet was mined, resulted in better performance. Further, we found that the models have significantly varying performance by dataset, which raises questions about dataset quality.",
+  "bibliographic": {
+    "title": "Zero-Shot Classification of Crisis Tweets Using Instruction-Finetuned Large Language Models",
+    "authors": [
+      {
+        "first_name": "Emma L.",
+        "last_name": "McDaniel"
+      },
+      {
+        "first_name": "Samuel",
+        "last_name": "Scheele"
+      },
+      {
+        "first_name": "Jeffrey",
+        "last_name": "Liu"
+      }
+    ],
+    "year": 2024,
+    "venue": "2024 IEEE International Humanitarian Technologies Conference (IHTC)",
+    "venue_type": "conference",
+    "doi_or_url": "https://doi.org/10.1109/ihtc61819.2024.10855037"
+  },
+  "content": {
+    "problem": "Humanitarian practitioners lack knowledge of how well commercial large language models classify crisis social media posts without task-specific training, and of how such zero-shot performance compares to fine-tuned benchmarks.",
+    "proposed_solution": "They prompt three commercial models in a single instruction to judge informativeness and rank 16 humanitarian labels, then score the zero-shot answers on CrisisBench across prompt configurations.",
+    "algorithm_or_model": "Zero-shot classification with instruction-tuned LLMs, specifically GPT-4o, Gemini 1.5 Flash, and Claude 3.5 Sonnet",
+    "dataset_testbed": [
+      "CrisisBench consolidated crisis tweet dataset",
+      "CrisisMMD image tweet subset within CrisisBench",
+      "Manually annotated sample of 225 tweets from the affected_individual, caution_and_advice, and disease_related classes"
+    ],
+    "metrics": [
+      {
+        "name": "macro F1",
+        "value": 0.819,
+        "unit": "",
+        "condition": "GPT-4o on the informativeness task over the consolidated CrisisBench test set without event awareness"
+      },
+      {
+        "name": "binary F1",
+        "value": 0.86,
+        "unit": "",
+        "condition": "GPT-4o on the informativeness task over the consolidated CrisisBench test set without event awareness"
+      },
+      {
+        "name": "weighted F1",
+        "value": 0.828,
+        "unit": "",
+        "condition": "GPT-4o on the informativeness task over the consolidated CrisisBench test set without event awareness"
+      },
+      {
+        "name": "macro F1",
+        "value": 0.882,
+        "unit": "",
+        "condition": "best LLM score for humanitarian classification on the CrisisLexT6 dataset"
+      },
+      {
+        "name": "macro F1",
+        "value": 0.492,
+        "unit": "",
+        "condition": "best LLM score for humanitarian classification on the CrisisLexT26 dataset"
+      },
+      {
+        "name": "weighted F1",
+        "value": 0.638,
+        "unit": "",
+        "condition": "best LLM score for humanitarian classification on the CrisisMMD dataset"
+      },
+      {
+        "name": "binary F1",
+        "value": 0.95,
+        "unit": "",
+        "condition": "GPT-4o informativeness classification on the CrisisNLP-cf dataset"
+      },
+      {
+        "name": "binary F1",
+        "value": 0.682,
+        "unit": "",
+        "condition": "GPT-4o informativeness classification on the CrisisNLP-vol dataset"
+      }
+    ],
+    "claim": "Zero-shot LLMs come within six percent of fine-tuned classifiers on the binary informativeness task, while performance drops sharply on the 16-class humanitarian task mostly because of ambiguous dataset labels.",
+    "author_stated_limitations": [
+      "The tested models received no optimizations such as prompt engineering or fine-tuning, which may have limited their task performance.",
+      "Performance on the multi-class task was substantially affected by how CrisisBench combined labels with differing definitions across constituent datasets.",
+      "A small number of tweets were refused, omitted after JSON formatting failures, or misconstrued as part of the prompt."
+    ],
+    "themes": [
+      "zero-shot classification",
+      "large language models",
+      "crisis informatics",
+      "social media"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "While zero-shot classification circumvents the need for extensive labeled training data for fine-tuning, it is essential to understand various models' limitations within specific domains. Our work attempts to address this need in the realm of humanitarian assistance by providing performance statistics for a range of commercial models.",
+    "proposed_solution_quote": "As a first step towards characterizing the performance of LLM/LMMs on such tasks and identifying which ones provide the best performance, we evaluate various open-access and commercial LLMs and LMMs on zero-shot classification of social media posts using the CrisisBench dataset. In addition, we compare the performance of the zero-shot classifiers to the existing benchmarks from purpose-built classifiers for crisis-related social media text classification.",
+    "claim_quote": "Overall, LLMs perform reasonably well on the informativeness task, achieving zero-shot performance on the consolidated dataset within 6% of that of pretrained classifiers in [1]. However, performance was substantially worse on the multi-class humanitarian label task.",
+    "author_stated_limitation_quotes": [
+      "The task performance of the LLMs tested may have been limited by a number of factors, including the absence of optimizations like prompt engineering or fine-tuning.",
+      "More fundamentally, however, we note that methods in the construction of CrisisBench dataset had a substantial impact on the multi-class task performance for the LLMs.",
+      "Occasionally, LLMs would refuse to classify a tweet due to objectionable subject material (pornographic content, hate speech, and foul language). In addition, LLMs sometimes struggled to output correctly formatted JSON—this was usually able to be resolved by resubmitting the prompt, but on rare occasion, the request failed past our patience threshold and had to be omitted."
+    ]
+  }
+}

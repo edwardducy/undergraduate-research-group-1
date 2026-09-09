@@ -1,0 +1,110 @@
+{
+  "paper_id": "arxiv-2311.07161",
+  "paper_type": "dataset-benchmark",
+  "abstract": "We present the development of a Named Entity Recognition (NER) dataset for Tagalog. This corpus helps fill the resource gap present in Philippine languages today, where NER resources are scarce. The texts were obtained from a pretraining corpora containing news reports, and were labeled by native speakers in an iterative fashion. The resulting dataset contains ∼\\sim7.8k documents across three entity types: Person, Organization, and Location. The inter-annotator agreement, as measured by Cohen’s κ\\kappa, is 0.81. We also conducted extensive empirical evaluation of state-of-the-art methods across supervised and transfer learning settings. Finally, we released the data and processing code publicly to inspire future work on Tagalog NLP.",
+  "bibliographic": {
+    "title": "Developing a Named Entity Recognition Dataset for Tagalog",
+    "authors": [
+      {
+        "first_name": "Lester James V.",
+        "last_name": "Miranda"
+      }
+    ],
+    "year": 2023,
+    "venue": "Proceedings of the First Workshop in South East Asian Language Processing",
+    "venue_type": "workshop",
+    "doi_or_url": "https://doi.org/10.18653/v1/2023.sealp-1.2"
+  },
+  "content": {
+    "problem": "Tagalog lacks reliable named entity recognition resources because existing datasets contain noisy silver-standard annotations, narrow domain labels, or restricted access.",
+    "proposed_solution": "The author created TLUnified-NER, a publicly available gold-standard dataset of 7.8k news documents annotated across three entity types by native speakers, and provided baseline benchmarks.",
+    "algorithm_or_model": "TLUnified-NER",
+    "dataset_testbed": [
+      "TLUnified-NER (new gold-standard dataset curated and annotated by the authors)",
+      "TLUnified pretraining corpus (source of news texts)",
+      "WikiANN Tagalog portion (reannotated test set used for cross-dataset comparison)"
+    ],
+    "metrics": [
+      {
+        "name": "Cohen's kappa",
+        "value": 0.81,
+        "unit": "",
+        "condition": "Inter-annotator agreement averaged over all annotator pairs, computed on all tokens"
+      },
+      {
+        "name": "Cohen's kappa",
+        "value": 0.65,
+        "unit": "",
+        "condition": "Inter-annotator agreement averaged over annotator pairs, computed on annotated tokens only"
+      },
+      {
+        "name": "F1 score",
+        "value": 0.91,
+        "unit": "",
+        "condition": "Inter-annotator agreement measured as F1 using one annotator's labels as reference, averaged over annotator pairs"
+      },
+      {
+        "name": "F1",
+        "value": 84.57,
+        "unit": "percent",
+        "condition": "Overall score on the TLUnified-NER test set for the baseline spaCy transition-based parser trained from scratch without pretrained vectors"
+      },
+      {
+        "name": "F1",
+        "value": 90.34,
+        "unit": "percent",
+        "condition": "Overall score on the TLUnified-NER test set for the spaCy transition-based parser with finetuned RoBERTa Tagalog vectors"
+      },
+      {
+        "name": "F1",
+        "value": 88.9,
+        "unit": "percent",
+        "condition": "Overall score on the TLUnified-NER test set for the spaCy transition-based parser with static fastText vectors"
+      },
+      {
+        "name": "F1",
+        "value": 88.03,
+        "unit": "percent",
+        "condition": "Overall score on the TLUnified-NER test set for the spaCy transition-based parser with XLM-RoBERTa vectors"
+      },
+      {
+        "name": "F1",
+        "value": 65.89,
+        "unit": "percent",
+        "condition": "Best zero-shot prompted LLM F1 score on the TLUnified-NER test set averaged across three trials"
+      },
+      {
+        "name": "F1",
+        "value": 67.95,
+        "unit": "percent",
+        "condition": "Overlap between original WikiANN silver annotations and the author reannotations on Person entities"
+      },
+      {
+        "name": "F1",
+        "value": 0.59,
+        "unit": "percent",
+        "condition": "Overlap between original WikiANN silver annotations and the author reannotations on Organization entities"
+      }
+    ],
+    "claim": "TLUnified-NER provides a high-quality gold-standard Tagalog dataset where context-sensitive transformer models achieve over 90 F1 and outperform models trained on noisy silver annotations.",
+    "author_stated_limitations": [
+      "The dataset has limited domain coverage because it consists primarily of news reports.",
+      "The benchmarks only evaluate a transition-based parser rather than other model architectures like conditional random fields."
+    ],
+    "themes": [
+      "named entity recognition",
+      "Tagalog NLP",
+      "low-resource languages",
+      "dataset annotation"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "Despite this fact, there are little to no resources for Tagalog [Cruz and Cheng (2022)](#bib.bib11 \"\"), hampering the development of reliable language technologies.",
+    "proposed_solution_quote": "In this paper, we present TLUnified-NER,11 1 The dataset is accessible at [https://huggingface.co/datasets/ljvmiranda921/tlunified-ner](https://huggingface.co/datasets/ljvmiranda921/tlunified-ner \"\") a Tagalog dataset for Named Entity Recognition (NER). The texts were obtained from TLUnified [Cruz and Cheng (2022)](#bib.bib11 \"\"), a pretraining corpora containing news reports and other types of text.",
+    "claim_quote": "Our iterative annotation process, together with our inter-annotator agreement, shows that the corpus is of high quality. In addition, our benchmarking results suggest that the task is learnable even with a simple baseline method.",
+    "author_stated_limitation_quotes": [
+      "The TLUnified-NER corpora is comprised mostly by news reports. Although the texts demonstrate the standard usage of Tagalog, its domain is limited.",
+      "In addition, we only trained a transition-based parser model for our NER classifier. In the future, we plan to extend these benchmarks and include CRFs or other tools such as Stanford Stanza."
+    ]
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "paper_id": "arxiv-2210.04573",
+  "paper_type": "dataset-benchmark",
+  "abstract": "Timely and effective response to humanitarian crises requires quick and accurate analysis of large amounts of text data – a process that can highly benefit from expert-assisted NLP systems trained on validated and annotated data in the humanitarian response domain. To enable creation of such NLP systems, we introduce and release HumSet, a novel and rich multilingual dataset of humanitarian response documents annotated by experts in the humanitarian response community. The dataset provides documents in three languages (English, French, Spanish) and covers a variety of humanitarian crises from 2018 to 2021 across the globe. For each document, HumSet provides selected snippets (entries) as well as assigned classes to each entry annotated using common humanitarian information analysis frameworks. HumSet also provides novel and challenging entry extraction and multi-label entry classification tasks. In this paper, we take a first step towards approaching these tasks and conduct a set of experiments on Pre-trained Language Models (PLM) to establish strong baselines for future research in this domain.",
+  "bibliographic": {
+    "title": "HumSet: Dataset of Multilingual Information Extraction and Classification for Humanitarian Crisis Response",
+    "authors": [
+      {
+        "first_name": "Selim",
+        "last_name": "Fekih"
+      },
+      {
+        "first_name": "Nicolò",
+        "last_name": "Tamagnone"
+      },
+      {
+        "first_name": "Benjamin",
+        "last_name": "Minixhofer"
+      },
+      {
+        "first_name": "Ranjan",
+        "last_name": "Shrestha"
+      },
+      {
+        "first_name": "Ximena",
+        "last_name": "Contla"
+      },
+      {
+        "first_name": "Ewan",
+        "last_name": "Oglethorpe"
+      },
+      {
+        "first_name": "Navid",
+        "last_name": "Rekabsaz"
+      }
+    ],
+    "year": 2022,
+    "venue": "Findings of the Association for Computational Linguistics: EMNLP 2022",
+    "venue_type": "conference",
+    "doi_or_url": "https://doi.org/10.18653/v1/2022.findings-emnlp.321"
+  },
+  "content": {
+    "problem": "Analysts responding to humanitarian crises must manually extract and organize key information from large volumes of text, while existing annotated resources are small and mostly sourced from social media.",
+    "proposed_solution": "The authors release HumSet, a multilingual set of about 17K humanitarian documents with expert-annotated entries and humanitarian analysis framework labels, and they define entry extraction and multi-label classification tasks with language model baselines.",
+    "algorithm_or_model": "Fine-tuned multilingual pre-trained Transformer language models, mainly XLM-RBase, alongside XtremeDistil6-h256, fastText, and LEAD4 baselines",
+    "dataset_testbed": [
+      "HumSet"
+    ],
+    "metrics": [
+      {
+        "name": "ROUGE-1 F1",
+        "value": 0.42,
+        "unit": "",
+        "condition": "Entry extraction on the HumSet test set with the XLM-RBase token classification baseline"
+      },
+      {
+        "name": "ROUGE-2 F1",
+        "value": 0.35,
+        "unit": "",
+        "condition": "Entry extraction on the HumSet test set with the XLM-RBase token classification baseline"
+      },
+      {
+        "name": "ROUGE-L F1",
+        "value": 0.41,
+        "unit": "",
+        "condition": "Entry extraction on the HumSet test set with the XLM-RBase token classification baseline"
+      },
+      {
+        "name": "F1",
+        "value": 0.73,
+        "unit": "",
+        "condition": "Macro F1 for multi-label entry classification with XLM-RBase on the best-performing tag category"
+      },
+      {
+        "name": "F1",
+        "value": 0.38,
+        "unit": "",
+        "condition": "Macro F1 for multi-label entry classification with XLM-RBase on the weakest of the tag-heavy Subpillars categories"
+      }
+    ],
+    "claim": "HumSet offers a large and reliable expert-annotated alternative to social media crisis data, and XLM-RBase gives the strongest baseline results while the tag-rich subpillar categories remain difficult.",
+    "author_stated_limitations": [
+      "Aggregating 46 projects with different goals, themes, and annotator interpretations of the frameworks introduces an implicit annotation bias.",
+      "Lead text was extracted from PDF and HTML files, a conversion process that introduces errors and limits data quality.",
+      "The dataset may contain societal biases and stereotypes or over-represent particular demographics or entities, which should be monitored before real-world use."
+    ],
+    "themes": [
+      "humanitarian crisis response",
+      "multilingual NLP",
+      "multi-label text classification",
+      "information extraction"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "Timely and effective response to humanitarian crises requires quick and accurate analysis of large amounts of text data – a process that can highly benefit from expert-assisted NLP systems trained on validated and annotated data in the humanitarian response domain.",
+    "proposed_solution_quote": "To enable creation of such NLP systems, we introduce and release HumSet, a novel and rich multilingual dataset of humanitarian response documents annotated by experts in the humanitarian response community.",
+    "claim_quote": "HumSet is a multilingual human-annotated humanitarian text dataset not composed of social network data, providing a valuable and highly reliable resource for the development of automation tools regarding crisis response and humanitarian aid activities.",
+    "author_stated_limitation_quotes": [
+      "This can introduce an implicit bias due to the different goals and themes of each project and on respective analysis framework understanding and interpretation by humanitarian annotators.",
+      "In both cases, converting visually-rich graphical text representation into plain text involves errors and limitations.",
+      "Finally, we should point out that HumSet might contain societal biases and stereotypes and/or over-represent particular demographics or entities."
+    ]
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "paper_id": "arxiv-2510.07037",
+  "paper_type": "survey",
+  "abstract": "Amidst the rapid advances of large language models (LLMs), most LLMs still struggle with mixed-language inputs, limited Code-switching (CSW) datasets, and evaluation biases, which hinder their deployment in multilingual societies. This survey provides the first comprehensive analysis of CSW-aware LLM research, reviewing ?​??? studies spanning five research areas, 15+ NLP tasks, 30+ datasets, and 80+ languages. We categorize recent advances by architecture, training strategy, and evaluation methodology, outlining how LLMs have reshaped CSW modeling and identifying the challenges that persist. The paper concludes with a roadmap that emphasizes the need for inclusive datasets, fair evaluation, and linguistically grounded models to achieve truly multilingual capabilities.11 1 A curated collection of all resources is maintained at [https://github.com/lingo-iitgn/awesome-code-mixing/](https://github.com/lingo-iitgn/awesome-code-mixing/ \"\").",
+  "bibliographic": {
+    "title": "Beyond Monolingual Assumptions: A Survey on Code-Switched NLP in the Era of Large Language Models across Modalities",
+    "authors": [
+      {
+        "first_name": "Rajvee",
+        "last_name": "Sheth"
+      },
+      {
+        "first_name": "Samridhi Raj",
+        "last_name": "Sinha"
+      },
+      {
+        "first_name": "Mahavir",
+        "last_name": "Patil"
+      },
+      {
+        "first_name": "Himanshu",
+        "last_name": "Beniwal"
+      },
+      {
+        "first_name": "Mayank",
+        "last_name": "Singh"
+      }
+    ],
+    "year": 2026,
+    "venue": "Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
+    "venue_type": "conference",
+    "doi_or_url": "https://doi.org/10.18653/v1/2026.acl-long.386"
+  },
+  "content": {
+    "problem": "Large language models struggle with mixed-language inputs due to scarce code-switching datasets, evaluation biases, and monolingual training assumptions.",
+    "proposed_solution": "The authors present a comprehensive survey of code-switched NLP research in the LLM era, covering architectures, training strategies, evaluation methods, and a future roadmap.",
+    "algorithm_or_model": null,
+    "dataset_testbed": [],
+    "metrics": [],
+    "claim": "The authors find that LLM gains in code-switching remain limited to high-resource languages, while models still struggle in low-resource settings.",
+    "author_stated_limitations": [
+      "The survey focuses on widely studied language pairs and might omit indigenous or minority code-mixed languages.",
+      "Rapid progress in large language models may cause some reviewed methods and benchmarks to become outdated quickly.",
+      "Because speech and multimodal research lags behind text understanding, the proposed taxonomy concentrates primarily on text-based NLP.",
+      "The review focuses largely on academic progress and provides limited analysis of real-world deployment challenges like ethics and accessibility.",
+      "Reported numerical claims reflect selected representative figures from cited papers rather than comprehensive statistical meta-analyses."
+    ],
+    "themes": [
+      "code-switching",
+      "large language models",
+      "multilingual NLP",
+      "multimodal NLP"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "Amidst the rapid advances of large language models (LLMs), most LLMs still struggle with mixed-language inputs, limited Code-switching (CSW) datasets, and evaluation biases, which hinder their deployment in multilingual societies.",
+    "proposed_solution_quote": "Building on these foundations, we position this work as the first comprehensive survey of CSW NLP in the LLM era, covering recent advances in instruction tuning, PEFT, and multimodal (speech and vision-language) settings.",
+    "claim_quote": "However, this survey shows that gains remain largely confined to high-resource language pairs, while LLMs struggle with spontaneous mixing, reasoning, and sociolinguistic variation in low-resource settings.",
+    "author_stated_limitation_quotes": [
+      "The survey highlights widely studied language pairs and might have missed indigenous or minority code-mixed languages.",
+      "Given the rapid pace of LLM research, some approaches and benchmarks described may soon be outdated or replaced by newer paradigms.",
+      "While we include recent advances in speech and multimodal processing, the volume of research in these areas significantly lags behind text-based NLU, resulting in our taxonomy covering more text based NLU.",
+      "The survey mainly covers academic progress, leaving ethical, computational, and accessibility concerns in real-world deployment less examined.",
+      "All quantitative claims are representative values reported in the cited primary works rather than aggregated or meta-analyzed statistics."
+    ]
+  }
+}

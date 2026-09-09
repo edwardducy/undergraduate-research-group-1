@@ -1,0 +1,122 @@
+{
+  "paper_id": "arxiv-2503.21670",
+  "paper_type": "dataset-benchmark",
+  "abstract": "We introduce COMI-LINGUA, the largest manually annotated Hindi-English code-mixed dataset, comprising 125K+ high-quality instances across five core NLP tasks: Token-level Language Identification, Matrix Language Identification, Named Entity Recognition, Part-Of-Speech Tagging and Machine Translation. Each instance is annotated by three bilingual annotators, yielding over 376K expert annotations with strong inter-annotator agreement (Fleiss’ Kappa ≥\\\\geq 0.81). The rigorously preprocessed and filtered dataset covers both Devanagari and Roman scripts and spans diverse domains, ensuring real-world linguistic coverage. Evaluation reveals that closed-weight LLMs significantly outperform traditional tools and open-weight models in zero-shot settings. Notably, one-shot prompting consistently boosts performance across tasks, especially in structure-sensitive predictions like POS and NER. Fine-tuning open-weight LLMs on COMI-LINGUA demonstrates substantial improvements, achieving up to 95.25 F1 in NER, 98.77 F1 in MLI, and competitive MT performance, setting new benchmarks for Hinglish code-mixed text. COMI-LINGUA is publicly available at this URL11 1 [https://huggingface.co/datasets/LingoIITGN/COMI-LINGUA](https://huggingface.co/datasets/LingoIITGN/COMI-LINGUA \"\") Version 1.0, Updated till 15nd September 2025..",
+  "bibliographic": {
+    "title": "COMI-LINGUA: Expert Annotated Large-Scale Dataset for Multitask NLP in Hindi-English Code-Mixing",
+    "authors": [
+      {
+        "first_name": "Rajvee",
+        "last_name": "Sheth"
+      },
+      {
+        "first_name": "Himanshu",
+        "last_name": "Beniwal"
+      },
+      {
+        "first_name": "Mayank",
+        "last_name": "Singh"
+      }
+    ],
+    "year": 2025,
+    "venue": "Findings of the Association for Computational Linguistics: EMNLP 2025",
+    "venue_type": "conference",
+    "doi_or_url": "https://doi.org/10.18653/v1/2025.findings-emnlp.422"
+  },
+  "content": {
+    "problem": "Existing Hindi-English (Hinglish) code-mixed resources are small, skewed toward the Roman script, narrow in task coverage, and often synthetically generated rather than human-annotated, leaving researchers without a large, high-quality benchmark for training and evaluating models on code-mixed NLP.",
+    "proposed_solution": "The authors curate COMI-LINGUA, the largest expert-annotated Hinglish code-mixed dataset spanning five NLP tasks and both Devanagari and Roman scripts, and use it to benchmark traditional NLP tools and LLMs under zero-shot, one-shot, and fine-tuned settings.",
+    "algorithm_or_model": "COMI-LINGUA dataset with LoRA fine-tuned open-weight LLMs (LLaMA-3.1-8B-Instruct, aya-expanse-8b, Qwen2.5-7B-Instruct)",
+    "dataset_testbed": [
+      "COMI-LINGUA (newly created expert-annotated Hinglish code-mixed dataset, 125,615 instances across five tasks)",
+      "raw text scraped from Indian news portals, X (Twitter), YouTube, and government archives, plus supplementary Hinglish samples from prior corpora (e.g., PHINC)",
+      "four NVIDIA Tesla V100 32 GB GPUs for fine-tuning and inference"
+    ],
+    "metrics": [
+      {
+        "name": "F1",
+        "value": 95.25,
+        "unit": "percent",
+        "condition": "Fine-tuned LLaMA-3.1-8B-Instruct on the COMI-LINGUA NER test set"
+      },
+      {
+        "name": "F1",
+        "value": 98.77,
+        "unit": "percent",
+        "condition": "Fine-tuned Qwen2.5-7B-Instruct on the COMI-LINGUA MLI test set"
+      },
+      {
+        "name": "F1",
+        "value": 92.7,
+        "unit": "percent",
+        "condition": "gpt-4o zero-shot on the COMI-LINGUA LID test set"
+      },
+      {
+        "name": "F1",
+        "value": 89.3,
+        "unit": "percent",
+        "condition": "LLaMA-3.3-instruct (70B) one-shot on the COMI-LINGUA LID test set"
+      },
+      {
+        "name": "F1",
+        "value": 84.1,
+        "unit": "percent",
+        "condition": "LLaMA-3.3-instruct (70B) one-shot on the COMI-LINGUA POS test set"
+      },
+      {
+        "name": "F1",
+        "value": 88.2,
+        "unit": "percent",
+        "condition": "codeswitch traditional tool zero-shot on the COMI-LINGUA POS test set"
+      },
+      {
+        "name": "F1",
+        "value": 85.0,
+        "unit": "percent",
+        "condition": "claude-3.5-sonnet one-shot on the COMI-LINGUA NER test set"
+      },
+      {
+        "name": "BLEU",
+        "value": 56.1,
+        "unit": "percent",
+        "condition": "Fine-tuned LLaMA-3.1-8B-Instruct on the COMI-LINGUA MT test set, Standard English translation output"
+      },
+      {
+        "name": "chrF++",
+        "value": 78.7,
+        "unit": "percent",
+        "condition": "Fine-tuned LLaMA-3.1-8B-Instruct on the COMI-LINGUA MT test set, Standard English translation output"
+      },
+      {
+        "name": "Fleiss' Kappa",
+        "value": 0.817,
+        "unit": "",
+        "condition": "Minimum inter-annotator agreement across the LID, MLI, NER, and POS classification tasks with three annotators"
+      }
+    ],
+    "claim": "Fine-tuning open-weight LLMs on COMI-LINGUA brings substantial gains over prompting approaches and traditional tools, setting new benchmarks for Hinglish code-mixed NLP with up to 98.77 F1 on MLI and 95.25 F1 on NER.",
+    "author_stated_limitations": [
+      "Findings from Hinglish code-mixed data may not generalize to other language pairs because of differences in syntax, sociolinguistic norms, and code-switching behavior.",
+      "The small, homogeneous annotator group may introduce demographic bias that limits the broader applicability and reliability of the annotations.",
+      "Scaling the work to other code-mixed language pairs is difficult due to the scarcity of high-quality annotated corpora and capable models.",
+      "The computational requirements and training-data needs of fine-tuning may limit accessibility for resource-constrained settings."
+    ],
+    "themes": [
+      "code-mixing",
+      "Hindi-English NLP",
+      "dataset annotation",
+      "large language models"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "Despite growing interest, current Hinglish datasets have critical limitations: (1) a predominant focus on Roman script, ignoring natural script variation (Begum et al., 2016; Bali et al., 2014; Srivastava et al., 2020), (2) limited scale and coverage (Srivastava and Singh, 2021a; Kumar et al., 2018; Tiwari et al., 2024; Kartik et al., 2024), (3) insufficient task diversity (Aguilar et al., 2020; Khanujaa et al., 2020; Bohra et al., 2018; Khanuja et al., 2020), and (4) reliance on synthetic data generation and labeling rather than human annotation (Chatterjee et al., 2022; Srivastava and Singh, 2021c; Kartik et al., 2024; Sravani and Mamidi, 2023).",
+    "proposed_solution_quote": "To address these limitations, we present a novel comprehensive dataset COMI-LINGUA (COde-MIxing and LINGuistic Insights on Natural Hinglish Usage and Annotation) that advances Hinglish code-mixing research.",
+    "claim_quote": "Fine-tuning open-weight LLMs on COMI-LINGUA demonstrates substantial improvements, achieving up to 95.25 F1 in NER, 98.77 F1 in MLI, and competitive MT performance, setting new benchmarks for Hinglish code-mixed text.",
+    "author_stated_limitation_quotes": [
+      "Language Pair Specificity: The findings derived from Hinglish code-mixed data may not generalize to other language pairs (e.g., Spanish-English), given differences in syntactic structure, sociolinguistic norms, and code-switching behavior.",
+      "Demographic Bias: The use of a relatively small and homogeneous group of annotators may introduce demographic bias, potentially limiting the broader applicability and reliability of the acceptability ratings.",
+      "Resource Constraints: Scaling this work to other code-mixed language pairs remains challenging due to the scarcity of high-quality annotated corpora and the limited availability of models capable of robustly handling diverse code-mixing phenomena.",
+      "Computational Accessibility: While fine-tuning shows substantial improvements, computational requirements and the need for substantial training data may limit accessibility for resource-constrained settings."
+    ]
+  }
+}

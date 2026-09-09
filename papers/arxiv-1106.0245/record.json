@@ -1,0 +1,45 @@
+{
+  "paper_id": "arxiv-1106.0245",
+  "paper_type": "methodology-theory",
+  "abstract": "A major problem in machine learning is that of inductive bias: how to choose a learner’s hypothesis space so that it is large enough to contain a solution to the problem being learnt, yet small enough to ensure reliable generalization from reasonably-sized training sets. Typically such bias is supplied by hand through the skill and insights of experts. In this paper a model for _automatically learning_ bias is investigated. The central assumption of the model is that the learner is embedded within an _environment_ of related learning tasks. Within such an environment the learner can sample from multiple tasks, and hence it can search for a hypothesis space that contains good solutions to many of the problems in the environment. Under certain restrictions on the set of all hypothesis spaces available to the learner, we show that a hypothesis space that performs well on a sufficiently large number of training tasks will also perform well when learning novel tasks in the same environment. Explicit bounds are also derived demonstrating that learning multiple tasks within an environment of related tasks can potentially give much better generalization than learning a single task.",
+  "bibliographic": {
+    "title": "A Model of Inductive Bias Learning",
+    "authors": [
+      {
+        "first_name": "Jonathan",
+        "last_name": "Baxter"
+      }
+    ],
+    "year": 2000,
+    "venue": "Journal of Artificial Intelligence Research",
+    "venue_type": "journal",
+    "doi_or_url": "https://doi.org/10.1613/jair.731"
+  },
+  "content": {
+    "problem": "Standard supervised learning models take the learner's inductive bias (hypothesis space) as given, yet choosing a bias that both contains a solution and generalizes reliably normally depends on hand-crafted expert knowledge, and no formal model explains how such bias could itself be learned.",
+    "proposed_solution": "The authors formalize a bias-learning model in which the learner, embedded in an environment of related tasks governed by a distribution over tasks, samples multiple tasks and selects a hypothesis space from a given family by minimizing average empirical error, with sample-complexity bounds proving when the chosen bias transfers to novel tasks from the same environment.",
+    "algorithm_or_model": "bias learning (learning to learn) model, instantiated as neural-network feature learning trained by gradient descent",
+    "dataset_testbed": [],
+    "metrics": [],
+    "claim": "The paper proves that a hypothesis space performing well on sufficiently many training tasks from an environment will, with high probability, contain good solutions to novel tasks from that environment, and for neural-network feature learning the examples required per task decay as O(k + W/n) toward the minimum O(k) as the number of tasks grows, with at most O(W) tasks needed for the learned features to generalize.",
+    "author_stated_limitations": [
+      "A matching lower bound on the number of tasks required could not be proved, and empirical evidence suggests the O(W) upper bound on the number of tasks may be very weak in practice.",
+      "The structure of the hypothesis space family, which represents the learner's hyper-bias, must be fixed a priori in the model rather than being learned."
+    ],
+    "themes": [
+      "inductive bias",
+      "multi-task learning",
+      "learning to learn",
+      "sample complexity"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "Often the hardest problem in any machine learning task is the initial choice of hypothesis space; it has to be large enough to contain a solution to the problem at hand, yet small enough to ensure good generalization from a small number of examples (Mitchell, 1991). Once a suitable bias has been found, the actual learning task is often straightforward.",
+    "proposed_solution_quote": "In this paper a model for automatically learning bias is investigated. The central assumption of the model is that the learner is embedded within an environment of related learning tasks.",
+    "claim_quote": "Under certain restrictions on the set of all hypothesis spaces available to the learner, we show that a hypothesis space that performs well on a sufficiently large number of training tasks will also perform well when learning novel tasks in the same environment. Explicit bounds are also derived demonstrating that learning multiple tasks within an environment of related tasks can potentially give much better generalization than learning a single task.",
+    "author_stated_limitation_quotes": [
+      "Unfortunately, we have not yet been able to show such a lower bound. There is some empirical evidence suggesting that in practice the upper bound on the number of tasks may be very weak.",
+      "In our model the structure of H is fixed apriori and represents the hyper-bias of the bias learner. It would be interesting to see to what extent this structure can also be learnt."
+    ]
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "paper_id": "arxiv-2004.06774",
+  "paper_type": "dataset-benchmark",
+  "abstract": "Time-critical analysis of social media streams is important for humanitarian organizations for planing rapid response during disasters. The crisis informatics research community has developed several techniques and systems for processing and classifying big crisis-related data posted on social media. However, due to the dispersed nature of the datasets used in the literature (e.g., for training models), it is not possible to compare the results and measure the progress made towards building better models for crisis informatics tasks. In this work, we attempt to bridge this gap by combining various existing crisis-related datasets. We consolidate eight human-annotated datasets and provide 166.1k and 141.5k tweets for informativeness and humanitarian classification tasks, respectively. We believe that the consolidated dataset will help train more sophisticated models. Moreover, we provide benchmarks for both binary and multiclass classification tasks using several deep learning architecrures including, CNN, fastText, and transformers. We make the dataset and scripts available at: https://crisisnlp.qcri.org/crisis\\_datasets\\_benchmarks.html",
+  "bibliographic": {
+    "title": "CrisisBench: Benchmarking Crisis-related Social Media Datasets for Humanitarian Information Processing",
+    "authors": [
+      {
+        "first_name": "Firoj",
+        "last_name": "Alam"
+      },
+      {
+        "first_name": "Hassan",
+        "last_name": "Sajjad"
+      },
+      {
+        "first_name": "Muhammad",
+        "last_name": "Imran"
+      },
+      {
+        "first_name": "Ferda",
+        "last_name": "Ofli"
+      }
+    ],
+    "year": 2021,
+    "venue": "Proceedings of the International AAAI Conference on Web and Social Media (ICWSM 2021)",
+    "venue_type": "conference",
+    "doi_or_url": "https://doi.org/10.1609/icwsm.v15i1.18115"
+  },
+  "content": {
+    "problem": "Crisis informatics research lacks standard benchmark datasets because the datasets used across studies are dispersed, use inconsistent class labels, contain exact and near-duplicate content, and often lack language tags, making published results impossible to compare.",
+    "proposed_solution": "The authors consolidate eight publicly available crisis tweet datasets into one standardized resource with manually mapped class labels, filtered exact and near duplicates, and per-tweet language tags, and provide benchmark results using CNN, fastText, and transformer models for informativeness and humanitarian classification.",
+    "algorithm_or_model": "event-aware training with CNN, fastText, and transformer models (BERT, DistilBERT, RoBERTa)",
+    "dataset_testbed": [
+      "CrisisBench consolidated dataset (English tweets, new dataset built by the paper)",
+      "CrisisBench consolidated multilingual dataset (preliminary experiments)",
+      "CrisisLex (CrisisLexT26 and CrisisLexT6)",
+      "CrisisNLP",
+      "SWDM2013",
+      "ISCRAM2013",
+      "Disaster Response Data (DRD)",
+      "Disasters on Social Media (DSM)",
+      "CrisisMMD",
+      "AIDR"
+    ],
+    "metrics": [
+      {
+        "name": "weighted F1",
+        "value": 0.866,
+        "unit": "",
+        "condition": "CNN trained on the consolidated English dataset, informativeness task"
+      },
+      {
+        "name": "weighted F1",
+        "value": 0.829,
+        "unit": "",
+        "condition": "CNN trained on the consolidated English dataset, humanitarian task"
+      },
+      {
+        "name": "weighted F1",
+        "value": 0.883,
+        "unit": "",
+        "condition": "RoBERTa trained on the consolidated English dataset, informativeness task (best result)"
+      },
+      {
+        "name": "weighted F1",
+        "value": 0.872,
+        "unit": "",
+        "condition": "RoBERTa trained on the consolidated English dataset, humanitarian task (best result)"
+      },
+      {
+        "name": "F1",
+        "value": 0.842,
+        "unit": "",
+        "condition": "CNN with event-aware training, humanitarian task, consolidated English dataset (1.3-point improvement over no event information)"
+      },
+      {
+        "name": "F1",
+        "value": 0.878,
+        "unit": "",
+        "condition": "RoBERTa with event-aware training, informativeness task, consolidated English dataset"
+      },
+      {
+        "name": "F1",
+        "value": 0.771,
+        "unit": "",
+        "condition": "BERT on the multilingual consolidated dataset, humanitarian task, preliminary experiment (about an 8 percent drop from the English-only setting)"
+      },
+      {
+        "name": "consolidated informativeness dataset size",
+        "value": 166098,
+        "unit": "tweets",
+        "condition": "after class label mapping and exact- and near-duplicate filtering across the eight sources"
+      },
+      {
+        "name": "consolidated humanitarian dataset size",
+        "value": 141533,
+        "unit": "tweets",
+        "condition": "after class label mapping and exact- and near-duplicate filtering across the eight sources"
+      }
+    ],
+    "claim": "Training on the consolidated, duplicate-free dataset generalizes better than training on individual datasets, and transformer models (best: RoBERTa) set benchmarks of 0.883 weighted F1 for informativeness and 0.872 for humanitarian classification on the cleaned English tweets.",
+    "author_stated_limitations": [
+      "Experiments are restricted to English tweets even though the consolidated dataset is multilingual.",
+      "The study covers only the informativeness and humanitarian tasks and excludes disaster event type classification.",
+      "The proposed event-aware training does not improve results with BERT, which the authors leave unexplained."
+    ],
+    "themes": [
+      "crisis informatics",
+      "social media",
+      "benchmark datasets",
+      "text classification"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "However, due to the dispersed nature of the datasets used in the literature (e.g., for training models), it is not possible to compare the results and measure the progress made towards building better models for crisis informatics tasks.",
+    "proposed_solution_quote": "In this work, we attempt to bridge this gap by combining various existing crisis-related datasets. We consolidate eight human-annotated datasets and provide 166.1k and 141.5k tweets for informativeness and humanitarian classification tasks, respectively.",
+    "claim_quote": "The model trained using the consolidated dataset achieves 0.866 (F1) for informativeness and 0.829 for humanitarian, which is better than the models trained using individual datasets. This proves that model with consolidated dataset generalizes well, obtaining similar performance on individual sets and higher on the consolidated set.",
+    "author_stated_limitation_quotes": [
+      "Although our consolidated dataset contains multilingual tweets, we only use tweets in English language in our experiments.",
+      "Addressing disaster event types classification is beyond the scope of our current study.",
+      "The event-aware training with BERT does not provide better results in any of the tasks, which requires further investigation and we leave it as a future study."
+    ]
+  }
+}

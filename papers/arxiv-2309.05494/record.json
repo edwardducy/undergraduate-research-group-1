@@ -1,0 +1,116 @@
+{
+  "paper_id": "arxiv-2309.05494",
+  "paper_type": "experimental",
+  "abstract": "Social media platforms play an essential role in crisis communication, but analyzing crisis-related social media texts is challenging due to their informal nature. Transformer-based pre-trained models like BERT and RoBERTa have shown success in various NLP tasks, but they are not tailored for crisis-related texts. Furthermore, general-purpose sentence encoders are used to generate sentence embeddings, regardless of the textual complexities in crisis-related texts. Advances in applications like text classification, semantic search, and clustering contribute to the effective processing of crisis-related texts, which is essential for emergency responders to gain a comprehensive view of a crisis event, whether historical or real-time. To address these gaps in crisis informatics literature, this study introduces CrisisTransformers, an ensemble of pre-trained language models and sentence encoders trained on an extensive corpus of over 15 billion word tokens from tweets associated with more than 30 crisis events, including disease outbreaks, natural disasters, conflicts, and other critical incidents. We evaluate existing models and CrisisTransformers on 18 crisis-specific public datasets. Our pre-trained models outperform strong baselines across all datasets in classification tasks, and our best-performing sentence encoder improves the state-of-the-art by 17.43% in sentence encoding tasks. Additionally, we investigate the impact of model initialization on convergence and evaluate the significance of domain-specific models in generating semantically meaningful sentence embeddings. The models are publicly available at: https://huggingface.co/crisistransformers",
+  "bibliographic": {
+    "title": "CrisisTransformers: Pre-trained language models and sentence encoders for crisis-related social media texts",
+    "authors": [
+      {
+        "first_name": "Rabindra",
+        "last_name": "Lamsal"
+      },
+      {
+        "first_name": "Maria Rodriguez",
+        "last_name": "Read"
+      },
+      {
+        "first_name": "Shanika",
+        "last_name": "Karunasekera"
+      }
+    ],
+    "year": 2024,
+    "venue": "Knowledge-Based Systems",
+    "venue_type": "journal",
+    "doi_or_url": "https://doi.org/10.1016/j.knosys.2024.111916"
+  },
+  "content": {
+    "problem": "Existing pre-trained language models and general-purpose sentence encoders are not tailored to the informal language of crisis-related social media texts, which limits the automated analysis that emergency responders need.",
+    "proposed_solution": "The authors pre-train BERT-base sized models called CrisisTransformers on a 15 billion token corpus of crisis tweets and adapt them into sentence encoders with contrastive learning.",
+    "algorithm_or_model": "CrisisTransformers (CT-M1, CT-M2, CT-M3 pre-trained models and their sentence encoder variants)",
+    "dataset_testbed": [
+      "Crisis corpus of over 15 billion word tokens from tweets on more than 30 crisis events (pre-training)",
+      "CrisisMMD (D-01)",
+      "CrisisLex (D-02)",
+      "AIDR (D-03)",
+      "ISCRAM2013 (D-04)",
+      "SWDM2013 (D-05)",
+      "CrisisNLP (D-06)",
+      "Poddar et al. (2022) COVID-19 vaccine stance dataset (D-07)",
+      "SAD Stressor (D-08)",
+      "SAD Stress (D-09)",
+      "SAD COVID (D-10)",
+      "LocBERT (D-11)",
+      "HMC (a) (D-12)",
+      "Cotfas et al. (2021) COVID-19 vaccination opinions dataset (D-13)",
+      "HMC (b) (D-14)",
+      "PHM (D-15)",
+      "Klein et al. (2021) (a) (D-16)",
+      "Klein et al. (2021) (b) (D-17)",
+      "ANTiVax (D-18)",
+      "GooAQ (question, answer pairs for MNR training)",
+      "QQP (triplets with hard negatives)",
+      "AllNLI",
+      "General-domain SemEval tweet datasets (Appendix A)",
+      "6 NVIDIA A100 GPUs with 80GB memory for pre-training",
+      "Intel Xeon Gold 6326 CPU with an 80GB A100 GPU for inference time analysis"
+    ],
+    "metrics": [
+      {
+        "name": "weighted average cosine similarity",
+        "value": 0.7485,
+        "unit": "",
+        "condition": "Best sentence encoder CT-M1-Complete-SE with MNR and hard negatives trained on 378k QQP+AllNLI samples, averaged over 18 datasets"
+      },
+      {
+        "name": "weighted average cosine similarity",
+        "value": 0.714,
+        "unit": "",
+        "condition": "CT-M1-Complete-SE with hard negatives trained on only 10k QQP samples, averaged over 18 datasets"
+      },
+      {
+        "name": "weighted average cosine similarity",
+        "value": 0.6374,
+        "unit": "",
+        "condition": "Sentence-Transformers all-mpnet-base-v2 baseline, averaged over 18 datasets"
+      },
+      {
+        "name": "weighted average cosine similarity",
+        "value": 0.1765,
+        "unit": "",
+        "condition": "SimCSE sup-simcse-roberta-base baseline, averaged over 18 datasets"
+      },
+      {
+        "name": "improvement over state-of-the-art",
+        "value": 17.43,
+        "unit": "percent",
+        "condition": "Best-performing sentence encoder in sentence encoding tasks after increasing training samples to 378k"
+      },
+      {
+        "name": "improvement over state-of-the-art",
+        "value": 12,
+        "unit": "percent",
+        "condition": "Sentence encoder trained on 10k samples versus Sentence-Transformers trained on 1 billion samples"
+      }
+    ],
+    "claim": "Domain-specific pre-training on crisis tweets produces models that beat strong general-purpose baselines on all 18 crisis classification datasets and lifts the sentence encoding state of the art by 17.43 percent.",
+    "author_stated_limitations": [
+      "The models are prone to biased predictions because the training corpus contains unfiltered tweets with non-neutral content.",
+      "At this stage the models can process only English-language tweets."
+    ],
+    "themes": [
+      "crisis informatics",
+      "pre-trained language models",
+      "sentence embeddings",
+      "social media analytics"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "Transformer-based pre-trained models like BERT and RoBERTa have shown success in various NLP tasks, but they are not tailored for crisis-related texts. Furthermore, general-purpose sentence encoders are used to generate sentence embeddings, regardless of the textual complexities in crisis-related texts.",
+    "proposed_solution_quote": "To address these gaps in crisis informatics literature, this study introduces CrisisTransformers, an ensemble of pre-trained language models and sentence encoders trained on an extensive corpus of over 15 billion word tokens from tweets associated with more than 30 crisis events, including disease outbreaks, natural disasters, conflicts, and other critical incidents.",
+    "claim_quote": "Our pre-trained models outperform strong baselines across all 18 datasets in classification tasks, and our best-performing sentence encoder improves the state-of-the-art by 17.43% in sentence encoding tasks.",
+    "author_stated_limitation_quotes": [
+      "The training corpus utilized by CrisisTransformers comprised a substantial volume of unfiltered tweets, inherently containing non-neutral content. Consequently, similar to RoBERTa and BERTweet, both the pre-trained models and their fine-tuned versions are prone to biased predictions.",
+      "Furthermore, at this stage, CrisisTransformers can process only English-language tweets."
+    ]
+  }
+}

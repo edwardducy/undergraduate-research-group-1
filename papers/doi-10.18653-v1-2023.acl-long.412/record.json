@@ -1,0 +1,135 @@
+{
+  "paper_id": "doi-10.18653-v1-2023.acl-long.412",
+  "paper_type": "experimental",
+  "abstract": "Multi-task learning (MTL) aims at achieving a better model by leveraging data and knowledge from multiple tasks. However, MTL does not always work – sometimes negative transfer occurs between tasks, especially when aggregating loosely related skills, leaving it an open question when MTL works. Previous studies show that MTL performance can be improved by algorithmic tricks. However, what tasks and skills should be included is less well explored. In this work, we conduct a case study in Financial NLP where multiple datasets exist for skills relevant to the domain, such as numeric reasoning and sentiment analysis. Due to the task difficulty and data scarcity in the Financial NLP domain, we explore when aggregating such diverse skills from multiple datasets with MTL can work. Our findings suggest that the key to MTL success lies in skill diversity, relatedness between tasks, and choice of aggregation size and shared capacity. Specifically, MTL works well when tasks are diverse but related, and when the size of the task aggregation and the shared capacity of the model are balanced to avoid overwhelming certain tasks.",
+  "bibliographic": {
+    "title": "When Does Aggregating Multiple Skills with Multi-Task Learning Work? A Case Study in Financial NLP",
+    "authors": [
+      {
+        "first_name": "Jingwei",
+        "last_name": "Ni"
+      },
+      {
+        "first_name": "Zhijing",
+        "last_name": "Jin"
+      },
+      {
+        "first_name": "Qian",
+        "last_name": "Wang"
+      },
+      {
+        "first_name": "Mrinmaya",
+        "last_name": "Sachan"
+      },
+      {
+        "first_name": "Markus",
+        "last_name": "Leippold"
+      }
+    ],
+    "year": 2023,
+    "venue": "Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
+    "venue_type": "conference",
+    "doi_or_url": "https://doi.org/10.18653/v1/2023.acl-long.412"
+  },
+  "content": {
+    "problem": "It is unclear when multi-task learning helps, because negative transfer often occurs, and past work studies algorithmic fixes more than which tasks and skills should be aggregated.",
+    "proposed_solution": "The authors run a case study in Financial NLP where they aggregate six datasets covering diverse skills with multi-task learning and test which aggregation properties make it work.",
+    "algorithm_or_model": "SPAL-FinBERT",
+    "dataset_testbed": [
+      "FinDATA (six-task Financial NLP aggregation compiled by the authors)",
+      "Financial PhraseBank sentiment classification (SC)",
+      "SemEval-2017 Task 5 target-based sentiment analysis (TSA)",
+      "FinNum-3 number classification (NC)",
+      "FinNum-2 number attachment detection (NAD)",
+      "TAP quantitative semantic role labeling dataset (FSRL)",
+      "FinCausal 2020 causality detection (CD)",
+      "StockSen (unseen task few-shot generalization)",
+      "Numeracy-600K (unseen task few-shot generalization)",
+      "NVIDIA RTX2080 GPUs"
+    ],
+    "metrics": [
+      {
+        "name": "Accuracy",
+        "value": 87.06,
+        "unit": "percent",
+        "condition": "Sentiment classification (SC) with P-FinBERT multi-task learning on full FinDATA, averaged over 5 random seeds"
+      },
+      {
+        "name": "Accuracy",
+        "value": 86.52,
+        "unit": "percent",
+        "condition": "Number attachment detection (NAD) with P-FinBERT multi-task learning on full FinDATA"
+      },
+      {
+        "name": "Accuracy",
+        "value": 87.79,
+        "unit": "percent",
+        "condition": "Number classification (NC) with MTL on FinDATA without the sentiment tasks"
+      },
+      {
+        "name": "Accuracy",
+        "value": 78.4,
+        "unit": "percent",
+        "condition": "Causality detection (CD) with MTL on FinDATA without the sentiment tasks"
+      },
+      {
+        "name": "RMSE",
+        "value": 0.2054,
+        "unit": "",
+        "condition": "Target-based sentiment analysis (TSA) with the P-FinBERT single-task baseline, the best TSA result"
+      },
+      {
+        "name": "Accuracy",
+        "value": 80.37,
+        "unit": "percent",
+        "condition": "GPT-3 (text-davinci-003) few-shot baseline on SC, below the fine-tuned FinBERT score of 86.61"
+      },
+      {
+        "name": "Improvement",
+        "value": 1.45,
+        "unit": "percentage points",
+        "condition": "Largest gain from MTL auxiliary training over single-task learning, observed on SC"
+      },
+      {
+        "name": "Trainable parameter reduction",
+        "value": 99.8,
+        "unit": "percent",
+        "condition": "SPAL-FinBERT with SPAL hidden size 12 outperforming vanilla FinBERT MTL on four tasks"
+      },
+      {
+        "name": "Accuracy",
+        "value": 62.35,
+        "unit": "percent",
+        "condition": "Few-shot generalization to StockSen after MTL pre-training on FinDATA, versus 58.33 for vanilla FinBERT"
+      },
+      {
+        "name": "Macro-F1",
+        "value": 20.79,
+        "unit": "percent",
+        "condition": "Few-shot generalization to Numeracy-600K market comments after MTL pre-training, versus 18.34 for vanilla FinBERT"
+      }
+    ],
+    "claim": "Aggregating diverse but related Financial NLP tasks with MTL improves most tasks cheaply, provided the aggregation size matches the shared capacity of the model.",
+    "author_stated_limitations": [
+      "Task transferability inside an MTL system is not well measured, because transfers are asymmetric and hard to quantify with symmetric measures like cosine similarity.",
+      "Some conclusions only give a vague direction for MTL practice, such as which tasks are sensitive to capacity sharing.",
+      "The studied factors are entangled and confound each other, so the study cannot isolate how much each factor affects MTL performance."
+    ],
+    "themes": [
+      "multi-task learning",
+      "financial NLP",
+      "task aggregation",
+      "parameter-efficient fine-tuning"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "However, MTL does not always work – sometimes negative transfer occurs between tasks, especially when aggregating loosely related skills, leaving it an open question when MTL works. Previous studies show that MTL performance can be improved by algorithmic tricks.",
+    "proposed_solution_quote": "In this work, we conduct a case study in Financial NLP where multiple datasets exist for skills relevant to the domain, such as numeric reasoning and sentiment analysis. Due to the task difficulty and data scarcity in the Financial NLP domain, we explore when aggregating such diverse skills from multiple datasets with MTL can work.",
+    "claim_quote": "Our findings suggest that the key to MTL success lies in skill diversity, relatedness between tasks, and choice of aggregation size and shared capacity. Specifically, MTL works well when tasks are diverse but related, and when the size of the task aggregation and the shared capacity of the model are balanced to avoid overwhelming certain tasks.",
+    "author_stated_limitation_quotes": [
+      "Firstly, the transferability between different tasks within an MTL system is not well measured in current work. We also find such transferability is asymmetric and thus hard to quantify using symmetric measurements such as cosine similarity between task embeddings or gradients: for example, TSA positively transfers to SC, but SC negatively transfers to TSA (see the “Only Sentiment” row in Table 3); FSRL positively transfer to all other tasks, but other tasks negatively affect FSRL.",
+      "Secondly, some of the conclusions drawn from our case study only point in a vague direction for future MTL practice. For example, we find that some tasks are more sensitive to capacity sharing in Section 6.3.",
+      "Thirdly, in this work, we analyze the influence of multiple factors on MTL performance. However, the factors are usually entangled and confound each other."
+    ]
+  }
+}

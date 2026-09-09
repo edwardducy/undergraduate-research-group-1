@@ -1,0 +1,111 @@
+{
+  "paper_id": "arxiv-2008.13544",
+  "paper_type": "experimental",
+  "abstract": "Social media plays a significant role in disaster management by providing valuable data about affected people, donations and help requests. Recent studies highlight the need to filter information on social media into fine-grained content labels. However, identifying useful information from massive amounts of social media posts during a crisis is a challenging task. In this paper, we propose I-AID, a multimodel approach to automatically categorize tweets into multi-label information types and filter critical information from the enormous volume of social media data. I-AID incorporates three main components: i) a BERT-based encoder to capture the semantics of a tweet and represent as a low-dimensional vector, ii) a graph attention network (GAT) to apprehend correlations between tweets’ words/entities and the corresponding information types, and iii) a Relation Network as a learnable distance metric to compute the similarity between tweets and their corresponding information types in a supervised way. We conducted several experiments on two real publicly-available datasets. Our results indicate that I-AID outperforms state-of-the-art approaches in terms of weighted average F1 score by +6%+6\\% and +4%+4\\% on the TREC-IS dataset and COVID-19 Tweets, respectively.",
+  "bibliographic": {
+    "title": "I-AID: Identifying Actionable Information from Disaster-related Tweets",
+    "authors": [
+      {
+        "first_name": "Hamada M.",
+        "last_name": "Zahera"
+      },
+      {
+        "first_name": "Rricha",
+        "last_name": "Jalota"
+      },
+      {
+        "first_name": "Mohamed Ahmed",
+        "last_name": "Sherif"
+      },
+      {
+        "first_name": "Axel-Cyrille",
+        "last_name": "Ngonga Ngomo"
+      }
+    ],
+    "year": 2021,
+    "venue": "IEEE Access",
+    "venue_type": "journal",
+    "doi_or_url": "https://doi.org/10.1109/ACCESS.2021.3107812"
+  },
+  "content": {
+    "problem": "Classifying disaster tweets into fine-grained categories is difficult because tweets are noisy, lack sufficient contextual information, and often belong to multiple labels simultaneously.",
+    "proposed_solution": "The authors propose I-AID, a framework that combines a BERT encoder, a graph attention network for label correlation, and a relation network for distance metric learning.",
+    "algorithm_or_model": "I-AID",
+    "dataset_testbed": [
+      "TREC-IS",
+      "COVID-19 Tweets"
+    ],
+    "metrics": [
+      {
+        "name": "Weighted average F1",
+        "value": 0.59,
+        "unit": "",
+        "condition": "I-AID on the TREC-IS test set"
+      },
+      {
+        "name": "Weighted average F1",
+        "value": 0.55,
+        "unit": "",
+        "condition": "I-AID on the COVID-19 Tweets test set"
+      },
+      {
+        "name": "Jaccard Index",
+        "value": 0.43,
+        "unit": "",
+        "condition": "I-AID on the TREC-IS test set"
+      },
+      {
+        "name": "Jaccard Index",
+        "value": 0.43,
+        "unit": "",
+        "condition": "I-AID on the COVID-19 Tweets test set"
+      },
+      {
+        "name": "Hamming Loss",
+        "value": 0.07,
+        "unit": "",
+        "condition": "I-AID on the TREC-IS test set"
+      },
+      {
+        "name": "Hamming Loss",
+        "value": 0.08,
+        "unit": "",
+        "condition": "I-AID on the COVID-19 Tweets test set"
+      },
+      {
+        "name": "Accumulated Alert Worth (High Priority)",
+        "value": 0.2044,
+        "unit": "",
+        "condition": "I-AID on the TREC-IS 2019 RUN B test dataset"
+      },
+      {
+        "name": "Accumulated Alert Worth (All)",
+        "value": -0.1509,
+        "unit": "",
+        "condition": "I-AID on the TREC-IS 2019 RUN B test dataset"
+      }
+    ],
+    "claim": "I-AID outperforms state of the art baselines in weighted F1 score across both crisis datasets and achieves a positive Accumulated Alert Worth score on high priority tweets.",
+    "author_stated_limitations": [
+      "The model is sensitive to class imbalance in the training data, and handling unbalanced classes remains future work.",
+      "Detecting high priority tweets accurately remains difficult and requires significant further research.",
+      "The approach achieves suboptimal results on the Hamming loss metric compared to some baseline models."
+    ],
+    "themes": [
+      "multi-label text classification",
+      "crisis informatics",
+      "social media analysis",
+      "meta learning"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "However, identifying useful information from massive amounts of social media posts during a crisis is a challenging task.",
+    "proposed_solution_quote": "In this paper, we propose I-AID, a multimodel approach to automatically categorize tweets into multi-label information types and filter critical information from the enormous volume of social media data.",
+    "claim_quote": "We conducted several experiments on two real publicly-available datasets. Our results indicate that I-AID outperforms state-of-the-art approaches in terms of weighted average F1 score by +6%+6\\% and +4%+4\\% on the TREC-IS dataset and COVID-19 Tweets, respectively.",
+    "author_stated_limitation_quotes": [
+      "This result clearly indicates the sensitivity of our approach to the dataset’s balancing. Dealing with unbalanced classes remains a future extension to our approach.",
+      "Although we outperform the state-of-the-art in both classification and AAW, the results of our evaluation suggest that a significant amount of research is still necessary to spot high priority tweets in a satisfactory manner.",
+      "On the other hand, our approach achieves suboptimal results using Hamming loss."
+    ]
+  }
+}

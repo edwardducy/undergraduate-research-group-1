@@ -1,0 +1,72 @@
+{
+  "paper_id": "arxiv-2402.02998",
+  "paper_type": "methodology-theory",
+  "abstract": "Beyond minimizing a single training loss, many deep learning estimation pipelines rely on an auxiliary objective to quantify and encourage desirable properties of the model (e.g. performance on another dataset, robustness, agreement with a prior). Although the simplest approach to incorporating an auxiliary loss is to sum it with the training loss as a regularizer, recent works have shown that one can improve performance by blending the gradients beyond a simple sum; this is known as gradient surgery. We cast the problem as a constrained minimization problem where the auxiliary objective is minimized among the set of minimizers of the training loss. To solve this bilevel problem, we follow a parameter update direction that combines the training loss gradient and the orthogonal projection of the auxiliary gradient to the training gradient. In a setting where gradients come from mini-batches, we explain how, using a moving average of the training loss gradients, we can carefully maintain this critical orthogonality property. We demonstrate that our method, Bloop, can lead to much better performances on NLP and vision experiments than other gradient surgery methods without EMA.",
+  "bibliographic": {
+    "title": "Careful with that Scalpel: Improving Gradient Surgery with an EMA",
+    "authors": [
+      {
+        "first_name": "Yu-Guan",
+        "last_name": "Hsieh"
+      },
+      {
+        "first_name": "James",
+        "last_name": "Thornton"
+      },
+      {
+        "first_name": "Eugene",
+        "last_name": "Ndiaye"
+      },
+      {
+        "first_name": "Michal",
+        "last_name": "Klein"
+      },
+      {
+        "first_name": "Marco",
+        "last_name": "Cuturi"
+      },
+      {
+        "first_name": "Pierre",
+        "last_name": "Ablin"
+      }
+    ],
+    "year": 2024,
+    "venue": "International Conference on Machine Learning",
+    "venue_type": "conference",
+    "doi_or_url": "https://arxiv.org/abs/2402.02998"
+  },
+  "content": {
+    "problem": "Training with an auxiliary loss often fails because curvature conflicts and stochastic gradient noise degrade optimization in standard regularized and gradient surgery methods.",
+    "proposed_solution": "The authors propose Bloop, which updates parameters along the main gradient plus the auxiliary gradient projected orthogonal to an exponential moving average of past main gradients.",
+    "algorithm_or_model": "Bloop (BiLevel Optimization with Orthogonal Projection)",
+    "dataset_testbed": [
+      "MNIST (MLP trained with a Lipschitz constant proxy as auxiliary loss)",
+      "ImageNet (ResNet50 trained with squared L2 norm auxiliary loss)",
+      "Cifar10Mnist (composite of CIFAR-10 and MNIST, ResNet18 with two classification heads)",
+      "C4 (30M examples for next-token prediction pre-training)",
+      "RCV-1 (20K examples as the auxiliary specialization dataset)",
+      "Paracrawl (36M English-German sentence pairs for the main translation loss)",
+      "WMT (2009-2019 data as auxiliary translation set, 2020 data for evaluation)",
+      "CIFAR-10 (joint classification with ImageNet in the appendix experiment)"
+    ],
+    "metrics": [],
+    "claim": "Using an exponential moving average of main gradients in gradient surgery improves trade-offs between main and auxiliary losses over existing methods across vision and language tasks.",
+    "author_stated_limitations": [
+      "Bloop showed no improvement over baseline methods when jointly training a network on ImageNet and CIFAR-10 because the two losses did not conflict enough."
+    ],
+    "themes": [
+      "gradient surgery",
+      "bilevel optimization",
+      "multi-task learning",
+      "auxiliary losses"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "Mixed training, however, runs into optimization issues if the directions of the largest curvature of the training loss and that of the auxiliary loss are not aligned \u2014 see [Section 3.3](#S3.SS3 \"3.3 Conditioning compared to regularization method \u2023 3 Theoretical Analysis \u2023 Careful with that Scalpel: Improving Gradient Surgery with an EMA\") for an example.",
+    "proposed_solution_quote": "To handle the optimization tradeoff between main and auxiliary losses, we introduce in [Section 2](#S2 \"2 The Bloop Algorithm \u2023 Careful with that Scalpel: Improving Gradient Surgery with an EMA\") the Bloop (BiLevel Optimization with Orthogonal Projection) method. Our method is inspired by the simple bilevel problem, but similar to the regularization approach, has a tunable hyperparameter, \u03bb\\lambda, to control the trade-off between losses.",
+    "claim_quote": "We demonstrate that our method, Bloop, can lead to much better performances on NLP and vision experiments than other gradient surgery methods without EMA.",
+    "author_stated_limitation_quotes": [
+      "In the Appendix [C](#A3 \"Appendix C Additional Experiment \u2023 Careful with that Scalpel: Improving Gradient Surgery with an EMA\"), we describe an experiment where Bloop does not work better than the other methods. We attempted to train a ResNet to have a good performance on Imagenet and Cifar10, with a shared trunk and two classification heads."
+    ]
+  }
+}
