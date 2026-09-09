@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fetch papers into research/literature/ as paper.md (plus the original PDF).
+"""Fetch papers into papers/ as paper.md (plus the original PDF).
 
 Two tiers, per URL:
 
@@ -29,7 +29,7 @@ import urllib.request
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-LIT_DIR = REPO_ROOT / "research" / "literature"
+LIT_DIR = REPO_ROOT / "papers"
 CRW_API = "http://127.0.0.1:3000/v1/scrape"
 UA = {"User-Agent": "undergraduate-research literature fetcher"}
 MIN_PAPER_CHARS = 5000

@@ -1,0 +1,3346 @@
+[
+  {
+    "id": "raychowdhury2020crosslingual",
+    "type": "paper-conference",
+    "title": "Cross-Lingual Disaster-related Multi-label Tweet Classification with Manifold Mixup",
+    "author": [
+      {
+        "family": "Ray Chowdhury",
+        "given": "Jishnu"
+      },
+      {
+        "family": "Caragea",
+        "given": "Cornelia"
+      },
+      {
+        "family": "Caragea",
+        "given": "Doina"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2020
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics: Student Research Workshop",
+    "URL": "https://aclanthology.org/2020.acl-srw.39"
+  },
+  {
+    "id": "adouane2020when",
+    "type": "paper-conference",
+    "title": "When is Multi-task Learning Beneficial for Low-Resource Noisy Code-switched User-generated Algerian Texts?",
+    "author": [
+      {
+        "family": "Adouane",
+        "given": "Wafia"
+      },
+      {
+        "family": "Bernardy",
+        "given": "Jean-Philippe"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2020
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the LREC 2020 – 4th Workshop on Computational Approaches to Code Switching",
+    "URL": "https://aclanthology.org/2020.calcs-1.3"
+  },
+  {
+    "id": "sarioglukayi2020detecting",
+    "type": "paper-conference",
+    "title": "Detecting Urgency Status of Crisis Tweets: A Transfer Learning Approach for Low Resource Languages",
+    "author": [
+      {
+        "family": "Sarioglu Kayi",
+        "given": "Efsun"
+      },
+      {
+        "family": "Nan",
+        "given": "Linyong"
+      },
+      {
+        "family": "Qu",
+        "given": "Bohan"
+      },
+      {
+        "family": "Diab",
+        "given": "Mona"
+      },
+      {
+        "family": "McKeown",
+        "given": "Kathleen"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2020
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the 28th International Conference on Computational Linguistics",
+    "URL": "https://aclanthology.org/2020.coling-main.414"
+  },
+  {
+    "id": "herrera2022tweettaglish",
+    "type": "paper-conference",
+    "title": "TweetTaglish: A Dataset for Investigating Tagalog-English Code-Switching",
+    "author": [
+      {
+        "family": "Herrera",
+        "given": "Megan"
+      },
+      {
+        "family": "Aich",
+        "given": "Ankit"
+      },
+      {
+        "family": "Parde",
+        "given": "Natalie"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2022
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the 13th Conference on Language Resources and Evaluation (LREC 2022)",
+    "URL": "https://aclanthology.org/2022.lrec-1.225"
+  },
+  {
+    "id": "visperas2023itanongds",
+    "type": "paper-conference",
+    "title": "iTANONG-DS : A Collection of Benchmark Datasets for Downstream Natural Language Processing Tasks on Select Philippine Languages",
+    "author": [
+      {
+        "family": "Visperas",
+        "given": "Moses"
+      },
+      {
+        "family": "Borjal",
+        "given": "Christalline Joie"
+      },
+      {
+        "family": "Adoptante",
+        "given": "Aunhel John"
+      },
+      {
+        "family": "Peramo",
+        "given": "Elmer"
+      },
+      {
+        "family": "Abacial",
+        "given": "Danielle Shine"
+      },
+      {
+        "family": "Decano",
+        "given": "Ma. Miciella"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2023
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the 2023 International Conference on Natural Language and Speech Processing",
+    "URL": "https://aclanthology.org/2023.icnlsp-1.34/"
+  },
+  {
+    "id": "liu2025mt2st",
+    "type": "paper-conference",
+    "title": "MT2ST: Adaptive Multi-Task to Single-Task Learning",
+    "author": [
+      {
+        "family": "Liu",
+        "given": "Dong"
+      },
+      {
+        "family": "Yu",
+        "given": "Yanxuan"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2025
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the 1st Workshop on Multimodal Augmented Generation via Multimodal Retrieval (MAGMaR 2025)",
+    "URL": "https://aclanthology.org/2025.magmar-1.8/"
+  },
+  {
+    "id": "gamback2016comparing",
+    "type": "paper-conference",
+    "title": "Comparing the Level of Code-Switching in Corpora",
+    "author": [
+      {
+        "family": "Gambäck",
+        "given": "Björn"
+      },
+      {
+        "family": "Das",
+        "given": "Amitava"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2016
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the Tenth International Conference on Language Resources and Evaluation (LREC 2016)",
+    "URL": "https://aclanthology.org/L16-1292/"
+  },
+  {
+    "id": "baxter2000model",
+    "type": "article-journal",
+    "title": "A Model of Inductive Bias Learning",
+    "author": [
+      {
+        "family": "Baxter",
+        "given": "Jonathan"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2000
+        ]
+      ]
+    },
+    "container-title": "Journal of Artificial Intelligence Research",
+    "URL": "https://arxiv.org/abs/1106.0245"
+  },
+  {
+    "id": "imran2016twitter",
+    "type": "paper-conference",
+    "title": "Twitter as a Lifeline: Human-annotated Twitter Corpora for NLP of Crisis-related Messages",
+    "author": [
+      {
+        "family": "Imran",
+        "given": "Muhammad"
+      },
+      {
+        "family": "Mitra",
+        "given": "Prasenjit"
+      },
+      {
+        "family": "Castillo",
+        "given": "Carlos"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2016
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the Tenth International Conference on Language Resources and Evaluation (LREC 2016)",
+    "URL": "https://arxiv.org/abs/1605.05894"
+  },
+  {
+    "id": "hashimoto2017joint",
+    "type": "paper-conference",
+    "title": "A Joint Many-Task Model: Growing a Neural Network for Multiple NLP Tasks",
+    "author": [
+      {
+        "family": "Hashimoto",
+        "given": "Kazuma"
+      },
+      {
+        "family": "Xiong",
+        "given": "Caiming"
+      },
+      {
+        "family": "Tsuruoka",
+        "given": "Yoshimasa"
+      },
+      {
+        "family": "Socher",
+        "given": "Richard"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2017
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the 2017 Conference on Empirical Methods in Natural Language Processing (EMNLP 2017)",
+    "URL": "https://arxiv.org/abs/1611.01587"
+  },
+  {
+    "id": "kendall2018multitask",
+    "type": "paper-conference",
+    "title": "Multi-Task Learning Using Uncertainty to Weigh Losses for Scene Geometry and Semantics",
+    "author": [
+      {
+        "family": "Kendall",
+        "given": "Alex"
+      },
+      {
+        "family": "Gal",
+        "given": "Yarin"
+      },
+      {
+        "family": "Cipolla",
+        "given": "Roberto"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2018
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR 2018)",
+    "URL": "https://arxiv.org/abs/1705.07115"
+  },
+  {
+    "id": "ruder2017overview",
+    "type": "preprint",
+    "title": "An Overview of Multi-Task Learning in Deep Neural Networks",
+    "author": [
+      {
+        "family": "Ruder",
+        "given": "Sebastian"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2017
+        ]
+      ]
+    },
+    "container-title": "arXiv",
+    "URL": "https://arxiv.org/abs/1706.05098"
+  },
+  {
+    "id": "zhang2021survey",
+    "type": "article-journal",
+    "title": "A Survey on Multi-Task Learning",
+    "author": [
+      {
+        "family": "Zhang",
+        "given": "Yu"
+      },
+      {
+        "family": "Yang",
+        "given": "Qiang"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2021
+        ]
+      ]
+    },
+    "container-title": "IEEE Transactions on Knowledge and Data Engineering",
+    "URL": "https://arxiv.org/abs/1707.08114"
+  },
+  {
+    "id": "reimers2017reporting",
+    "type": "paper-conference",
+    "title": "Reporting Score Distributions Makes a Difference: Performance Study of LSTM-networks for Sequence Tagging",
+    "author": [
+      {
+        "family": "Reimers",
+        "given": "Nils"
+      },
+      {
+        "family": "Gurevych",
+        "given": "Iryna"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2017
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the 2017 Conference on Empirical Methods in Natural Language Processing",
+    "URL": "https://arxiv.org/abs/1707.09861"
+  },
+  {
+    "id": "chen2018gradnorm",
+    "type": "paper-conference",
+    "title": "GradNorm: Gradient Normalization for Adaptive Loss Balancing in Deep Multitask Networks",
+    "author": [
+      {
+        "family": "Chen",
+        "given": "Zhao"
+      },
+      {
+        "family": "Badrinarayanan",
+        "given": "Vijay"
+      },
+      {
+        "family": "Lee",
+        "given": "Chen-Yu"
+      },
+      {
+        "family": "Rabinovich",
+        "given": "Andrew"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2018
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the 35th International Conference on Machine Learning (ICML 2018)",
+    "URL": "https://arxiv.org/abs/1711.02257"
+  },
+  {
+    "id": "liu2019endtoend",
+    "type": "paper-conference",
+    "title": "End-to-End Multi-Task Learning with Attention",
+    "author": [
+      {
+        "family": "Liu",
+        "given": "Shikun"
+      },
+      {
+        "family": "Johns",
+        "given": "Edward"
+      },
+      {
+        "family": "Davison",
+        "given": "Andrew J."
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2019
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2019)",
+    "URL": "https://arxiv.org/abs/1803.10704"
+  },
+  {
+    "id": "wang2019glue",
+    "type": "paper-conference",
+    "title": "GLUE: A Multi-Task Benchmark and Analysis Platform for Natural Language Understanding",
+    "author": [
+      {
+        "family": "Wang",
+        "given": "Alex"
+      },
+      {
+        "family": "Singh",
+        "given": "Amanpreet"
+      },
+      {
+        "family": "Michael",
+        "given": "Julian"
+      },
+      {
+        "family": "Hill",
+        "given": "Felix"
+      },
+      {
+        "family": "Levy",
+        "given": "Omer"
+      },
+      {
+        "family": "Bowman",
+        "given": "Samuel R."
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2019
+        ]
+      ]
+    },
+    "container-title": "7th International Conference on Learning Representations (ICLR 2019)",
+    "URL": "https://arxiv.org/abs/1804.07461"
+  },
+  {
+    "id": "sener2018multitask",
+    "type": "paper-conference",
+    "title": "Multi-Task Learning as Multi-Objective Optimization",
+    "author": [
+      {
+        "family": "Sener",
+        "given": "Ozan"
+      },
+      {
+        "family": "Koltun",
+        "given": "Vladlen"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2018
+        ]
+      ]
+    },
+    "container-title": "Advances in Neural Information Processing Systems 31 (NeurIPS 2018)",
+    "URL": "https://arxiv.org/abs/1810.04650"
+  },
+  {
+    "id": "devlin2018bert",
+    "type": "preprint",
+    "title": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
+    "author": [
+      {
+        "family": "Devlin",
+        "given": "Jacob"
+      },
+      {
+        "family": "Chang",
+        "given": "Ming-Wei"
+      },
+      {
+        "family": "Lee",
+        "given": "Kenton"
+      },
+      {
+        "family": "Toutanova",
+        "given": "Kristina"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2018
+        ]
+      ]
+    },
+    "container-title": "arXiv",
+    "URL": "https://arxiv.org/abs/1810.04805"
+  },
+  {
+    "id": "liu2019multitask",
+    "type": "paper-conference",
+    "title": "Multi-Task Deep Neural Networks for Natural Language Understanding",
+    "author": [
+      {
+        "family": "Liu",
+        "given": "Xiaodong"
+      },
+      {
+        "family": "He",
+        "given": "Pengcheng"
+      },
+      {
+        "family": "Chen",
+        "given": "Weizhu"
+      },
+      {
+        "family": "Gao",
+        "given": "Jianfeng"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2019
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics (ACL 2019)",
+    "URL": "https://arxiv.org/abs/1901.11504"
+  },
+  {
+    "id": "standley2020which",
+    "type": "paper-conference",
+    "title": "Which Tasks Should Be Learned Together in Multi-task Learning?",
+    "author": [
+      {
+        "family": "Standley",
+        "given": "Trevor"
+      },
+      {
+        "family": "Zamir",
+        "given": "Amir"
+      },
+      {
+        "family": "Chen",
+        "given": "Dawn"
+      },
+      {
+        "family": "Guibas",
+        "given": "Leonidas"
+      },
+      {
+        "family": "Malik",
+        "given": "Jitendra"
+      },
+      {
+        "family": "Savarese",
+        "given": "Silvio"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2020
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the 37th International Conference on Machine Learning",
+    "URL": "https://arxiv.org/abs/1905.07553"
+  },
+  {
+    "id": "imperial2019sentiment",
+    "type": "paper-conference",
+    "title": "Sentiment Analysis of Typhoon Related Tweets using Standard and Bidirectional Recurrent Neural Networks",
+    "author": [
+      {
+        "family": "Imperial",
+        "given": "Joseph Marvin R."
+      },
+      {
+        "family": "Orosco",
+        "given": "Jeyrome A."
+      },
+      {
+        "family": "Mazo",
+        "given": "Shiela Mae O."
+      },
+      {
+        "family": "Maceda",
+        "given": "Lany L."
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2019
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the 14th National Natural Language Processing Research Symposium - Student Research Workshop",
+    "URL": "https://arxiv.org/abs/1908.01765"
+  },
+  {
+    "id": "sanh2019distilbert",
+    "type": "preprint",
+    "title": "DistilBERT, a distilled version of BERT: smaller, faster, cheaper and lighter",
+    "author": [
+      {
+        "family": "Sanh",
+        "given": "Victor"
+      },
+      {
+        "family": "Debut",
+        "given": "Lysandre"
+      },
+      {
+        "family": "Chaumond",
+        "given": "Julien"
+      },
+      {
+        "family": "Wolf",
+        "given": "Thomas"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2019
+        ]
+      ]
+    },
+    "container-title": "arXiv",
+    "URL": "https://arxiv.org/abs/1910.01108"
+  },
+  {
+    "id": "conneau2019unsupervised",
+    "type": "preprint",
+    "title": "Unsupervised Cross-lingual Representation Learning at Scale",
+    "author": [
+      {
+        "family": "Conneau",
+        "given": "Alexis"
+      },
+      {
+        "family": "Khandelwal",
+        "given": "Kartikay"
+      },
+      {
+        "family": "Goyal",
+        "given": "Naman"
+      },
+      {
+        "family": "Chaudhary",
+        "given": "Vishrav"
+      },
+      {
+        "family": "Wenzek",
+        "given": "Guillaume"
+      },
+      {
+        "family": "Guzmán",
+        "given": "Francisco"
+      },
+      {
+        "family": "Grave",
+        "given": "Edouard"
+      },
+      {
+        "family": "Ott",
+        "given": "Myle"
+      },
+      {
+        "family": "Zettlemoyer",
+        "given": "Luke"
+      },
+      {
+        "family": "Stoyanov",
+        "given": "Veselin"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2019
+        ]
+      ]
+    },
+    "container-title": "arXiv",
+    "URL": "https://arxiv.org/abs/1911.02116"
+  },
+  {
+    "id": "yu2020gradient",
+    "type": "paper-conference",
+    "title": "Gradient Surgery for Multi-Task Learning",
+    "author": [
+      {
+        "family": "Yu",
+        "given": "Tianhe"
+      },
+      {
+        "family": "Kumar",
+        "given": "Saurabh"
+      },
+      {
+        "family": "Gupta",
+        "given": "Abhishek"
+      },
+      {
+        "family": "Levine",
+        "given": "Sergey"
+      },
+      {
+        "family": "Hausman",
+        "given": "Karol"
+      },
+      {
+        "family": "Finn",
+        "given": "Chelsea"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2020
+        ]
+      ]
+    },
+    "container-title": "Advances in Neural Information Processing Systems 33 (NeurIPS 2020)",
+    "URL": "https://arxiv.org/abs/2001.06782"
+  },
+  {
+    "id": "alam2021crisisbench",
+    "type": "paper-conference",
+    "title": "CrisisBench: Benchmarking Crisis-related Social Media Datasets for Humanitarian Information Processing",
+    "author": [
+      {
+        "family": "Alam",
+        "given": "Firoj"
+      },
+      {
+        "family": "Sajjad",
+        "given": "Hassan"
+      },
+      {
+        "family": "Imran",
+        "given": "Muhammad"
+      },
+      {
+        "family": "Ofli",
+        "given": "Ferda"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2021
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the International AAAI Conference on Web and Social Media (ICWSM 2021)",
+    "URL": "https://arxiv.org/abs/2004.06774"
+  },
+  {
+    "id": "khanuja2020gluecos",
+    "type": "paper-conference",
+    "title": "GLUECoS : An Evaluation Benchmark for Code-Switched NLP",
+    "author": [
+      {
+        "family": "Khanuja",
+        "given": "Simran"
+      },
+      {
+        "family": "Dandapat",
+        "given": "Sandipan"
+      },
+      {
+        "family": "Srinivasan",
+        "given": "Anirudh"
+      },
+      {
+        "family": "Sitaram",
+        "given": "Sunayana"
+      },
+      {
+        "family": "Choudhury",
+        "given": "Monojit"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2020
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics (ACL 2020)",
+    "URL": "https://arxiv.org/abs/2004.12376"
+  },
+  {
+    "id": "zahera2020iaid",
+    "type": "article-journal",
+    "title": "I-AID: Identifying Actionable Information from Disaster-related Tweets",
+    "author": [
+      {
+        "family": "Zahera",
+        "given": "Hamada M."
+      },
+      {
+        "family": "Jalota",
+        "given": "Rricha"
+      },
+      {
+        "family": "Sherif",
+        "given": "Mohamed Ahmed"
+      },
+      {
+        "family": "Ngonga Ngomo",
+        "given": "Axel-Cyrille"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2020
+        ]
+      ]
+    },
+    "container-title": "IEEE Access",
+    "URL": "https://arxiv.org/abs/2008.13544"
+  },
+  {
+    "id": "yao2020weaklysupervised",
+    "type": "paper-conference",
+    "title": "Weakly-supervised Fine-grained Event Recognition on Social Media Texts for Disaster Management",
+    "author": [
+      {
+        "family": "Yao",
+        "given": "Wenlin"
+      },
+      {
+        "family": "Zhang",
+        "given": "Cheng"
+      },
+      {
+        "family": "Saravanan",
+        "given": "Shiva"
+      },
+      {
+        "family": "Huang",
+        "given": "Ruihong"
+      },
+      {
+        "family": "Mostafavi",
+        "given": "Ali"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2020
+        ]
+      ]
+    },
+    "container-title": "AAAI Conference on Artificial Intelligence",
+    "URL": "https://arxiv.org/abs/2010.01683"
+  },
+  {
+    "id": "chung2020rethinking",
+    "type": "preprint",
+    "title": "Rethinking embedding coupling in pre-trained language models",
+    "author": [
+      {
+        "family": "Chung",
+        "given": "Hyung Won"
+      },
+      {
+        "family": "Févry",
+        "given": "Thibault"
+      },
+      {
+        "family": "Tsai",
+        "given": "Henry"
+      },
+      {
+        "family": "Johnson",
+        "given": "Melvin"
+      },
+      {
+        "family": "Ruder",
+        "given": "Sebastian"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2020
+        ]
+      ]
+    },
+    "container-title": "arXiv",
+    "URL": "https://arxiv.org/abs/2010.12821"
+  },
+  {
+    "id": "weld2022survey",
+    "type": "article-journal",
+    "title": "A survey of joint intent detection and slot-filling models in natural language understanding",
+    "author": [
+      {
+        "family": "Weld",
+        "given": "Henry"
+      },
+      {
+        "family": "Huang",
+        "given": "Xiaoqi"
+      },
+      {
+        "family": "Long",
+        "given": "Siqu"
+      },
+      {
+        "family": "Poon",
+        "given": "Josiah"
+      },
+      {
+        "family": "Han",
+        "given": "Soyeon Caren"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2022
+        ]
+      ]
+    },
+    "container-title": "ACM Computing Surveys",
+    "URL": "https://arxiv.org/abs/2101.08091"
+  },
+  {
+    "id": "clark2022canine",
+    "type": "article-journal",
+    "title": "Canine: Pre-training an Efficient Tokenization-Free Encoder for Language Representation",
+    "author": [
+      {
+        "family": "Clark",
+        "given": "Jonathan H."
+      },
+      {
+        "family": "Garrette",
+        "given": "Dan"
+      },
+      {
+        "family": "Turc",
+        "given": "Iulia"
+      },
+      {
+        "family": "Wieting",
+        "given": "John"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2022
+        ]
+      ]
+    },
+    "container-title": "Transactions of the Association for Computational Linguistics",
+    "URL": "https://doi.org/10.1162/tacl_a_00448"
+  },
+  {
+    "id": "krishnan2021multilingual",
+    "type": "paper-conference",
+    "title": "Multilingual Code-Switching for Zero-Shot Cross-Lingual Intent Prediction and Slot Filling",
+    "author": [
+      {
+        "family": "Krishnan",
+        "given": "Jitin"
+      },
+      {
+        "family": "Anastasopoulos",
+        "given": "Antonios"
+      },
+      {
+        "family": "Purohit",
+        "given": "Hemant"
+      },
+      {
+        "family": "Rangwala",
+        "given": "Huzefa"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2021
+        ]
+      ]
+    },
+    "container-title": "MRL Workshop @ EMNLP 2021",
+    "URL": "https://arxiv.org/abs/2103.07792"
+  },
+  {
+    "id": "alam2021humaid",
+    "type": "paper-conference",
+    "title": "HumAID: Human-Annotated Disaster Incidents Data from Twitter with Deep Learning Benchmarks",
+    "author": [
+      {
+        "family": "Alam",
+        "given": "Firoj"
+      },
+      {
+        "family": "Qazi",
+        "given": "Umair"
+      },
+      {
+        "family": "Imran",
+        "given": "Muhammad"
+      },
+      {
+        "family": "Ofli",
+        "given": "Ferda"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2021
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the International AAAI Conference on Web and Social Media (ICWSM 2021)",
+    "URL": "https://arxiv.org/abs/2104.03090"
+  },
+  {
+    "id": "chen2024multitask",
+    "type": "article-journal",
+    "title": "Multi-Task Learning in Natural Language Processing: An Overview",
+    "author": [
+      {
+        "family": "Chen",
+        "given": "Shijie"
+      },
+      {
+        "family": "Zhang",
+        "given": "Yu"
+      },
+      {
+        "family": "Yang",
+        "given": "Qiang"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2024
+        ]
+      ]
+    },
+    "container-title": "ACM Computing Surveys",
+    "URL": "https://arxiv.org/abs/2109.09138"
+  },
+  {
+    "id": "wang2021transformerbased",
+    "type": "paper-conference",
+    "title": "Transformer-based Multi-task Learning for Disaster Tweet Categorisation",
+    "author": [
+      {
+        "family": "Wang",
+        "given": "Congcong"
+      },
+      {
+        "family": "Nulty",
+        "given": "Paul"
+      },
+      {
+        "family": "Lillis",
+        "given": "David"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2021
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the 18th ISCRAM Conference – Social Media for Disaster Response and Resilience",
+    "URL": "https://arxiv.org/abs/2110.08010"
+  },
+  {
+    "id": "liu2021conflictaverse",
+    "type": "paper-conference",
+    "title": "Conflict-Averse Gradient Descent for Multi-task Learning",
+    "author": [
+      {
+        "family": "Liu",
+        "given": "Bo"
+      },
+      {
+        "family": "Liu",
+        "given": "Xingchao"
+      },
+      {
+        "family": "Jin",
+        "given": "Xiaojie"
+      },
+      {
+        "family": "Stone",
+        "given": "Peter"
+      },
+      {
+        "family": "Liu",
+        "given": "Qiang"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2021
+        ]
+      ]
+    },
+    "container-title": "Advances in Neural Information Processing Systems 34 (NeurIPS 2021)",
+    "URL": "https://arxiv.org/abs/2110.14048"
+  },
+  {
+    "id": "cruz2022improving",
+    "type": "paper-conference",
+    "title": "Improving Large-scale Language Models and Resources for Filipino",
+    "author": [
+      {
+        "family": "Cruz",
+        "given": "Jan Christian Blaise"
+      },
+      {
+        "family": "Cheng",
+        "given": "Charibeth"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2022
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the 13th Conference on Language Resources and Evaluation (LREC 2022)",
+    "URL": "https://arxiv.org/abs/2111.06053"
+  },
+  {
+    "id": "lin2022reasonable",
+    "type": "article-journal",
+    "title": "Reasonable Effectiveness of Random Weighting: A Litmus Test for Multi-Task Learning",
+    "author": [
+      {
+        "family": "Lin",
+        "given": "Baijiong"
+      },
+      {
+        "family": "Ye",
+        "given": "Feiyang"
+      },
+      {
+        "family": "Zhang",
+        "given": "Yu"
+      },
+      {
+        "family": "Tsang",
+        "given": "Ivor W."
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2022
+        ]
+      ]
+    },
+    "container-title": "Transactions on Machine Learning Research (TMLR)",
+    "URL": "https://arxiv.org/abs/2111.10603"
+  },
+  {
+    "id": "kurin2022defense",
+    "type": "paper-conference",
+    "title": "In Defense of the Unitary Scalarization for Deep Multi-Task Learning",
+    "author": [
+      {
+        "family": "Kurin",
+        "given": "Vitaly"
+      },
+      {
+        "family": "De Palma",
+        "given": "Alessandro"
+      },
+      {
+        "family": "Kostrikov",
+        "given": "Ilya"
+      },
+      {
+        "family": "Whiteson",
+        "given": "Shimon"
+      },
+      {
+        "family": "Kumar",
+        "given": "M. Pawan"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2022
+        ]
+      ]
+    },
+    "container-title": "Advances in Neural Information Processing Systems 35 (NeurIPS 2022)",
+    "URL": "https://arxiv.org/abs/2201.04122"
+  },
+  {
+    "id": "navon2022multitask",
+    "type": "paper-conference",
+    "title": "Multi-Task Learning as a Bargaining Game",
+    "author": [
+      {
+        "family": "Navon",
+        "given": "Aviv"
+      },
+      {
+        "family": "Shamsian",
+        "given": "Aviv"
+      },
+      {
+        "family": "Achituve",
+        "given": "Idan"
+      },
+      {
+        "family": "Maron",
+        "given": "Haggai"
+      },
+      {
+        "family": "Kawaguchi",
+        "given": "Kenji"
+      },
+      {
+        "family": "Chechik",
+        "given": "Gal"
+      },
+      {
+        "family": "Fetaya",
+        "given": "Ethan"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2022
+        ]
+      ]
+    },
+    "container-title": "International Conference on Machine Learning (ICML)",
+    "URL": "https://arxiv.org/abs/2202.01017"
+  },
+  {
+    "id": "zhang2023twhinbert",
+    "type": "paper-conference",
+    "title": "TwHIN-BERT: A Socially-Enriched Pre-trained Language Model for Multilingual Tweet Representations at Twitter",
+    "author": [
+      {
+        "family": "Zhang",
+        "given": "Xinyang"
+      },
+      {
+        "family": "Malkov",
+        "given": "Yury"
+      },
+      {
+        "family": "Florez",
+        "given": "Omar"
+      },
+      {
+        "family": "Park",
+        "given": "Serim"
+      },
+      {
+        "family": "McWilliams",
+        "given": "Brian"
+      },
+      {
+        "family": "Han",
+        "given": "Jiawei"
+      },
+      {
+        "family": "El-Kishky",
+        "given": "Ahmed"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2023
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the 29th ACM SIGKDD Conference on Knowledge Discovery and Data Mining",
+    "URL": "https://doi.org/10.1145/3580305.3599921"
+  },
+  {
+    "id": "xin2022current",
+    "type": "paper-conference",
+    "title": "Do Current Multi-Task Optimization Methods in Deep Learning Even Help?",
+    "author": [
+      {
+        "family": "Xin",
+        "given": "Derrick"
+      },
+      {
+        "family": "Ghorbani",
+        "given": "Behrooz"
+      },
+      {
+        "family": "Garg",
+        "given": "Ankush"
+      },
+      {
+        "family": "Firat",
+        "given": "Orhan"
+      },
+      {
+        "family": "Gilmer",
+        "given": "Justin"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2022
+        ]
+      ]
+    },
+    "container-title": "Advances in Neural Information Processing Systems 35 (NeurIPS 2022)",
+    "URL": "https://arxiv.org/abs/2209.11379"
+  },
+  {
+    "id": "fekih2022humset",
+    "type": "paper-conference",
+    "title": "HumSet: Dataset of Multilingual Information Extraction and Classification for Humanitarian Crisis Response",
+    "author": [
+      {
+        "family": "Fekih",
+        "given": "Selim"
+      },
+      {
+        "family": "Tamagnone",
+        "given": "Nicolò"
+      },
+      {
+        "family": "Minixhofer",
+        "given": "Benjamin"
+      },
+      {
+        "family": "Shrestha",
+        "given": "Ranjan"
+      },
+      {
+        "family": "Contla",
+        "given": "Ximena"
+      },
+      {
+        "family": "Oglethorpe",
+        "given": "Ewan"
+      },
+      {
+        "family": "Rekabsaz",
+        "given": "Navid"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2022
+        ]
+      ]
+    },
+    "container-title": "Findings of the Association for Computational Linguistics: EMNLP 2022",
+    "URL": "https://arxiv.org/abs/2210.04573"
+  },
+  {
+    "id": "seeberger2022enhancing",
+    "type": "paper-conference",
+    "title": "Enhancing Crisis-Related Tweet Classification with Entity-Masked Language Modeling and Multi-Task Learning",
+    "author": [
+      {
+        "family": "Seeberger",
+        "given": "Philipp"
+      },
+      {
+        "family": "Riedhammer",
+        "given": "Korbinian"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2022
+        ]
+      ]
+    },
+    "container-title": "NLP4PI Workshop @ EMNLP 2022",
+    "URL": "https://arxiv.org/abs/2211.11468"
+  },
+  {
+    "id": "winata2023decades",
+    "type": "paper-conference",
+    "title": "The Decades Progress on Code-Switching Research in NLP: A Systematic Survey on Trends and Challenges",
+    "author": [
+      {
+        "family": "Winata",
+        "given": "Genta Indra"
+      },
+      {
+        "family": "Aji",
+        "given": "Alham Fikri"
+      },
+      {
+        "family": "Yong",
+        "given": "Zheng-Xin"
+      },
+      {
+        "family": "Solorio",
+        "given": "Thamar"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2023
+        ]
+      ]
+    },
+    "container-title": "Findings of the Association for Computational Linguistics: ACL 2023",
+    "URL": "https://arxiv.org/abs/2212.09660"
+  },
+  {
+    "id": "dogruoz2021survey",
+    "type": "paper-conference",
+    "title": "A Survey of Code-switching: Linguistic and Social Perspectives for Language Technologies",
+    "author": [
+      {
+        "family": "Doğruöz",
+        "given": "A. Seza"
+      },
+      {
+        "family": "Sitaram",
+        "given": "Sunayana"
+      },
+      {
+        "family": "Bullock",
+        "given": "Barbara E."
+      },
+      {
+        "family": "Toribio",
+        "given": "Almeida Jacqueline"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2021
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the 59th Annual Meeting of the Association for Computational Linguistics and the 11th International Joint Conference on Natural Language Processing (Volume 1: Long Papers)",
+    "URL": "https://doi.org/10.18653/v1/2021.acl-long.131"
+  },
+  {
+    "id": "liang2023xlmv",
+    "type": "preprint",
+    "title": "XLM-V: Overcoming the Vocabulary Bottleneck in Multilingual Masked Language Models",
+    "author": [
+      {
+        "family": "Liang",
+        "given": "Davis"
+      },
+      {
+        "family": "Gonen",
+        "given": "Hila"
+      },
+      {
+        "family": "Mao",
+        "given": "Yuning"
+      },
+      {
+        "family": "Hou",
+        "given": "Rui"
+      },
+      {
+        "family": "Goyal",
+        "given": "Naman"
+      },
+      {
+        "family": "Ghazvininejad",
+        "given": "Marjan"
+      },
+      {
+        "family": "Zettlemoyer",
+        "given": "Luke"
+      },
+      {
+        "family": "Khabsa",
+        "given": "Madian"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2023
+        ]
+      ]
+    },
+    "container-title": "arXiv",
+    "URL": "https://arxiv.org/abs/2301.10472"
+  },
+  {
+    "id": "shi2023recon",
+    "type": "paper-conference",
+    "title": "Recon: Reducing Conflicting Gradients from the Root for Multi-Task Learning",
+    "author": [
+      {
+        "family": "Shi",
+        "given": "Guangyuan"
+      },
+      {
+        "family": "Li",
+        "given": "Qimai"
+      },
+      {
+        "family": "Zhang",
+        "given": "Wenlong"
+      },
+      {
+        "family": "Chen",
+        "given": "Jiaxin"
+      },
+      {
+        "family": "Wu",
+        "given": "Xiao-Ming"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2023
+        ]
+      ]
+    },
+    "container-title": "11th International Conference on Learning Representations (ICLR 2023)",
+    "URL": "https://arxiv.org/abs/2302.11289"
+  },
+  {
+    "id": "kim2023taskweb",
+    "type": "paper-conference",
+    "title": "TaskWeb: Selecting Better Source Tasks for Multi-task NLP",
+    "author": [
+      {
+        "family": "Kim",
+        "given": "Joongwon"
+      },
+      {
+        "family": "Asai",
+        "given": "Akari"
+      },
+      {
+        "family": "Ilharco",
+        "given": "Gabriel"
+      },
+      {
+        "family": "Hajishirzi",
+        "given": "Hannaneh"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2023
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing (EMNLP 2023)",
+    "URL": "https://arxiv.org/abs/2305.13256"
+  },
+  {
+    "id": "ahia2023all",
+    "type": "paper-conference",
+    "title": "Do All Languages Cost the Same? Tokenization in the Era of Commercial Language Models",
+    "author": [
+      {
+        "family": "Ahia",
+        "given": "Orevaoghene"
+      },
+      {
+        "family": "Kumar",
+        "given": "Sachin"
+      },
+      {
+        "family": "Gonen",
+        "given": "Hila"
+      },
+      {
+        "family": "Kasai",
+        "given": "Jungo"
+      },
+      {
+        "family": "Mortensen",
+        "given": "David R."
+      },
+      {
+        "family": "Smith",
+        "given": "Noah A."
+      },
+      {
+        "family": "Tsvetkov",
+        "given": "Yulia"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2023
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing (EMNLP 2023)",
+    "URL": "https://arxiv.org/abs/2305.13707"
+  },
+  {
+    "id": "petrov2023language",
+    "type": "paper-conference",
+    "title": "Language Model Tokenizers Introduce Unfairness Between Languages",
+    "author": [
+      {
+        "family": "Petrov",
+        "given": "Aleksandar"
+      },
+      {
+        "family": "La Malfa",
+        "given": "Emanuele"
+      },
+      {
+        "family": "Torr",
+        "given": "Philip H.S."
+      },
+      {
+        "family": "Bibi",
+        "given": "Adel"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2023
+        ]
+      ]
+    },
+    "container-title": "37th Conference on Neural Information Processing Systems (NeurIPS 2023)",
+    "URL": "https://arxiv.org/abs/2305.15425"
+  },
+  {
+    "id": "senushkin2023independent",
+    "type": "paper-conference",
+    "title": "Independent Component Alignment for Multi-Task Learning",
+    "author": [
+      {
+        "family": "Senushkin",
+        "given": "Dmitry"
+      },
+      {
+        "family": "Patakin",
+        "given": "Nikolay"
+      },
+      {
+        "family": "Kuznetsov",
+        "given": "Arseny"
+      },
+      {
+        "family": "Konushin",
+        "given": "Anton"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2023
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2023)",
+    "URL": "https://arxiv.org/abs/2305.19000"
+  },
+  {
+    "id": "liu2023famo",
+    "type": "paper-conference",
+    "title": "FAMO: Fast Adaptive Multitask Optimization",
+    "author": [
+      {
+        "family": "Liu",
+        "given": "Bo"
+      },
+      {
+        "family": "Feng",
+        "given": "Yihao"
+      },
+      {
+        "family": "Stone",
+        "given": "Peter"
+      },
+      {
+        "family": "Liu",
+        "given": "Qiang"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2023
+        ]
+      ]
+    },
+    "container-title": "Advances in Neural Information Processing Systems 36 (NeurIPS 2023)",
+    "URL": "https://arxiv.org/abs/2306.03792"
+  },
+  {
+    "id": "lin2025dualbalancing",
+    "type": "article-journal",
+    "title": "Dual-Balancing for Multi-Task Learning",
+    "author": [
+      {
+        "family": "Lin",
+        "given": "Baijiong"
+      },
+      {
+        "family": "Jiang",
+        "given": "Weisen"
+      },
+      {
+        "family": "Ye",
+        "given": "Feiyang"
+      },
+      {
+        "family": "Zhang",
+        "given": "Yu"
+      },
+      {
+        "family": "Chen",
+        "given": "Pengguang"
+      },
+      {
+        "family": "Chen",
+        "given": "Ying-Cong"
+      },
+      {
+        "family": "Liu",
+        "given": "Shu"
+      },
+      {
+        "family": "Tsang",
+        "given": "Ivor W."
+      },
+      {
+        "family": "Kwok",
+        "given": "James T."
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2025
+        ]
+      ]
+    },
+    "container-title": "Neural Networks",
+    "URL": "https://arxiv.org/abs/2308.12029"
+  },
+  {
+    "id": "lamsal2024crisistransformers",
+    "type": "article-journal",
+    "title": "CrisisTransformers: Pre-trained language models and sentence encoders for crisis-related social media texts",
+    "author": [
+      {
+        "family": "Lamsal",
+        "given": "Rabindra"
+      },
+      {
+        "family": "Read",
+        "given": "Maria Rodriguez"
+      },
+      {
+        "family": "Karunasekera",
+        "given": "Shanika"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2024
+        ]
+      ]
+    },
+    "container-title": "Knowledge-Based Systems",
+    "URL": "https://arxiv.org/abs/2309.05494"
+  },
+  {
+    "id": "pilar2023cebuaner",
+    "type": "paper-conference",
+    "title": "CebuaNER: A New Baseline Cebuano Named Entity Recognition Model",
+    "author": [
+      {
+        "family": "Pilar",
+        "given": "Ma. Beatrice Emanuela"
+      },
+      {
+        "family": "Papas",
+        "given": "Ellyza Mari"
+      },
+      {
+        "family": "Buenaventura",
+        "given": "Mary Loise"
+      },
+      {
+        "family": "Dedoroy",
+        "given": "Dane"
+      },
+      {
+        "family": "Montefalcon",
+        "given": "Myron Darrel"
+      },
+      {
+        "family": "Padilla",
+        "given": "Jay Rhald"
+      },
+      {
+        "family": "Maceda",
+        "given": "Lany"
+      },
+      {
+        "family": "Abisado",
+        "given": "Mideth"
+      },
+      {
+        "family": "Imperial",
+        "given": "Joseph Marvin"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2023
+        ]
+      ]
+    },
+    "container-title": "PACLIC 37 (2023)",
+    "URL": "https://arxiv.org/abs/2310.00679"
+  },
+  {
+    "id": "elich2024examining",
+    "type": "paper-conference",
+    "title": "Examining Common Paradigms in Multi-Task Learning",
+    "author": [
+      {
+        "family": "Elich",
+        "given": "Cathrin"
+      },
+      {
+        "family": "Kirchdorfer",
+        "given": "Lukas"
+      },
+      {
+        "family": "Köhler",
+        "given": "Jan M."
+      },
+      {
+        "family": "Schott",
+        "given": "Lukas"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2024
+        ]
+      ]
+    },
+    "container-title": "46th German Conference for Pattern Recognition (GCPR 2024)",
+    "URL": "https://arxiv.org/abs/2311.04698"
+  },
+  {
+    "id": "miranda2023developing",
+    "type": "paper-conference",
+    "title": "Developing a Named Entity Recognition Dataset for Tagalog",
+    "author": [
+      {
+        "family": "Miranda",
+        "given": "Lester James V."
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2023
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the First Workshop for Southeast Asian Language Processing (SEALP 2023)",
+    "URL": "https://arxiv.org/abs/2311.07161"
+  },
+  {
+    "id": "miranda2023calamancy",
+    "type": "paper-conference",
+    "title": "calamanCy: A Tagalog Natural Language Processing Toolkit",
+    "author": [
+      {
+        "family": "Miranda",
+        "given": "Lester James V."
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2023
+        ]
+      ]
+    },
+    "container-title": "NLP-OSS Workshop (EMNLP 2023)",
+    "URL": "https://arxiv.org/abs/2311.07171"
+  },
+  {
+    "id": "hsieh2024careful",
+    "type": "paper-conference",
+    "title": "Careful with that Scalpel: Improving Gradient Surgery with an EMA",
+    "author": [
+      {
+        "family": "Hsieh",
+        "given": "Yu-Guan"
+      },
+      {
+        "family": "Thornton",
+        "given": "James"
+      },
+      {
+        "family": "Ndiaye",
+        "given": "Eugene"
+      },
+      {
+        "family": "Klein",
+        "given": "Michal"
+      },
+      {
+        "family": "Cuturi",
+        "given": "Marco"
+      },
+      {
+        "family": "Ablin",
+        "given": "Pierre"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2024
+        ]
+      ]
+    },
+    "container-title": "International Conference on Machine Learning",
+    "URL": "https://arxiv.org/abs/2402.02998"
+  },
+  {
+    "id": "yin2026crisissensellm",
+    "type": "article-journal",
+    "title": "CrisisSense-LLM: Instruction Fine-Tuned Large Language Model for Multi-label Social Media Text Classification in Disaster Informatics",
+    "author": [
+      {
+        "family": "Yin",
+        "given": "Kai"
+      },
+      {
+        "family": "Li",
+        "given": "Bo"
+      },
+      {
+        "family": "Liu",
+        "given": "Chengkai"
+      },
+      {
+        "family": "Mostafavi",
+        "given": "Ali"
+      },
+      {
+        "family": "Hu",
+        "given": "Xia"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2026
+        ]
+      ]
+    },
+    "container-title": "Advanced Engineering Informatics",
+    "URL": "https://arxiv.org/abs/2406.15477"
+  },
+  {
+    "id": "montalan2024kalahi",
+    "type": "paper-conference",
+    "title": "Kalahi: A handcrafted, grassroots cultural LLM evaluation suite for Filipino",
+    "author": [
+      {
+        "family": "Montalan",
+        "given": "Jann Railey"
+      },
+      {
+        "family": "Ngui",
+        "given": "Jian Gang"
+      },
+      {
+        "family": "Leong",
+        "given": "Wei Qi"
+      },
+      {
+        "family": "Susanto",
+        "given": "Yosephine"
+      },
+      {
+        "family": "Rengarajan",
+        "given": "Hamsawardhini"
+      },
+      {
+        "family": "Aji",
+        "given": "Alham Fikri"
+      },
+      {
+        "family": "Tjhi",
+        "given": "William Chandra"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2024
+        ]
+      ]
+    },
+    "container-title": "PACLIC 38 (2024)",
+    "URL": "https://arxiv.org/abs/2409.15380"
+  },
+  {
+    "id": "mcdaniel2024zeroshot",
+    "type": "paper-conference",
+    "title": "Zero-Shot Classification of Crisis Tweets Using Instruction-Finetuned Large Language Models",
+    "author": [
+      {
+        "family": "McDaniel",
+        "given": "Emma L."
+      },
+      {
+        "family": "Scheele",
+        "given": "Samuel"
+      },
+      {
+        "family": "Liu",
+        "given": "Jeffrey"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2024
+        ]
+      ]
+    },
+    "container-title": "IEEE IHTC 2024 (Int. Humanitarian Technologies Conference)",
+    "URL": "https://arxiv.org/abs/2410.00182"
+  },
+  {
+    "id": "zhang2024proactive",
+    "type": "preprint",
+    "title": "Proactive Gradient Conflict Mitigation in Multi-Task Learning: A Sparse Training Perspective",
+    "author": [
+      {
+        "family": "Zhang",
+        "given": "Zhi"
+      },
+      {
+        "family": "Shen",
+        "given": "Jiayi"
+      },
+      {
+        "family": "Cao",
+        "given": "Congfeng"
+      },
+      {
+        "family": "Dai",
+        "given": "Gaole"
+      },
+      {
+        "family": "Zhou",
+        "given": "Shiji"
+      },
+      {
+        "family": "Zhang",
+        "given": "Qizhe"
+      },
+      {
+        "family": "Zhang",
+        "given": "Shanghang"
+      },
+      {
+        "family": "Shutova",
+        "given": "Ekaterina"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2024
+        ]
+      ]
+    },
+    "container-title": "arXiv",
+    "URL": "https://arxiv.org/abs/2411.18615"
+  },
+  {
+    "id": "peitz2025multiobjective",
+    "type": "article-journal",
+    "title": "Multi-objective Deep Learning: Taxonomy and Survey of the State of the Art",
+    "author": [
+      {
+        "family": "Peitz",
+        "given": "Sebastian"
+      },
+      {
+        "family": "Hotegni",
+        "given": "Sedjro Salomon"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2025
+        ]
+      ]
+    },
+    "container-title": "Machine Learning with Applications",
+    "URL": "https://arxiv.org/abs/2412.01566"
+  },
+  {
+    "id": "montalan2025batayan",
+    "type": "paper-conference",
+    "title": "Batayan: A Filipino NLP benchmark for evaluating Large Language Models",
+    "author": [
+      {
+        "family": "Montalan",
+        "given": "Jann Railey"
+      },
+      {
+        "family": "Layacan",
+        "given": "Jimson Paulo"
+      },
+      {
+        "family": "Africa",
+        "given": "David Demitri"
+      },
+      {
+        "family": "Flores",
+        "given": "Richell Isaiah"
+      },
+      {
+        "family": "Lopez II",
+        "given": "Michael T."
+      },
+      {
+        "family": "Magsajo",
+        "given": "Theresa Denise"
+      },
+      {
+        "family": "Cayabyab",
+        "given": "Anjanette"
+      },
+      {
+        "family": "Tjhi",
+        "given": "William Chandra"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2025
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (ACL 2025)",
+    "URL": "https://arxiv.org/abs/2502.14911"
+  },
+  {
+    "id": "sheth2025comilingua",
+    "type": "preprint",
+    "title": "COMI-LINGUA: Expert Annotated Large-Scale Dataset for Multitask NLP in Hindi-English Code-Mixing",
+    "author": [
+      {
+        "family": "Sheth",
+        "given": "Rajvee"
+      },
+      {
+        "family": "Beniwal",
+        "given": "Himanshu"
+      },
+      {
+        "family": "Singh",
+        "given": "Mayank"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2025
+        ]
+      ]
+    },
+    "container-title": "arXiv",
+    "URL": "https://arxiv.org/abs/2503.21670"
+  },
+  {
+    "id": "zguir2025detecting",
+    "type": "paper-conference",
+    "title": "Detecting Actionable Requests and Offers on Social Media During Crises Using LLMs",
+    "author": [
+      {
+        "family": "Zguir",
+        "given": "Ahmed El Fekih"
+      },
+      {
+        "family": "Ofli",
+        "given": "Ferda"
+      },
+      {
+        "family": "Imran",
+        "given": "Muhammad"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2025
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the 22nd International Conference on Information Systems for Crisis Response and Management (ISCRAM 2025)",
+    "URL": "https://arxiv.org/abs/2504.16144"
+  },
+  {
+    "id": "gama2025uniform",
+    "type": "preprint",
+    "title": "Uniform Loss vs. Specialized Optimization: A Comparative Analysis in Multi-Task Learning",
+    "author": [
+      {
+        "family": "Gama",
+        "given": "Gabriel S."
+      },
+      {
+        "family": "Grassi Jr",
+        "given": "Valdir"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2025
+        ]
+      ]
+    },
+    "container-title": "arXiv",
+    "URL": "https://arxiv.org/abs/2505.10347"
+  },
+  {
+    "id": "maminta2025fillm",
+    "type": "preprint",
+    "title": "FiLLM - A Filipino-optimized Large Language Model based on Southeast Asia Large Language Model (SEALLM)",
+    "author": [
+      {
+        "family": "Maminta",
+        "given": "Carlos Jude G."
+      },
+      {
+        "family": "Enriquez",
+        "given": "Isaiah Job"
+      },
+      {
+        "family": "Nuñez",
+        "given": "Deandre Nigel"
+      },
+      {
+        "family": "Dela Fuente",
+        "given": "Michael B."
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2025
+        ]
+      ]
+    },
+    "container-title": "arXiv",
+    "URL": "https://arxiv.org/abs/2505.18995"
+  },
+  {
+    "id": "borsani2025gradient",
+    "type": "paper-conference",
+    "title": "Gradient Similarity Surgery in Multi-Task Deep Learning",
+    "author": [
+      {
+        "family": "Borsani",
+        "given": "Thomas"
+      },
+      {
+        "family": "Rosani",
+        "given": "Andrea"
+      },
+      {
+        "family": "Nicosia",
+        "given": "Giuseppe"
+      },
+      {
+        "family": "Di Fatta",
+        "given": "Giuseppe"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2025
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the European Conference on Machine Learning and Principles and Practice of Knowledge Discovery in Databases (ECML PKDD 2025)",
+    "URL": "https://arxiv.org/abs/2506.06130"
+  },
+  {
+    "id": "jeong2025resolving",
+    "type": "paper-conference",
+    "title": "Resolving Token-Space Gradient Conflicts: Token Space Manipulation for Transformer-Based Multi-Task Learning",
+    "author": [
+      {
+        "family": "Jeong",
+        "given": "Wooseong"
+      },
+      {
+        "family": "Yoon",
+        "given": "Kuk-Jin"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2025
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV 2025)",
+    "URL": "https://arxiv.org/abs/2507.07485"
+  },
+  {
+    "id": "miranda2025filbench",
+    "type": "paper-conference",
+    "title": "FilBench: Can LLMs Understand and Generate Filipino?",
+    "author": [
+      {
+        "family": "Miranda",
+        "given": "Lester James V."
+      },
+      {
+        "family": "Aco",
+        "given": "Elyanah"
+      },
+      {
+        "family": "Manuel",
+        "given": "Conner"
+      },
+      {
+        "family": "Cruz",
+        "given": "Jan Christian Blaise"
+      },
+      {
+        "family": "Imperial",
+        "given": "Joseph Marvin"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2025
+        ]
+      ]
+    },
+    "container-title": "EMNLP 2025 main",
+    "URL": "https://arxiv.org/abs/2508.03523"
+  },
+  {
+    "id": "africa2025metapretraining",
+    "type": "paper-conference",
+    "title": "Meta-Pretraining for Zero-Shot Cross-Lingual Named Entity Recognition in Low-Resource Philippine Languages",
+    "author": [
+      {
+        "family": "Africa",
+        "given": "David Demitri"
+      },
+      {
+        "family": "Salhan",
+        "given": "Suchir"
+      },
+      {
+        "family": "Weiss",
+        "given": "Yuval"
+      },
+      {
+        "family": "Buttery",
+        "given": "Paula"
+      },
+      {
+        "family": "Diehl Martinez",
+        "given": "Richard"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2025
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the 5th Workshop on Multilingual Representation Learning (MRL 2025)",
+    "URL": "https://arxiv.org/abs/2509.02160"
+  },
+  {
+    "id": "marone2025mmbert",
+    "type": "preprint",
+    "title": "mmBERT: A Modern Multilingual Encoder with Annealed Language Learning",
+    "author": [
+      {
+        "family": "Marone",
+        "given": "Marc"
+      },
+      {
+        "family": "Weller",
+        "given": "Orion"
+      },
+      {
+        "family": "Fleshman",
+        "given": "William"
+      },
+      {
+        "family": "Yang",
+        "given": "Eugene"
+      },
+      {
+        "family": "Lawrie",
+        "given": "Dawn"
+      },
+      {
+        "family": "Van Durme",
+        "given": "Benjamin"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2025
+        ]
+      ]
+    },
+    "container-title": "arXiv",
+    "URL": "https://arxiv.org/abs/2509.06888"
+  },
+  {
+    "id": "limarenko2026gcond",
+    "type": "article-journal",
+    "title": "GCond: Gradient Conflict Resolution via Accumulation-Based Stabilization for Large-Scale Multi-Task Learning",
+    "author": [
+      {
+        "family": "Limarenko",
+        "given": "Evgeny Alves"
+      },
+      {
+        "family": "Studenikina",
+        "given": "Anastasiia"
+      },
+      {
+        "family": "Illarionova",
+        "given": "Svetlana"
+      },
+      {
+        "family": "Sharaev",
+        "given": "Maxim"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2026
+        ]
+      ]
+    },
+    "container-title": "IEEE Access",
+    "URL": "https://arxiv.org/abs/2509.07252"
+  },
+  {
+    "id": "sheth2025beyond",
+    "type": "preprint",
+    "title": "Beyond Monolingual Assumptions: A Survey on Code-Switched NLP in the Era of Large Language Models across Modalities",
+    "author": [
+      {
+        "family": "Sheth",
+        "given": "Rajvee"
+      },
+      {
+        "family": "Sinha",
+        "given": "Samridhi Raj"
+      },
+      {
+        "family": "Patil",
+        "given": "Mahavir"
+      },
+      {
+        "family": "Beniwal",
+        "given": "Himanshu"
+      },
+      {
+        "family": "Singh",
+        "given": "Mayank"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2025
+        ]
+      ]
+    },
+    "container-title": "arXiv",
+    "URL": "https://arxiv.org/abs/2510.07037"
+  },
+  {
+    "id": "teves2025hiligayner",
+    "type": "paper-conference",
+    "title": "HiligayNER: A Baseline Named Entity Recognition Model for Hiligaynon",
+    "author": [
+      {
+        "family": "Teves",
+        "given": "James Ald"
+      },
+      {
+        "family": "Cal",
+        "given": "Ray Daniel"
+      },
+      {
+        "family": "Villaluz",
+        "given": "Josh Magdiel"
+      },
+      {
+        "family": "Malolos",
+        "given": "Jean"
+      },
+      {
+        "family": "Magtira",
+        "given": "Mico"
+      },
+      {
+        "family": "Rodriguez",
+        "given": "Ramon"
+      },
+      {
+        "family": "Abisado",
+        "given": "Mideth"
+      },
+      {
+        "family": "Imperial",
+        "given": "Joseph Marvin"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2025
+        ]
+      ]
+    },
+    "container-title": "Pacific Asia Conference on Language, Information and Computation",
+    "URL": "https://arxiv.org/abs/2510.10776"
+  },
+  {
+    "id": "qin2025ntkmtl",
+    "type": "preprint",
+    "title": "NTKMTL: Mitigating Task Imbalance in Multi-Task Learning from Neural Tangent Kernel Perspective",
+    "author": [
+      {
+        "family": "Qin",
+        "given": "Xiaohan"
+      },
+      {
+        "family": "Wang",
+        "given": "Xiaoxing"
+      },
+      {
+        "family": "Liao",
+        "given": "Ning"
+      },
+      {
+        "family": "Yan",
+        "given": "Junchi"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2025
+        ]
+      ]
+    },
+    "container-title": "arXiv",
+    "URL": "https://arxiv.org/abs/2510.18258"
+  },
+  {
+    "id": "seeberger2025generalizing",
+    "type": "paper-conference",
+    "title": "Generalizing to Unseen Disaster Events: A Causal View",
+    "author": [
+      {
+        "family": "Seeberger",
+        "given": "Philipp"
+      },
+      {
+        "family": "Freisinger",
+        "given": "Steffen"
+      },
+      {
+        "family": "Bocklet",
+        "given": "Tobias"
+      },
+      {
+        "family": "Riedhammer",
+        "given": "Korbinian"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2025
+        ]
+      ]
+    },
+    "container-title": "Findings of the Association for Computational Linguistics: AACL-IJCNLP 2025",
+    "URL": "https://arxiv.org/abs/2511.10120"
+  },
+  {
+    "id": "abdelsamie2026deep",
+    "type": "article-journal",
+    "title": "Deep multi-task learning: a review of concepts, methods, and cross-domain applications",
+    "author": [
+      {
+        "family": "Abdelsamie",
+        "given": "Mahmoud Mohamed"
+      },
+      {
+        "family": "Azab",
+        "given": "Shahira Shaaban"
+      },
+      {
+        "family": "Hefny",
+        "given": "Hesham A."
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2026
+        ]
+      ]
+    },
+    "container-title": "International Journal of Data Science and Analytics",
+    "URL": "https://doi.org/10.1007/s41060-025-00892-y"
+  },
+  {
+    "id": "caruana1997multitask",
+    "type": "article-journal",
+    "title": "Multitask Learning",
+    "author": [
+      {
+        "family": "Caruana",
+        "given": "Rich"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          1997
+        ]
+      ]
+    },
+    "container-title": "Machine Learning",
+    "URL": "https://doi.org/10.1023/A:1007379606734"
+  },
+  {
+    "id": "jeong2024quantifying",
+    "type": "paper-conference",
+    "title": "Quantifying Task Priority for Multi-Task Optimization",
+    "author": [
+      {
+        "family": "Jeong",
+        "given": "Wooseong"
+      },
+      {
+        "family": "Yoon",
+        "given": "Kuk-Jin"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2024
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)",
+    "URL": "https://doi.org/10.1109/cvpr52733.2024.00042"
+  },
+  {
+    "id": "phan2025beyond",
+    "type": "paper-conference",
+    "title": "Beyond Losses Reweighting: Empowering Multi-Task Learning via the Generalization Perspective",
+    "author": [
+      {
+        "family": "Phan",
+        "given": "Hoang"
+      },
+      {
+        "family": "Tran",
+        "given": "Lam"
+      },
+      {
+        "family": "Tran",
+        "given": "Quyen"
+      },
+      {
+        "family": "Tran",
+        "given": "Ngoc"
+      },
+      {
+        "family": "Truong",
+        "given": "Tuan"
+      },
+      {
+        "family": "Lei",
+        "given": "Qi"
+      },
+      {
+        "family": "Ho",
+        "given": "Nhat"
+      },
+      {
+        "family": "Phung",
+        "given": "Dinh"
+      },
+      {
+        "family": "Le",
+        "given": "Trung"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2025
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)",
+    "URL": "https://doi.org/10.1109/iccv51701.2025.00235"
+  },
+  {
+    "id": "li2017disaster",
+    "type": "article-journal",
+    "title": "Disaster Response Aided by Tweet Classification with a Domain Adaptation Approach",
+    "author": [
+      {
+        "family": "Li",
+        "given": "Hongmin"
+      },
+      {
+        "family": "Caragea",
+        "given": "Doina"
+      },
+      {
+        "family": "Caragea",
+        "given": "Cornelia"
+      },
+      {
+        "family": "Herndon",
+        "given": "Nic"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2017
+        ]
+      ]
+    },
+    "container-title": "Journal of Contingencies and Crisis Management",
+    "URL": "https://doi.org/10.1111/1468-5973.12194"
+  },
+  {
+    "id": "kejriwal2019lowsupervision",
+    "type": "paper-conference",
+    "title": "Low-supervision urgency detection and transfer in short crisis messages",
+    "author": [
+      {
+        "family": "Kejriwal",
+        "given": "Mayank"
+      },
+      {
+        "family": "Zhou",
+        "given": "Peilin"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2019
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the 2019 IEEE/ACM International Conference on Advances in Social Networks Analysis and Mining (ASONAM)",
+    "URL": "https://doi.org/10.1145/3341161.3342936"
+  },
+  {
+    "id": "adoptante2025benchmarking",
+    "type": "article-journal",
+    "title": "Benchmarking Open-Source Large Language Models on Code-Switched Tagalog-English Retrieval Augmented Generation",
+    "author": [
+      {
+        "family": "Adoptante",
+        "given": "Aunhel John M."
+      },
+      {
+        "family": "Castro",
+        "given": "Jasper Adrian Dwight V."
+      },
+      {
+        "family": "Medrana",
+        "given": "Micholo Lanz B."
+      },
+      {
+        "family": "Ocampo",
+        "given": "Alyssa Patricia B."
+      },
+      {
+        "family": "Peramo",
+        "given": "Elmer C."
+      },
+      {
+        "family": "Miranda",
+        "given": "Melissa Ruth M."
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2025
+        ]
+      ]
+    },
+    "container-title": "Journal of Advances in Information Technology",
+    "URL": "https://doi.org/10.12720/jait.16.2.233-242"
+  },
+  {
+    "id": "nguyen2017robust",
+    "type": "paper-conference",
+    "title": "Robust Classification of Crisis-Related Data on Social Networks Using Convolutional Neural Networks",
+    "author": [
+      {
+        "family": "Nguyen",
+        "given": "Dat Tien"
+      },
+      {
+        "family": "Al Mannai",
+        "given": "Kamela Ali"
+      },
+      {
+        "family": "Joty",
+        "given": "Shafiq"
+      },
+      {
+        "family": "Sajjad",
+        "given": "Hassan"
+      },
+      {
+        "family": "Imran",
+        "given": "Muhammad"
+      },
+      {
+        "family": "Mitra",
+        "given": "Prasenjit"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2017
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the Eleventh International AAAI Conference on Web and Social Media (ICWSM 2017)",
+    "URL": "https://doi.org/10.1609/icwsm.v11i1.14950"
+  },
+  {
+    "id": "mao2022metaweighting",
+    "type": "paper-conference",
+    "title": "MetaWeighting: Learning to Weight Tasks in Multi-Task Learning",
+    "author": [
+      {
+        "family": "Mao",
+        "given": "Yuren"
+      },
+      {
+        "family": "Wang",
+        "given": "Zekai"
+      },
+      {
+        "family": "Liu",
+        "given": "Weiwei"
+      },
+      {
+        "family": "Lin",
+        "given": "Xuemin"
+      },
+      {
+        "family": "Xie",
+        "given": "Pengtao"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2022
+        ]
+      ]
+    },
+    "container-title": "Findings of the Association for Computational Linguistics: ACL 2022",
+    "URL": "https://doi.org/10.18653/v1/2022.findings-acl.271"
+  },
+  {
+    "id": "chai2023improving",
+    "type": "paper-conference",
+    "title": "Improving Gradient Trade-offs between Tasks in Multi-task Text Classification",
+    "author": [
+      {
+        "family": "Chai",
+        "given": "Heyan"
+      },
+      {
+        "family": "Cui",
+        "given": "Jinhao"
+      },
+      {
+        "family": "Wang",
+        "given": "Ye"
+      },
+      {
+        "family": "Zhang",
+        "given": "Min"
+      },
+      {
+        "family": "Fang",
+        "given": "Binxing"
+      },
+      {
+        "family": "Liao",
+        "given": "Qing"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2023
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics Volume 1: Long Papers",
+    "URL": "https://doi.org/10.18653/v1/2023.acl-long.144"
+  },
+  {
+    "id": "ni2023when",
+    "type": "paper-conference",
+    "title": "When Does Aggregating Multiple Skills with Multi-Task Learning Work? A Case Study in Financial NLP",
+    "author": [
+      {
+        "family": "Ni",
+        "given": "Jingwei"
+      },
+      {
+        "family": "Jin",
+        "given": "Zhijing"
+      },
+      {
+        "family": "Wang",
+        "given": "Qian"
+      },
+      {
+        "family": "Sachan",
+        "given": "Mrinmaya"
+      },
+      {
+        "family": "Leippold",
+        "given": "Markus"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2023
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics Volume 1: Long Papers",
+    "URL": "https://doi.org/10.18653/v1/2023.acl-long.412"
+  },
+  {
+    "id": "sr2023leveraging",
+    "type": "preprint",
+    "title": "Leveraging Multi-Task Learning in Code-Switched setting",
+    "author": [
+      {
+        "family": "S R",
+        "given": "Mithun Kumar"
+      },
+      {
+        "family": "Pitale",
+        "given": "Omkar"
+      },
+      {
+        "family": "Malapati",
+        "given": "Aruna"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2023
+        ]
+      ]
+    },
+    "container-title": "Research Square",
+    "URL": "https://doi.org/10.21203/rs.3.rs-3328574/v1"
+  },
+  {
+    "id": "hevner2004design",
+    "type": "article-journal",
+    "title": "Design Science in Information Systems Research",
+    "author": [
+      {
+        "family": "Hevner",
+        "given": "Alan R."
+      },
+      {
+        "family": "Ram",
+        "given": "Sudha"
+      },
+      {
+        "family": "March",
+        "given": "Salvatore T."
+      },
+      {
+        "family": "Park",
+        "given": "Jinsoo"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2004
+        ]
+      ]
+    },
+    "container-title": "MIS Quarterly",
+    "URL": "https://doi.org/10.2307/25148625"
+  },
+  {
+    "id": "zhou2025injecting",
+    "type": "paper-conference",
+    "title": "Injecting Imbalance Sensitivity for Multi-Task Learning",
+    "author": [
+      {
+        "family": "Zhou",
+        "given": "Zhipeng"
+      },
+      {
+        "family": "Liu",
+        "given": "Liu"
+      },
+      {
+        "family": "Zhao",
+        "given": "Peilin"
+      },
+      {
+        "family": "Gong",
+        "given": "Wei"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2025
+        ]
+      ]
+    },
+    "container-title": "Proceedings of the Thirty-Fourth International Joint Conference on Artificial Intelligence (IJCAI-25)",
+    "URL": "https://doi.org/10.24963/ijcai.2025/805"
+  },
+  {
+    "id": "ermino2022evaluating",
+    "type": "article-journal",
+    "title": "Evaluating Urgency of Typhoon-Related Tweets Through Sentiment Analysis Using Artificial Neural Networks",
+    "author": [
+      {
+        "family": "Ermino",
+        "given": "Ronnel P."
+      },
+      {
+        "family": "Abacan",
+        "given": "Ray Carlo A."
+      },
+      {
+        "family": "Diamante",
+        "given": "Nadine Gweneth C."
+      },
+      {
+        "family": "Faca",
+        "given": "Kristine Marie N."
+      },
+      {
+        "family": "Juntereal",
+        "given": "Thatiana Erica D."
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2022
+        ]
+      ]
+    },
+    "container-title": "International Journal of Computing Sciences Research",
+    "URL": "https://doi.org/10.25147/ijcsr.2017.001.1.80"
+  },
+  {
+    "id": "peffers2007design",
+    "type": "article-journal",
+    "title": "A Design Science Research Methodology for Information Systems Research",
+    "author": [
+      {
+        "family": "Peffers",
+        "given": "Ken"
+      },
+      {
+        "family": "Tuunanen",
+        "given": "Tuure"
+      },
+      {
+        "family": "Rothenberger",
+        "given": "Marcus A."
+      },
+      {
+        "family": "Chatterjee",
+        "given": "Samir"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2007
+        ]
+      ]
+    },
+    "container-title": "Journal of Management Information Systems",
+    "URL": "https://doi.org/10.2753/MIS0742-1222240302"
+  },
+  {
+    "id": "aisingapore2026sealionmodernbert",
+    "type": "preprint",
+    "title": "SEA-LION-ModernBERT and Embedding",
+    "author": [
+      {
+        "family": "AI Singapore",
+        "given": "AI Products Pillar"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2026
+        ]
+      ]
+    },
+    "container-title": "Hugging Face",
+    "URL": "https://huggingface.co/collections/aisingapore/sea-lion-modernbert-and-embedding"
+  },
+  {
+    "id": "lin2023libmtl",
+    "type": "article-journal",
+    "title": "LibMTL: A Python Library for Deep Multi-Task Learning",
+    "author": [
+      {
+        "family": "Lin",
+        "given": "Baijiong"
+      },
+      {
+        "family": "Zhang",
+        "given": "Yu"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2023
+        ]
+      ]
+    },
+    "container-title": "Journal of Machine Learning Research",
+    "URL": "https://www.jmlr.org/papers/v24/22-0347.html"
+  },
+  {
+    "id": "demsar2006statistical",
+    "type": "article-journal",
+    "title": "Statistical Comparisons of Classifiers over Multiple Data Sets",
+    "author": [
+      {
+        "family": "Demšar",
+        "given": "Janez"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2006
+        ]
+      ]
+    },
+    "container-title": "Journal of Machine Learning Research",
+    "URL": "https://www.jmlr.org/papers/v7/demsar06a.html"
+  },
+  {
+    "id": "liu2021impartial",
+    "type": "paper-conference",
+    "title": "TOWARDS IMPARTIAL MULTI-TASK LEARNING",
+    "author": [
+      {
+        "family": "Liu",
+        "given": "Liyang"
+      },
+      {
+        "family": "Li",
+        "given": "Yi"
+      },
+      {
+        "family": "Kuang",
+        "given": "Zhanghui"
+      },
+      {
+        "family": "Xue",
+        "given": "Jing-Hao"
+      },
+      {
+        "family": "Chen",
+        "given": "Yimin"
+      },
+      {
+        "family": "Yang",
+        "given": "Wenming"
+      },
+      {
+        "family": "Liao",
+        "given": "Qingmin"
+      },
+      {
+        "family": "Zhang",
+        "given": "Wayne"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2021
+        ]
+      ]
+    },
+    "container-title": "International Conference on Learning Representations",
+    "URL": "https://openreview.net/forum?id=IMPnRXEWpvr"
+  }
+]
