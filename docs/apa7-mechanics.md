@@ -1,0 +1,292 @@
+# APA 7 mechanics (full manual pass)
+
+Tooling handles page layout, the title page, floats, caption placement, and reference-list rendering. These rules cover everything that typed text controls.
+
+## House rule exceptions
+
+- APA requires first-person pronouns for the writers' own actions (4.16) and forbids third-person self-reference such as "the researchers". The house ban stays. Phrase own actions impersonally in active voice, for example "This chapter reviews" or "The analysis focused on".
+- APA sets no sentence-length cap and warns against unbroken short sentences (4.6). Keep the 30-word cap but vary length within it.
+- APA forbids numbered headings (2.27). The thesis keeps 2.1, 2.1.1 prefixes as the institutional format.
+- APA models many rules with first-person examples. Keep the substance of those rules while writing without pronouns.
+
+## Integrity and ethics
+
+- Report methods and results fully and accurately, including findings that fail to support the argument. (1.12)
+- Never fabricate or falsify data or sources, and never exclude observations without a methodological reason. (1.12)
+- Label exploratory analyses as exploratory, never as preplanned. (1.12)
+- State hypotheses as preplanned–primary, preplanned–secondary, or exploratory (post hoc). (1.12)
+- Describe all measured variables, track participant flow, and never modify results or images to support theory. (1.12)
+- Avoid citing retracted articles. If unavoidable, mark the retraction in the reference entry. (1.13)
+- Credit every borrowed word, idea, image, or creation through citation, whether published or unpublished. (1.17)
+- Do not present prior work as original; cite prior work to avoid self-plagiarism. (1.17, 8.3)
+- Cite the version actually consulted, preferably the final published version when available, and update entries before submission. (8.5)
+- Disclose interests or relationships a reader could view as biasing the work. (1.20)
+- Disclose possible conflicts in the author note, including grants, fees, holdings, board roles, and competing interests. (1.20)
+
+## Title, abstract, and keywords
+
+- State the main topic, the variables or issues, and their relationship in a focused title. (2.4)
+- Omit filler phrases such as "a study of" from the title, spell out terms, and keep words that help indexing. (2.4)
+- Write the abstract as one paragraph of at most 250 words, reporting rather than evaluating, with the most important content first. (2.9, 3.3)
+- Follow institutional requirements for thesis abstract length and requirement. (2.9)
+- Student papers omit the abstract unless the institution requires one. (2.9)
+- Give three to five keywords, lowercase except proper nouns, comma separated, no ending punctuation. (2.10)
+- Keywords are not required for student papers unless requested by the instructor or institution. (2.10)
+- A literature review abstract states the scope, the number of items, the period covered, and the main conclusions. (3.3)
+
+## Structure, headings, and paragraphs
+
+- Open with the work's importance, its place in the literature, and its aims. (2.11)
+- Do not label the opening section "Introduction". The title serves that role. (2.27)
+- Use heading levels in order from the top, never skipping a level, and only as many as the length requires. (2.27)
+- Give topics of equal importance the same heading level and parallel wording. (2.26)
+- Never leave a section with exactly one subsection. Use two or more, or none. (2.26)
+- Keep headings short and descriptive. Start body text as a new paragraph under Levels 1–3; begin text on the same line after Levels 4–5. (2.26, 2.27, Table 2.3)
+- Short student papers may omit headings or use different headings. (2.11, 2.27)
+- Put important content in the main text, not in footnotes. Use footnotes only for brief supplements or copyright attributions. (2.13)
+- Keep one idea per content footnote. Refer back by number, for example "see footnote 3". (2.13)
+- Any paper type may include footnotes. (2.13)
+- Add appendices only when readers need the material to understand or replicate the work, and call out each one by label in text. (2.14)
+- Student papers may include appendices. (2.14)
+- Number appendix items with the appendix letter, for example Table A1 and Equation B1. (2.14)
+- Start a new paragraph at each shift to a new idea. Split paragraphs longer than one double-spaced page and use single-sentence paragraphs rarely. (4.6)
+- Order ideas logically and state how they relate. Smooth disjointed text with transitions. (4.1, 4.2)
+- Signal relationships with links such as "then", "therefore", "in addition", and "however". (4.2)
+- Refer back with a pronoun as a transition only when the antecedent is obvious. (4.2)
+- Use introductory adverbs such as "importantly" sparingly. Omit them when nothing is lost. (4.2)
+
+## Sentence style and conciseness
+
+- Write only what needs saying. Cut wordiness, redundancy, and elaborations of the obvious. (4.4)
+- Express one idea per sentence and split sentences carrying several ideas. (4.6)
+- Prefer short words and direct, declarative sentences. Keep a precise technical term over several short words. (4.4, 4.6)
+- Replace wordy phrases, for example "now" for "at the present time" and "to" for "for the purpose of". (4.5)
+- Delete redundant pairs such as "absolutely essential" and "period of time". (4.5)
+- Use each word exactly as intended. Write "think" or "believe" for claims, never "feel". (4.4)
+- Keep one consistent term per concept. Switching synonyms implies a distinction that does not exist. (4.4)
+- Avoid clichés, mixed metaphors, heavy alliteration, and words with surplus meanings such as "outstanding" for "remaining". (4.4)
+- Use metaphors and figurative language sparingly and keep comparisons direct. (4.4)
+- State quantities exactly. Approximations such as "practically all" weaken empirical statements. (4.8)
+- Avoid colloquialisms and jargon. Define specialized terms at first use. (4.8, 4.9)
+- Never use contractions. Write "cannot", except inside direct quotations. (4.8)
+- Avoid literary devices that add ambiguity or shift topic, tense, or person abruptly. (4.7)
+- Present scholarly disagreement professionally. Write "did not address", never "completely overlooked". (4.7)
+
+## Grammar
+
+- Never attribute human traits to theories, studies, or instruments. A theory addresses, it does not conclude. (4.11)
+- Pair verbs with actors that can act. Write "The analysis extrapolated", not "the study extrapolated". "The results suggest" is acceptable. See house exceptions. (4.11)
+- Use past tense for actions at definite past times, including prior researchers' work. Use present perfect when the time is indefinite or continuing. (4.12)
+- Report prior literature in past or present perfect, methods and results in past, and conclusions, implications, and limitations in present. (4.12, Table 4.1)
+- Hold one tense per passage and avoid sudden shifts. (4.12)
+- Prefer active voice. Use passive only to foreground the recipient of an action. (4.13)
+- Use the indicative mood for facts. Do not hedge with "would". Write "it appears", never "it would appear". (4.14)
+- Match each verb to its subject, ignoring intervening phrases such as "as well as". (4.15)
+- Treat collective nouns as singular when the group acts as one unit. Match "none" to the noun it refers to. (4.15)
+- With "or" or "nor" subjects, match the verb to the nearer noun. (4.15)
+- Use singular "they" for people whose pronouns are unknown or stated as "they". Never use "he" or "she" generically. (4.18)
+- Use "who" for people and "that" or "which" for animals and objects. (4.19)
+- Use "who" as subject and "whom" as object. (4.20)
+- Use "that" for essential clauses without commas and "which" for nonrestrictive clauses with commas. (4.21)
+- Reserve "while" for simultaneous events. Replace ambiguous "since" with "because". (4.22)
+- Place modifiers beside their targets, including "only". Avoid squinting and dangling modifiers. (4.23)
+- Use "on the basis of" for reasoning. Keep "based on" for things that physically rest on something. (4.23)
+- Give parallel ideas parallel form in series, lists, and paired constructions. (4.24)
+- Place paired conjunctions such as "not only...but also" directly before the parallel parts. Never combine "both" with "as well as". (4.24)
+- Write "between 2.5 and 4.0", never "between 2.5-4.0". (4.24)
+- Complete every comparison so the compared items stay parallel, adding words such as "those of" when needed. (4.10)
+- Treat "data" as plural. (6.11)
+
+## Bias-free language
+
+- Describe only characteristics relevant to the research question, and be specific when in doubt. (5.1)
+- Use the terms a group uses for itself, including capitalized labels such as Deaf. (5.2)
+- Never use pejorative labels, adjectives as nouns such as "the poor", or labels equating people with conditions. (5.2)
+- Avoid false hierarchies. Never present one group or the word "normal" as the standard. (5.2)
+- Compare groups with parallel designations ordered alphabetically or by sample size, not by social dominance. (5.2)
+- Report exact ages with ranges, means, and medians instead of open-ended categories such as "over 65 years". (5.3)
+- Prefer "older adults". Avoid "seniors", "the elderly", and "senile". (5.3)
+- Use age-appropriate nouns such as child, adolescent, and adult, and report gender specifically. (5.3, 5.5)
+- Use person-first wording such as "person with epilepsy" or identity-first wording such as "autistic person" as the group prefers. (5.4)
+- Honor disability language preferences, mix person-first and identity-first forms as preferred, and consult self-advocacy groups when unsure. (5.4)
+- Mention disability only when relevant. Avoid slurs, euphemisms such as "special needs", and labels such as "high functioning". (5.4)
+- Replace restriction metaphors. Write "wheelchair user", not "confined to a wheelchair". (5.4)
+- Use "gender" for social groups and "sex" for biological assignment. Treat "transgender" as an adjective. (5.5)
+- Avoid "opposite sex" and the generic "he". Write "another sex" and use singular "they". (5.5)
+- Call research participants "participants"; "subjects" is also acceptable generally and customary in fixed terms such as "within-subjects design". (5.6)
+- Separate people from conditions. Write "people with bipolar disorder", and "did not complete", not "failed". (5.6)
+- Capitalize racial group names such as Black, White, and Indigenous. Never hyphenate terms such as Asian American. (5.7)
+- Distinguish race from ethnicity, prefer nation or region of origin, avoid essentialism, and use parallel comparisons. (5.7)
+- Avoid "minorities" where "people of color" or "underrepresented groups" is meant, and never equate minority status with disadvantage. (5.7)
+- Write "sexual orientation", never "sexual preference". Avoid "homosexual" as a label. (5.8)
+- Report socioeconomic status through income, education, occupation, and housing details. Avoid "the homeless". (5.9)
+- Calibrate income against household size or poverty guidelines, avoid deficit labels, and prefer strengths-based descriptors. (5.9)
+- Attribute findings to intersections of characteristics, never to any single characteristic. (5.10)
+- Report crossed characteristics with specific terms and interpret intersections rather than attributing findings to one characteristic. (5.10)
+
+## Punctuation and quotation marks
+
+- Insert one space after commas, colons, semicolons, and sentence-ending punctuation. (6.1)
+- Use the serial comma in every series of three or more. (6.3)
+- Use commas after introductory phrases, around nonrestrictive clauses, between independent clauses joined by a conjunction, and before statistics that contain parentheses. (6.3)
+- Omit commas between parts of a compound predicate and within measurements such as "7 years 4 months". (6.3)
+- Use a semicolon between independent clauses not joined by a conjunction and between complex series items. (6.4, 6.49)
+- Use a colon only after a grammatically complete clause and in ratios. Capitalize the word after a colon when a complete sentence follows. (6.5, 6.13)
+- Use an em dash to set off an amplifying or explanatory aside. (6.6)
+- Put commas and periods inside closing quotation marks. Put colons, semicolons, and ellipses outside. (6.7)
+- Use double quotation marks for linguistic examples, coined terms, ironic expressions, and article or chapter titles in text. (6.7)
+- Quote a coined term only at first occurrence, then drop the marks. Never use quotation marks to hedge meaning. (6.7)
+- Never nest parentheses. Use square brackets inside parentheses and merge back-to-back parenthetical content into one set. (6.8)
+- Never enclose statistics that contain parentheses in further parentheses. Introduce them with a comma. (6.8, 6.9)
+- Use square brackets for insertions into quotations, confidence interval limits, and material inside parentheses. (6.9)
+- Avoid slashes except for either-or alternatives, fractions, unit pairs, phonemes, translated citations, and test-retest forms; never use repeated slashes in compound units. Rewrite when meaning clouds. (6.10)
+- Use an unspaced en dash for numeric ranges, for example pages 92–114, and between equal-weight compound words. (6.6)
+- Prefer hyphens in abbreviated names such as MMPI-2. (6.6)
+- Use periods for initials, U.S. and U.K. as adjectives, concealing labels, Latin and reference abbreviations, and era designations. Omit periods for states, acronyms, degrees, routes, metric units, and terminal DOIs or URLs; write in. for inch. (6.2)
+
+## Spelling and capitalization
+
+- Follow Merriam-Webster spelling and the technology spellings email, ebook, website, internet, smartphone, and Wi-Fi. (6.11)
+- Hyphenate temporary compound modifiers before a noun when misreading is possible. Drop the hyphen after the noun. (6.12)
+- Never hyphenate compounds with "ly" adverbs, comparatives, or Latin phrases. (6.12)
+- Write most prefixed words solid. Keep hyphens in "meta-analysis", "quasi-experimental", and "self-" compounds. (6.12)
+- Hyphenate where a prefix meets a base starting with a vowel, as in "co-occur". Keep suspended hyphens as in "long- and short-term". (6.12)
+- Capitalize the first word of every sentence and the first word after a colon when a complete sentence follows. (6.13)
+- Capitalize proper nouns, racial and ethnic groups, trade names, and job titles placed before names. Lowercase diseases, therapies, theories, models, and statistical procedures. (6.14–6.16)
+- Use title case for headings and for work titles in text. Lowercase articles, short conjunctions, and short prepositions of three letters or fewer, except when first. (6.17)
+- Capitalize nouns followed by numerals or letters marking series positions, for example Table 1 and Trial 5. (6.19)
+- Lowercase experimental conditions and variables. Capitalize lettered conditions such as Condition A. (6.20, 6.21)
+- Italicize key terms at first use, book titles, genera, statistical symbols, test scores, volume numbers, scale anchors, and unfamiliar foreign words; use reverse italics inside italic text. Avoid italics for chemical terms, trigonometric terms, Greek letters, and mere emphasis. (6.22, 6.23)
+- Follow organism-specific databases for gene names, distinguish gene expression from protein levels, write full gene and protein names upright, and italicize gene symbols such as NR3C1. Abbreviation definition is not required. (6.22, 6.31)
+
+## Numbers and statistics
+
+- Use numerals for 10 and above and for numbers before units, percentages, statistics, times, dates, ages, scores, money, and labels such as Table 3. (6.32)
+- Spell out zero through nine unless a numeral rule applies. Never open a sentence with a numeral. Reword instead. (6.33)
+- Treat ordinals like cardinals, for example 10th grade and four grades. (6.35)
+- Combine numerals and words for back-to-back modifiers, for example ten 7-point scales. (6.34)
+- Pluralize numbers without apostrophes, for example 1960s and twos. (6.39)
+- Present three or fewer numbers in a sentence, four to 20 in a table, and more than 20 in a figure. (6.40)
+- Use the percent and currency symbols only with numerals, and repeat them across ranges, for example 18%–20%. (6.44)
+- Use a leading zero only when the value can exceed 1. Drop it for correlations, proportions, and p values. (6.36)
+- Round correlations and inferential statistics to two decimals. Report exact p values to two or three decimals, writing p < .001 when smaller. (6.36)
+- Italicize statistical symbols such as p, t, F, M, SD, N, n, and r. Keep Greek letters upright. (6.22, 6.44)
+- Use capital italic N for total samples and lowercase italic n for subsamples. (6.44)
+- Define ANOVA and CI in tables and figures; leave M, SD, F, t, df, p, N, n, OR, r, and Greek letters undefined. Write symbols with numerals and words otherwise; use Greek for populations and italics for samples. (6.41–6.44, Table 6.5)
+- Format confidence intervals as 95% CI [lower, upper] and state the confidence level once per series. (6.43)
+- Do not repeat in text the statistics a table or figure already shows. Point to it and highlight key values. (6.43)
+- Keep mathematics spaced like words, for example a + b = c. Use a true minus sign for negative values. (6.45)
+- Keep short equations in the text line. Display complex or numbered equations on separate lines, referenced as Equation 3, never Eq. 3. (6.46, 6.47)
+
+## Abbreviations
+
+- Abbreviate only conventional, familiar terms and use the abbreviation at least three times. Otherwise spell out. (6.24)
+- Define every nondictionary abbreviation at first use in parentheses, then use the abbreviation alone. Never alternate. (6.25)
+- Do not define dictionary terms, measurement or time abbreviations, Latin abbreviations, or statistical symbols such as SD and p. (6.25, 6.44)
+- Never define an abbreviation in a heading. Define it at the next appearance in text. (6.25)
+- Pluralize abbreviations with a lone lowercase s, for example URLs. Never pluralize unit abbreviations. (6.26)
+- Never open a sentence with a lowercase abbreviation or a stand-alone symbol. Reword instead. (6.26)
+- Keep Latin abbreviations such as e.g. and vs. inside parentheses. Write the English phrases in running text. (6.29)
+- Prefer metric units, add nonmetric equivalents in parentheses, abbreviate units with numerals, spell out without numerals, and never abbreviate day, week, month, or year. Use Table 6.4 forms, L for liter, no period, no plural, no repeated units across ranges, and centered dots for compound units. (6.27, 6.28, Table 6.4)
+
+## Lists and seriation
+
+- Keep list items grammatically and conceptually parallel. Use lettered markers such as (a) for complex lists inside a sentence. (6.49, 6.50)
+- Reserve numbered lists for ordered complete sentences or paragraphs. Capitalize and punctuate each item as a sentence. (6.51)
+- Use bullets when order carries no meaning. End sentence bullets with periods; end short simple phrase bullets without punctuation or punctuate longer complex phrases as sentences. Format mixed phrase-plus-sentence bullets consistently with bold lowercase terms. (6.52)
+
+## Tables and figures
+
+- Use a table or figure only when it aids understanding, never for decoration. Report one test or a few means directly in text. (7.1, 7.3)
+- Use a table when readers need exact values and a figure to show relations or patterns. (7.2)
+- Omit displays that duplicate the text, and combine small displays with similar content. (7.3, 7.29)
+- Call out every table and figure by number in text and state what readers should find in it. (7.5)
+- Never write "the table above", cite a page location, or request placement. (7.5)
+- Number tables and figures in two separate Arabic sequences in order of first mention. Give related tables separate numbers, never Table 1A. (7.10, 7.19)
+- Give each display a brief, specific title and make the display understandable without the text. (7.2, 7.11)
+- Define every nonstandard abbreviation in the title, body, or note, even when defined in text, in appearance order; standard statistics, Greek letters, units, no., and % need no definition. (7.15)
+- Keep terminology, headings, and formats consistent across all displays and the text. (7.19)
+- Order notes general, then specific, then probability. Start the general note with the italic word "Note" and a period. (7.14)
+- Prefer exact p values in text. Use asterisk notation such as *p < .05 only inside tables and figures, with constant meanings. (7.14)
+- Leave inapplicable cells blank and insert a dash for unobtained or unreported data, explaining dash use in the general note. Leave the correlation diagonal as a dash without explanation. (7.13)
+- Report comparable values to the same number of decimal places and use ampersands in citations inside displays. (7.13)
+- Include confidence intervals for major point estimates in tables, using brackets or separate columns, and state one confidence level for the paper. (7.16)
+- Add a legend inside or below the figure image to explain symbols, line styles, and shading, using title case and matching lettering. (7.27)
+- Explain what error bars represent and disclose any image alteration beyond cropping. (7.22, 7.30)
+- Add a copyright attribution plus a reference entry for every reprinted or adapted table or figure. Begin with "From" or "Adapted from", place attribution at the end of the general note, and add copyright, public-domain, or license status plus permission when obtained. (7.7, 12.18)
+
+## In-text citations
+
+- Cite only works actually read whose ideas shaped the paper. Prefer primary sources and one or two representative sources per point. (8.1, 8.6)
+- Avoid overcitation and undercitation. Within one paragraph, cite a paraphrased source once while it stays unchanged. (8.1, 8.24)
+- Check that every citation has a reference entry and every entry is cited. Never fabricate either. (8.2, 8.4)
+- Cite self-plagiarism rules: reuse prior work only with citation, single-paragraph attribution, and masked-review omission where required; dissertations and abstracts remain exceptions. (8.3)
+- Write parenthetical citations as (Ray Chowdhury et al., 2020) and narrative citations as Ray Chowdhury et al. (2020). (8.11)
+- Name both authors every time for two-author works. Shorten three or more to first author plus "et al." from the first citation. (8.17)
+- Resolve citation ambiguity by writing out more names plus et al.; spell out all names when only finals differ. (8.18)
+- Use "&" between authors in parenthetical citations, tables, and figures. Spell out "and" in narrative citations. (8.17)
+- Alphabetize multiple works in one parenthesis and separate them with semicolons. Order same-author works by year. (8.12)
+- Keep citation strings short and list only directly supportive sources. Never use "ibid.". (8.12, 8.16)
+- Separate accompanying text from a citation inside one parenthesis with a semicolon, and never nest parentheses. (8.11)
+- Append the cited part with p., pp., para., Table, Figure, or a timestamp, and reference the whole work only. (8.13)
+- Use "as cited in" for secondary sources, cite them sparingly, and reference only the consulted source. (8.6)
+- Cite published interviews by format, personal interviews as personal communications, and research-participant interviews under participant rules without entries. (8.7, 8.36)
+- Cite classroom or intranet sources by format for the course audience; cite as personal communications for wider audiences. (8.8)
+- Cite personal communications in text only with initials, surname, and exact date, without a reference entry; never use this form for participant quotations. (8.9)
+- Cite recorded Traditional Knowledge by format with a reference entry; cite unrecorded knowledge in text with full context and no entry, with consent and accuracy checks. (8.9)
+- Use n.d. for undated works and "in press" for accepted works. Omit the year only in repeated narrative citations within one paragraph. (8.10, 8.16)
+- Add lowercase letters to years when one author has multiple same-year works, matching the reference list. (8.19)
+- Add initials when different works have first authors sharing a surname. (8.20)
+- Spell out group authors at first mention, then abbreviate when well known, when abbreviation aids repetition, or when the abbreviation appears at least three times. (8.21)
+- For general mentions without specific information, name websites with URLs, periodicals in italics and title case, and common software with version in prose without a citation; cite specific information normally. (8.22)
+- For works without authors, move the title to the author position; use Anonymous only when signed. (8.14)
+- Cite translated and reprinted works with slash years showing original first, such as Freud (1900/1953). (8.15)
+- Match citation names and dates exactly to the reference entry. (8.4)
+
+## Quotations
+
+- Paraphrase most of the time. Quote sparingly, for exact definitions and precise or memorable wording. (8.23, 8.25)
+- Give author, year, and location with every direct quotation, using p. or pp. with an en dash for page ranges. (8.25)
+- Enclose quotations under 40 words in double quotation marks inside the sentence, with a full citation in that sentence. (8.26)
+- Set quotations of 40 or more words as an indented block without quotation marks, citing after the final punctuation. (8.27)
+- Locate pageless quotations by heading, section name, counted paragraph, or timestamp. Never by reader location numbers. (8.28)
+- Match quoted wording, spelling, and punctuation exactly. Mark source errors with bracketed italic [sic] or paraphrase instead. (8.29)
+- Change quotation case, end punctuation, quote marks, or footnote callouts without explanation; mark other changes explicitly. (8.30)
+- Show omissions with spaced ellipses, never at the start or end unless the original source includes an ellipsis; use four periods for sentence breaks. Enclose insertions in square brackets. (8.31)
+- Include embedded citations inside quotations; omit trailing summary citations and list only primary sources cited elsewhere. (8.32)
+- Mark added emphasis with italics followed by [emphasis added]. (8.31)
+- Quote material already quoted in the source from the original work when possible. Otherwise treat it as a secondary citation. (8.33)
+- Present participant quotations as short in-text or long block quotations, state the source as participants, omit citations and entries, and protect confidentiality with consent or pseudonyms. (8.36)
+
+## Reference list data
+
+- Compose every entry from author, date, title, and source, in that order, and verify each against the original publication. (9.4, 9.6)
+- Classify each work by group, category, and type before choosing a template. Use the webpage category only as a last resort. (9.1, 9.2)
+- List up to 20 authors. For 21 or more, record the first 19, an ellipsis, and the final author. (9.8)
+- Copy surnames exactly as published, keep hyphenated given names, and omit titles, degrees, and positions. (9.8, 9.9)
+- Spell out group author names fully and name the most specific agency. (9.11)
+- Use the copyright year for books, the volume year for journals, and never a website footer copyright date. (9.13)
+- Use "in press" for accepted unpublished works and the production year for informally published works. Never write "in progress". (9.14)
+- Add a retrieval date only for unarchived works designed to change over time. (9.16)
+- Record unknown dates as n.d. and differentiate same-author same-year works with lowercase letters. (9.17, 9.47)
+- Include a DOI for every work that has one, in https://doi.org/ format, copied exactly, with no final period. (9.34, 9.35)
+- Give a working URL when an online work lacks a DOI; include only the DOI when both exist. Omit both for print works and most academic database content. Include database names and URLs only for limited-circulation or proprietary sources. (9.30, 9.34)
+- Test every URL before submission, substitute an archived link for dead ones, and never list broken URLs; delete entries without archived versions and substitute when possible. (9.37)
+- Use shortDOIs or shortened URLs after verification; transliterate non-Roman alphabets and translate only cited titles. (9.36, 9.38)
+- Cite preprints as informally published works with the archive as the source. Prefer the published version when one exists. Include DOIs or URLs and ERIC numbers when available. (10.8; 8.5)
+- Cite periodicals with article titles in sentence case, italic periodical titles and volumes, issues in parentheses, and page ranges or article numbers. Add DOIs or URLs, always include issue numbers, and use advance-online or in-press forms when needed. (10.1)
+- Cite books with italic sentence-case titles, edition or volume in parentheses, publisher name without location, and DOI or URL when available; omit publishers matching authors. (10.2)
+- Cite edited-book chapters with sentence-case chapter titles, editors with Ed. or Eds., italic book titles, page ranges, publishers, and DOIs or URLs. (10.3)
+- Format proceedings like journal articles, chapters, or books according to the publishing outlet, never as presentations. (10.5)
+- Put report numbers in parentheses after the title and omit the publisher when it matches the author. (10.4, 9.29)
+- Describe uncommon gray literature in brackets after titles, such as grants, briefs, and releases. (10.4)
+- For published theses, add degree type and university in brackets after the title with database or archive plus URL. For unpublished theses, add unpublished dissertation or thesis in brackets with the university as source. Include publication numbers when available. (10.6)
+- Cite reviews with review title, bracketed review detail, and periodical format. Cite tests through supporting literature or test and database records with title-case names. (10.7, 10.11)
+- Skip reference entries only for merely mentioned common software, apps, and programming languages; state name and version in text. Cite paraphrased, quoted, or limited-distribution software with version year as date. (10.10)
+- Cite analyzed public datasets and first-presented archived data, with [Data set] and the version in parentheses, naming the archiving organization as source. Use publication year for published data and collection years for unpublished data; add retrieval dates only for changing sets. (10.9)
+- Cite audiovisual works with bracketed descriptions and production or streaming sources; cite audio, visual, social media, and webpages by most similar template with site names and URLs. (10.12–10.16)
+- Give foreign-language works a translated title in square brackets and the original year in parentheses. (9.38)
+
+## Patents
+
+- Reference form is inventor, year, title with the patent number in parentheses, then the patent office. Cite the issue year, not the application year. (11.8)

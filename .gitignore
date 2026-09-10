@@ -13,3 +13,6 @@ __pycache__/
 
 /.quarto/
 **/*.quarto_ipynb
+
+docs/apa7-publication-manual.md
+
