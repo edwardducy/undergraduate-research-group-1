@@ -4,8 +4,8 @@ Quarto's Typst engine reads the bibliography natively, and its supported
 formats are BibTeX and Hayagriva YAML, so the render pipeline uses .bib.
 Better BibTeX also exports BibTeX, which keeps the Zotero loop simple.
 
-A CSL JSON copy (references.json) is written as well: scripts/convert-
-citations.py uses it as its key index, and Zotero can import it directly.
+A CSL JSON copy (references.json) is written as well as a key index
+and a Zotero-importable mirror of the same entries.
 
 Citekeys follow the Better BibTeX style `auth.lower + year + shorttitle (1)`
 so that keys generated here usually match a Zotero re-export with the same
@@ -56,6 +56,10 @@ def make_key(surname: str, year: int, title: str, used: set) -> str:
 
 def csl_type(venue_type: str) -> str:
     venue_type = (venue_type or "").lower()
+    if "webpage" in venue_type:
+        return "webpage"
+    if "legislation" in venue_type:
+        return "bill"
     if "preprint" in venue_type:
         return "preprint"
     if "journal" in venue_type:
@@ -131,25 +135,38 @@ def protect_proper_nouns(title: str) -> str:
 
 def to_bibtex(record: dict, key: str) -> str:
     bib = record.get("bibliographic", {})
-    authors = " and ".join(
-        f"{a.get('last_name', '')}, {a.get('first_name', '')}".strip(", ")
-        for a in bib.get("authors", [])
-        if a.get("last_name")
-    )
+    author_list = [a for a in bib.get("authors", []) if a.get("last_name")]
+    if len(author_list) == 1 and not author_list[0].get("first_name"):
+        # Group author (agency, government): brace the whole name so BibTeX
+        # reads one literal author instead of splitting on commas and "and".
+        authors = "{" + author_list[0]["last_name"] + "}"
+    else:
+        authors = " and ".join(
+            f"{a.get('last_name', '')}, {a.get('first_name', '')}".strip(", ")
+            for a in author_list
+        )
     venue = clean_venue(bib.get("venue", ""))
     entry_type = bibtex_type(bib.get("venue_type", ""))
+    if entry_type == "article":
+        venue_field = "journal"
+    elif entry_type == "inproceedings":
+        venue_field = "booktitle"
+    else:
+        venue_field = "howpublished"
     fields = [
         ("author", authors),
         ("title", protect_proper_nouns(bibtex_escape(bib.get("title", "")))),
-        ("journal" if entry_type == "article" else "booktitle", venue),
-        ("year", str(bib.get("year", ""))),
+        (venue_field, venue),
+        ("year", str(bib.get("year") or "n.d.")),
     ]
     ident = bib.get("doi_or_url", "")
     if ident.startswith("10."):
         fields.append(("doi", ident))
     elif ident.startswith("http"):
         fields.append(("url", ident))
-    if entry_type == "misc":
+    if entry_type == "misc" and "arxiv" in (
+        (venue or "") + (bib.get("doi_or_url") or "")
+    ).lower():
         fields.append(("note", "Preprint"))
     body = ",\n".join(f"  {name} = {{{bibtex_escape(value)}}}" for name, value in fields if value)
     return f"@{entry_type}{{{key},\n{body}\n}}"
@@ -163,7 +180,13 @@ def main() -> None:
         authors = bib.get("authors") or []
         surname = authors[0].get("last_name", "unknown") if authors else "unknown"
         year = int(bib.get("year", 0) or 0)
-        key = make_key(surname, year, bib.get("title", ""), used)
+        # Non-paper records (webpages, legislation) carry an explicit citekey so
+        # long group authors do not explode the generated key.
+        key = record.get("citekey")
+        if key:
+            used.add(key)
+        else:
+            key = make_key(surname, year, bib.get("title", ""), used)
         entries.append(to_csl(record, key))
         keys.append(to_bibtex(record, key))
 

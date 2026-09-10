@@ -1,0 +1,18 @@
+{
+  "paper_id": "web-pagasa-cyclone",
+  "citekey": "pagasaCyclone",
+  "note": "Non-paper institutional reference. Climatology page verified 2026-09-10: 'With the average of 20 TCs in this region per year, with about 8 or 9 of them crossing the Philippines.' No publication date shown, so n.d.",
+  "bibliographic": {
+    "authors": [
+      {
+        "first_name": "",
+        "last_name": "Philippine Atmospheric, Geophysical and Astronomical Services Administration"
+      }
+    ],
+    "year": null,
+    "title": "Tropical Cyclone Information",
+    "venue": "PAGASA",
+    "venue_type": "webpage",
+    "doi_or_url": "https://www.pagasa.dost.gov.ph/climate/tropical-cyclone-information"
+  }
+}

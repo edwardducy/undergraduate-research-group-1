@@ -1,0 +1,37 @@
+{
+  "paper_id": "openreview-Bkg6RiCqY7",
+  "paper_type": "methodology-theory",
+  "abstract": "The authors show that L2 regularization and weight decay regularization are not equivalent for adaptive gradient methods such as Adam, because the adaptive rescaling couples the decay term to the gradient statistics. They propose AdamW, which decouples weight decay from the gradient-based optimization step. Experiments on image classification, language modeling, and machine translation show that decoupled weight decay yields better generalization than L2 regularization and that its optimal value interacts less strongly with the learning rate schedule.",
+  "bibliographic": {
+    "title": "Decoupled Weight Decay Regularization",
+    "authors": [
+      {"first_name": "Ilya", "last_name": "Loshchilov"},
+      {"first_name": "Frank", "last_name": "Hutter"}
+    ],
+    "year": 2019,
+    "venue": "International Conference on Learning Representations",
+    "venue_type": "conference",
+    "doi_or_url": "https://openreview.net/forum?id=Bkg6RiCqY7"
+  },
+  "content": {
+    "problem": "L2 regularization and weight decay regularization are equivalent for standard stochastic gradient descent but not for adaptive gradient methods, which confounds regularization studies in deep learning.",
+    "proposed_solution": "The authors decouple the weight decay term from the gradient-based optimization step of Adam, producing the AdamW update rule.",
+    "algorithm_or_model": "AdamW (Adam with decoupled weight decay)",
+    "dataset_testbed": [
+      "CIFAR-10 image classification with ResNet",
+      "WMT English-German machine translation with Transformer models",
+      "Language modeling with recurrent and self-attention networks"
+    ],
+    "metrics": [],
+    "claim": "Decoupled weight decay improves generalization over L2-regularized Adam, and its optimal value is more independent of the learning rate schedule.",
+    "author_stated_limitations": [
+      "The empirical scope covers image classification, language modeling, and machine translation rather than every optimization domain."
+    ],
+    "themes": [
+      "optimization",
+      "regularization",
+      "adaptive gradient methods"
+    ]
+  },
+  "evidence": {}
+}

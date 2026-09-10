@@ -1,0 +1,102 @@
+{
+  "paper_id": "doi-10.2307-2529310",
+  "paper_type": "methodology-theory",
+  "abstract": "This paper presents a general statistical methodology for the analysis of multivariate categorical data arising from observer reliability studies. The procedure essentially involves the construction of functions of the observed proportions which are directed at the extent to which the observers agree among themselves and the construction of test statistics for hypotheses involving these functions. Tests for interobserver bias are presented in terms of first-order marginal homogeneity and measures of interobserver agreement are developed as generalized kappa-type statistics. These procedures are illustrated with a clinical diagnosis example from the epidemiological literature.",
+  "bibliographic": {
+    "title": "The Measurement of Observer Agreement for Categorical Data",
+    "authors": [
+      {
+        "first_name": "J. Richard",
+        "last_name": "Landis"
+      },
+      {
+        "first_name": "Gary G.",
+        "last_name": "Koch"
+      }
+    ],
+    "year": 1977,
+    "venue": "Biometrics",
+    "venue_type": "journal",
+    "doi_or_url": "https://doi.org/10.2307/2529310"
+  },
+  "content": {
+    "problem": "Observer reliability studies often yield categorical responses for which the standard ANOVA methods for quantitative measurements do not provide a unified way to test interobserver bias and agreement.",
+    "proposed_solution": "The authors express agreement quantities as functions of observed proportions from multidimensional contingency tables and use weighted least squares to test marginal homogeneity and to estimate generalized kappa-type statistics.",
+    "algorithm_or_model": "Generalized kappa-type statistics with weighted least squares (GSK) estimation",
+    "dataset_testbed": [
+      "Multiple sclerosis diagnosis data from Westlund and Kurland [1953] with 149 Winnipeg and 69 New Orleans patient records each classified by two neurologists into four diagnostic categories"
+    ],
+    "metrics": [
+      {
+        "name": "percent agreement",
+        "value": 43,
+        "unit": "percent",
+        "condition": "Winnipeg patients, 64 of 149 records given identical diagnoses by the two neurologists"
+      },
+      {
+        "name": "percent agreement",
+        "value": 48,
+        "unit": "percent",
+        "condition": "New Orleans patients, 33 of 69 records given identical diagnoses by the two neurologists"
+      },
+      {
+        "name": "kappa",
+        "value": 0.208,
+        "unit": "",
+        "condition": "Winnipeg patients, perfect agreement weights w1j"
+      },
+      {
+        "name": "kappa",
+        "value": 0.297,
+        "unit": "",
+        "condition": "New Orleans patients, perfect agreement weights w1j"
+      },
+      {
+        "name": "kappa",
+        "value": 0.596,
+        "unit": "",
+        "condition": "Winnipeg patients, fourth hierarchical weight set w4j that tolerates adjacent category disagreement"
+      },
+      {
+        "name": "kappa",
+        "value": 0.789,
+        "unit": "",
+        "condition": "New Orleans patients, fourth hierarchical weight set w4j that tolerates adjacent category disagreement"
+      },
+      {
+        "name": "weighted kappa",
+        "value": 0.407,
+        "unit": "",
+        "condition": "New Orleans patients, partial credit weights w2j from Table 8"
+      },
+      {
+        "name": "QC",
+        "value": 69.01,
+        "unit": "",
+        "condition": "test of first-order marginal homogeneity for interobserver bias with 6 degrees of freedom"
+      }
+    ],
+    "claim": "The analysis shows that the two neurologists had significant bias and only low to moderate agreement, since kappa reached acceptable levels only under the most relaxed weighting of diagnostic categories.",
+    "author_stated_limitations": [
+      "The illustration of the general methodology covers only an example with two observers.",
+      "Direct application of the GSK procedures may become computationally infeasible when the number of observers or response categories is moderately large.",
+      "Unobserved response profiles produce zero cell frequencies that require specialized computing procedures."
+    ],
+    "themes": [
+      "observer agreement",
+      "kappa statistics",
+      "categorical data analysis",
+      "interobserver reliability"
+    ]
+  },
+  "evidence": {
+    "problem_quote": "On the other hand, many observer reliability studies involve categorical data in which the response variable is classified into nominal (or possibly ordinal) multinomial categories. As reviewed in Landis and Koch [1975a, 1975b], a wide variety of estimation and testing procedures have been recommended for the assessment of observer variability in these cases.",
+    "proposed_solution_quote": "In this paper we propose a unified approach to the evaluation of observer agreement for categorical data by expressing the quantities which reflect the extent to which the observers agree among themselves as functions of observed proportions obtained from underlying multidimensional contingency tables.",
+    "claim_quote": "Thus, these results suggest that the diagnostic criteria are not very distinct with respect to their usage by these two neurologists. In addition to bias at the macro stage, i.e., considering only the overall marginal proportions, these observers exhibited significant disagreement at the micro state, i.e., considering each individual subject, in specifying a diagnosis.",
+    "author_stated_limitation_quotes": [
+      "Although the methodology for the assessment of observer agreement developed ill this paper is quite general, these procedures have been illustrated with an example involving only two observers.",
+      "However, for situations in which either the number of observers d or the number of response categories L is moderately large, the number of possible multivariate response profiles r = Ld becomes extremely large. Consequently, the matrices required to implement the GSK procedures directly may be outside the scope of computational feasibility.",
+      "In addition, for each of the s sub-populations many of the r possible response profiles will not necessarily be observed in the respective samples so that corresponding cell frequencies are zero. Thus, in such cases, specialized computing procedures are required to obtain the estimates of the pertinent functions."
+    ]
+  }
+}

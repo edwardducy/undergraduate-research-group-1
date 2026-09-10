@@ -48,7 +48,7 @@
         ]
       ]
     },
-    "container-title": "Proceedings of the LREC 2020 – 4th Workshop on Computational Approaches to Code Switching",
+    "container-title": "Proceedings of the 4th Workshop on Computational Approaches to Code Switching",
     "URL": "https://aclanthology.org/2020.calcs-1.3"
   },
   {
@@ -112,7 +112,7 @@
         ]
       ]
     },
-    "container-title": "Proceedings of the 13th Conference on Language Resources and Evaluation (LREC 2022)",
+    "container-title": "Proceedings of the Thirteenth Language Resources and Evaluation Conference",
     "URL": "https://aclanthology.org/2022.lrec-1.225"
   },
   {
@@ -152,7 +152,7 @@
         ]
       ]
     },
-    "container-title": "Proceedings of the 2023 International Conference on Natural Language and Speech Processing",
+    "container-title": "Proceedings of the 6th International Conference on Natural Language and Speech Processing (ICNLSP 2023)",
     "URL": "https://aclanthology.org/2023.icnlsp-1.34/"
   },
   {
@@ -221,7 +221,7 @@
       ]
     },
     "container-title": "Journal of Artificial Intelligence Research",
-    "URL": "https://arxiv.org/abs/1106.0245"
+    "URL": "https://doi.org/10.1613/jair.731"
   },
   {
     "id": "imran2016twitter",
@@ -249,7 +249,7 @@
       ]
     },
     "container-title": "Proceedings of the Tenth International Conference on Language Resources and Evaluation (LREC 2016)",
-    "URL": "https://arxiv.org/abs/1605.05894"
+    "URL": "https://doi.org/10.63317/43bfut6ipc3j"
   },
   {
     "id": "hashimoto2017joint",
@@ -280,8 +280,8 @@
         ]
       ]
     },
-    "container-title": "Proceedings of the 2017 Conference on Empirical Methods in Natural Language Processing (EMNLP 2017)",
-    "URL": "https://arxiv.org/abs/1611.01587"
+    "container-title": "Proceedings of the 2017 Conference on Empirical Methods in Natural Language Processing",
+    "URL": "https://doi.org/10.18653/v1/D17-1206"
   },
   {
     "id": "kendall2018multitask",
@@ -309,7 +309,7 @@
       ]
     },
     "container-title": "Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR 2018)",
-    "URL": "https://arxiv.org/abs/1705.07115"
+    "URL": "https://doi.org/10.1109/CVPR.2018.00781"
   },
   {
     "id": "ruder2017overview",
@@ -332,7 +332,7 @@
     "URL": "https://arxiv.org/abs/1706.05098"
   },
   {
-    "id": "zhang2021survey",
+    "id": "zhang2022survey",
     "type": "article-journal",
     "title": "A Survey on Multi-Task Learning",
     "author": [
@@ -348,12 +348,12 @@
     "issued": {
       "date-parts": [
         [
-          2021
+          2022
         ]
       ]
     },
     "container-title": "IEEE Transactions on Knowledge and Data Engineering",
-    "URL": "https://arxiv.org/abs/1707.08114"
+    "URL": "https://doi.org/10.1109/TKDE.2021.3070203"
   },
   {
     "id": "reimers2017reporting",
@@ -377,7 +377,7 @@
       ]
     },
     "container-title": "Proceedings of the 2017 Conference on Empirical Methods in Natural Language Processing",
-    "URL": "https://arxiv.org/abs/1707.09861"
+    "URL": "https://doi.org/10.18653/v1/D17-1035"
   },
   {
     "id": "chen2018gradnorm",
@@ -437,7 +437,7 @@
       ]
     },
     "container-title": "Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2019)",
-    "URL": "https://arxiv.org/abs/1803.10704"
+    "URL": "https://doi.org/10.1109/CVPR.2019.00197"
   },
   {
     "id": "wang2019glue",
@@ -504,8 +504,8 @@
     "URL": "https://arxiv.org/abs/1810.04650"
   },
   {
-    "id": "devlin2018bert",
-    "type": "preprint",
+    "id": "devlin2019bert",
+    "type": "paper-conference",
     "title": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
     "author": [
       {
@@ -528,12 +528,12 @@
     "issued": {
       "date-parts": [
         [
-          2018
+          2019
         ]
       ]
     },
-    "container-title": "arXiv",
-    "URL": "https://arxiv.org/abs/1810.04805"
+    "container-title": "Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies (NAACL-HLT 2019)",
+    "URL": "https://doi.org/10.18653/v1/N19-1423"
   },
   {
     "id": "liu2019multitask",
@@ -565,7 +565,7 @@
       ]
     },
     "container-title": "Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics (ACL 2019)",
-    "URL": "https://arxiv.org/abs/1901.11504"
+    "URL": "https://doi.org/10.18653/v1/P19-1441"
   },
   {
     "id": "standley2020which",
@@ -672,8 +672,8 @@
     "URL": "https://arxiv.org/abs/1910.01108"
   },
   {
-    "id": "conneau2019unsupervised",
-    "type": "preprint",
+    "id": "conneau2020unsupervised",
+    "type": "paper-conference",
     "title": "Unsupervised Cross-lingual Representation Learning at Scale",
     "author": [
       {
@@ -720,12 +720,12 @@
     "issued": {
       "date-parts": [
         [
-          2019
+          2020
         ]
       ]
     },
-    "container-title": "arXiv",
-    "URL": "https://arxiv.org/abs/1911.02116"
+    "container-title": "Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics (ACL 2020)",
+    "URL": "https://doi.org/10.18653/v1/2020.acl-main.747"
   },
   {
     "id": "yu2020gradient",
@@ -797,7 +797,7 @@
       ]
     },
     "container-title": "Proceedings of the International AAAI Conference on Web and Social Media (ICWSM 2021)",
-    "URL": "https://arxiv.org/abs/2004.06774"
+    "URL": "https://doi.org/10.1609/icwsm.v15i1.18115"
   },
   {
     "id": "khanuja2020gluecos",
@@ -833,10 +833,10 @@
       ]
     },
     "container-title": "Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics (ACL 2020)",
-    "URL": "https://arxiv.org/abs/2004.12376"
+    "URL": "https://doi.org/10.18653/v1/2020.acl-main.329"
   },
   {
-    "id": "zahera2020iaid",
+    "id": "zahera2021iaid",
     "type": "article-journal",
     "title": "I-AID: Identifying Actionable Information from Disaster-related Tweets",
     "author": [
@@ -860,12 +860,12 @@
     "issued": {
       "date-parts": [
         [
-          2020
+          2021
         ]
       ]
     },
     "container-title": "IEEE Access",
-    "URL": "https://arxiv.org/abs/2008.13544"
+    "URL": "https://doi.org/10.1109/ACCESS.2021.3107812"
   },
   {
     "id": "yao2020weaklysupervised",
@@ -901,11 +901,11 @@
       ]
     },
     "container-title": "AAAI Conference on Artificial Intelligence",
-    "URL": "https://arxiv.org/abs/2010.01683"
+    "URL": "https://doi.org/10.1609/aaai.v34i01.5391"
   },
   {
-    "id": "chung2020rethinking",
-    "type": "preprint",
+    "id": "chung2021rethinking",
+    "type": "paper-conference",
     "title": "Rethinking embedding coupling in pre-trained language models",
     "author": [
       {
@@ -932,12 +932,12 @@
     "issued": {
       "date-parts": [
         [
-          2020
+          2021
         ]
       ]
     },
-    "container-title": "arXiv",
-    "URL": "https://arxiv.org/abs/2010.12821"
+    "container-title": "9th International Conference on Learning Representations (ICLR 2021)",
+    "URL": "https://openreview.net/forum?id=xpFFI_NtgpW"
   },
   {
     "id": "weld2022survey",
@@ -973,7 +973,7 @@
       ]
     },
     "container-title": "ACM Computing Surveys",
-    "URL": "https://arxiv.org/abs/2101.08091"
+    "URL": "https://doi.org/10.1145/3547138"
   },
   {
     "id": "clark2022canine",
@@ -1036,8 +1036,8 @@
         ]
       ]
     },
-    "container-title": "MRL Workshop @ EMNLP 2021",
-    "URL": "https://arxiv.org/abs/2103.07792"
+    "container-title": "Proceedings of the 1st Workshop on Multilingual Representation Learning",
+    "URL": "https://doi.org/10.18653/v1/2021.mrl-1.18"
   },
   {
     "id": "alam2021humaid",
@@ -1069,7 +1069,7 @@
       ]
     },
     "container-title": "Proceedings of the International AAAI Conference on Web and Social Media (ICWSM 2021)",
-    "URL": "https://arxiv.org/abs/2104.03090"
+    "URL": "https://doi.org/10.1609/icwsm.v15i1.18116"
   },
   {
     "id": "chen2024multitask",
@@ -1097,7 +1097,7 @@
       ]
     },
     "container-title": "ACM Computing Surveys",
-    "URL": "https://arxiv.org/abs/2109.09138"
+    "URL": "https://doi.org/10.1145/3663363"
   },
   {
     "id": "wang2021transformerbased",
@@ -1124,7 +1124,7 @@
         ]
       ]
     },
-    "container-title": "Proceedings of the 18th ISCRAM Conference – Social Media for Disaster Response and Resilience",
+    "container-title": "Proceedings of the 18th International Conference on Information Systems for Crisis Response and Management (ISCRAM 2021)",
     "URL": "https://arxiv.org/abs/2110.08010"
   },
   {
@@ -1184,7 +1184,7 @@
         ]
       ]
     },
-    "container-title": "Proceedings of the 13th Conference on Language Resources and Evaluation (LREC 2022)",
+    "container-title": "Proceedings of the Thirteenth Language Resources and Evaluation Conference",
     "URL": "https://arxiv.org/abs/2111.06053"
   },
   {
@@ -1296,7 +1296,7 @@
         ]
       ]
     },
-    "container-title": "International Conference on Machine Learning (ICML)",
+    "container-title": "International Conference on Machine Learning (ICML 2022)",
     "URL": "https://arxiv.org/abs/2202.01017"
   },
   {
@@ -1421,7 +1421,7 @@
       ]
     },
     "container-title": "Findings of the Association for Computational Linguistics: EMNLP 2022",
-    "URL": "https://arxiv.org/abs/2210.04573"
+    "URL": "https://doi.org/10.18653/v1/2022.findings-emnlp.321"
   },
   {
     "id": "seeberger2022enhancing",
@@ -1444,8 +1444,8 @@
         ]
       ]
     },
-    "container-title": "NLP4PI Workshop @ EMNLP 2022",
-    "URL": "https://arxiv.org/abs/2211.11468"
+    "container-title": "Proceedings of the Second Workshop on NLP for Positive Impact (NLP4PI)",
+    "URL": "https://doi.org/10.18653/v1/2022.nlp4pi-1.9"
   },
   {
     "id": "winata2023decades",
@@ -1477,7 +1477,7 @@
       ]
     },
     "container-title": "Findings of the Association for Computational Linguistics: ACL 2023",
-    "URL": "https://arxiv.org/abs/2212.09660"
+    "URL": "https://doi.org/10.18653/v1/2023.findings-acl.185"
   },
   {
     "id": "dogruoz2021survey",
@@ -1513,7 +1513,7 @@
   },
   {
     "id": "liang2023xlmv",
-    "type": "preprint",
+    "type": "paper-conference",
     "title": "XLM-V: Overcoming the Vocabulary Bottleneck in Multilingual Masked Language Models",
     "author": [
       {
@@ -1556,8 +1556,8 @@
         ]
       ]
     },
-    "container-title": "arXiv",
-    "URL": "https://arxiv.org/abs/2301.10472"
+    "container-title": "Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing (EMNLP 2023)",
+    "URL": "https://doi.org/10.18653/v1/2023.emnlp-main.813"
   },
   {
     "id": "shi2023recon",
@@ -1625,7 +1625,7 @@
       ]
     },
     "container-title": "Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing (EMNLP 2023)",
-    "URL": "https://arxiv.org/abs/2305.13256"
+    "URL": "https://doi.org/10.18653/v1/2023.emnlp-main.680"
   },
   {
     "id": "ahia2023all",
@@ -1669,7 +1669,7 @@
       ]
     },
     "container-title": "Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing (EMNLP 2023)",
-    "URL": "https://arxiv.org/abs/2305.13707"
+    "URL": "https://doi.org/10.18653/v1/2023.emnlp-main.614"
   },
   {
     "id": "petrov2023language",
@@ -1700,7 +1700,7 @@
         ]
       ]
     },
-    "container-title": "37th Conference on Neural Information Processing Systems (NeurIPS 2023)",
+    "container-title": "Advances in Neural Information Processing Systems 36 (NeurIPS 2023)",
     "URL": "https://arxiv.org/abs/2305.15425"
   },
   {
@@ -1733,7 +1733,7 @@
       ]
     },
     "container-title": "Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2023)",
-    "URL": "https://arxiv.org/abs/2305.19000"
+    "URL": "https://doi.org/10.1109/CVPR52729.2023.01923"
   },
   {
     "id": "liu2023famo",
@@ -1768,7 +1768,7 @@
     "URL": "https://arxiv.org/abs/2306.03792"
   },
   {
-    "id": "lin2025dualbalancing",
+    "id": "lin2026dualbalancing",
     "type": "article-journal",
     "title": "Dual-Balancing for Multi-Task Learning",
     "author": [
@@ -1812,12 +1812,12 @@
     "issued": {
       "date-parts": [
         [
-          2025
+          2026
         ]
       ]
     },
     "container-title": "Neural Networks",
-    "URL": "https://arxiv.org/abs/2308.12029"
+    "URL": "https://doi.org/10.1016/j.neunet.2025.108317"
   },
   {
     "id": "lamsal2024crisistransformers",
@@ -1845,7 +1845,7 @@
       ]
     },
     "container-title": "Knowledge-Based Systems",
-    "URL": "https://arxiv.org/abs/2309.05494"
+    "URL": "https://doi.org/10.1016/j.knosys.2024.111916"
   },
   {
     "id": "pilar2023cebuaner",
@@ -1896,8 +1896,8 @@
         ]
       ]
     },
-    "container-title": "PACLIC 37 (2023)",
-    "URL": "https://arxiv.org/abs/2310.00679"
+    "container-title": "Proceedings of the 37th Pacific Asia Conference on Language, Information and Computation",
+    "URL": "https://aclanthology.org/2023.paclic-1.79/"
   },
   {
     "id": "elich2024examining",
@@ -1928,8 +1928,8 @@
         ]
       ]
     },
-    "container-title": "46th German Conference for Pattern Recognition (GCPR 2024)",
-    "URL": "https://arxiv.org/abs/2311.04698"
+    "container-title": "46th DAGM German Conference on Pattern Recognition (GCPR 2024)",
+    "URL": "https://doi.org/10.1007/978-3-031-85181-0_9"
   },
   {
     "id": "miranda2023developing",
@@ -1948,8 +1948,8 @@
         ]
       ]
     },
-    "container-title": "Proceedings of the First Workshop for Southeast Asian Language Processing (SEALP 2023)",
-    "URL": "https://arxiv.org/abs/2311.07161"
+    "container-title": "Proceedings of the First Workshop in South East Asian Language Processing",
+    "URL": "https://doi.org/10.18653/v1/2023.sealp-1.2"
   },
   {
     "id": "miranda2023calamancy",
@@ -1968,8 +1968,8 @@
         ]
       ]
     },
-    "container-title": "NLP-OSS Workshop (EMNLP 2023)",
-    "URL": "https://arxiv.org/abs/2311.07171"
+    "container-title": "Proceedings of the 3rd Workshop for Natural Language Processing Open Source Software (NLP-OSS 2023)",
+    "URL": "https://doi.org/10.18653/v1/2023.nlposs-1.1"
   },
   {
     "id": "hsieh2024careful",
@@ -2045,7 +2045,7 @@
       ]
     },
     "container-title": "Advanced Engineering Informatics",
-    "URL": "https://arxiv.org/abs/2406.15477"
+    "URL": "https://doi.org/10.1016/j.aei.2026.104836"
   },
   {
     "id": "montalan2024kalahi",
@@ -2088,8 +2088,8 @@
         ]
       ]
     },
-    "container-title": "PACLIC 38 (2024)",
-    "URL": "https://arxiv.org/abs/2409.15380"
+    "container-title": "Proceedings of the 38th Pacific Asia Conference on Language, Information and Computation",
+    "URL": "https://aclanthology.org/2024.paclic-1.49/"
   },
   {
     "id": "mcdaniel2024zeroshot",
@@ -2116,8 +2116,8 @@
         ]
       ]
     },
-    "container-title": "IEEE IHTC 2024 (Int. Humanitarian Technologies Conference)",
-    "URL": "https://arxiv.org/abs/2410.00182"
+    "container-title": "2024 IEEE International Humanitarian Technologies Conference (IHTC)",
+    "URL": "https://doi.org/10.1109/ihtc61819.2024.10855037"
   },
   {
     "id": "zhang2024proactive",
@@ -2189,7 +2189,7 @@
       ]
     },
     "container-title": "Machine Learning with Applications",
-    "URL": "https://arxiv.org/abs/2412.01566"
+    "URL": "https://doi.org/10.1016/j.mlwa.2025.100700"
   },
   {
     "id": "montalan2025batayan",
@@ -2236,12 +2236,12 @@
         ]
       ]
     },
-    "container-title": "Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (ACL 2025)",
-    "URL": "https://arxiv.org/abs/2502.14911"
+    "container-title": "Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
+    "URL": "https://doi.org/10.18653/v1/2025.acl-long.1509"
   },
   {
     "id": "sheth2025comilingua",
-    "type": "preprint",
+    "type": "paper-conference",
     "title": "COMI-LINGUA: Expert Annotated Large-Scale Dataset for Multitask NLP in Hindi-English Code-Mixing",
     "author": [
       {
@@ -2264,8 +2264,8 @@
         ]
       ]
     },
-    "container-title": "arXiv",
-    "URL": "https://arxiv.org/abs/2503.21670"
+    "container-title": "Findings of the Association for Computational Linguistics: EMNLP 2025",
+    "URL": "https://doi.org/10.18653/v1/2025.findings-emnlp.422"
   },
   {
     "id": "zguir2025detecting",
@@ -2292,8 +2292,8 @@
         ]
       ]
     },
-    "container-title": "Proceedings of the 22nd International Conference on Information Systems for Crisis Response and Management (ISCRAM 2025)",
-    "URL": "https://arxiv.org/abs/2504.16144"
+    "container-title": "Proceedings of the International ISCRAM Conference (ISCRAM 2025)",
+    "URL": "https://doi.org/10.59297/r9q00255"
   },
   {
     "id": "gama2025uniform",
@@ -2320,9 +2320,9 @@
     "URL": "https://arxiv.org/abs/2505.10347"
   },
   {
-    "id": "maminta2025fillm",
-    "type": "preprint",
-    "title": "FiLLM - A Filipino-optimized Large Language Model based on Southeast Asia Large Language Model (SEALLM)",
+    "id": "maminta2025filipinooptimized",
+    "type": "paper-conference",
+    "title": "A Filipino-Optimized Large Language Model",
     "author": [
       {
         "family": "Maminta",
@@ -2348,8 +2348,8 @@
         ]
       ]
     },
-    "container-title": "arXiv",
-    "URL": "https://arxiv.org/abs/2505.18995"
+    "container-title": "Novel and Intelligent Digital Systems: Proceedings of the 5th International Conference (NiDS 2025), Lecture Notes in Networks and Systems",
+    "URL": "https://doi.org/10.1007/978-3-032-06634-3_21"
   },
   {
     "id": "borsani2025gradient",
@@ -2381,7 +2381,7 @@
       ]
     },
     "container-title": "Proceedings of the European Conference on Machine Learning and Principles and Practice of Knowledge Discovery in Databases (ECML PKDD 2025)",
-    "URL": "https://arxiv.org/abs/2506.06130"
+    "URL": "https://doi.org/10.1007/978-3-662-72243-5_6"
   },
   {
     "id": "jeong2025resolving",
@@ -2405,7 +2405,7 @@
       ]
     },
     "container-title": "Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV 2025)",
-    "URL": "https://arxiv.org/abs/2507.07485"
+    "URL": "https://doi.org/10.1109/iccv51701.2025.00277"
   },
   {
     "id": "miranda2025filbench",
@@ -2440,8 +2440,8 @@
         ]
       ]
     },
-    "container-title": "EMNLP 2025 main",
-    "URL": "https://arxiv.org/abs/2508.03523"
+    "container-title": "Proceedings of the 2025 Conference on Empirical Methods in Natural Language Processing",
+    "URL": "https://doi.org/10.18653/v1/2025.emnlp-main.127"
   },
   {
     "id": "africa2025metapretraining",
@@ -2477,11 +2477,11 @@
       ]
     },
     "container-title": "Proceedings of the 5th Workshop on Multilingual Representation Learning (MRL 2025)",
-    "URL": "https://arxiv.org/abs/2509.02160"
+    "URL": "https://doi.org/10.18653/v1/2025.mrl-main.8"
   },
   {
-    "id": "marone2025mmbert",
-    "type": "preprint",
+    "id": "marone2026mmbert",
+    "type": "paper-conference",
     "title": "mmBERT: A Modern Multilingual Encoder with Annealed Language Learning",
     "author": [
       {
@@ -2512,12 +2512,12 @@
     "issued": {
       "date-parts": [
         [
-          2025
+          2026
         ]
       ]
     },
-    "container-title": "arXiv",
-    "URL": "https://arxiv.org/abs/2509.06888"
+    "container-title": "International Conference on Machine Learning (ICML 2026)",
+    "URL": "https://icml.cc/virtual/2026/poster/62254"
   },
   {
     "id": "limarenko2026gcond",
@@ -2549,11 +2549,11 @@
       ]
     },
     "container-title": "IEEE Access",
-    "URL": "https://arxiv.org/abs/2509.07252"
+    "URL": "https://doi.org/10.1109/access.2026.3673372"
   },
   {
-    "id": "sheth2025beyond",
-    "type": "preprint",
+    "id": "sheth2026beyond",
+    "type": "paper-conference",
     "title": "Beyond Monolingual Assumptions: A Survey on Code-Switched NLP in the Era of Large Language Models across Modalities",
     "author": [
       {
@@ -2580,12 +2580,12 @@
     "issued": {
       "date-parts": [
         [
-          2025
+          2026
         ]
       ]
     },
-    "container-title": "arXiv",
-    "URL": "https://arxiv.org/abs/2510.07037"
+    "container-title": "Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
+    "URL": "https://doi.org/10.18653/v1/2026.acl-long.386"
   },
   {
     "id": "teves2025hiligayner",
@@ -2632,12 +2632,12 @@
         ]
       ]
     },
-    "container-title": "Pacific Asia Conference on Language, Information and Computation",
+    "container-title": "Proceedings of the 39th Pacific Asia Conference on Language, Information and Computation",
     "URL": "https://arxiv.org/abs/2510.10776"
   },
   {
     "id": "qin2025ntkmtl",
-    "type": "preprint",
+    "type": "paper-conference",
     "title": "NTKMTL: Mitigating Task Imbalance in Multi-Task Learning from Neural Tangent Kernel Perspective",
     "author": [
       {
@@ -2664,8 +2664,8 @@
         ]
       ]
     },
-    "container-title": "arXiv",
-    "URL": "https://arxiv.org/abs/2510.18258"
+    "container-title": "Advances in Neural Information Processing Systems 38 (NeurIPS 2025)",
+    "URL": "https://papers.nips.cc/paper_files/paper/2025/hash/4522de4178bddb36b49aa26efad537cf-Abstract-Conference.html"
   },
   {
     "id": "seeberger2025generalizing",
@@ -2696,8 +2696,8 @@
         ]
       ]
     },
-    "container-title": "Findings of the Association for Computational Linguistics: AACL-IJCNLP 2025",
-    "URL": "https://arxiv.org/abs/2511.10120"
+    "container-title": "Proceedings of the 14th International Joint Conference on Natural Language Processing and the 4th Conference of the Asia-Pacific Chapter of the Association for Computational Linguistics",
+    "URL": "https://doi.org/10.18653/v1/2025.findings-ijcnlp.2"
   },
   {
     "id": "abdelsamie2026deep",
@@ -2824,7 +2824,7 @@
     "URL": "https://doi.org/10.1109/iccv51701.2025.00235"
   },
   {
-    "id": "li2017disaster",
+    "id": "li2018disaster",
     "type": "article-journal",
     "title": "Disaster Response Aided by Tweet Classification with a Domain Adaptation Approach",
     "author": [
@@ -2848,7 +2848,7 @@
     "issued": {
       "date-parts": [
         [
-          2017
+          2018
         ]
       ]
     },
@@ -3032,7 +3032,7 @@
         ]
       ]
     },
-    "container-title": "Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics Volume 1: Long Papers",
+    "container-title": "Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
     "URL": "https://doi.org/10.18653/v1/2023.acl-long.144"
   },
   {
@@ -3068,7 +3068,7 @@
         ]
       ]
     },
-    "container-title": "Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics Volume 1: Long Papers",
+    "container-title": "Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
     "URL": "https://doi.org/10.18653/v1/2023.acl-long.412"
   },
   {
@@ -3132,6 +3132,30 @@
     "URL": "https://doi.org/10.2307/25148625"
   },
   {
+    "id": "landis1977measurement",
+    "type": "article-journal",
+    "title": "The Measurement of Observer Agreement for Categorical Data",
+    "author": [
+      {
+        "family": "Landis",
+        "given": "J. Richard"
+      },
+      {
+        "family": "Koch",
+        "given": "Gary G."
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          1977
+        ]
+      ]
+    },
+    "container-title": "Biometrics",
+    "URL": "https://doi.org/10.2307/2529310"
+  },
+  {
     "id": "zhou2025injecting",
     "type": "paper-conference",
     "title": "Injecting Imbalance Sensitivity for Multi-Task Learning",
@@ -3160,7 +3184,7 @@
         ]
       ]
     },
-    "container-title": "Proceedings of the Thirty-Fourth International Joint Conference on Artificial Intelligence (IJCAI-25)",
+    "container-title": "Proceedings of the Thirty-Fourth International Joint Conference on Artificial Intelligence",
     "URL": "https://doi.org/10.24963/ijcai.2025/805"
   },
   {
@@ -3296,6 +3320,30 @@
     "URL": "https://www.jmlr.org/papers/v7/demsar06a.html"
   },
   {
+    "id": "loshchilov2019decoupled",
+    "type": "paper-conference",
+    "title": "Decoupled Weight Decay Regularization",
+    "author": [
+      {
+        "family": "Loshchilov",
+        "given": "Ilya"
+      },
+      {
+        "family": "Hutter",
+        "given": "Frank"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2019
+        ]
+      ]
+    },
+    "container-title": "International Conference on Learning Representations",
+    "URL": "https://openreview.net/forum?id=Bkg6RiCqY7"
+  },
+  {
     "id": "liu2021impartial",
     "type": "paper-conference",
     "title": "TOWARDS IMPARTIAL MULTI-TASK LEARNING",
@@ -3342,5 +3390,38 @@
     },
     "container-title": "International Conference on Learning Representations",
     "URL": "https://openreview.net/forum?id=IMPnRXEWpvr"
+  },
+  {
+    "id": "republic2012privacy",
+    "type": "bill",
+    "title": "Republic Act No. 10173: Data Privacy Act of 2012",
+    "author": [
+      {
+        "family": "Republic of the Philippines",
+        "given": ""
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2012
+        ]
+      ]
+    },
+    "container-title": "Official Gazette",
+    "URL": "https://www.officialgazette.gov.ph/2012/08/15/republic-act-no-10173/"
+  },
+  {
+    "id": "pagasaCyclone",
+    "type": "webpage",
+    "title": "Tropical Cyclone Information",
+    "author": [
+      {
+        "family": "Philippine Atmospheric, Geophysical and Astronomical Services Administration",
+        "given": ""
+      }
+    ],
+    "container-title": "PAGASA",
+    "URL": "https://www.pagasa.dost.gov.ph/climate/tropical-cyclone-information"
   }
 ]
