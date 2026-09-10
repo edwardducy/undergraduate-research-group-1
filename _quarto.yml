@@ -29,3 +29,7 @@ format:
         \usepackage{etoolbox}
         \AtBeginEnvironment{longtable}{\setstretch{1}}
         \AtBeginEnvironment{longtable}{\setlength{\extrarowheight}{2pt}}
+        \makeatletter
+        \def\endlongtable{\endoldlt}
+        \makeatother
+
