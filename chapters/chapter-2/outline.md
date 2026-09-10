@@ -9,7 +9,8 @@ Operating plan for Chapter 2: Review of Related Literature and Studies. Sources:
 | Opening | yes | yes | yes | partial (roadmap revised 2026-09-10 on group direction; re-read owed) |
 | 2.1 (all four subsections) | yes (fresh rewrite 2026-09-10, plan-faithful) | yes | yes (self-audit against paper records; the group banned subagent audits) | partial (group review in progress; three findings resolved, corrections applied) |
 | 2.2 | yes (2026-09-10, seven paragraphs) | yes | yes (anchors verified against records; 34 reference entries confirmed) | yes (group review complete; 27 findings resolved, corrections applied) |
-| 2.3–2.5 | no | – | – | – |
+| 2.3 | yes (2026-09-10, nine paragraphs) | yes | yes (self-audit; 55 reference entries confirmed = full corpus) | no (read pending) |
+| 2.4–2.5 | no | – | – | – |
 
 Decision recorded: the trimmed file's editor-history backup was not used, on group direction; Section 2.1 was rewritten fresh from the paragraph plans, the current draft.qmd as raw material, and direct statistic verification against papers/{id}/paper.md. Every statistic in the batch carries a paper anchor recorded in the defect register below. All of Section 2.1 now sits in revised-draft.qmd as one batch for a single full group read.
 
@@ -88,6 +89,22 @@ Citation hazards to check at first render: two Liu first-authors with initials (
 
 Arc: challenges and measurement (Winata, Adoptante, Petrov, Gamback for the Code-Mixing Index), multilingual encoder lineage in one chronological block (Devlin, Sanh, Conneau, Chung, Clark, Zhang, Liang, Marone, AI Singapore — one or two sentences each, depth only for the four candidate encoders), multi-task evidence on code-switched text (Adouane deep: the negative-transfer warning), Philippine resources (deep for Cruz, Miranda a and b, Africa, Montalan, Herrera, Ermino), gap close: no concurrent triage annotations on Taglish.
 
+Membership resolved (2026-09-10, against the Chapter 3 draft): the four candidate encoders are XLM-RoBERTa Base (Conneau), multilingual BERT Base (Devlin), SEA-LION ModernBERT (AI Singapore), and RoBERTa-Tagalog Base (Cruz lineage); those four records carry the depth and the candidate ties.
+
+Paragraph plan:
+
+| ¶ | Job | Tells | Evidence (verify at write time) | Hands off |
+|---|---|---|---|---|
+| 1 | Challenges | Code-switched text stresses monolingual pipelines; tokenization is measurable stress | Winata survey (trends and challenges); Petrov: tokenization differences up to 15 times, persisting for multilingual tokenizers | Tokenizer premise to the study design |
+| 2 | Measurement | Mixing degree is measurable; early Taglish benchmarking exists | Gambäck and Das CMI (the study's stratification metric); Adoptante: Taglish RAG benchmark, Mistral and SeaLLM led | CMI to the study design |
+| 3 | Lineage I: foundations | BERT, DistilBERT, XLM-R | Devlin bidirectional pretraining (mBERT candidate tie); Sanh 40%/97%/60%; Conneau 100 languages, +14.6% XNLI (candidate tie) | Lineage to ¶4 |
+| 4 | Lineage II: specialization | Embedding coupling rethink, tokenization-free encoder, Twitter-domain pretraining | Chung decoupled embeddings; Clark Canine tokenization-free; Zhang TwHIN-BERT 7.7B tweets, 100+ languages | Lineage to ¶5 |
+| 5 | Lineage III: modern era | Vocabulary scale, modern architecture, Southeast Asian coverage | Liang XLM-V one-million vocabulary; Marone mmBERT 3T tokens, 1,800+ languages; AI Singapore SEA-LION 13 languages incl. Filipino (candidate tie) | Candidate premises to the study design |
+| 6 | The MTL warning | The one direct MTL precedent on code-switched text shows conditional, fragile benefits | Adouane: four tasks jointly learned progressively; beneficial for some tasks in particular settings; task order, cross-task effects, and data size matter (deep) | Conditionality warning to the study design |
+| 7 | Philippine model infrastructure | Filipino models and corpora exist at scale | Cruz: unified corpus + RoBERTa models (candidate tie); Africa meta-pretraining zero-shot NER; Montalan Kalahi suite | Resources to ¶8 |
+| 8 | Tagalog tooling and Taglish data | Tagalog NER and tooling plus Taglish language-ID data exist | Miranda a: NER dataset, Cohen's kappa 0.81; Miranda b: calamanCy toolkit; Herrera: TweetTaglish 21,150 tweets, r-squared 0.797–0.909 | Data to ¶9 |
+| 9 | Local disaster precedent + gap close | A local disaster study exists but is single-task and single-event; nothing pairs the triage tasks on Taglish | Ermino: 4,020 balanced Ulysses tweets, 99.17% validation accuracy, 97.67% sensitivity, 100% specificity, 100-tweet validation; gap close (claim, no new numbers) | Gap to 2.4/2.5 |
+
 ### 2.4 Algorithmic Literature Taxonomy Matrix
 
 Table 1, CEU columns (Author and Year, Algorithm or Model, Dataset/Testbed, Evaluated Metrics, Identified Limitation). Four thematic row clusters plus the proposed study row last. Every cell passes the same tracing rule as prose; cells inherit the defect corrections already applied in prose.
@@ -126,3 +143,5 @@ Resolved 2026-09-10, multitask spelling normalization: Normalized descriptive oc
 
 
 
+
+Resolved 2026-09-10, 2.3 delivery: the reference list reached 55 entries, the full corpus, confirming coverage. The Miranda same-author-year pair rendered with APA year letters by reference-list order (calamanCy 2023a, NER dataset 2023b), verifying the fixed decision on year-letter behavior. Ermino's old "F1 of 0.9882" was dropped as unanchored; the record supports 99.17% validation accuracy, 97.67% sensitivity, and 100% specificity on a 100-tweet confusion-matrix validation. Two flags stay open for the group read: the RoBERTa-Tagalog Base candidate is tied to the Cruz release as the study's lineage claim, with the checkpoint name not yet verified against Cruz's released model list; and XLM-R's "100 languages" phrasing owes a direct string check in the Conneau record. The 2.3 draft was written entirely with @key citations; subject-position forms render as the records have them.
