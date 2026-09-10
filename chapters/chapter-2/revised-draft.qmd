@@ -36,7 +36,7 @@ The nearest structural precedent comes from spoken-language understanding. @weld
 
 Prior crisis informatics studies applied joint modeling only partially. @wang2021transformerbased fine-tuned one BERT model on the TREC Incident Streams (TREC-IS) crisis corpus to predict information types and priority levels together. The loss weight remained fixed at .50, weighting both task objectives equally. @seeberger2022enhancing combined entity-masked language modeling with hierarchical multilabel classification on the same TREC-IS corpus under its 2020B split. The combined design gained up to 10 percentage points of F1 on actionable information types, and entity masking reduced overfitting to in-domain events.
 
-Prior crisis studies have not evaluated this concurrent pairing. No reviewed study evaluated token-level entity extraction together with intent and urgency classification on the same disaster tweets, and none examined the optimization strategies such architectures demand. Whether specialized balancing resolves that shared loss is the question Section 2.2 takes up.
+Prior crisis informatics researchers did not evaluate this concurrent pairing. No reviewed study evaluated token-level entity extraction together with intent and urgency classification on the same disaster tweets, and none examined the optimization strategies such architectures demand. Whether specialized balancing resolves that shared loss is the question Section 2.2 takes up.
 
 ### 2.1.3 Cross-Event and Cross-Lingual Generalization
 
@@ -44,7 +44,7 @@ Evaluation practice moved toward held-out events in the same years. @raychowdhur
 
 Cross-lingual evaluations also quantified the performance drop incurred during low-resource transfer. @sarioglukayi2020detecting trained urgency classifiers on English crisis tweets and released evaluation sets for Sinhala and Odia. The ensemble classifier scored 76.5% F1 on English but dropped to 63.5% on Sinhala and 62.6% on Odia when transferred without target-language training. The authors traced part of the noise to annotation because general status updates and critical help requests both carried the urgent label.
 
-Recent work treated generalization failure itself as a modeling problem. @seeberger2025generalizing showed that crisis classifiers relied on spurious event-specific cues such as locations and hashtags. The authors proposed a causal debiasing framework with domain-specific experts. Across three disaster classification tasks under temporal splits to unseen events, the approach outperformed the next-best baseline by 1.1–1.9 percentage points and significantly improved the BERT baseline. This line of evidence justifies the leave-one-event-out (LOEO) evaluation of the proposed benchmark, which holds out one typhoon at a time.
+Recent work treated generalization failure itself as a modeling problem. @seeberger2025generalizing showed that crisis classifiers relied on spurious event-specific cues such as locations and hashtags. The authors proposed a causal debiasing framework with domain-specific experts. Across three disaster classification tasks under temporal splits to unseen events, the approach outperformed the next-best baseline by 1.1–1.9 percentage points and significantly improved the BERT baseline. This line of evidence justifies the leave-one-event-out evaluation of the proposed benchmark, which holds out one typhoon at a time.
 
 ### 2.1.4 Complexity Analysis, Statistical Rigor, and Design Science Methodology
 
@@ -54,7 +54,7 @@ Single reported scores carry a variance risk that single runs hide. @reimers2017
 
 Comparison across many systems and datasets adds its own statistical constraints. @demsar2006statistical showed that parametric tests rest on assumptions that comparisons across multiple datasets violate. The recommended alternative is the Friedman test with corresponding post hoc procedures, using the Nemenyi procedure for all-pairwise comparisons, together with the Iman–Davenport correction for the conservative Friedman statistic. The proposed benchmark adopts this nonparametric protocol for its method comparisons.
 
-The last standard concerns the study's form. @peffers2007design formalized design science research methodology as a process model of six activities in a nominal sequence, a framework for research that creates and evaluates artifacts. The proposed study follows that framing: The benchmark corpus and the prototype triage service are its design artifacts. No reviewed crisis study combines latency and memory measurement, multi-seed evaluation, nonparametric comparison, and artifact framing in one benchmark, which is the standards gap that Section 2.5 assembles.
+The last standard concerns the study's form. @peffers2007design formalized design science research methodology as a process model of six activities in a nominal sequence, a framework for research that creates and evaluates artifacts. The proposed study follows that framing: The benchmark corpus and the prototype triage service are its design artifacts. No reviewed crisis study combined latency and memory measurement, multi-seed evaluation, nonparametric comparison, and artifact framing in one benchmark, which is the standards gap that Section 2.5 assembles.
 
 ## 2.2 Multitask Optimization Dynamics
 
