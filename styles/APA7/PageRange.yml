@@ -1,0 +1,6 @@
+# APA 8.25 — use 'pp.' and an en dash for multi-page quotations
+extends: substitution
+message: "Use '%s' for a page range (APA 8.25)."
+level: warning
+swap:
+  - 'p\. (\d+)\s?[–-]\s?(\d+)': 'pp. $1–$2'

@@ -1,0 +1,12 @@
+# APA 4.16 — no third-person self-reference
+extends: existence
+message: "Do not refer to yourself in the third person as the researchers/authors (APA 4.16)."
+level: warning
+ignorecase: true
+tokens:
+  - the present authors
+  - the present researchers
+  - the present investigators
+  - the authors of the present
+  - the researchers of this
+  - this researcher

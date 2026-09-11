@@ -1,0 +1,10 @@
+# APA 4.11 — do not attribute human traits to theories, studies, or instruments
+extends: existence
+message: "Pair the verb with an actor that can act; researchers conclude, theories address (APA 4.11)."
+level: warning
+ignorecase: true
+tokens:
+  - '\btheor(?:y|ies)\s+(?:concludes?|concluded|argues?|argued|believes?|believed|wants?|wanted|feels?|felt)\b'
+  - '\bmodels?\s+(?:concludes?|concluded|argues?|argued|believes?|believed|wants?|wanted|feels?|felt)\b'
+  - '\bframeworks?\s+(?:concludes?|concluded|argues?|argued|believes?|believed|wants?|wanted)\b'
+  - '\b(?:studies?|experiments?|articles?|papers?)\s+(?:extrapolat\w+|believes?|believed|wants?|wanted|feels?|felt)\b'

@@ -1,0 +1,7 @@
+# APA 4.24 — never combine 'both' with 'as well as'
+extends: existence
+message: "Never combine 'both' with 'as well as'; the pairing is redundant (APA 4.24)."
+level: error
+ignorecase: true
+tokens:
+  - '\bboth\b[^.!?]{0,80}\bas well as\b'

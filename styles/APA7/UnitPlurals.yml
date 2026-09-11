@@ -1,0 +1,13 @@
+# APA 6.26 / 6.27 — do not pluralize unit abbreviations
+extends: substitution
+message: "Unit symbols do not take a plural form: '%s' (APA 6.26, 6.27)."
+level: warning
+swap:
+  - '\b(\d+)\s+cms\b': '$1 cm'
+  - '\b(\d+)\s+kgs\b': '$1 kg'
+  - '\b(\d+)\s+hrs\b': '$1 hr'
+  - '\b(\d+)\s+mins\b': '$1 min'
+  - '\b(\d+)\s+secs\b': '$1 s'
+  - '\b(\d+)\s+mos\b': '$1 months'
+  - '\b(\d+)\s+wks\b': '$1 weeks'
+  - '\b(\d+)\s+yrs\b': '$1 years'

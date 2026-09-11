@@ -1,0 +1,7 @@
+# APA 4.22 — reserve 'while' for simultaneous events
+extends: existence
+message: "Reserve 'while' for simultaneous events; prefer 'whereas' or 'although' for contrast (APA 4.22)."
+level: suggestion
+ignorecase: true
+tokens:
+  - while

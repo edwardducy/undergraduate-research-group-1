@@ -1,0 +1,12 @@
+# APA 6.11 — technology compound spellings
+extends: substitution
+message: "Use the solid technology spelling '%s' (APA 6.11)."
+level: warning
+ignorecase: true
+swap:
+  - e-mail: email
+  - web site: website
+  - web-site: website
+  - on-line: online
+  - world wide web: the web
+  - data base: database

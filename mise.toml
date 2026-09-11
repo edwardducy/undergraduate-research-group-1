@@ -5,3 +5,61 @@ ty = "0.0.78"
 vale = "3.20.0"
 "aqua:quarto-dev/quarto-cli" = "1.10.18"
 
+# The Quarto project lives in thesis/ (its own _quarto.yml, _extensions/, and
+# chapters/). Tasks that read or write thesis files run with dir set to that
+# project so relative paths inside the project resolve as Quarto expects.
+
+[tasks.build]
+description = "Full rebuild: references, literature tables, vocab, then render the thesis"
+run = [
+  "mise run references",
+  "mise run tables",
+  "mise run vocab",
+  "mise run render",
+]
+
+[tasks.render]
+description = "Render the combined thesis and all chapter drafts to thesis/build/"
+dir = "{{config_root}}/thesis"
+run = "quarto render"
+
+[tasks.chapter]
+description = "Render a single chapter, e.g. 'mise run chapter 2'"
+usage = '''
+arg "<number>" help="Chapter number" {
+  choices "1" "2" "3"
+}
+'''
+dir = "{{config_root}}/thesis"
+run = '''
+case "${usage_number?}" in
+  1) file="01-introduction" ;;
+  2) file="02-review" ;;
+  3) file="03-methodology" ;;
+esac
+quarto render "chapters/$file.qmd"
+'''
+
+[tasks.lint]
+description = "Lint thesis prose with Vale (APA7 style)"
+run = "vale thesis/chapters/01-introduction.qmd thesis/chapters/02-review.qmd thesis/chapters/03-methodology.qmd"
+
+[tasks.references]
+description = "Rebuild thesis/references.bib and thesis/references.json from thesis/papers/"
+run = "uv run --no-sync python scripts/build-references.py"
+
+[tasks.tables]
+description = "Rebuild the literature tables in literature/ from their CSV sources"
+run = "uv run --no-sync python scripts/build-literature-tables.py"
+
+[tasks.vocab]
+description = "Rebuild the Vale vocabulary from the chapters and references"
+run = "uv run --no-sync python scripts/build-vocab.py"
+
+[tasks.figures]
+description = "Regenerate thesis figures from their generators"
+run = [
+  "uv run --no-sync python thesis/figures/make-figures-ch1.py",
+  "uv run --no-sync python thesis/figures/make-figures-ch3.py",
+  "uv run --no-sync python thesis/figures/make-drawio-ch3.py",
+]

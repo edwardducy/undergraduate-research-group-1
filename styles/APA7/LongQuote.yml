@@ -1,0 +1,6 @@
+# APA 8.26 / 8.27 — quotations of 40+ words must be block quotations
+extends: existence
+message: "This quoted span is long; 40+ words must be set as an indented block quotation without quotation marks (APA 8.27)."
+level: suggestion
+tokens:
+  - '["“][^"“”\n]{200,}["”]'

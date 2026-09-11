@@ -1,0 +1,6 @@
+# APA 6.36 — keep the leading zero when the statistic can exceed 1
+extends: substitution
+message: "Use a leading zero when the statistic can exceed 1: '%s' (APA 6.36)."
+level: warning
+swap:
+  - '\b([tFd]|M|SD|SE)(\([^)]*\))?\s*=\s*\.(\d+)': '$1$2 = 0.$3'

@@ -1,0 +1,7 @@
+# APA 9.34 — the 'DOI:' label is obsolete
+extends: existence
+message: "Do not use the 'DOI:' label; use the https://doi.org/ format (APA 9.34)."
+level: error
+ignorecase: true
+tokens:
+  - 'DOI:'

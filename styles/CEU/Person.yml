@@ -1,0 +1,9 @@
+# thesis/docs/apa7-mechanics.md — house exceptions (overrides APA 4.16)
+extends: existence
+message: "CEU rule: avoid first- and second-person pronouns; phrase own actions impersonally."
+level: error
+ignorecase: true
+# A plain token list matches inside hyphenated notation (I-prefix, i-) and
+# math indices ($i$), so the match is bounded by a leading and trailing
+# character that is neither a word character, a hyphen, nor a dollar sign.
+raw: '(?:^|[^\w\-\$])(?:I|me|my|mine|we|us|our|ours|you|your|yours)(?:$|[^\w\-\$])'

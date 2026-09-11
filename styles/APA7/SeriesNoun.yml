@@ -1,0 +1,21 @@
+# APA 6.19 — capitalize nouns followed by numerals or letters marking series position
+extends: substitution
+message: "Capitalize '%s' (APA 6.19)."
+level: warning
+ignorecase: false
+swap:
+  - 'table (\d)': 'Table $1'
+  - 'figure (\d)': 'Figure $1'
+  - 'appendix (\d|[A-E])': 'Appendix $1'
+  - 'chapter (\d)': 'Chapter $1'
+  - 'section (\d)': 'Section $1'
+  - 'experiment (\d)': 'Experiment $1'
+  - 'study (\d)': 'Study $1'
+  - 'trial (\d)': 'Trial $1'
+  - 'row (\d)': 'Row $1'
+  - 'column (\d)': 'Column $1'
+  - 'item (\d)': 'Item $1'
+  - 'question (\d)': 'Question $1'
+  - 'footnote (\d)': 'Footnote $1'
+  - 'equation (\d)': 'Equation $1'
+  - 'panel ([A-E])': 'Panel $1'

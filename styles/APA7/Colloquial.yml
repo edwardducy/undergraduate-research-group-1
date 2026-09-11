@@ -1,0 +1,15 @@
+# APA 4.8 — avoid colloquialisms and approximations of quantity
+extends: existence
+message: "Colloquialism or vague quantity; state amounts exactly (APA 4.8)."
+level: suggestion
+ignorecase: true
+tokens:
+  - gonna
+  - wanna
+  - kinda
+  - a lot of
+  - lots of
+  - tons of
+  - practically all
+  - pretty much
+  - very few

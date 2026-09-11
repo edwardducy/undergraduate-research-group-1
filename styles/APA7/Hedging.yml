@@ -1,0 +1,8 @@
+# APA 4.14 — do not hedge with 'would'
+extends: existence
+message: "Do not hedge with 'would'; write 'it appears' (APA 4.14)."
+level: error
+ignorecase: true
+tokens:
+  - it would appear
+  - it would seem

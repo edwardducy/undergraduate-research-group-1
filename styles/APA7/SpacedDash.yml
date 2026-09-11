@@ -1,0 +1,6 @@
+# APA 6.6 — unspaced en dash for numeric ranges (no spaces around the dash)
+extends: substitution
+message: "Use an unspaced en dash for the range: '%s' (APA 6.6)."
+level: suggestion
+swap:
+  - '\b(\d+)\s+–\s+(\d+)\b': '$1–$2'

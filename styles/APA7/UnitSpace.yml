@@ -1,0 +1,6 @@
+# APA 6.27 — add a space between a numeral and its unit symbol
+extends: existence
+message: "Add a space between the numeral and the unit symbol (APA 6.27)."
+level: warning
+tokens:
+  - '\d(?:hrs|mins|secs|wks|mos|yrs|mg|kg|cm|mm|ml|ms|hr|min|GB|MB|TB|kHz|MHz|GHz)\b'

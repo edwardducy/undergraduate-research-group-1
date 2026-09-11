@@ -1,0 +1,6 @@
+# APA 6.36 — drop the leading zero when the statistic cannot exceed 1
+extends: substitution
+message: "No leading zero for statistics bounded by 1 (r, p, proportions): '%s' (APA 6.36)."
+level: warning
+swap:
+  - '\b([prPkK])\s*=\s*0(\.\d+)': '$1 = $2'

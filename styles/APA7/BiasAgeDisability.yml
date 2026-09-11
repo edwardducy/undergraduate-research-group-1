@@ -1,0 +1,22 @@
+# APA 5.3 / 5.4 — age and disability terminology
+extends: existence
+message: "Use respectful terminology: 'older adults', 'dementia', 'wheelchair user', 'person with AIDS', 'hard of hearing', 'living with' (APA 5.3-5.4)."
+level: warning
+ignorecase: true
+tokens:
+  - the elderly
+  - the aged
+  - seniors
+  - senility
+  - wheelchair-bound
+  - wheelchair bound
+  - confined to a wheelchair
+  - hearing-impaired
+  - AIDS victim
+  - suffering from
+  - special needs
+  - physically challenged
+  - handicapable
+  - the handicapped
+  - high-functioning
+  - low-functioning

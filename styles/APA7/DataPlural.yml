@@ -1,0 +1,9 @@
+# APA 6.11 — treat 'data' as plural
+extends: substitution
+message: "Treat 'data' as plural: use '%s' (APA 6.11)."
+level: error
+ignorecase: true
+swap:
+  - data is: data are
+  - data was: data were
+  - data has: data have

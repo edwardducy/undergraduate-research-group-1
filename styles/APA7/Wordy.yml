@@ -1,0 +1,23 @@
+# APA 4.5 — replace wordy phrases
+extends: substitution
+message: "Prefer '%s' (APA 4.5)."
+level: warning
+ignorecase: true
+swap:
+  - at the present time: now
+  - for the purpose of: to
+  - in order to: to
+  - due to the fact that: because
+  - in spite of the fact that: although
+  - in the event that: if
+  - period of time: period
+  - absolutely essential: essential
+  - a number of: several
+  - one and the same: the same
+  - a sum total: a total
+  - completely unanimous: unanimous
+  - in close proximity to: near
+  - has been previously found: has been found
+  - summarize briefly: summarize
+  - small in size: small
+  - the reason is because: because

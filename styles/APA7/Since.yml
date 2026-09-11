@@ -1,0 +1,7 @@
+# APA 4.22 — replace ambiguous 'since' with 'because'; keep 'since' for time
+extends: existence
+message: "Replace ambiguous 'since' with 'because' when giving reasons; keep 'since' for time only (APA 4.22)."
+level: suggestion
+ignorecase: true
+tokens:
+  - since

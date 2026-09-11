@@ -1,0 +1,7 @@
+# APA 5.3 — 'males'/'females' as nouns for human groups
+extends: existence
+message: "Use 'women'/'men' for human groups; 'males'/'females' only for broad-age or animal samples (APA 5.3)."
+level: suggestion
+ignorecase: true
+tokens:
+  - '\b(?:the|these|those)\s+(?:males|females)\b'

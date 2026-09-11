@@ -1,0 +1,6 @@
+# APA 6.36 — report p = .000 as p < .001
+extends: existence
+message: "Report p values smaller than .001 as p < .001 (APA 6.36)."
+level: error
+tokens:
+  - '\bp\s*=\s*0?\.?0{3}\b'

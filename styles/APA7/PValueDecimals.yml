@@ -1,0 +1,6 @@
+# APA 6.36 — round p and r to two or three decimals
+extends: existence
+message: "Round p and r values to two or three decimals (APA 6.36)."
+level: warning
+tokens:
+  - '\b[pr]\s*=\s*\.\d{4,}'

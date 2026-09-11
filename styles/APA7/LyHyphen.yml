@@ -1,0 +1,6 @@
+# APA 6.12 — never hyphenate compounds with 'ly' adverbs
+extends: existence
+message: "Never hyphenate compounds with 'ly' adverbs (APA 6.12)."
+level: warning
+tokens:
+  - '(?:newly|recently|highly|strongly|publicly|widely|closely|equally|generally|rapidly|severely|slightly|similarly|previously|approximately|respectively|formerly|notably|separately)-\w+'

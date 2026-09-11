@@ -1,0 +1,6 @@
+# APA 6.44 — repeat the percent symbol across ranges
+extends: substitution
+message: "Repeat the symbol across the range: '%s' (APA 6.44)."
+level: suggestion
+swap:
+  - '\b(\d+)%\s?[–-]\s?(\d+)\b': '$1%–$2%'

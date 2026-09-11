@@ -1,0 +1,7 @@
+# APA 5.6 — describe participants' actions neutrally
+extends: substitution
+message: "Use the neutral form '%s' (APA 5.6)."
+level: warning
+ignorecase: true
+swap:
+  - '\b(participants?|subjects?|respondents?|patients?)\s+failed to (complete|finish|attend|return)\b': '$1 did not $2'

@@ -1,0 +1,7 @@
+# APA 4.6 — split paragraphs longer than one double-spaced page (~250 words)
+extends: occurrence
+message: "Paragraph exceeds ~250 words; consider splitting it."
+scope: paragraph
+level: suggestion
+max: 250
+token: "[\\w'’-]+"

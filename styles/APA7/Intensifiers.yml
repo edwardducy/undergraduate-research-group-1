@@ -1,0 +1,12 @@
+# APA 4.2 — use introductory adverbs like 'importantly' sparingly
+extends: existence
+message: "Consider omitting the introductory adverb; use sparingly (APA 4.2)."
+level: suggestion
+ignorecase: false
+tokens:
+  - Importantly, [A-Za-z]
+  - Interestingly, [A-Za-z]
+  - More importantly, [A-Za-z]
+  - Regrettably, [A-Za-z]
+  - Fortunately, [A-Za-z]
+  - Notably, [A-Za-z]

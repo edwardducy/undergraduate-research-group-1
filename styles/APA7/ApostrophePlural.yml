@@ -1,0 +1,6 @@
+# APA 6.26 / 6.39 — pluralize numerals and abbreviations without an apostrophe
+extends: substitution
+message: "Form plurals of numbers and abbreviations with 's' alone: '%s' (APA 6.26, 6.39)."
+level: warning
+swap:
+  - "(\\d{2,4})['’]s\\b": '$1s'

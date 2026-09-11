@@ -1,0 +1,6 @@
+# APA 6.45 — space mathematics like words (a = b, not a=b)
+extends: existence
+message: "Space mathematics as words: a = b, not a=b (APA 6.45)."
+level: suggestion
+tokens:
+  - '\b[a-zA-Z](?:=|\+)[-.\d]'

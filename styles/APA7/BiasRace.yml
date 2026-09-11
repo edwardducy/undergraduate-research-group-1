@@ -1,0 +1,15 @@
+# APA 5.7 — racial and ethnic terminology
+extends: existence
+message: "Use current, capitalized, unhyphenated racial/ethnic terms: 'White', 'African American', 'Asian American', 'Indigenous', 'people of color' (APA 5.7)."
+level: warning
+ignorecase: true
+tokens:
+  - Negro
+  - Afro-American
+  - Eskimo
+  - Oriental
+  - Caucasian
+  - American Indian
+  - red Indian
+  - '(?:African|Asian|Native|Mexican|Japanese|Chinese|Korean|Vietnamese|Italian|Polish)-American'
+  - '\bminorities\b'

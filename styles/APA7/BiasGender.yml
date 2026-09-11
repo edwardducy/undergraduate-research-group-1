@@ -1,0 +1,27 @@
+# APA 5.5 / 5.8 — gender and sexual-orientation terminology
+extends: existence
+message: "Use current terminology: 'they', 'pronouns' (not 'preferred pronouns'), 'sex assigned at birth', 'another sex', gender-neutral occupations, specific identity terms (APA 5.5, 5.8)."
+level: warning
+ignorecase: true
+tokens:
+  - preferred pronoun
+  - birth sex
+  - natal sex
+  - opposite sex
+  - opposite gender
+  - transvestite
+  - transgendered
+  - homosexual
+  - homosexuality
+  - sexual preference
+  - mankind
+  - manpower
+  - policeman
+  - fireman
+  - chairman
+  - spokesman
+  - salesman
+  - mailman
+  - businessman
+  - housewife
+  - stewardess

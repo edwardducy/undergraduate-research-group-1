@@ -1,0 +1,6 @@
+# APA 6.8 — merge back-to-back parenthetical content
+extends: existence
+message: "Place back-to-back parenthetical content in one set of parentheses (APA 6.8)."
+level: warning
+tokens:
+  - '\)\s+\([A-Z][a-z]'

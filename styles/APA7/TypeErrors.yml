@@ -1,0 +1,10 @@
+# APA 6.37 — keep Roman numerals in established terminology
+extends: substitution
+message: "Use '%s' (APA 6.37)."
+level: error
+ignorecase: false
+swap:
+  - '[Tt]ype 2 error': 'Type II error'
+  - '[Tt]ype 1 error': 'Type I error'
+  - '[Tt]ype two error': 'Type II error'
+  - '[Tt]ype one error': 'Type I error'

@@ -1,0 +1,20 @@
+# APA 7.5 — call out tables and figures by number, never by location
+extends: existence
+message: "Never write 'the table above/below'; cite displays by number (APA 7.5)."
+level: error
+ignorecase: true
+tokens:
+  - table above
+  - table below
+  - figure above
+  - figure below
+  - table on page
+  - figure on page
+  - table on the next page
+  - figure on the next page
+  - place table
+  - place figure
+  - put table
+  - put figure
+  - table overleaf
+  - figure overleaf

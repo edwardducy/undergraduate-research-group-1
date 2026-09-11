@@ -1,0 +1,7 @@
+# APA 4.24 / 6.3 — possible missing serial comma
+extends: existence
+message: "Possible missing serial comma in the series (APA 6.3)."
+level: suggestion
+ignorecase: false
+tokens:
+  - ',\s+[a-z]{3,}\s+(?:and|or)\s+[a-z]{3,}\b'

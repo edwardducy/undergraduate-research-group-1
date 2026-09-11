@@ -1,0 +1,6 @@
+# APA 6.7 — commas and periods go inside closing quotation marks
+extends: existence
+message: "Place commas and periods inside closing quotation marks (APA 6.7)."
+level: warning
+tokens:
+  - '\w["”][.,]\s+[A-Za-z]'

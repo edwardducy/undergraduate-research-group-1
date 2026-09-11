@@ -1,0 +1,7 @@
+# APA 8.31 — no ellipsis at the start or end of a quotation
+extends: existence
+message: "Do not use an ellipsis at the start or end of a quotation (APA 8.31)."
+level: warning
+tokens:
+  - '["“]\s*\.\s*\.\s*\.'
+  - '\.\s*\.\s*\.["”]'

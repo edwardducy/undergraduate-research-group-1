@@ -1,0 +1,7 @@
+# APA 4.7 — present scholarly disagreement professionally
+extends: substitution
+message: "Present disagreement professionally: use '%s' (APA 4.7)."
+level: warning
+ignorecase: true
+swap:
+  - '(?:completely|totally|entirely|utterly) (overlooked|ignored|missed|dismissed)': 'did not address'

@@ -1,0 +1,8 @@
+# APA 7.19 — give related displays separate numbers, never letters
+extends: existence
+message: "Do not letter subtables or subfigures (Table 1A); give related displays separate numbers (APA 7.19)."
+level: suggestion
+scope: heading
+ignorecase: false
+tokens:
+  - '(?:Table|Figure) \d+ ?[A-B]\b'

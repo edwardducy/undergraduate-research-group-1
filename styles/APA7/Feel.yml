@@ -1,0 +1,9 @@
+# APA 4.4 — use 'think' or 'believe' for claims, never 'feel'
+extends: existence
+message: "Use 'think' or 'believe' for claims, never '%s' (APA 4.4)."
+level: warning
+ignorecase: true
+tokens:
+  - feel
+  - feels
+  - felt

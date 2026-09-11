@@ -1,5 +1,7 @@
 *.pdf
-!chapters/**/*.pdf
+!thesis/figures/**/*.pdf
+
+*.fff
 
 .DS_Store
 .venv/
@@ -11,9 +13,14 @@ dist/
 __pycache__/
 .ruff_cache/
 
-/.quarto/
+.quarto/
 **/*.quarto_ipynb
 
-docs/apa7-publication-manual.md
+# Quarto output for the thesis project (output-dir: build).
+thesis/build/
+
+# Copyrighted manual: available locally, never committed. No interior slash, so
+# the pattern matches at any depth (a slash would anchor it to the repo root).
+apa7-publication-manual.md
 
 *_files/

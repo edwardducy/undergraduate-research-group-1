@@ -1,0 +1,6 @@
+# APA 6.29 / 8.17 — always punctuate 'et al.'
+extends: existence
+message: "Punctuate the abbreviation as 'et al.' (APA 6.29)."
+level: error
+tokens:
+  - '\bet al [A-Za-z(]'

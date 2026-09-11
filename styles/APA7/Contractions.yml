@@ -1,0 +1,43 @@
+# APA 4.8 — never use contractions
+extends: existence
+message: "Never use contractions; write '%s' in full (APA 4.8)."
+level: error
+ignorecase: true
+tokens:
+  - can't
+  - couldn't
+  - didn't
+  - doesn't
+  - don't
+  - hasn't
+  - haven't
+  - hadn't
+  - isn't
+  - aren't
+  - wasn't
+  - weren't
+  - won't
+  - wouldn't
+  - shouldn't
+  - mustn't
+  - it's
+  - that's
+  - there's
+  - here's
+  - what's
+  - let's
+  - they're
+  - they've
+  - they'll
+  - we're
+  - we've
+  - we'll
+  - we'd
+  - I'm
+  - I've
+  - I'll
+  - I'd
+  - you're
+  - you've
+  - you'll
+  - you'd

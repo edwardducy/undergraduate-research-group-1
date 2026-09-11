@@ -1,0 +1,18 @@
+---
+title: "Benchmarking Dynamic Multi-Task Balancing in a Multilingual Encoder for Joint Triage of Taglish Disaster Tweets"
+---
+
+{{< include chapters/01-introduction.qmd >}}
+
+\newpage
+
+{{< include chapters/02-review.qmd >}}
+
+\newpage
+
+{{< include chapters/03-methodology.qmd >}}
+
+---
+# Re-asserts the thesis title: title keys in included chapter YAML would otherwise win.
+title: "Benchmarking Dynamic Multi-Task Balancing in a Multilingual Encoder for Joint Triage of Taglish Disaster Tweets"
+---

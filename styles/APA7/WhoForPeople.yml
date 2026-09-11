@@ -1,0 +1,7 @@
+# APA 4.19 — use 'who' for people, 'that' for animals and things
+extends: substitution
+message: "Use '%s' for people (APA 4.19)."
+level: suggestion
+ignorecase: true
+swap:
+  - '\b(participants|students|children|adolescents|adults|respondents|patients|clients|teachers|researchers|workers|individuals|people)\s+that\s+(?:were|was|had|completed|met|showed|did|reported|attended)\b': '$1 who'

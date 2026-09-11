@@ -1,0 +1,12 @@
+# APA 6.29 — keep Latin abbreviations inside parentheses
+extends: existence
+message: "Keep Latin abbreviations in parentheses; write out the English phrase (APA 6.29)."
+level: suggestion
+ignorecase: false
+tokens:
+  - e\.g\. [A-Za-z]
+  - i\.e\. [A-Za-z]
+  - etc\. [A-Z]
+  - viz\. [A-Za-z]
+  - vs\. [A-Za-z]
+  - cf\. [A-Za-z]

@@ -1,0 +1,6 @@
+# APA 4.24 — 'between 2.5 and 4.0', never 'between 2.5-4.0'
+extends: substitution
+message: "Write '%s' (APA 4.24)."
+level: warning
+swap:
+  - 'between ([\w.]+)\s?[-–]\s?([\w.]+)': 'between $1 and $2'

@@ -1,0 +1,8 @@
+# APA 6.44 — use the percent symbol with numerals
+extends: substitution
+message: "Use the percent symbol with numerals: '%s' (APA 6.44)."
+level: warning
+ignorecase: true
+swap:
+  - '\b(\d+)\s+percent\b': '$1%'
+  - '\b(\d+)\s+per cent\b': '$1%'

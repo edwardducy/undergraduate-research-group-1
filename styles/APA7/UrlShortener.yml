@@ -1,0 +1,6 @@
+# APA 9.36 — never use commercial URL shorteners
+extends: existence
+message: "Do not use URL shorteners; use the archived original or shortDOI (APA 9.36)."
+level: error
+tokens:
+  - '\b(?:bit\.ly|tinyurl\.com|goo\.gl|t\.co|ow\.ly|is\.gd)\b'

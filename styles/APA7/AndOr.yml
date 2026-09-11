@@ -1,0 +1,6 @@
+# APA 6.10 — avoid 'and/or'; rewrite with a phrase
+extends: existence
+message: "Prefer 'X or Y' or 'X and Y'; use slash forms sparingly (APA 6.10)."
+level: suggestion
+tokens:
+  - and/or

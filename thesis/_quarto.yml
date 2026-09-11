@@ -1,0 +1,47 @@
+project:
+  type: default
+  render:
+    - index.qmd
+    - chapters/01-introduction.qmd
+    - chapters/02-review.qmd
+    - chapters/03-methodology.qmd
+  output-dir: build
+
+# Figures live in the project-root figures/ pool, so chapter documents in
+# chapters/ resolve figures/*.pdf against the project root instead of their own
+# directory.
+resource-path:
+  - .
+
+lang: en-US
+bibliography: references.bib
+author:
+  - name: Prinz Edward L. Ducyogen
+    affiliations: Centro Escolar University
+    email: ducyogenpred@gmail.com
+    corresponding: true
+
+format:
+  apaquarto-pdf:
+    documentmode: stu
+    fontsize: 12pt
+    linestretch: 2
+    mainfont: "Times New Roman"
+    suppress-title-page: true
+    suppress-short-title: true
+    suppress-title-introduction: true
+    geometry:
+      - left=1.5in
+      - right=1in
+      - top=1in
+      - bottom=1in
+    include-in-header:
+      - text: |
+          \usepackage{etoolbox}
+          \AtBeginEnvironment{longtable}{\setstretch{1}}
+          \AtBeginEnvironment{longtable}{\setlength{\extrarowheight}{2pt}}
+          \makeatletter
+          \def\endlongtable{\endoldlt}
+          \makeatother
+      - file: title-page.tex
+

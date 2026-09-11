@@ -1,0 +1,9 @@
+# APA 4.18 — never use '(s)he', 's/he', 'he/she'
+extends: existence
+message: "Never use slash or parenthesis pronoun combinations; use singular 'they' (APA 4.18)."
+level: error
+ignorecase: true
+tokens:
+  - \(s\)he
+  - s/he
+  - he/she

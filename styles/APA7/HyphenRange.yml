@@ -1,0 +1,6 @@
+# APA 6.6 — use an en dash, not a hyphen, in numeric ranges
+extends: substitution
+message: "Use an en dash in the numeric range: '%s' (APA 6.6)."
+level: suggestion
+swap:
+  - '\b(\d+)\s?-\s?(\d+)\b': '$1–$2'

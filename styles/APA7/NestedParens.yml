@@ -1,0 +1,6 @@
+# APA 6.8 — never nest parentheses; use square brackets inside
+extends: existence
+message: "Never nest parentheses; use square brackets inside parentheses (APA 6.8)."
+level: warning
+tokens:
+  - '\([^()\n]{1,120}[A-Za-z]\s*\([A-Za-z]'

@@ -1,0 +1,6 @@
+# APA 6.1 — one space after punctuation
+extends: existence
+message: "Insert one space after punctuation (APA 6.1)."
+level: suggestion
+tokens:
+  - '[.,;:] {2,}[A-Za-z0-9]'

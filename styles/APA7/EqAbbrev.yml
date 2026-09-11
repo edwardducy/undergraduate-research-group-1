@@ -1,0 +1,9 @@
+# APA 6.47 — spell out 'Equation'; do not abbreviate display references
+extends: substitution
+message: "Spell out the reference: '%s' (APA 6.47, 6.19)."
+level: warning
+swap:
+  - 'Eq\. (\d+)': 'Equation $1'
+  - 'eq\. (\d+)': 'equation $1'
+  - 'Fig\. (\d+)': 'Figure $1'
+  - 'Sec\. (\d+)': 'Section $1'

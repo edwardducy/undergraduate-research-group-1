@@ -1,0 +1,7 @@
+# thesis/docs/apa7-mechanics.md — CEU 30-word cap (APA sets no cap; 4.6)
+extends: occurrence
+message: "Sentence exceeds the CEU 30-word cap; vary length within the cap."
+scope: sentence
+level: warning
+max: 30
+token: "[\\w'’-]+"

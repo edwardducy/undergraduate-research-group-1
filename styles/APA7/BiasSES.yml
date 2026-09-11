@@ -1,0 +1,15 @@
+# APA 5.9 — socioeconomic status terminology
+extends: existence
+message: "Use person-first, non-deficit SES terminology: 'people experiencing homelessness', 'people with low income' (APA 5.9)."
+level: warning
+ignorecase: true
+tokens:
+  - the homeless
+  - the poor
+  - the underprivileged
+  - inner-city
+  - ghetto
+  - poverty-stricken
+  - poverty stricken
+  - welfare mother
+  - illegal alien

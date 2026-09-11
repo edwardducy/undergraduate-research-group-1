@@ -1,0 +1,6 @@
+# APA 6.6 — convert double hyphens between words to a dash
+extends: existence
+message: "Use a real en or em dash, not a double hyphen (APA 6.6)."
+level: suggestion
+tokens:
+  - '[A-Za-z]--[A-Za-z]'

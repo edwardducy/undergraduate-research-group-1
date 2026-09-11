@@ -1,0 +1,8 @@
+# APA 8.16 / 6.29 — 'ibid.' is not used in APA Style
+extends: existence
+message: "'ibid.' is not used in APA Style; repeat the citation (APA 8.16)."
+level: error
+ignorecase: true
+tokens:
+  - ibid
+  - ibidem
