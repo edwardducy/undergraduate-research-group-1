@@ -16,7 +16,7 @@ from pathlib import Path
 MANUAL = """Taglish Tagalog Cebuano Filipino Sinhala Odia Ulysses Vamco Mistral SeaLLM Kalahi
 Cityscapes Xplore Mixup Spearman's Nemenyi Friedman Iman Davenport Nash multitask
 scalarization subword tokenization tokenizer tokenizers deduplication pretraining triage
-debiasing homoscedastic hyperparameters hoc feedforward nonurgent benchmarked overfitting
+debiasing homoscedastic hyperparameters hoc feedforward nonurgent nonstandardized benchmarked overfitting
 multilinguality hatespeech subconcept multilabel chatbots pytest psutil pynvml resample
 resamples resampled masterlist codebook operationalizes delimitations tweet_id tagset
 subwords subsampling regenerable lowercased backpropagation Fleiss bio_tags language_tags

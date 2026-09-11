@@ -17,7 +17,6 @@
 (?i)313M
 (?i)32\-bit
 (?i)3\-GPU
-(?i)3\-tier
 (?i)4\-bit
 (?i)4\-class
 (?i)4\-fold
@@ -54,7 +53,7 @@
 (?i)BERT
 (?i)BERT's
 (?i)BIO
-(?i)B\-INF
+(?i)B\-INFRA
 (?i)B\-LOC
 (?i)Badrinarayanan
 (?i)Batayan
@@ -79,7 +78,6 @@
 (?i)CNN
 (?i)CPU
 (?i)CPU\-only
-(?i)CUDA
 (?i)Cal
 (?i)Cao
 (?i)Caragea
@@ -162,7 +160,6 @@
 (?i)Florez
 (?i)Freisinger
 (?i)Friedman
-(?i)Friedman\-Nemenyi
 (?i)Friedman\-\-Nemenyi
 (?i)Févry
 (?i)GLUE
@@ -235,7 +232,7 @@
 (?i)IMTL\-L
 (?i)INFRA
 (?i)IPO
-(?i)I\-INF
+(?i)I\-INFRA
 (?i)I\-LOC
 (?i)Ilharco
 (?i)Illarionova
@@ -312,6 +309,7 @@
 (?i)MNIST
 (?i)MT10
 (?i)MT50
+(?i)MTB
 (?i)MTL
 (?i)MTO
 (?i)Maceda
@@ -363,7 +361,6 @@
 (?i)Nguyen
 (?i)Ni
 (?i)Nicosia
-(?i)Non\-Parametric
 (?i)Nulty
 (?i)NumPy
 (?i)Nuñez
@@ -425,7 +422,6 @@
 (?i)Ruder
 (?i)SAM\-GS
 (?i)SEA\-LION
-(?i)SQLite
 (?i)SQuAD
 (?i)STL
 (?i)SVM
@@ -616,6 +612,7 @@
 (?i)na
 (?i)navon2022multitask
 (?i)ng
+(?i)nonstandardized
 (?i)nonurgent
 (?i)operationalizes
 (?i)overfitting
