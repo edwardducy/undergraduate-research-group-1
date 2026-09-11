@@ -1,36 +1,33 @@
-% \maketitle is also what sets the APA 0.5in first-line indent, so it is
-% restored here before the body starts.
+\newlength{\tpgapunit}
+\setlength{\tpgapunit}{0.13in}
+\newcommand{\tpgap}[1]{\vspace{#1\tpgapunit}}
 \AtBeginDocument{%
   \raggedright
   \setlength{\parindent}{0.5in}%
-  \begin{spacing}{1}
+  \begin{spacing}{2}
   \begin{center}
     \vspace*{0.25in}
-    {\large\textbf{CENTRO ESCOLAR UNIVERSITY}\par}
-    Makati, Philippines\par
-    \vspace{0.6in}
-    {\bfseries\MakeUppercase{Benchmarking Dynamic Multi-Task Balancing in a Multilingual Encoder for Joint Triage of Taglish Disaster Tweets}\par}
-    \vspace{0.6in}
-    A Research Proposal Presented to the Faculty of the\par
+    \tpgap{3}
+    {\bfseries Benchmarking Dynamic Multi-Task Balancing in a Multilingual Encoder for Joint Triage of Taglish Disaster Tweets\par}
+    \tpgap{3}
+    An Undergraduate Research Proposal Presented to the\par
     Department of Computer Science and Information Technology\par
     Centro Escolar University\par
-    \vspace{0.4in}
+    \tpgap{2}
     In Partial Fulfillment of the Requirements for the Degree\par
     Bachelor of Science in Computer Science\par
-    \vspace{0.6in}
+    \tpgap{3}
     by\par
-    \vspace{0.2in}
+    \tpgap{2}
     Almuena, Isaiah Raphael\par
     Ducyogen, Prinz Edward L.\par
     Geronimo, Carlo Miguel\par
     Lu, Kyle Uri Gabriel\par
     Patricio, Yngwie Sebastian\par
-    \vspace{0.6in}
-    % TODO: Fill in the adviser's name.
-    [Adviser Name]\par
-    \vspace{0.2in}
-    % TODO: Fill in the submission month and year.
-    [Month Year]\par
+    \tpgap{3}
+    Engr. Ma Christina A. Florentino\par
+    \tpgap{2}
+    Advisor\par
   \end{center}
   \end{spacing}
   \clearpage
