@@ -20,7 +20,8 @@ debiasing homoscedastic hyperparameters hoc feedforward nonurgent benchmarked ov
 multilinguality hatespeech subconcept multilabel chatbots pytest psutil pynvml resample
 resamples resampled masterlist codebook operationalizes delimitations tweet_id tagset
 subwords subsampling regenerable lowercased backpropagation Fleiss bio_tags language_tags
-Rai Paeng Haiyan Profiler Studentized postcondition Batayan""".split()
+Rai Paeng Haiyan Profiler Studentized postcondition Batayan unbatched Hiligaynon
+microblogs uncentered subproblems hyperparameter ang ng mga sa na""".split()
 
 
 def case_insensitive(word: str) -> str:

@@ -72,7 +72,8 @@ def overall():
     stages = [
         ("INPUT", [
             "I1. Taglish disaster tweet", "corpus, four typhoon events",
-            "I2. Four multilingual", "Transformer encoders",
+            "I2. Four Transformer encoders,", "multilingual and",
+            "Tagalog-specific",
             "I3. MTO configurations with", "STL and static baselines",
             "I4. Local FP16 workstation", "testbed",
         ]),
@@ -85,7 +86,7 @@ def overall():
         ("OUTPUT", [
             "O1. Hard-sharing multi-task", "model, O(1) inference",
             "O2. Benchmark tables across", "12 paired runs",
-            "O3. Bootstrap and", "non-parametric results",
+            "O3. Bootstrap and", "nonparametric results",
             "O4. Prototype disaster", "triage application",
         ]),
     ]
@@ -115,7 +116,7 @@ def artifact():
     box(page, gazetteer, "Gazetteer resolution",
         ["Philippine toponyms,", "OOV fallback"])
     box(page, database, "Relational incident database",
-        ["SQLite or PostgreSQL"])
+        ["PostgreSQL"])
     box(page, dashboard, "Interactive triage dashboard",
         ["New to Resolved", "lifecycle states"])
     box(page, centers, "Municipal command centers")
