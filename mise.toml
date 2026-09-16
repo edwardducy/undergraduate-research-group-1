@@ -1,0 +1,28 @@
+[tasks.render]
+description = "Build the thesis in both PDF and HTML formats"
+dir = "{{config_root}}/manuscript"
+run = "quarto render"
+
+[tasks.pdf]
+description = "Build the thesis in PDF format only, deleting existing HTML output from _book"
+dir = "{{config_root}}/manuscript"
+run = "quarto render --to pdf"
+
+[tasks.html]
+description = "Build the thesis in HTML format only, deleting existing PDF output from _book"
+dir = "{{config_root}}/manuscript"
+run = "quarto render --to html"
+
+[tasks.preview]
+description = "Start a live preview server that rebuilds the thesis when source files change"
+dir = "{{config_root}}/manuscript"
+run = "quarto preview --no-browser --port 6454"
+
+[tasks.clean]
+description = "Delete the _book output directory and everything in it"
+dir = "{{config_root}}/manuscript"
+run = "rm -rf _book"
+
+[tasks.check]
+description = "Verify that the Quarto, TinyTeX, and Pandoc toolchain is installed and working"
+run = "quarto check"

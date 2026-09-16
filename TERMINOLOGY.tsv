@@ -1,0 +1,12 @@
+Term	Definition
+Taglish	The variety of code-switching between Tagalog and English in which these messages are written.
+code-mixing index (CMI)	The share of a message's language-dependent tokens that fall outside its matrix language, reported as a percentage.
+disaster triage	The process by which incoming messages are sorted by urgency during and after a typhoon event.
+multitask learning (MTL)	The formal name of the paradigm in which one model is fitted to several tasks at once.
+token-level	The prediction granularity in which one label is assigned to each token of a message.
+sequence-level	The prediction granularity in which one label is assigned to a whole message.
+named entity recognition (NER)	The task in which location and infrastructure mentions are located and typed in a message.
+intent classification	The task in which one humanitarian need is assigned to each message.
+urgency assessment	The task in which one urgency level is assigned to each message.
+multitask balancing (MTB)	The class of methods by which the influence of each task on training is set, comprising loss balancing, in which the task losses are weighted, and gradient balancing, in which the per-task gradients are altered before the update.
+Taglish disaster tweets	Posts about a typhoon event that are written in Taglish.

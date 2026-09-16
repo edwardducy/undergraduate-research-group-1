@@ -1,0 +1,106 @@
+# Research Design
+
+## Research Questions
+
+**RQ1 (Predictive Generalization & Stratified Performance).** How does a hard parameter-sharing Multi-Task Learning (MTL) architecture compare against task-dedicated Single-Task Learning (STL) baselines in out-of-domain disaster generalization, both in aggregate (unweighted mean of per-task Macro-F1) and across Taglish code-mixing strata (English-dominant, Mixed, Tagalog-dominant)?
+
+**RQ2 (Deployment Feasibility & Operational Trade-offs).** What operational efficiency gains (single-sample inference latency, peak RAM/VRAM footprint) does a unified multi-task architecture yield on the available commodity hardware relative to sequential (primary baseline) and concurrent STL deployments, and does it retain practical task performance on every target task?
+
+**RQ3 (Optimization Efficacy Under Domain Divergence).** To what extent does directional gradient-conflict surgery (PCGrad) mitigate task-level negative transfer ($\text{NT}_t = \text{Macro-F1}_{\text{STL},t} - \text{Macro-F1}_{\text{MTL},t}$) relative to uniform scalarization ($1{:}1{:}1$) and an inner-fold tuned static scalarization baseline under Leave-One-Disaster-Out domain shift?
+
+**RQ4 (Diagnostic Gradient-Conflict Coupling).** How do inter-task gradient conflict frequencies ($\cos(g_i, g_j) < 0$) on the final shared encoder layer — measured under untreated (uniform) scalarization — associate with forward changes in checkpoint-matched per-task Macro-F1 ($\Delta\text{F1}_t(c \to c{+}1)$), and does conflict concentrate between the token-level head (NER) and the sequence-level heads (Intent, Urgency)?
+
+## Cross-Cutting Evaluation Protocol (applies to all objectives)
+
+- **Folds and seeds.** $K$ held-out disaster folds (LODO) × $S = 5$ seeds (minimum viable 3). All arms share identical data splits, per-seed batch ordering, training schedule, and early-stopping policy.
+
+- **Validation under LODO (resolved).** No held-out-disaster data is used for model selection. Within each fold, a stratified dev split of the *training* disasters (15% of examples, stratified jointly by disaster and label) is drawn once, fixed before experiments, and applied identically to MTL and STL arms, including the tuned-scalarization arm of RO3. Early-stopping / model-selection signals: each STL arm uses its own task's dev Macro-F1; each MTL arm uses the unweighted mean of per-task dev Macro-F1, mirroring the aggregate metric. The within-disaster leakage this admits is accepted by design: the policy is identical across arms, so the comparison estimand is protected, and absolute numbers are interpreted as deployment-realistic (tuning on in-distribution dev data).
+
+- **Corpus topology (resolved).** The three tasks are annotated on a **common corpus**: each utterance carries all three label sets. Every arm therefore trains on the same inputs — the MTL model on all three label sets, each STL baseline on its own task's labels — so STL baselines are not data-starved, $\text{NT}_t$ is a clean interference measure, and identical per-seed batch ordering across MTL and STL arms is constructible as promised in *Folds and seeds*.
+
+- **Unit of inference.** Seed runs are averaged within each fold; all hypothesis tests operate on the $K$ fold-level paired observations ($N = K$). The design requires $K \ge 5$: the minimum achievable one-sided p for exact paired tests is $1/2^K$ (at $K{=}4$, $p_{\min} = 0.0625 > 0.05$). **Target $K = 6$ historical benchmark typhoon events (2020–2024 pool: Ulysses, Rolly, Odette, Karding, Egay, Carina; 2 pre-declared alternates)** (acquisition plan: CHAPTER-SPECS §3.2–3.5 — roster selection criteria, historical landfall windows, attrition audit, alternates); **the $K \ge 5$ requirement is verified at roster freeze, not assumed.** Guard clause: if run-integrity exclusions or data audits remove a disaster, re-verify $K \ge 5$ before locking; adding seeds does not restore test resolution. Primary test: exact paired sign-flip permutation on fold means; Wilcoxon signed-rank reported as a robustness check only.
+
+- **Error-control declaration.** H1a, H3a, and H4a are standalone confirmatory tests at one-sided $\alpha = 0.05$; no family-wise control is applied *across* hypotheses. Holm correction applies within H1b's two-stratum family only; if the pre-registered support audit removes one stratum, the family collapses to a single test at one-sided $\alpha = 0.05$.
+
+- **Aggregate metric definition.** Aggregate Macro-F1 = unweighted mean of per-task Macro-F1; NER is scored as span-level Macro-F1 over entity types, Intent/Urgency as classification Macro-F1.
+
+- **Fairness framing.** The estimand is the *deployed-system comparison*: the MTL model trains on all three label sets over the common corpus; each STL baseline trains on the same corpus with its own task's labels only. Inputs are identical across arms, so MTL−STL gains are attributable to parameter sharing with cross-task supervision — there is no data-pooling confound. Decomposing parameter sharing from cross-task supervision is out of scope.
+
+- **Training and inference configuration parity (frozen).**
+  - *Loss normalization:* every task loss is mean-reduced (NER: mean over the example's tokens, then over examples; Intent/Urgency: mean over examples), so uniform $1{:}1{:}1$ weighting is scale-comparable across tasks and the gradient cosines of RQ4 have a fixed scale. Sum-reduced losses are not used in any arm.
+  - *Architecture parity:* identical encoder architecture and parameter count in every arm; task heads use identical construction in MTL and STL.
+  - *Tuning symmetry:* identical LR × weight-decay grid and identical search budget for every arm, including tuned scalarization and PCGrad ([Xin et al., NeurIPS 2022](https://arxiv.org/abs/2209.11379): tuning budget moves conclusions more than seed choice). Grid points are evaluated at one seed per point (pre-registered); only the selected configuration is re-run at $S$ seeds.
+  - *Gradient logging (RO4)* is implemented as additional side-effect-free per-task gradient extraction; the applied-update computation is untouched, so the instrumented uniform arm is the same run as the H1a/H3a uniform arm. If per-step cost is prohibitive, cosines are computed on a pre-registered fixed number of batches per checkpoint window, sampled deterministically.
+
+- **Run-integrity policy.** Runs that diverge (NaN loss) or collapse are re-run once at the same seed and logged; exclusion criteria are fixed in advance. *Collapse* is operationalized as a single class accounting for >95% of predicted labels on the task's dev split (NER: >95% of predicted spans of a single entity type, or no spans predicted).
+
+## Research Objectives
+
+**RO1 (Cross-Disaster Benchmarking & Stratified Evaluation).** Benchmark the shared-encoder MTL model against dedicated STL baselines across $K$ LODO folds × $S$ seeds. Primary inference on seed-averaged fold-level paired differences in aggregate Macro-F1 via exact paired permutation ($N = K$). For stratified evaluation, assign examples to code-mixing strata via the Code-Mixing Index and evaluate on the pooled out-of-fold construction, in which **each example contributes exactly one prediction** (from the fold in which its disaster was held out) and support counts **unique examples** (for NER: examples containing ≥1 span of the entity type), never seed replicates. Stratified Macro-F1 is computed per seed on this pooled construction, then averaged over seeds, with 95% bootstrap CIs for all classes with support $n \ge 25$; the bootstrap is **cluster-paired**: each replicate resamples the $K$ fold IDs once and recomputes *both* arms' stratified F1 on the same resampled folds, so the delta is within-replicate paired. Report subword tokenizer fertility (subwords per word) by stratum descriptively, as an explanatory variable for stratified transfer differences.
+
+*Pre-registered support audit:* because each example is out-of-fold exactly once, pooled stratum × class support equals the corpus-level stratum × class counts and is computed before any training; cells falling below $n = 25$ in the Tagalog-dominant or Mixed strata are reported descriptively and excluded from the Holm family (the collapsed-family case is covered by the error-control declaration). The fold × stratum contingency table and per-fold stratum CMI distributions are reported, so that strata crossed with specific held-out disasters are visible; a stratum confounded with a single disaster is standardized within fold or moved to descriptive. The bootstrap resamples only $K$ fold-clusters per stratum; the resulting intervals will be wide, which is acknowledged rather than corrected. A sign-flip permutation on fold-level stratum deltas is reported as a robustness check, consistent with the protocol's primary test family.
+
+**RO2 (Inference Efficiency Profiling & Operational Retention Analysis).** Profile single-sample inference latency (batch size 1, amortized over warm-up runs; mean ± SD) and peak memory (system RAM and VRAM/unified memory) of the unified MTL model versus **sequential** execution of the three STL baselines (primary latency baseline) and **concurrent** execution (reported only if it completes without memory contention — no swapping or OOM; otherwise documented as infeasible on the profiling hardware) on the designated profiling machine (the available commodity workstation; no edge device — edge deployment is future work). Workload: every request exercises all three tasks. **Sequential = all-resident** (three STL models loaded simultaneously, invoked in turn) — the deployment-relevant service configuration; a load/unload variant (one model resident at a time) is additionally profiled descriptively where feasible, and no $\ge$50% memory claim is made against it. Assess operational retention descriptively: the per-task delta $\Delta\text{F1}_t$ must clear the frozen margin $\epsilon$ for every task; each task's point estimate is reported **with its 95% CI** alongside the bound check; no inferential test is attached.
+
+**RO3 (Controlled Optimization Contrast & Negative-Transfer Quantification).** Contrast uniform static weighting ($1{:}1{:}1$), tuned static scalarization (weights tuned strictly by inner resampling within training folds), and PCGrad across the $K$ folds under identical training schedules, data, and seeds (PCGrad's additional per-step gradient cost is reported descriptively). Quantify per-task negative transfer $\text{NT}_t$, with aggregate quantities reported and their identities stated: $\Delta\text{MTL} = -\frac{1}{T}\sum_t \text{NT}_t$, and for two MTL arms A, B,
+$$\sum_t \text{NT}_t^{(A)} - \sum_t \text{NT}_t^{(B)} = T \times \big(\text{agg}_B - \text{agg}_A\big),$$
+i.e., aggregate negative transfer is a re-parameterized aggregate Macro-F1 gap, not an additional measurement; per-task $\text{NT}_t$ (with fold-level CIs) is the interference readout.
+
+**RO4 (Gradient Diagnostic Logging & Conflict Asymmetry Analysis).** During the **uniform scalarization arm** (conflicts untreated), log pairwise $\cos(g_i, g_j)$ on the **final shared encoder layer** per batch, aggregated into $C = 15$–$20$ checkpoint windows spaced on **matched fractions of each run's realized optimizer steps** (fraction $i/C$ of the steps each run actually trains for, so MTL and STL trajectories are comparable despite per-epoch data differences). Compute conflict frequency $\kappa_{i,j}$ (proportion of batches with $\cos < 0$ per window) and the window mean cosine — sign-only $\kappa$ discards magnitude, and task gradients are frequently near-orthogonal ($\cos \approx 0$), which leaves $\kappa$ with little dynamic range ([Jiang et al., NeurIPS 2023](https://arxiv.org/abs/2301.12618)) — both seed-averaged within folds. Define $\kappa_t(c) = \text{mean}_{j \ne t}\, \kappa_{t,j}(c)$: task $t$'s mean pairwise conflict at window $c$. Test the granularity asymmetry via exact paired permutation on fold means ($\bar\kappa_{\text{NER,seq}}$ vs. $\bar\kappa_{\text{seq,seq}}$, where NER–seq averages the two NER/sequence-level pairs); all three pairwise $\bar\kappa_{i,j}$ are reported alongside the contrast, since the two NER–seq pairs share the NER gradient and are correlated. For transfer coupling, the **primary statistic is the lead–lag correlation**: per (run, task), Spearman between $\kappa_t(c)$ and the forward change $\Delta\text{F1}_t(c \to c{+}1)$ across the $C{-}1$ window boundaries, which is not driven by shared monotone trends in checkpoint index. The concurrent level-level Spearman between $\kappa_t(c)$ and $\Delta\text{F1}_t(c)$ is reported **descriptively only**, with the caveat that both series trend with training progress and both are autocorrelated, so a negative level correlation is weak evidence of coupling and $n = C$ overstates the effective sample size. Report the distribution of the $K \times S \times T$ correlations (median, IQR) with trajectory visualizations; no pooled-over-observations test is performed. Optional secondary inference: exact sign-flip permutation on fold-mean correlations. Optional robustness: log pre-projection cosines in the PCGrad arm.
+
+## Hypotheses
+
+**H1 (Multi-Task Out-of-Domain Generalization).**
+
+$H_{1\text{a}}$ (Aggregate Superiority): on fold-level paired differences ($N = K$),
+$$H_0: \mu_{\text{MTL}} - \mu_{\text{STL}} \le 0 \quad \text{vs.} \quad H_1: \mu_{\text{MTL}} - \mu_{\text{STL}} > 0.$$
+If the test fails to reject, the result is reported with its CI and assessed against the H2b retention bound; "non-inferiority" language is reserved for H2b.
+
+$H_{1\text{b}}$ (Stratified Low-Resource Transfer): within the Tagalog-dominant and Mixed strata, pooled out-of-fold transfer delta is positive, verified by one-sided cluster-paired bootstrap CI lower bounds excluding zero (RO1), Holm-corrected across the two strata (the smaller-p stratum requires a 97.5% one-sided bound; the larger, 95%; a family collapsed by the audit to one stratum is tested at 95%). The English-dominant stratum is reported descriptively as a contrast. Stratum × class cells excluded by the pre-registered support audit ($n < 25$ unique examples) are reported descriptively and are not part of the tested family.
+
+**H2 (Operational Deployment Trade-off).**
+
+$H_{2\text{a}}$ (Resource Footprint, descriptive expectation): replacing three encoders with one shared encoder reduces the dominant memory and compute component to roughly one-third, so a ≥50% reduction in peak memory and per-sample latency versus sequential STL execution is expected as an architectural consequence **under the all-resident sequential protocol pinned in RO2**; the memory expectation carries over unchanged to concurrent execution (same resident footprint), but no latency ordering versus concurrent execution is claimed. Under load/unload swapping, peak memory is governed by the largest resident model and the ≥50% memory claim does not apply (the latency claim stands). No inferential test.
+
+$H_{2\text{b}}$ (Bounded Operational Degradation): every task satisfies $\Delta\text{Macro-F1}_t \ge -\epsilon$, where $\epsilon$ is **frozen as $1.5\times$ the pooled seed-level SD of STL Macro-F1, computed from all $K$ STL folds before any MTL run** — all STL runs precede the first MTL run, so the freeze-before-MTL logic is preserved; per-task seed-SDs are reported alongside the pooled value in the appendix (the illustrative 0.035 is discarded if the computed value differs; the computation is documented in an appendix). Verdict is descriptive: retention holds iff all three tasks clear the bound, with each task's 95% CI reported alongside its point estimate so estimation uncertainty remains visible.
+
+**H3 (Optimization Efficacy Under Divergence).**
+
+$H_{3\text{a}}$ (Aggregate Optimization Contrast): PCGrad achieves higher aggregate Macro-F1 than uniform scalarization on fold-level paired differences:
+$$H_0: \mu_{\text{agg}}(\text{PCGrad}) - \mu_{\text{agg}}(\text{Uniform}) \le 0 \quad \text{vs.} \quad H_1: > 0.$$
+The hypothesis is stated on the aggregate directly because, with $\text{NT}_t = \text{Macro-F1}_{\text{STL},t} - \text{Macro-F1}_{\text{MTL},t}$, the fold-level difference in $\sum_t \text{NT}_t$ between two MTL arms is algebraically identical to $T \times$ the aggregate Macro-F1 difference (the STL term cancels; see RO3) — a $\sum\text{NT}$-framed test would measure the same quantity under a negative-transfer label. Per-task $\text{NT}_t$ differences (PCGrad − uniform) are reported with fold-level CIs and no per-task confirmatory test ($N = K$); they answer whether an aggregate win conceals a task still suffering $\text{NT}_t > 0$.
+
+$H_{3\text{b}}$ (Static Baseline Competitiveness — secondary non-superiority assessment): PCGrad will show no practically meaningful advantage over tuned static scalarization. Evaluated by reporting the fold-level paired difference in aggregate Macro-F1 (PCGrad − tuned) with its **90% two-sided CI** (equivalent to two one-sided tests at $\alpha = 0.05$); the **non-superiority margin** $\delta_{\text{opt}} = 0.01$ is frozen in advance. Support rule: CI upper bound $< \delta_{\text{opt}}$. If additionally the CI lower bound $> -\delta_{\text{opt}}$, the stronger practical-equivalence (TOST-style) conclusion is reported. This expectation follows [Xin et al., NeurIPS 2022](https://arxiv.org/abs/2209.11379) and [Kurin et al., NeurIPS 2022](https://arxiv.org/abs/2201.04122). Power note: at $K = 6$ the 90% CI half-width is $\approx 0.82 \times \text{SD}_{\text{diff}}$, so support additionally requires $\text{SD}_{\text{diff}} \lesssim 0.012$; this is acknowledged, and failure of support is itself an interpretable result, not a design failure.
+
+**H4 (Diagnostic Gradient-Conflict Structure).**
+
+$H_{4\text{a}}$ (Granularity Asymmetry): conflict frequency between the token-level and sequence-level heads exceeds that between the two sequence-level heads, on fold-averaged means: $H_0: \bar\kappa_{\text{NER,seq}} \le \bar\kappa_{\text{seq,seq}}$ vs. $H_1: \bar\kappa_{\text{NER,seq}} > \bar\kappa_{\text{seq,seq}}$ (exact paired permutation, $N = K$; all three pairwise $\bar\kappa_{i,j}$ reported alongside, RO4).
+
+$H_{4\text{b}}$ (Diagnostic Transfer Coupling, descriptive): high conflict frequency in a window is followed by reduced transfer growth; supported if the **median of the per-(run, task) lead–lag correlations** ($\kappa_t(c)$ vs. $\Delta\text{F1}_t(c \to c{+}1)$; RO4) is negative, with the full distribution (median, IQR over $K \times S \times T$ values) and trajectory visualizations reported; the level-level correlation is reported descriptively with its trend caveat. The optional sign-flip permutation on fold-mean correlations provides an inferential check without reintroducing pooled-observation tests. Competing hypothesis, pre-registered: gradient conflict and negative transfer are not strongly coupled, and conflict can be benign or act as regularization ([Jiang et al., NeurIPS 2023](https://arxiv.org/abs/2301.12618)); a near-zero or positive median is an interpretable outcome, not a null failure.
+
+## Frozen design constants
+
+| Constant | Value | Status |
+|---|---|---|
+| Tasks $T$ | 3 (NER, Intent, Urgency) | fixed |
+| Folds $K$ | 6 target (minimum 5); historical 2020–2024 pool (Ulysses, Rolly, Odette, Karding, Egay, Carina; 2 alternates replacing in order) | fixed at roster freeze; alternates only substitute, so $K$ can only decrease — re-verify $K \ge 5$ if disasters excluded |
+| Seeds $S$ | 5 (minimum viable 3) | default — adjustable before launch |
+| Checkpoints $C$ | 15–20 | default — adjustable before launch |
+| Dev split | 15% stratified by disaster × label | resolved |
+| Loss normalization | per-example mean reduction, all tasks | frozen — fixes $1{:}1{:}1$ scale and H4 cosine scale |
+| Architecture parity | identical encoder and head construction across arms | frozen |
+| Shared encoder | SEA-LION-ModernBERT-300M (base, MIT; *not* the embedding variants); size confirmed by pre-launch pilot gate | frozen |
+| Tuning budget | identical LR × weight-decay grid and budget, all arms | frozen |
+| Checkpoint matching | fraction of realized optimizer steps | frozen |
+| Gradient logging | side-effect-free extraction; per-window subsample if needed | pre-register subsample size before launch |
+| Deployment protocol (RO2) | all-resident sequential; load/unload descriptive | frozen |
+| Workload (RO2) | all three tasks per request, batch 1 | frozen |
+| $\epsilon$ (H2b) | $1.5\times$ pooled STL seed-SD, all $K$ STL folds | frozen |
+| $\delta_{\text{opt}}$ (H3b) | 0.01 absolute Macro-F1 | frozen |
+| Support threshold (H1b) | $n \ge 25$ per stratum × class, unique examples | frozen, audit on full pooled construction |
+| Corpus topology | common corpus (each utterance carries all three label sets) | resolved |
+| CMI formula & stratum thresholds | — | open — freeze before launch |
+| Language-ID treatment of borrowings/cognates | — | open — freeze before launch |
+| Profiling machine, precision, power mode | commodity workstation, no edge device | machine resolved; precision + power mode open — freeze before launch |
+| Primary dynamic method | PCGrad | fixed |
+| Primary latency baseline | sequential STL (all-resident) | resolved |

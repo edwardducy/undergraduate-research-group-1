@@ -1,0 +1,12 @@
+# Preface {.unnumbered}
+
+<!-- index.qmd is required by Quarto books: it becomes the HTML home page and
+     hosts the cover image. Put the preface, abstract, and acknowledgements here. -->
+
+## Abstract
+
+Placeholder for the abstract.
+
+## Acknowledgements
+
+Placeholder for acknowledgements.

@@ -1,0 +1,24 @@
+# Virtual environment
+.venv/
+__pycache__/
+.ruff_cache/
+
+# Quarto build output
+_book/
+.quarto/
+**/*.quarto_ipynb
+
+# ZCode session state
+.zcode/
+
+# Reference material: source paper PDFs, MinerU extractions, APA manual
+references/
+references-extracted/
+docs/
+
+# PDFs, except thesis figures
+*.pdf
+!manuscript/figures/**/*.pdf
+
+# macOS
+.DS_Store

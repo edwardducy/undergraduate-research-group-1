@@ -1,0 +1,383 @@
+# Methodology
+
+## Research Methodology
+
+This study is governed by the Design Science Research Methodology (DSRM) of @peffers2007design, with quantitative benchmarking as the empirical method carried out inside its design-and-development, demonstration, and evaluation phases. Design science research is the paradigm that produces *artifacts* — constructed things that solve an identified problem — and justifies them by measured performance against explicit criteria, rather than by testing theories of natural phenomena. The fit is direct: the study's deliverables are built systems whose worth can only be established by running them under controlled comparison. DSRM organizes such work into six phases — problem identification and motivation, definition of the objectives of a solution, design and development, demonstration, evaluation, and communication — with an explicit iteration path from evaluation back into earlier phases.
+
+The methodology is applied to a triple of artifacts. First, a self-annotated Taglish benchmark corpus: a common corpus spanning $K = 6$ typhoon events, in which every tweet carries all three label sets (named entities, intent, urgency), collected under a frozen retrospective protocol. Second, a unified multitask triage system: one shared SEA-LION-ModernBERT-300M encoder with three task heads, instantiated in six training arms — three single-task baselines, uniform scalarization, inner-fold tuned static scalarization, and PCGrad. Third, a pre-registered evaluation protocol that fixes folds, seeds, metrics, statistical tests, and decision rules before the first training run, so that the benchmark's verdicts are auditable rather than post hoc. Quantitative benchmarking is the empirical method through which the second and third artifacts are demonstrated and evaluated: all arms train on identical data, folds, and seeds — the three multitask arms differing only in the balancing mechanism under test, the single-task baselines training on the same corpus under their own task's labels — and are compared with the paired statistical machinery specified later in this chapter. The remainder of the chapter specifies these artifacts in execution order: the corpus and annotation scheme, the sampling design, the instruments, the data-gathering procedure, the statistical treatment, the analysis formulas, the software system, and the verification plan.
+
+The department's four study phases embed in the DSRM as follows. *Baseline Analysis* operationalizes problem identification and objectives (DSRM phases 1–2): the literature synthesis and gap analysis of Chapters 1–2 fix the research questions RQ1–RQ4, the objectives RO1–RO4, and the hypothesis set. *Design and Artifact Creation* is design and development (phase 3): corpus construction, annotation with its agreement gate, implementation of the six arms, and diagnostic instrumentation. *Empirical Benchmarking* is demonstration (phase 4): the arms are exercised on the leave-one-disaster-out folds, producing the logged measurements. *Comparative Validation* is evaluation (phase 5): the pre-registered tests convert those measurements into hypothesis verdicts and a deployment recommendation. *Communication* (phase 6) sits outside the four benchmarking phases and covers the thesis defense and the post-defense release of the corpus (tweet identifiers and annotations), the model card, and the code. @tbl-dsrm states the mapping in full.
+
+| DSRM phase | Study phase | Principal activities | Output |
+|---|---|---|---|
+| 1. Problem identification and motivation | Baseline Analysis | Synthesis of crisis-informatics, Taglish NLP, and multitask-balancing literature; gap analysis: event-level domain shift, aggregate-only reporting, unmeasured conflict–transfer coupling | Problem statement; RQ1–RQ4 (Chapter 1); gap synthesis (Chapter 2) |
+| 2. Define the objectives of a solution | Baseline Analysis | Objectives RO1–RO4; confirmatory/descriptive hypothesis partition; alignment matrix | Alignment matrix (@tbl-alignment); frozen constants registry |
+| 3. Design and development | Design and Artifact Creation | Retrospective acquisition and Taglish screen; annotation with IAA gate; six-arm implementation; gradient logging; profiling harness; freeze ladder | Benchmark corpus; unified triage system; pre-registered protocol |
+| 4. Demonstration | Empirical Benchmarking | All six arms across $K$ folds × $S$ seeds; out-of-domain evaluation per checkpoint; gradient diagnostics; inference-efficiency profiling | Per-run CSV/JSON logs; fold-level and pooled out-of-fold results |
+| 5. Evaluation | Comparative Validation | Exact paired sign-flip permutation; stratified bootstrap; non-superiority assessment; descriptive diagnostics | Hypothesis verdicts; stratified transfer profile; deployment recommendation |
+| 6. Communication | Thesis defense and release | Manuscript writing; defense; post-defense release packaging | Thesis; tweet identifiers + annotations; model card; code and configs |
+
+: Design Science Research Methodology (DSRM) phases mapped to the study's phases, activities, and outputs. {#tbl-dsrm}
+
+DSRM permits iteration from evaluation back into design, and this study bounds that iteration deliberately. Re-entry is confined to artifact engineering — annotation-guideline revision and re-annotation when inter-annotator agreement falls below its pre-specified threshold, or a single re-run of a training run that collapsed or produced non-finite losses — while the confirmatory analyses stay frozen as pre-registered: evaluation results never trigger changes to hypotheses, metrics, or decision rules.
+
+<!-- Fig. 3.1 (placeholder) — DSRM flow diagram: six phase boxes (problem identification → objectives → design and development → demonstration → evaluation → communication) with the four study phases banded alongside and Communication annotated "defense and release"; an evaluation→design iteration arrow labeled "artifact engineering only — pre-registered analyses frozen"; the artifact triple annotated on phase 3. Vector figure to be drawn before submission. -->
+
+## Subjects of the Study
+
+The subjects of this study are computational: a benchmark corpus of Taglish typhoon tweets and the three label sets it carries. No human respondents are surveyed or interviewed, and no model output characterizes individuals — the human participants (the thesis authors, in their role as annotators) appear below only as the instruments that produce the labels.
+
+### Corpus Definition
+
+The corpus is a *common corpus*: every tweet carries all three label sets — named entity spans, one intent class, and one urgency level — so $T = 3$ tasks are annotated over identical inputs. This topology is a design decision, not a convenience: because every arm trains on the same tweets, the single-task baselines are not data-starved, per-task negative transfer $\mathrm{NT}_t$ isolates interference rather than data differences, and identical per-seed batch ordering is constructible across arms.
+
+The corpus targets $N_{\text{corpus}} = 6{,}000$–$10{,}000$ Taglish tweets after language screening, roughly $1{,}000$–$1{,}700$ per event across the $K = 6$ typhoon events of the roster below (with a design minimum of 5, enforced by the test-resolution guard derived in the Sampling Technique section). The per-event harvest quota is set above these targets to absorb non-Taglish attrition, with the attrition rate audited against the historical harvest pool during the acquisition pilot described below.
+
+Inclusion is a rule of language, not geography: a tweet enters the corpus if and only if it passes the frozen Taglish screen — language identification plus code-mixing index bands, fixed before annotation begins. Region shapes which *events* are selected for the roster, but never filters individual tweets. The consequence is deliberate: an English–Tagalog mixed tweet posted during Odette in the Visayas is eligible, while a Cebuano tweet posted in Metro Manila is not. Non-Taglish Philippine disaster discourse (Bisaya, Ilocano, Bikol, Waray) is thereby out of scope by construction, a boundary choice restated among the delimitations in Chapter 1.
+
+### Event Roster
+
+Roster selection precedes collection, and its criteria were frozen before the roster locked. Five criteria govern admission: (i) *recency* — 2020–2024 events only, for tweet-identifier survival and modern Philippine Twitter penetration; (ii) *salience and volume* — PAGASA-retired names and NDRRMC situation-report casualty and damage records as salience proxies, with a target of at least $1{,}000$ post-screen tweets per event so that stratum-by-class support of $n \ge 25$ remains attainable; (iii) *language composition* — a deliberate skew toward Tagalog-belt events (Metro Manila, CALABARZON, Central Luzon) to protect the stratified hypothesis's tested strata (Tagalog-dominant, Mixed), with exactly one Visayas–Mindanao event of high international salience retained as the deliberately hardest out-of-domain fold; (iv) *cluster-overlap control* — at most two events per storm sequence; and (v) *hazard-type spread* across wind, flooding, storm surge, and landslides.
+
+| # | Event (PH / intl. name) | Date | Affected region | Hazard profile | Design role |
+|---|---|---|---|---|---|
+| 1 | Ulysses (Vamco) | Nov 2020 | NCR, Central Luzon | Widespread flooding, wind | Tagalog-belt urban-flood fold |
+| 2 | Rolly (Goni) | Nov 2020 | Bicol, CALABARZON | Super typhoon wind, storm surge | Most-intense-landfall contrast fold |
+| 3 | Odette (Rai) | Dec 2021 | Visayas, Northern Mindanao | Wind, surge, flooding | Deliberately hardest OOD fold (expected English-dominant skew) |
+| 4 | Karding (Noru) | Sep 2022 | Central Luzon | Rapid intensification, wind, flooding | Rapid-intensification fold |
+| 5 | Egay (Doksuri) | Jul 2023 | Northern Luzon | Southwest-monsoon-enhanced flooding | Monsoon-flood fold |
+| 6 | Carina (Gaemi) | Jul 2024 | NCR, CALABARZON | Severe urban flooding | Pre-lock acquisition-pilot event |
+
+: Primary event roster ($K = 6$), locked once the pre-lock acquisition pilot validates the acquisition route; each event targets ≥ 1,000 post-screen tweets. Pre-declared alternates — Kristine (Trami) 2024 and Pepito (Man-yi) 2024 — are activated in order if any primary event misses the post-screen or support thresholds; alternates only substitute, so $K$ can only decrease. {#tbl-roster}
+
+The Odette fold deserves its rationale on the record. Typhoon-affected Filipino tweeting is not monolingual in one direction: during Haiyan, the most internationally salient Philippine disaster on record, tweets were 87% English against 11% Filipino [@david2016tweeting], whereas Luzon-centric disaster studies report roughly three-quarters Filipino. Odette is selected *because* it is expected to reproduce that English-dominant, internationally watched profile — it is the fold where the domain shift is largest, and holding it out makes the leave-one-disaster-out estimate confront the hardest case rather than the average case.
+
+The roster table's composition columns — realized per-event counts, strata distribution, per-task class support, and the fold-by-region and fold-by-stratum contingency tables — are populated at corpus freeze and feed the pre-registered support audit described under Procedure of Data Gathering, before any training runs. A stratum found confounded with a single disaster is handled by the audit rule fixed in the research design: standardize within fold, or move the affected estimate to descriptive reporting.
+
+### Data Collection
+
+Collection is retrospective and historical. For each roster event, the harvest window is frozen at 24 hours before to 72 hours after $t_0$, the official PAGASA landfall declaration (first Philippine landfall for multi-landfall storms); exact $t_0$ timestamps are transcribed from official bulletins at acquisition time and recorded in the run manifest. Three acquisition routes are used as available: academic archive sharing, hydration of research-shared tweet-identifier collections [@imran2016twitter], and targeted historical retrieval. Queries are event-specific — event name and hashtag variants, plus location and distress terms in both Tagalog and English — with the full query set archived per event. Duplicates are removed, and personally identifiable information is redacted under a compliance policy governed by the Data Privacy Act of 2012 [@ra10173], stated in full under Procedure of Data Gathering.
+
+Feasibility is gated before the roster freezes. One event — Carina 2024 — is harvested end-to-end (retrieval, hydration, Taglish screening, pass-rate audit) as the pre-lock acquisition pilot; only a pilot that delivers the projected harvest pool validates locking the roster. If targeted retrieval cannot deliver, the documented fallback is officially shared historical tweet-identifier collections (for example, Internet Archive or DocNow event sets); third-party reseller APIs are excluded on platform-terms-of-service grounds. Live prospective streaming during future typhoons was considered and rejected: it would tie data availability to weather timing and defense schedules, an operational dependency the retrospective design avoids.
+
+### Annotation Scheme
+
+Three annotation tasks operate over the common corpus, at two granularities: named entity recognition is token-level (typed location and infrastructure mentions), while intent and urgency are sequence-level (one humanitarian-need class and one urgency level per tweet, respectively). The class inventories — the NER entity types and the intent and urgency class lists — are freeze-before-launch items fixed with the annotation guidelines before annotation begins; @tbl-annotation therefore states the schema and the agreement design now, with the frozen inventories appended to the guidelines document and the realized agreement statistics populated at annotation completion.
+
+| Task | Granularity | Prediction target | Label inventory | IAA statistic (three-rater panel) | Acceptance threshold |
+|---|---|---|---|---|---|
+| Named entity recognition | Token-level spans | Typed location and infrastructure mentions | Entity-type inventory — frozen with guidelines | Mean pairwise span-level Macro-F1 | ≥ 0.75 |
+| Intent classification | Sequence-level | One humanitarian-need class per tweet | Intent class inventory — frozen with guidelines | Fleiss' κ | ≥ 0.60 |
+| Urgency assessment | Sequence-level | One urgency level per tweet | Urgency class inventory — frozen with guidelines | Fleiss' κ | ≥ 0.60 |
+
+: Annotation scheme and inter-annotator agreement (IAA) design. Realized agreement is reported per task and per code-mixing stratum at annotation completion. {#tbl-annotation}
+
+### Annotation Protocol and Agreement
+
+The corpus is annotated by the five thesis authors — graduate researchers, bilingual in Tagalog and English, and co-authors of the guidelines — with no third-party annotators. The protocol proceeds in five steps: (1) a guideline training round on a calibration batch, after which guideline revisions are folded in; (2) production annotation, with the corpus divided among the five annotators and the assignment recorded; (3) an agreement round, in which a fixed panel of three authors independently re-annotates a pre-registered, event-stratified subsample (target of at least 20% of the corpus), blind to the primary labels; (4) agreement computation — Fleiss' κ for the two classification tasks (three raters) and mean pairwise span-level Macro-F1 for NER — reported per task and per stratum against the pre-specified thresholds of @tbl-annotation; and (5) adjudication, in which a consensus conference resolves the panel's remaining disagreements, adjudicated labels replace the subsample's primary labels, and systematic error patterns feed guideline clarifications applied corpus-wide. Agreement below threshold does not fail the corpus — it triggers guideline revision and re-annotation of the affected task before adjudication proceeds. Annotation tooling is named and versioned in the guidelines document and recorded in the run manifest.
+
+Because the annotators are the thesis authors and the data are public posts handled under the redaction policy, no human-subjects consent protocol applies; the legal basis for processing tweet authors' personal data is the Data Privacy Act compliance statement under Procedure of Data Gathering, and the institutional research-ethics-committee determination (application or exemption) is documented in the manuscript front matter.
+
+<!-- Fig. 3.2 (placeholder) — Annotation pipeline: harvest pool → Taglish screen (LID + CMI bands) → included corpus → guideline training/calibration round → production annotation (five authors, assignment recorded) → IAA round (fixed panel of three, blind, event-stratified ≥ 20%) → IAA computation vs. thresholds → [below threshold: guideline revision + re-annotation loop back to production annotation] → adjudication consensus conference → final frozen corpus → CMI stratification. Vector figure to be drawn before submission. -->
+
+### Code-Mixing Stratification
+
+After annotation, each tweet is assigned to one of three code-mixing strata — English-dominant, Mixed, Tagalog-dominant — by its code-mixing index. Three decisions are frozen before annotation begins, because they are simultaneously inclusion and stratification parameters: the CMI formulation itself, the stratum thresholds, and the language-identification treatment of borrowings and cognates — whether a borrowed or cognate token counts as matrix-language, embedded-language, or neutral, a choice that moves both screen passage and stratum assignment. Per-fold stratum composition is reported and feeds the stratified hypothesis's support audit. One circularity is acknowledged openly: the language screen is simultaneously the corpus inclusion rule and the stratification instrument, so the corpus CMI distribution is range-restricted by construction, and strata are interpreted within that restricted range rather than as a census of Philippine disaster tweeting — a delimitation already registered in Chapter 1.
+
+<!-- CITE: NDRRMC situation reports and PAGASA landfall bulletins (salience proxies; t₀ source) are not yet registered — add APA government-report entries (NDRRMC / ReliefWeb; PAGASA-DOST) per CHAPTER-SPECS §G5 before submission. -->
+
+## Sampling Technique
+
+The sampling design is leave-one-disaster-out (LODO) cross-validation over the locked event roster, and it deliberately overrides the departmental template's "four-fold" wording: this study uses $K = 6$ folds with a design minimum of five, because four folds cannot support exact paired inference at the 0.05 level — the arithmetic is stated below. One fold is constructed per roster event: that event's entire tweet set is held out as the out-of-domain test set, and the remaining $K - 1$ events form the training pool. Each event is held out exactly once, so every tweet is tested exactly once — in the fold where its event is the holdout. Event-level holdout is the point of the design: a random tweet-level split would place messages from the same typhoon on both sides of the split and measure within-disaster interpolation, whereas deployment confronts the model with a disaster it has never seen. LODO builds that confrontation into every test set by construction, so performance on a held-out event is an out-of-domain estimate.
+
+Within each fold, the training portion plays three roles: parameter fitting, model selection, and — for the tuned-scalarization arm — weight tuning. A 15% development split is drawn from the training events only, stratified jointly by disaster and label, drawn once and frozen before any experiment, and applied identically across all arms. Held-out-disaster data is never used for model selection. Early stopping follows each arm's own objective: a single-task arm monitors its own task's development Macro-F1, and a multitask arm monitors the unweighted mean of per-task development Macro-F1, mirroring the aggregate metric. This policy admits within-disaster development leakage by design; because the policy is identical across arms, the comparison estimand is protected, and absolute numbers are read as deployment-realistic — tuning on in-distribution data, testing on an unseen disaster.
+
+Each arm runs $S = 5$ seeds per fold, over identical data splits, per-seed batch ordering, training schedule, and early-stopping policy; identical batch ordering across arms is constructible precisely because of the common-corpus topology. Seed runs are then averaged within each fold, so each fold contributes one paired observation per comparison and the unit of inference is the fold, $N = K$. Averaging is deliberate rather than a convenience: seed replicates estimate run-to-run variance within a fold, and counting them as independent observations would inflate the apparent sample size — pseudo-replication that the exact tests of this design do not commit. Per-seed variation is not discarded; it feeds the frozen margin $\epsilon$ and the descriptive standard deviations reported alongside the fold-level tests (Statistical Treatment).
+
+The minimum fold count is a ceiling on achievable evidence, not an administrative preference. The confirmatory comparisons use an exact paired sign-flip permutation test: in plain language, the test takes the $K$ fold-level score differences and asks how extreme the observed arrangement is among all $2^K$ assignments of plus and minus signs, which under the null hypothesis are equally likely. The strongest evidence any study can produce with this test is all $K$ differences pointing the same way, which occurs with probability
+
+$$p_{\min} = 2^{-K}$$ {#eq-pmin}
+
+At $K = 4$, $p_{\min} = 0.0625$, above the 0.05 level: even if every fold favored the same arm, the test could never reject — which is why the template's four-fold wording is overridden here. Five folds lower the floor to 0.03125 and six to 0.015625. A guard clause completes the design: alternates only substitute for excluded primaries, so $K$ can only decrease — if run-integrity exclusions or data audits remove a disaster, $K \ge 5$ is re-verified before the roster re-locks, and adding seeds does not restore test resolution, which lives in $K$ alone.
+
+| Fold | Held-out event (OOD test) | Training events (dev drawn within) | Interpretive note |
+|---|---|---|---|
+| 1 | Ulysses 2020 | Rolly, Odette, Karding, Egay, Carina | November-2020 sequence sibling Rolly stays in training |
+| 2 | Rolly 2020 | Ulysses, Odette, Karding, Egay, Carina | Wind/surge profile held out |
+| 3 | Odette 2021 | Ulysses, Rolly, Karding, Egay, Carina | Training pool loses the English-dominant profile — largest shift |
+| 4 | Karding 2022 | Ulysses, Rolly, Odette, Egay, Carina | Rapid-intensification profile held out |
+| 5 | Egay 2023 | Ulysses, Rolly, Odette, Karding, Carina | Monsoon-flood profile held out |
+| 6 | Carina 2024 | Ulysses, Rolly, Odette, Karding, Egay | Most recent event held out — nearest deployment analogue |
+
+: Fold roster under the locked primary roster of @tbl-roster. Each event is held out exactly once; each fold yields one seed-averaged paired observation, so $N = K$. Alternate substitution replaces the affected event without changing the structure. {#tbl-folds}
+
+<!-- Fig. 3.3 (placeholder) — Fold construction diagram: corpus → per fold k (k = 1…6): event k held out as OOD test set | remaining five events → 15% disaster × label-stratified dev split (drawn once, frozen, identical across all arms) → training portion → six arms × S = 5 seeds (identical per-seed batch ordering) → seed averaging → one paired observation per fold → N = K. Show the six-fold cycle over the roster events. Vector figure to be drawn before submission. -->
+
+## Instruments to Be Used
+
+The instruments of this study are software measurement instruments — the timers, counters, profilers, and extraction routines that turn runs into numbers. The system under test is specified under Software System Description; this section names, for every quantity the results chapter reports, the instrument that measures it, the quantity it measures (its measurand), and the instrument's precision. Two disciplines govern all of them. Version parity: every tool rides the frozen training stack — PyTorch with Hugging Face Transformers, at version 4.48 or newer for ModernBERT support — held identical across all six arms, with tool versions, warm-up and trial counts, and sampling intervals frozen at launch and recorded in the run manifest, so no measurement can be confounded with a stack change. Non-interference: an instrument must not perturb the quantity it measures, a requirement that shapes the gradient-logging design below, where the instrumented run *is* the run.
+
+The measurement instruments proper, grouped by what they serve:
+
+*Gradient-conflict instrumentation (RQ4).* Per-task gradients are extracted at the final shared encoder layer, side-effect-free: the extraction reads the per-task gradients without altering the update the optimizer applies, so the instrumented uniform-scalarization arm is the same run that serves the aggregate comparisons, not a separate experiment. The measurand is the pairwise gradient cosine $\cos(g_i, g_j)$ per batch, aggregated into conflict frequency $\kappa_{i,j}$ per checkpoint window. If per-step extraction proves prohibitively costly, cosines are computed on a pre-registered number of batches per checkpoint window, sampled deterministically, with the subsample size frozen at launch. The cosine computation itself is exact floating-point arithmetic — its precision is a determinism property, not a noise property.
+
+*Inference-efficiency instrumentation (RQ2).* Latency is measured with a high-resolution monotonic clock (`time.perf_counter_ns`): monotonic, so wall-clock adjustments cannot contaminate trials; nanosecond resolution, reported in milliseconds as mean ± standard deviation over a frozen number of timed trials after warm-up runs amortize one-time costs; device execution synchronized at trial boundaries so the timer includes all queued accelerator work. The workload is frozen — batch size 1, every request exercising all three tasks. Memory uses two instruments by design. The framework counter (`torch.cuda.max_memory_allocated`) reports peak framework-allocated VRAM, byte-exact over allocator-tracked memory and reset between trials — the framework's internal view. The process monitor (`psutil` over `/proc`) samples peak resident set size at a frozen interval — the deployment-relevant view, which also captures runtime overheads outside the allocator. Both are reported in MB; the distinction matters because the footprint hypotheses concern the resident service, not the allocator.
+
+*Diagnostics.* PyTorch Profiler provides operator-level time and memory attribution — which operations dominate a step — in descriptive use only, supporting the stress checks under Testing and Evaluation; it is never a primary measurand.
+
+| Instrument | Measurand | Precision / resolution | Tool (version frozen at launch) |
+|---|---|---|---|
+| Per-task gradient extraction | Pairwise task-gradient cosines $\cos(g_i, g_j)$ at the final shared encoder layer, per batch; window-aggregated to $\kappa_{i,j}$ | Exact floating-point computation; deterministic batch subsample if enabled, size frozen at launch | Side-effect-free autograd extraction (PyTorch, frozen version) |
+| Monotonic latency timer | Batch-1 end-to-end latency, all three tasks per request | Nanosecond clock resolution; reported in ms, mean ± SD over a frozen trial count | `time.perf_counter_ns` (Python standard library) |
+| Framework memory counter | Peak framework-allocated VRAM per trial or run | Byte-exact over allocator-tracked memory; reset between trials | `torch.cuda.max_memory_allocated` (PyTorch, frozen version) |
+| Process memory monitor | Peak system RAM (RSS) of the serving process(es) | Sampled at a frozen interval; page-level resolution | `psutil` / `/proc` (frozen version) |
+| Operator-level profiler | Per-operator time and memory attribution | Microsecond-level event timestamps; descriptive use only | `torch.profiler` (PyTorch, frozen version) |
+
+: Measurement instruments mapped to measurands, precision, and tooling. All versions, trial counts, and sampling intervals are frozen at launch and recorded in the run manifest; the full environment specification is tabulated under Materials and Equipment. {#tbl-instruments}
+
+Consistent with the declared-or-rejected convention, three instrument families were considered and are recorded as not used. **MLPerf**, considered and rejected: it is a standardization suite for comparing hardware and system implementations under fixed reference workloads, whereas this study's comparisons are within-machine contrasts between deployment configurations of its own artifact, bound to the frozen all-three-tasks workload its estimand requires — suite membership would add constraint without adding validity to an arm-paired comparison. **TensorRT**, considered and rejected: it is an inference optimization stack (graph compilation, kernel fusion, precision conversion), and profiling through it would interpose an optimization pipeline between the trained artifact and the measurement, so latency and memory would characterize the optimizer rather than the model as trained; the deployment estimand is the artifact under its training framework's runtime on commodity hardware, and optimization-stack deployment is future work. **Edge and mobile profilers** (for example, Android Studio Profiler): not applicable — no edge device is profiled; edge deployment is out of scope by delimitation.
+
+## Procedure of Data Gathering
+
+The procedure is a nine-step chronological protocol from acquisition to release packaging, ending in automated log generation. Two gates bookend it: the pre-lock acquisition pilot of the previous section gates full-scale collection, and a launch checklist gates training. Binding the sequence together is the freeze ladder — three moments at which analytic choices lock before the evidence that could bias them exists. Each step below states what is done and what freezes.
+
+**Step 1 — Data acquisition (retrospective historical).** Official PAGASA/NDRRMC landfall timestamps are transcribed for the locked events, fixing $t_0$ per event; the frozen window from 24 hours before to 72 hours after $t_0$ (first Philippine landfall for multi-landfall storms) is harvested through the routes validated by the pre-lock pilot — research archive queries and tweet hydration. Duplicates are removed; a screen pass-rate audit quantifies Taglish attrition against the initial harvest pool, closing the loop on the attrition buffer set at quota time; personally identifiable information is redacted; and the corpus freezes with a manifest of content hashes. The redaction and handling policy implements the processing principles of the Data Privacy Act of 2012 [@ra10173]: collection is limited to publicly posted messages within the frozen windows through research-permitted routes; direct identifiers of private individuals are redacted from all working copies before annotation; released artifacts carry tweet identifiers and annotations but never tweet content; and the data are processed solely for the declared research purpose, with no profiling of individuals.
+
+**Step 2 — Pre-processing.** Deterministic cleaning rules are frozen with the pipeline code and applied identically across all arms; tweets are tokenized with the encoder's own tokenizer; language identification feeds the code-mixing index computation; and strata are assigned. The first rung of the freeze ladder lands here: the LID screen and CMI stratum thresholds — including the borrowing and cognate treatment — freeze before any annotation begins, because they are simultaneously the corpus inclusion rule and the stratification instrument.
+
+**Step 3 — Annotation.** The five-step protocol of the previous section executes in full: guideline training round, production annotation, inter-annotator agreement round against pre-specified thresholds, adjudication, final labels.
+
+**Step 4 — Fold construction and support audit.** Leave-one-disaster-out folds are assigned per the fold roster; the 15% development splits are drawn once and frozen. The pre-registered stratum × class support audit then executes before any training: unique-example counting (for NER, an example supports an entity type if it contains at least one span of that type — never seed replicates), the fold × stratum contingency table, and the confound rule — a stratum confounded with a single disaster is standardized within fold or moved to descriptive reporting.
+
+**The freeze ladder.** Three freezes bind the protocol: (1) the LID screen and CMI thresholds freeze before annotation (Step 2); (2) the support audit locks the stratified hypothesis family after annotation, before any training (Step 4) — cells below $n = 25$ in the Tagalog-dominant or Mixed strata drop to descriptive and out of the tested family; (3) the margin $\epsilon$ freezes after all $K$ single-task runs and before the first multitask run (Step 5). Together the rungs ensure every analytic degree of freedom is spent before the comparative evidence exists.
+
+**Step 5 — Execution protocol.** A launch checklist gates production runs: the encoder pilot gate (tokenizer fertility probe of at least 500 sampled tweets per stratum against one multilingual baseline; three short single-task pilot fine-tunes, one per task, checking convergence without collapse; a footprint probe on the training node and candidate profiling machine — the 600M encoder variant is reachable only through this gate), plus version, trial-count, and subsample-size freezes recorded in the run manifest. Execution then orders itself inferentially: *all* $K$ single-task runs complete first, because $\epsilon$ is frozen at $1.5\times$ the pooled seed-level standard deviation of STL Macro-F1 computed across all $K$ folds (computation documented in the appendix; no illustrative value survives). Multitask arms follow — uniform, tuned static, PCGrad — their internal order carrying no inferential consequence, since they are independent runs. Every arm tunes over an identical learning-rate × weight-decay grid with an identical budget, grid points evaluated at one seed per point and only the selected configuration re-run at $S$ seeds; the tuned-scalarization arm searches its weights strictly by inner resampling within training folds. Budget parity is not bookkeeping: the tuning budget moves conclusions more than seed choice [@xin2022current]. Gradient logging rides the uniform arm throughout, in $C = 15$–$20$ checkpoint windows spaced on matched fractions of each run's realized optimizer steps. The run-integrity policy is fixed in advance: a run that diverges (non-finite loss) or collapses — more than 95% of predicted labels in one class on the task's development split, or for NER more than 95% of predicted spans of one type or no spans — is re-run once at the same seed and logged, with exclusion criteria pre-specified.
+
+**Step 6 — Evaluation.** Out-of-domain Macro-F1 is computed per checkpoint window on each fold's held-out event, feeding the checkpoint-matched analyses of the diagnostic objective; final-model evaluation yields the fold-level observations of the confirmatory tests; and the pooled out-of-fold construction assembles stratified predictions in which each example contributes exactly one prediction — from the fold where its disaster was held out — with support counted in unique examples.
+
+**Step 7 — Inference-efficiency profiling.** On the profiling machine: warm-up runs amortize one-time costs, then a frozen number of timed trials measures batch-1, all-three-tasks-per-request latency and peak memory in each serving configuration — all-resident sequential as the primary baseline, concurrent execution reported only if it completes without memory contention (no swapping or out-of-memory; otherwise documented as infeasible on the hardware), and load/unload swapping profiled descriptively, with no footprint claim made against it. Instruments are those of the previous section.
+
+**Step 8 — Logging.** Every run and every trial emits structured CSV/JSON logs automatically; no number passes through manual transcription between execution and analysis. Table @tbl-logs fixes the schema.
+
+| Log (file) | Key fields | Unit |
+|---|---|---|
+| Run manifest (JSON) | arm; fold; seed; encoder checkpoint hash; framework and tool versions; frozen constants (trial counts, subsample sizes; $\epsilon$ once set) | metadata |
+| Training log (CSV) | global step; epoch; per-task mean-reduced loss; per-task dev Macro-F1; early-stop signal | loss unitless; F1 ∈ [0, 1] |
+| Checkpoint metrics (CSV) | fold; seed; checkpoint window $c$; fraction of realized optimizer steps; per-task OOD Macro-F1; aggregate Macro-F1 | F1 ∈ [0, 1] |
+| Gradient log (CSV) | fold; seed; window $c$; task pair $(i, j)$; window-mean cosine; conflict frequency $\kappa_{i,j}$; batches sampled | cosine ∈ [−1, 1]; $\kappa$ ∈ [0, 1] |
+| Efficiency trials (CSV) | configuration (sequential / concurrent / load-unload); trial index; latency; peak VRAM; peak RSS | ms; MB |
+| Corpus manifest (JSON) | tweet identifier; event; screen decision; CMI; stratum; label-set hashes | CMI % |
+
+: Log schema: automated emission per run and per trial, from execution directly into analysis. {#tbl-logs}
+
+**Step 9 — Release packaging (post-defense).** The corpus is released as tweet identifiers plus annotations only — never tweet content — following the dehydrate/hydrate convention standard for research Twitter collections [@imran2016twitter], together with a Datasheet for Datasets recording collection windows, per-event screen pass rates, and a current-API hydration-access note for downstream users. The unified model ships with a model card; code, configurations, seeds, and run manifests are released under open licenses for reproducibility.
+
+<!-- Fig. 3.4 (placeholder) — Procedure flowchart: Steps 1–9 left-to-right or top-to-bottom, with the two gates and three freeze-ladder rungs marked on the timeline: acquisition pilot gate before Step 1; rung 1 (LID + CMI thresholds) between Steps 2 and 3; rung 2 (support audit locks H1b family) at end of Step 4; launch checklist gate (encoder pilot: fertility probe, three STL pilot fine-tunes, footprint probe) before Step 5 production runs; rung 3 (ε freeze) inside Step 5 between the STL block and the MTL block; Steps 6–8 evaluation/profiling/logging fed by the same runs; Step 9 post-defense release. Vector figure to be drawn before submission. -->
+
+## Statistical Treatment
+
+The machinery of this section is pre-registered and operates on one unit of inference throughout: the fold, $N = K = 6$ with a design minimum of five. Its reporting practice follows what the NLP literature has made explicit — fit the test to the data's structure instead of defaulting to a familiar one [@dror2018hitchhiker]; report the experimental setup and results completely enough to reanalyze [@dodge2019show]; and acknowledge statistical power up front rather than discover it after the fact [@card2020power]. Accordingly, every test below is first stated in plain language, then formally.
+
+### Primary Machinery
+
+The confirmatory instrument is the exact paired sign-flip permutation test, whose logic the Sampling Technique section introduced: under the null, each fold's paired difference is equally likely to carry either sign, so the observed mean difference is compared against all $2^K$ re-signings. Formally, with fold-level paired differences $d_1, \dots, d_K$ and $\bar{d}$ their mean, the one-sided p-value is
+
+$$p \;=\; \frac{1}{2^{K}} \sum_{\mathbf{s} \in \{\pm 1\}^{K}} \mathbf{1}\!\left[ \frac{1}{K} \sum_{k=1}^{K} s_k\, d_k \;\ge\; \bar{d} \right]$$ {#eq-signflip}
+
+at one-sided $\alpha = 0.05$. Three confirmatory hypotheses use it, each with its explicit pair:
+
+- **H1a** (aggregate superiority), on $d_k$ = fold-level MTL − STL aggregate Macro-F1: $H_0\colon \mu_{\mathrm{MTL}} - \mu_{\mathrm{STL}} \le 0$ versus $H_1\colon > 0$. If the test fails to reject, the difference is reported with its confidence interval and assessed against the H2b retention bound; "non-inferiority" language is reserved for H2b.
+- **H3a** (aggregate optimization contrast), on $d_k$ = PCGrad − uniform aggregate Macro-F1: $H_0\colon \mu_{\mathrm{agg}}(\mathrm{PCGrad}) - \mu_{\mathrm{agg}}(\mathrm{Uniform}) \le 0$ versus $H_1\colon > 0$. The hypothesis is stated on the aggregate directly because, as Data Analysis restates, the fold-level difference in summed negative transfer between two multitask arms is algebraically $T$ times the aggregate difference — a transfer-framed test would measure the same quantity under a different label.
+- **H4a** (granularity asymmetry), on $d_k = \bar\kappa_{\mathrm{NER,seq}} - \bar\kappa_{\mathrm{seq,seq}}$: $H_0 \colon \bar\kappa_{\mathrm{NER,seq}} \le \bar\kappa_{\mathrm{seq,seq}}$ versus $H_1\colon >$, where the NER–sequence side averages the two token/sequence-level pairs, and all three pairwise $\bar\kappa_{i,j}$ are reported alongside because the two NER–sequence pairs share the NER gradient and are correlated.
+
+Error control is declared, not defaulted: H1a, H3a, and H4a are standalone confirmatory tests, each controlled at one-sided $\alpha = 0.05$, with no family-wise correction across hypotheses — three distinct claims, each individually controlled — while the one multiplicity that does exist, H1b's two strata, is Holm-corrected. The resolution floor is $p_{\min} = 2^{-K}$ (0.0156 at $K = 6$).
+
+Per-task negative transfer supplies the interference readout between the aggregate tests. In plain language, it is how much worse the shared model is on a task than that task's dedicated model, per fold:
+
+$$\mathrm{NT}_t^{(k)} = \mathrm{F1}_{\mathrm{STL},t}^{(k)} - \mathrm{F1}_{\mathrm{MTL},t}^{(k)}$$ {#eq-ntt}
+
+seed-averaged within fold. It is reported per task with fold-level confidence intervals and carries no per-task confirmatory test: at $N = K$ the design reserves inference for the aggregate contrasts, while the per-task values answer whether an aggregate win conceals a task still suffering $\mathrm{NT}_t > 0$.
+
+### Stratified and Non-Superiority Assessments
+
+**H1b (stratified transfer).** The stratified family uses a one-sided *cluster-paired bootstrap*: in plain language, redraw the $K$ fold identifiers with replacement many times, recompute *both* arms' stratified Macro-F1 on the same redraw, and read the confidence bound from the distribution of within-redraw deltas —
+
+$$\Delta_{\mathrm{stratum}}^{(b)} = \mathrm{F1}^{*(b)}_{\mathrm{MTL}} - \mathrm{F1}^{*(b)}_{\mathrm{STL}}, \qquad b = 1, \dots, B$$ {#eq-bootstrap}
+
+— where each replicate $b$ redraws fold identifiers with replacement, so every delta stays within-replicate paired. H1b is supported within a stratum iff its one-sided lower bound excludes zero, evaluated on the pooled out-of-fold construction for the Tagalog-dominant and Mixed strata, Holm-corrected across the two: the smaller-$p$ stratum must clear a 97.5% one-sided bound, the larger-$p$ stratum 95%; if the pre-registered support audit collapsed the family to one stratum, that single test runs at 95%. The English-dominant stratum is reported as a descriptive contrast and is never part of the tested family. A sign-flip permutation on fold-level stratum deltas is reported alongside as a robustness check.
+
+**H3b (non-superiority against tuned static scalarization).** In plain language, H3b does not ask whether PCGrad beats the tuned static arm; it asks whether an advantage beyond the frozen margin $\delta_{\mathrm{opt}} = 0.01$ aggregate Macro-F1 can be ruled out. The fold-level paired difference (PCGrad − tuned) is reported with a 90% two-sided confidence interval — equivalent to two one-sided tests at $\alpha = 0.05$ — with support ruled by
+
+$$\text{non-superiority: } \mathrm{CI}^{\mathrm{upper}}_{90\%} < \delta_{\mathrm{opt}} \qquad \text{practical equivalence: additionally } \mathrm{CI}^{\mathrm{lower}}_{90\%} > -\delta_{\mathrm{opt}}$$ {#eq-tost}
+
+where the second, stronger conclusion is the TOST-style equivalence reading. The expectation follows the tuning-parity literature [@xin2022current; @kurin2022defense]. Its power is stated honestly rather than assumed [@card2020power]: the interval is a paired t-interval at $K - 1$ degrees of freedom, whose half-width at $K = 6$ is $\approx 0.82 \times \mathrm{SD}_{\mathrm{diff}}$, so support additionally requires $\mathrm{SD}_{\mathrm{diff}} \lesssim 0.012$. Failure of support is itself an interpretable result — a genuine advantage, or honest imprecision — not a design failure.
+
+### Descriptive Assessments
+
+**H2b (bounded degradation).** Retention holds iff every task satisfies $\Delta \mathrm{F1}_t \ge -\epsilon$, with $\epsilon$ frozen at $1.5\times$ the pooled STL seed-level standard deviation after all single-task runs (third rung of the freeze ladder). The verdict is descriptive: each task's point estimate is reported with its 95% confidence interval so estimation uncertainty stays visible, and no inferential test is attached.
+
+**H4b (transfer coupling).** Supported iff the median of the per-(run, task) lead–lag Spearman correlations — between $\kappa_t(c)$ and the forward change $\Delta \mathrm{F1}_t(c \to c{+}1)$ across checkpoint-window boundaries — is negative, with the full distribution (median, interquartile range over $K \times S \times T$ values) and trajectory visualizations reported. The concurrent level-level correlation is reported descriptively with its caveat: both series trend with training progress and are autocorrelated, so $n = C$ overstates the effective sample size. An optional sign-flip permutation on fold-mean correlations provides an inferential check without pooled-observation testing. The competing hypothesis is pre-registered — gradient conflict and negative transfer need not be strongly coupled, and conflict can be benign [@jiang2023forkmerge] — so a near-zero or positive median is an interpretable outcome, not a null failure.
+
+### Conventional Tests Considered and Rejected
+
+Four conventional alternatives were considered and are recorded as rejected. A **paired t-test**: at $K = 6$, the normality and standard-deviation stability its p-values assume are untenable, while the exact permutation test attains the same resolution without distributional assumptions. **Wilcoxon signed-rank as primary**: reported for every confirmatory comparison as a robustness check, but the permutation test is preferred at identical resolution and preserves the differences' magnitudes rather than converting them to ranks. **Pooled-over-observations tests** (over tweets or seed replicates): these ignore fold clustering — the pseudo-replication argued against in the Sampling Technique section — and would manufacture significance from within-fold correlation. **Mixed or hierarchical models** with random fold effects: statistically the natural machinery for clustered designs, but not estimable at $K = 6$ with pre-registered primaries; this is acknowledged as a limitation of the design's resolution, accepted deliberately so that exact, assumption-free inference remains available.
+
+Every confirmatory verdict therefore travels with its robustness check — Wilcoxon alongside each permutation test, sign-flip checks alongside the bootstrap family — so no verdict rests on a single statistic. @tbl-hypmap states the full map.
+
+| Hypothesis | Test | Statistic | α | Decision rule |
+|---|---|---|---|---|
+| H1a (confirmatory) | Exact paired sign-flip permutation | $\bar{d}$ of fold-level MTL − STL aggregate Macro-F1, one-sided | 0.05 (one-sided) | Reject $H_0$ iff $p < 0.05$; on failure, report CI and assess against the H2b bound |
+| H1b (confirmatory, stratified) | One-sided cluster-paired bootstrap CI | Pooled out-of-fold stratum delta (MTL − STL), per stratum | 0.05, Holm across strata (97.5% / 95%) | Support iff each tested stratum's lower bound excludes 0; collapsed family reverts to a single 95% test; sign-flip robustness reported |
+| H3a (confirmatory) | Exact paired sign-flip permutation | $\bar{d}$ of PCGrad − uniform aggregate Macro-F1, one-sided | 0.05 (one-sided) | Reject $H_0$ iff $p < 0.05$ |
+| H3b (non-superiority) | 90% two-sided CI (TOST-equivalent) | Fold-level paired PCGrad − tuned aggregate, $\delta_{\mathrm{opt}} = 0.01$ | 0.05 (two one-sided) | Non-superior iff CI upper $< \delta_{\mathrm{opt}}$; practical equivalence iff also CI lower $> -\delta_{\mathrm{opt}}$ |
+| H4a (confirmatory) | Exact paired sign-flip permutation | $\bar\kappa_{\mathrm{NER,seq}} - \bar\kappa_{\mathrm{seq,seq}}$, fold-level, one-sided | 0.05 (one-sided) | Reject $H_0$ iff $p < 0.05$; all three pairwise $\bar\kappa_{i,j}$ reported alongside |
+| H2a (descriptive) | — (no test) | Peak-memory and latency reduction vs. all-resident sequential | — | Expectation of ≥ 50% under the frozen all-resident protocol; reported as measured |
+| H2b (descriptive bound) | — (no test; 95% CIs displayed) | Per-task $\Delta \mathrm{F1}_t$ vs. $-\epsilon$ | — | Retention holds iff every task clears $-\epsilon$ |
+| H4b (descriptive) | — (distribution reported) | Median lead–lag Spearman over $K \times S \times T$ (run, task) pairs | — | Supported iff median < 0; IQR and trajectories reported; optional fold-mean sign-flip check |
+
+: Hypothesis-to-test map. The first five rows are the declared confirmatory and non-superiority machinery; the last three are declared descriptive and are never presented as significance tests. {#tbl-hypmap}
+
+## Data Analysis
+
+Statistical Treatment supplies the inferential machinery; this section fixes the metric registry — every quantitative formula the results chapter computes, with its formula and granularity. All metrics are arm-agnostic: they are computed identically for every arm, and nothing in this section privileges the multitask system over its baselines or vice versa.
+
+### Task Metrics
+
+Intent and urgency are scored by classification Macro-F1. For each class $c$ with precision $P_c$ and recall $R_c$, $F1_c = 2P_cR_c / (P_c + R_c)$, and $\mathrm{Macro\text{-}F1} = \frac{1}{|C|}\sum_c F1_c$ — in plain language, the unweighted average of per-class F1, so a rare class counts as much as a frequent one. Named entity recognition is scored by span-level Macro-F1: a predicted span counts as correct only if its boundaries *and* type exactly match a gold span — partial overlaps score zero — with F1 computed per entity type and macro-averaged over types. The model must find the mention and name its type; near-misses earn nothing.
+
+The aggregate is the unweighted mean over tasks, $\mathrm{agg} = \frac{1}{T}\sum_t F1_t$, with NER at span level and the classification tasks at message level. Unweighted is the design's stance, not a convenience: task parity means no task dominates the aggregate by having more classes or more data.
+
+### The Pooled Out-of-Fold Construction
+
+Stratified estimates ride on the pooled out-of-fold construction: each example contributes exactly one prediction, produced by the arm trained on the fold in which that example's disaster was held out. The construction therefore covers the entire corpus with every example scored exactly once, out-of-domain by construction. Stratified Macro-F1 is computed per stratum on this pooled set — per seed, then averaged over seeds — and support is counted in unique examples, with an NER example supporting an entity type iff it contains at least one span of that type. This is the substrate on which H1b's cluster-paired bootstrap rides, and the pre-registered support threshold ($n \ge 25$ unique examples) gates which stratum-by-class cells enter the tested family.
+
+### Transfer Quantities
+
+Per-task negative transfer @eq-ntt is the interference readout, and its aggregate relatives are algebraic bookkeeping with one identity worth stating. The mean multitask gain is $\Delta\mathrm{MTL} = -\frac{1}{T}\sum_t \mathrm{NT}_t$, and for any two multitask arms $A$ and $B$,
+
+$$\sum_t \mathrm{NT}_t^{(A)} - \sum_t \mathrm{NT}_t^{(B)} \;=\; T \times \big( \mathrm{agg}_B - \mathrm{agg}_A \big)$$ {#eq-ntidentity}
+
+because the single-task term cancels. Aggregate negative transfer is therefore a re-parameterized aggregate Macro-F1 gap, not an additional measurement — which is why the optimization contrast is tested on the aggregate directly — while per-task $\mathrm{NT}_t$, with fold-level confidence intervals, carries the actual interference information.
+
+Checkpoint dynamics are measured by the forward change $\Delta \mathrm{F1}_t(c \to c{+}1) = \mathrm{F1}_t(c{+}1) - \mathrm{F1}_t(c)$ between consecutive checkpoint windows, with windows matched by fraction of realized optimizer steps so that trajectories are comparable across arms despite per-epoch data differences. Each run contributes $C - 1$ window boundaries.
+
+### Gradient-Conflict Diagnostics
+
+From the logged per-batch cosines $\cos(g_i, g_j)$ at the final shared layer, the conflict frequency of a task pair in window $c$ is $\kappa_{i,j}(c) = \Pr[\cos(g_i, g_j) < 0]$ over the window's batches, and a task's own conflict load is the mean over its two pairs, $\kappa_t(c) = \mathrm{mean}_{j \ne t}\, \kappa_{t,j}(c)$. The window-mean cosine is reported alongside $\kappa$ throughout: a sign-only frequency discards magnitude, and task gradients are frequently near-orthogonal ($\cos \approx 0$), which leaves $\kappa$ little dynamic range [@jiang2023forkmerge]. The lead–lag statistic is the Spearman correlation, per (run, task), between $\kappa_t(c)$ and $\Delta \mathrm{F1}_t(c \to c{+}1)$ across the run's $C - 1$ boundaries — differencing both series at the boundaries is what removes shared monotone drift in checkpoint index — with the distribution over all $K \times S \times T$ (run, task) pairs summarized by median and interquartile range.
+
+### Efficiency Measures
+
+Per serving configuration, latency is the mean ± standard deviation of trial latencies in milliseconds, and peak memory is the larger of the trial peaks in megabytes, reported separately as framework-allocated VRAM and system RSS. The footprint quantities of H2a are reductions against the all-resident sequential baseline, computed as $1 - M_{\mathrm{unified}} / M_{\mathrm{seq}}$ for memory and the same form for latency; no memory claim is made against the load/unload variant.
+
+### The Frozen Margin and Tokenizer Fertility
+
+The retention margin is computed once, after all single-task runs: pool the per-(fold, task) seed-level variances of STL Macro-F1 across all $K$ folds and $T$ tasks, $\epsilon = 1.5 \times \sqrt{\tfrac{1}{KT} \sum_{k,t} s^2_{k,t}}$, with the per-task seed standard deviations reported alongside and the full computation documented in the appendix. Tokenizer fertility — total subword tokens divided by total words, computed per stratum — is reported descriptively as the explanatory variable behind stratified transfer differences: it quantifies how differently the tokenizer segments each stratum's language mix. @tbl-metrics fixes the registry.
+
+| Metric | Formula | Granularity | Serves |
+|---|---|---|---|
+| Classification Macro-F1 (Intent, Urgency) | $\frac{1}{|C|}\sum_c F1_c$, $F1_c = 2P_cR_c/(P_c{+}R_c)$ | message-level | all aggregates |
+| Span-level Macro-F1 (NER) | exact (start, end, type) match; macro over entity types | span-level | all aggregates |
+| Aggregate Macro-F1 | $\mathrm{agg} = \frac{1}{T}\sum_t F1_t$ | model-level per fold | H1a, H3a, H3b |
+| Stratified Macro-F1 | pooled out-of-fold construction; per seed, seed-averaged; support in unique examples, $n \ge 25$ | stratum-level | H1b |
+| Negative transfer $\mathrm{NT}_t$ | $\mathrm{F1}_{\mathrm{STL},t} - \mathrm{F1}_{\mathrm{MTL},t}$, seed-averaged per fold | task-level per fold | RQ3 readout |
+| Aggregate transfer identity | @eq-ntidentity | model-level | H3a framing |
+| Forward change $\Delta\mathrm{F1}_t(c \to c{+}1)$ | $\mathrm{F1}_t(c{+}1) - \mathrm{F1}_t(c)$, checkpoint-matched | task × window | H4b |
+| Conflict frequency $\kappa_{i,j}(c)$, $\kappa_t(c)$ | $\Pr[\cos(g_i, g_j) < 0]$ per window; $\kappa_t(c) = \mathrm{mean}_{j \ne t}\, \kappa_{t,j}(c)$ | pair / task × window | H4a, H4b |
+| Lead–lag correlation | Spearman $\rho(\kappa_t(c),\, \Delta\mathrm{F1}_t(c \to c{+}1))$ over $C{-}1$ boundaries | run × task | H4b |
+| Latency | mean ± SD over trials | serving configuration | H2a |
+| Peak memory | trial peak, VRAM and RSS separately | serving configuration | H2a |
+| Footprint reduction | $1 - M_{\mathrm{unified}}/M_{\mathrm{seq}}$ (same form for latency) | serving configuration | H2a |
+| Retention margin $\epsilon$ | $1.5 \times \sqrt{\tfrac{1}{KT}\sum_{k,t} s^2_{k,t}}$ | frozen constant | H2b |
+| Tokenizer fertility | subwords per word, per stratum | corpus stratum | H1b (descriptive, explanatory) |
+
+: Metric registry: every quantity the results chapter computes, with formula and granularity. Inference machinery is @tbl-hypmap's; metrics are computed identically for every arm. {#tbl-metrics}
+
+## Software System Description
+
+The artifact is described here as software, in three views: its structure (blocks and their connections), its usage (actors and use cases), and its environment (materials and equipment). The description is deliberately implementation-agnostic where the design has frozen behavior — arm construction, seed handling, logging — and deliberately specific where the design has frozen identity: one encoder checkpoint, one hash, six arms.
+
+### System Structure
+
+The system decomposes into a data plane, a model core, and two orchestrators. The *data plane* carries ingestion through deduplication, the Taglish screen (language identification plus CMI bands), pre-processing, and stratum assignment into the frozen corpus store — the pipeline of the Procedure of Data Gathering, Steps 1–2. The *model core* is one shared encoder — SEA-LION-ModernBERT-300M, the base pretrain under the MIT license from AI Singapore [@aisingapore2026sealion], not the contrastive embedding variants — with three task heads: a token-classification head for NER, and sequence-classification heads for intent and urgency. A single encoder checkpoint serves all six arms: the multitask arms read all three label sets through their heads, each single-task baseline pairs the same encoder with one head, and head construction is identical across multitask and single-task arms by the frozen architecture-parity rule. The checkpoint's hash is pinned in the run manifest, so "same encoder" is a verifiable property of every logged run, not a claim.
+
+The *training orchestrator* executes the benchmark: six arms (three single-task baselines, uniform scalarization, inner-fold tuned static scalarization, and PCGrad) across the fold × seed grid of the seed manifest, riding the uniform arm with side-effect-free gradient logging and enforcing the run-integrity policy. The *serving orchestrator* assembles the inference-efficiency comparison from trained artifacts: the unified model served alone, versus the three single-task models loaded simultaneously and invoked in turn (the all-resident sequential primary baseline), with concurrent execution and load/unload swapping as the conditional and descriptive variants of the Procedure's Step 7.
+
+<!-- Fig. 3.5 (placeholder) — System block diagram: data plane (ingestion → dedup → Taglish screen [LID + CMI] → pre-processing/stratification → frozen corpus store) → model core (shared SEA-LION-ModernBERT-300M encoder + NER token head + Intent head + Urgency head; checkpoint hash pinned) ← training orchestrator (six arms, seed manifest, gradient logging, run-integrity policy) and → serving orchestrator (unified single-model serving; all-resident sequential; concurrent conditional; load/unload descriptive) → automated logs per Table 3.6 schema. Vector figure to be drawn before submission. -->
+
+The architecture's parameter budget deserves one note the evaluation depends on. The encoder uses the Gemma-3 SentencePiece vocabulary of 262,144 entries against the base configuration's 768-dimensional hidden size, so the embedding matrix alone is $\approx 2.0 \times 10^8$ parameters — roughly two-thirds of the model's $\approx 3 \times 10^8$ total — and $\approx 805$ MB at fp32 before any activation memory. Two consequences follow: the shared-encoder design's memory argument is dominated by exactly this matrix (one copy resident instead of three), and checkpoint size should not be mistaken for compute cost, since the matrix is looked up rather than multiplied through during most of the forward pass.
+
+<!-- Fig. 3.6 (placeholder) — Neural architecture diagram with parameter counts: tokenizer (Gemma-3 SentencePiece, 262K entries) → embedding matrix (262,144 × 768 ≈ 201M parameters; ≈ 805 MB fp32; ≈ two-thirds of total — exact counts pinned from the frozen checkpoint hash at launch) → ModernBERT encoder stack (base configuration; layer count and exact parameter total pinned from checkpoint) → three heads drawn to scale (token-classification NER; sequence-classification Intent; sequence-classification Urgency; identical construction in MTL and STL; trained from scratch). Annotate the loss surface: L = mean of per-task mean-reduced losses with arm-specific weights w_t / PCGrad projection. Vector figure to be drawn before submission. -->
+
+### Use Cases
+
+Three actors use the system. The *response analyst* is the domain end user who queries triage output — filtered and ranked messages, not decisions; the artifact remains a sorting instrument whose output a human reads. The *system operator* launches and monitors benchmark arms and efficiency profiles. The *MLOps worker* is the automated pipeline role that executes runs, evaluates checkpoints, and emits logs; it is drawn as an actor because its interactions with the system are specified and tested like any other.
+
+| Use case | Actor | Precondition | Main flow | Exception |
+|---|---|---|---|---|
+| Query triage output | Response analyst | Unified model serving scored messages | Submit a filter (intent class, urgency level, entity or area); system returns matching messages with labels and confidences; analyst reviews the ranked list | No matches clear the confidence floor: system reports an empty set; analyst widens the filter |
+| Run benchmark arm | System operator | Run manifest frozen; corpus and folds frozen; launch checklist cleared | Select arm × fold × seed from the manifest; launch the training orchestrator; monitor to completion; verify log emission | Run diverges or collapses: run-integrity policy re-runs once at the same seed; a second failure excludes the run per pre-specified criteria |
+| Execute evaluation and logging | MLOps worker | Completed run with checkpoints | Evaluate OOD Macro-F1 per checkpoint window; emit CSV/JSON logs per the schema; register the run in the manifest | Schema validation fails: halt, flag the run, no silent repair |
+| Run efficiency profile | System operator | Trained artifacts available; profiling machine in its frozen power mode and precision | Load the serving configuration; warm up; run the frozen number of timed trials; emit the efficiency log | Concurrent configuration hits memory contention (swapping or out-of-memory): documented as infeasible on the hardware and skipped per protocol |
+
+: Use-case specifications for the three actors. {#tbl-usecases}
+
+<!-- Fig. 3.7 (placeholder) — UML use-case diagram: actors Response Analyst, System Operator, MLOps Worker; use cases Query triage output; Run benchmark arm (extended by «extend» Re-run on collapse); Execute evaluation and logging; Run efficiency profile (extended by «extend» Skip concurrent on contention). Vector figure to be drawn before submission. -->
+
+### Materials and Equipment
+
+The benchmark trains and profiles on commodity hardware only; no edge device is profiled, and edge deployment remains future work by delimitation. @tbl-environment fixes the environment schema. Exact values — OS, Python, PyTorch and Transformers versions (Transformers at 4.48 or newer, required for ModernBERT), CUDA, GPU models, VRAM bounds, power mode, and inference precision — are frozen at launch, recorded in the run manifest, and held identical across arms; the profiling machine is the same node or a second commodity workstation, decided at launch, with its inference precision frozen and identical across every profiled configuration. As with the corpus tables, the table states the schema now and is populated at the launch freeze; the encoder checkpoint hash rides the same manifest.
+
+| Item | Training node | Profiling machine |
+|---|---|---|
+| Role | Six-arm benchmark training, gradient logging | Inference-efficiency profiling (Step 7 configurations) |
+| Machine | Commodity GPU workstation, single node | Same node or second commodity workstation, decided at launch |
+| OS, Python, CUDA | Frozen at launch, recorded in run manifest | Identical frozen stack |
+| PyTorch / Transformers | Frozen at launch; Transformers ≥ 4.48 (ModernBERT) | Identical versions |
+| GPU, VRAM bounds, system RAM | Frozen at launch, recorded in run manifest | Frozen at launch; VRAM bounds respected by all serving configurations |
+| Precision | Training precision frozen at launch | Inference precision frozen, identical across all profiled arms |
+| Power mode | Not controlled | Frozen and recorded (stable-power profile) |
+| Encoder checkpoint | SEA-LION-ModernBERT-300M, hash pinned in run manifest | Same checkpoint hash |
+
+: Environment specification schema for the training node and profiling machine; populated at the launch freeze and recorded in the run manifest. Edge devices: none — edge deployment is out of scope. {#tbl-environment}
+
+The compute budget is reported as auditable arithmetic, following the responsible-NLP reporting conventions of the ACL Rolling Review checklist. At $K = 6$ and $S = 5$, the final benchmark requires 6 arms × 6 folds × 5 seeds = **180 training runs**, plus one-seed-per-point grid-search runs for every arm-fold over the frozen learning-rate × weight-decay grid (parity rule: identical grid and budget for every arm, including tuned scalarization and PCGrad, with the tuned arm's inner-fold weight search conducted under the same budget), plus single-model inference trials whose cost is negligible against training. The launch checklist's footprint probe converts measured step time into an estimated GPU-hour figure before the first production run; GPU type, estimated training and inference hours, and the total resources needed to reproduce the benchmark are then recorded in the run manifest alongside the environment freeze. All runs execute on the single commodity training node across the study's calendar window — no private or rented cluster is assumed, and the release package of Step 9 (seeds, configurations, manifests) makes the budget externally reproducible.
+
+<!-- Encoder model card registered (aisingapore2026sealion); card-verified 2026-09-16: 22 layers, d_model 768, vocab 262,144, two-phase 3T-token pretraining, EN 35% / Filipino 2.5%. Pin exact total parameter count from the frozen checkpoint hash at launch. -->
+
+## Testing and Evaluation
+
+Before the artifact benchmarks, its measuring system is verified. The distinction matters: the instruments of the Instruments section measure the benchmark, while the tests here verify that the pipeline producing those measurements is itself correct — a faulty CMI implementation or a leaky pooled construction would invalidate hypothesis verdicts silently, which is precisely the failure mode testing exists to close. Every test below is paired to the validity threat it neutralizes, and the full suite gates the launch: it runs in continuous integration before the launch checklist clears, and a failing test blocks production runs.
+
+*Unit tests* verify components in isolation. The tokenizer round-trip test guards tokenization transparency. The loss-normalization scale-parity test guards the $1{:}1{:}1$ estimand: mean-reduced per-task losses must equal hand-computed values on a fixed batch and be invariant to batch composition, otherwise uniform weighting is not scale-comparable across tasks and the gradient cosines have no fixed scale. Head output-shape tests pin the prediction contracts. The CMI fixture test — the implementation against hand-computed values on fixtures including monolingual, balanced-mix, and borrowing-treatment edge cases — guards the inclusion rule and stratification simultaneously, since one implementation feeds both. The pooled-construction test enforces the exactly-once invariant that H1b's stratified substrate rests on.
+
+*Integration tests* verify the paths between components. The end-to-end test runs a smoke-scale train → checkpoint → out-of-domain evaluate → log-emit cycle and validates every emitted log against the schema. The side-effect-freeness test is the single most consequential check in the suite: on a fixed batch and seed, the optimizer update with gradient logging enabled must equal the update without it, because the design's claim that *the instrumented run is the run* — one uniform arm serving both the aggregate comparisons and the conflict diagnostics — stands or falls here.
+
+*Stress benchmarking* characterizes behavior under sustained load. Latency is measured across batch sizes with batch 1 as the primary workload and the full curve reported descriptively; the thermal check monitors on-die temperature through sustained trials on the profiling machine so that throttling cannot silently contaminate timed measurements; and the memory-leak check watches peak VRAM and RSS across sustained trial blocks for monotone growth. @tbl-tests fixes the plan.
+
+| Test | Level | Pass criterion |
+|---|---|---|
+| Tokenizer round-trip | Unit | Encode–decode reproduces every fixture exactly, modulo the documented normalizations, on a frozen fixture set |
+| Loss-normalization scale parity | Unit | Per-task mean-reduced loss on a fixed batch equals the hand-computed value to floating-point tolerance, invariant to batch composition and order |
+| Head output shapes | Unit | NER emits (sequence length × entity-type) logits; Intent and Urgency emit class-dimension logits — exact on all fixture inputs |
+| CMI against hand-computed fixtures | Unit | Implementation reproduces hand-computed CMI values on fixtures including monolingual, balanced-mix, and borrowing-treatment edge cases |
+| Pooled out-of-fold construction | Unit | Every corpus example appears exactly once, its prediction from the fold where its disaster was held out; support counts unique examples |
+| End-to-end pipeline | Integration | Smoke-scale run completes train → checkpoint → OOD evaluate → log emit; all emitted logs validate against the schema |
+| Gradient-logging side-effect-freeness | Integration | On a fixed batch and seed, the optimizer update with logging enabled equals the update without it (deterministic settings, floating-point tolerance) |
+| Latency across batch sizes | Stress | Batch-1 trials reproducible across repeated sessions within a frozen tolerance; the batch-size curve is descriptive |
+| Thermal behavior | Stress | No sustained thermal throttling during timed trials; temperature recorded through the profiling session |
+| Memory-leak check | Stress | Peak VRAM and RSS stable across sustained trial blocks — no monotone growth beyond a frozen tolerance |
+
+: Test plan. The suite gates the launch checklist: a failing test blocks production runs. {#tbl-tests}
+
+Finally, the artifact is mapped to ISO/IEC 25010, restricted to the applicable subset. The restriction is principled rather than convenient: the study's claims about the artifact are claims about performance, reliability, and portability, so those three characteristics receive evidence rows, and the remaining characteristics are declared non-applicable with reasons instead of receiving ceremonial rows. @tbl-iso maps the set.
+
+| ISO/IEC 25010 characteristic | Applicability | Evidence |
+|---|---|---|
+| Performance efficiency | Applicable | Time behavior: Step 7 latency (mean ± SD); resource utilization: peak VRAM and RSS; capacity: batch-size curve (descriptive) — all from the efficiency logs |
+| Reliability | Applicable | Run-integrity policy (collapse and divergence re-run rules, pre-specified exclusions); schema-validation halts with no silent repair; deterministic seeds and run manifests for repeatability |
+| Portability | Applicable | Identical frozen stack on the training node and profiling machine; release package with pinned versions, seeds, and manifests enables external reinstallation and reproduction |
+| Functional suitability, compatibility, usability, security, maintainability | Declared not applicable | A benchmark artifact without production functional requirements, external system interfaces, interactive end users, adversarial exposure, or multi-team maintenance; personal-data protection is handled by the RA 10173 pipeline, not by product security features |
+
+: ISO/IEC 25010 mapping — applicable subset with evidence; remaining characteristics declared non-applicable with reasons. {#tbl-iso}
+
+<!-- CITE: ISO/IEC 25010 not yet registered — add the official standard entry (edition fixed at writing time; the 2011 and 2023 revisions name and organize characteristics differently) before submission. -->
