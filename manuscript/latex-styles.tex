@@ -1,0 +1,31 @@
+% Caption styling
+\usepackage{caption}
+\DeclareCaptionFormat{indented}{\leftskip=0.5in#1#2#3}
+\captionsetup{format=indented, labelsep=newline, labelfont=bf, textfont=it, justification=raggedright, singlelinecheck=false, skip=6pt}
+
+% Running header and pagination
+\usepackage{scrlayer-scrpage}
+\clearpairofpagestyles
+\ohead{\pagemark}
+\setkomafont{disposition}{\normalfont\bfseries}
+
+% Paragraph indentation
+\setlength{\parindent}{0.5in}
+\usepackage{indentfirst}
+
+% Figure placement
+\usepackage{floatrow}
+\floatsetup[figure]{capposition=top}
+\usepackage{float}
+\makeatletter
+\def\fps@figure{H}
+\makeatother
+
+% Table typography and alignment
+\usepackage{etoolbox}
+\AtBeginEnvironment{longtable}{\singlespacing\footnotesize}
+\AtBeginEnvironment{tabular}{\singlespacing\footnotesize}
+\setlength{\LTleft}{0pt}
+\setlength{\LTright}{\fill}
+\setlength{\LTcapwidth}{\textwidth}
+\setlength{\LTpost}{0pt}

@@ -1,0 +1,11 @@
+[project]
+name = "thesis"
+version = "0.1.0"
+description = ""
+requires-python = ">=3.12,<3.14"
+dependencies = [
+    "mineru[all]",
+]
+
+[tool.uv]
+torch-backend = "auto"

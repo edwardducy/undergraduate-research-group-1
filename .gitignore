@@ -1,0 +1,38 @@
+# Python
+.venv/
+__pycache__/
+.ruff_cache/
+
+# Quarto build output
+.quarto/
+_book/
+**/*.quarto_ipynb
+
+# Tool session state
+.zcode/
+
+# Corpus: source PDFs untracked; extractions tracked as Markdown only
+corpus-raw/
+corpus-extracted/**
+!corpus-extracted/**/
+!corpus-extracted/**/*.md
+
+# APA manual, fetched locally
+docs/
+
+# PDFs untracked by default
+*.pdf
+
+# macOS
+.DS_Store
+
+/.quarto/
+
+/.luarc.json
+
+# LaTeX build intermediates
+*.aux
+*.log
+*.fls
+*.fdb_latexmk
+*.synctex.gz

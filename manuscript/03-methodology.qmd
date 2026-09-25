@@ -1,0 +1,648 @@
+# Methodology
+
+## Research Methodology
+
+This study adopts the Design Science Research Methodology (DSRM) formulated by @peffers2007design. Design science research centers on the iterative development and rigorous evaluation of artifacts designed to solve identified practical problems. This framework fits the current investigation on three grounds. First, the primary contributions are functional computational systems whose effectiveness can only be determined through controlled execution. Second, the study produces both an operational tool and empirical evidence on how multi-task balancing behaves across distinct disaster events. Third, the evaluation relies on quantitative experimental benchmarking, where model configurations are tested under identical data partitions, random seeds, and statistical decision rules.
+
+The study produces three primary artifacts. The first artifact is a benchmark dataset of disaster tweets in Taglish, gathered across six typhoon events from 2020 to 2024. Each tweet is annotated across three tasks: named entity recognition, intent classification, and urgency classification. The second artifact is a unified multi-task triage model. This system pairs a shared multilingual encoder with three task-specific heads, evaluated across single-task baselines and three multi-task optimization strategies: uniform loss weighting, tuned static loss weighting, and gradient surgery via PCGrad (Projecting Conflicting Gradients). The third artifact is an experimental evaluation protocol. This protocol pre-specifies the leave-one-disaster-out (LODO) cross-validation scheme, the performance metrics, and the non-parametric statistical tests prior to model training.
+
+The investigation carries out the six phases of the DSRM process model:
+
+1. **Problem identification and motivation:** Examining the operational challenge of real-time disaster tweet triage in code-mixed Taglish under distribution shift.
+2. **Objectives of a solution:** Defining the computational, linguistic, and latency requirements for a unified triage pipeline.
+3. **Design and development:** Building the annotated Taglish dataset, implementing the shared-encoder model, and configuring the multi-task loss weighting and gradient balancing training pipelines.
+4. **Demonstration:** Executing model training across the leave-one-disaster-out folds and profiling computational latency and memory consumption on commodity hardware.
+5. **Evaluation:** Assessing out-of-distribution generalization performance and task interference using non-parametric statistical comparisons.
+6. **Communication:** Documenting the research in this manuscript, presenting the oral defense, and releasing the dataset annotations, model weights, and source code.
+
+The mapping between the six DSRM phases, the operational research activities, and the concrete deliverables produced in this investigation appears in @fig-dsrm-framework.
+
+![Design Science Research Methodology process model mapped to the thesis investigation phases and artifact deliverables.](figures/fig-3-1-dsrm-framework){#fig-dsrm-framework}
+
+*Note.* DSRM = Design Science Research Methodology. Adapted from Peffers et al. (2007). Dashed line indicates the iterative evaluation and refinement feedback loop connecting empirical evaluation outcomes to artifact design.
+
+The remainder of this chapter follows the operational lifecycle of these artifacts. Section 3.2 details the dataset and annotation process, and Section 3.3 describes the sampling and fold partition scheme. Section 3.4 outlines the experimental instruments, while Section 3.5 presents the procedural protocol. The statistical treatment and performance formulas appear in Sections 3.6 and 3.7. Finally, the software architecture and verification plan are described in Sections 3.8 and 3.9.
+
+## Subjects of the Study
+
+The primary units of observation in this study are disaster-related social media posts and their constituent token spans. The corpus is constructed as a common benchmark dataset, where every post is jointly annotated across three distinct tasks: named entity recognition, intent classification, and urgency classification. This shared structure ensures that single-task baselines and multi-task models are evaluated on identical text inputs.
+
+The target dataset comprises 6,000 to 10,000 Taglish posts after filtering, corresponding to approximately 1,000 to 1,700 posts per disaster event across six selected Philippine typhoons. The linguistic scope focuses on Philippine Taglish, characterized by code-mixing between Tagalog and English. Posts written primarily in other Philippine regional languages, such as Cebuano, Ilocano, Bikol, and Waray, are excluded from the corpus.
+
+### Selected Disaster Events
+
+To assess model generalization across different disaster settings, the dataset incorporates posts from six historical Philippine typhoons that occurred between 2020 and 2024. Event selection was guided by five criteria:
+
+1. **Temporal recency:** Events between 2020 and 2024 reflect contemporary social media usage patterns and ensure high post availability.
+2. **Impact severity and post volume:** Selected events correspond to severe disasters documented in official NDRRMC reports or retired PAGASA names, providing sufficient volume to maintain at least 1,000 filtered posts per event.
+3. **Linguistic representation:** The selection emphasizes events affecting the Tagalog-speaking regions of Metro Manila, Central Luzon, and CALABARZON, while including one major event outside Luzon to evaluate linguistic variation.
+4. **Meteorological diversity:** The selected events cover varied hazard profiles, including extreme wind, widespread riverine flooding, storm surge, and monsoon-enhanced rainfall.
+5. **Event independence:** Each selected typhoon represents a separate meteorological system rather than overlapping phases of a single weather disturbance.
+
+The six historical typhoon events selected under these criteria, together with their landfall dates and meteorological hazard profiles, appear in @tbl-roster.
+
+| No. | Event (Local / International Name) | Landfall Date | Affected Regions | Primary Hazard Profile | Evaluation Role |
+|---|---|---|---|---|---|
+| 1 | Ulysses (Vamco) | Nov 2020 | NCR, Central Luzon | Severe flooding and wind | Urban riverine flood evaluation |
+| 2 | Rolly (Goni) | Nov 2020 | Bicol, CALABARZON | Extreme wind and storm surge | High-intensity landfall evaluation |
+| 3 | Odette (Rai) | Dec 2021 | Visayas, Northern Mindanao | Extreme wind and storm surge | Regional linguistic shift evaluation |
+| 4 | Karding (Noru) | Sep 2022 | Central Luzon | Rapid intensification and wind | Rapid intensification evaluation |
+| 5 | Egay (Doksuri) | Jul 2023 | Northern Luzon | Monsoon-enhanced flooding | Monsoon enhancement evaluation |
+| 6 | Carina (Gaemi) | Jul 2024 | NCR, CALABARZON | Severe urban monsoon flooding | Urban monsoon flood evaluation |
+
+: Selected Philippine typhoon events included in the benchmark corpus. {#tbl-roster}
+
+*Note.* Local names are assigned by PAGASA. International names are assigned by the Japan Meteorological Agency. NCR = National Capital Region. CALABARZON comprises Cavite, Laguna, Batangas, Rizal, and Quezon provinces.
+
+Typhoon Odette provides a deliberate contrast in the evaluation design. Social media posts concerning Luzon-based disasters contain substantial proportions of Tagalog and code-mixed Taglish. In contrast, disaster discussions during internationally prominent typhoons in the Visayas and Mindanao regions exhibit higher proportions of English. Evaluating on Typhoon Odette as a holdout domain introduces a realistic distribution shift in both regional vocabulary and language mix.
+
+### Multi-Task Annotation Scheme
+
+The benchmark corpus addresses three triage tasks operating at two prediction levels. Named entity recognition operates at the token level to identify critical locations and infrastructure mentions. Intent classification and urgency classification operate at the message level to categorize humanitarian need and operational priority. 
+
+@tbl-labels presents the operational definitions for all task labels, adapted from established crisis informatics taxonomies.
+
+| Task | Label | Operational Definition |
+|---|---|---|
+| Intent | Rescue or immediate assistance | Explicit requests for rescue, medical aid, or urgent evacuation |
+| Intent | Casualty or missing persons | Reports or inquiries regarding deceased, injured, or missing individuals |
+| Intent | Displacement or evacuation | Reports of temporary shelter needs, displacement, and evacuation center status |
+| Intent | Infrastructure or utility damage | Damage reports concerning roadways, bridges, power lines, water supplies, or structures |
+| Intent | Donation needs or offers | Requests for relief supplies or offers of volunteer goods and humanitarian aid |
+| Intent | Caution or advice | Official warnings, hazard advisories, and protective safety recommendations |
+| Intent | Other useful information | Actionable or informative disaster reports not covered by other categories |
+| Intent | Not relevant | Messages containing no disaster-related information or actionable utility |
+| Urgency | Urgent | Life-safety risk or critical time-sensitive need requiring immediate response |
+| Urgency | Standard | Legitimate humanitarian need or operational concern that is not immediately life-threatening |
+| Urgency | Low | Informational or general commentary requiring no logistical intervention |
+| NER | LOCATION | Geographical entities, including barangays, municipalities, cities, provinces, and named landmarks |
+| NER | INFRASTRUCTURE | Physical structures and facilities, including bridges, highways, hospitals, schools, and utility grids |
+
+: Operational label inventories and definitions for the multi-task annotation scheme. {#tbl-labels}
+
+*Note.* NER = named entity recognition. Task taxonomies and operational definitions are adapted from established crisis informatics annotation frameworks.
+
+Sequence labeling for named entity recognition follows the standard BIO (Begin, Inside, Outside) tagging scheme. In cases of overlapping entity mentions, the longest contiguous text span is retained. The entity schema concentrates on physical locations and infrastructure facilities rather than person names, as geographic coordinates and infrastructure points provide the primary actionable information for disaster relief coordination.
+
+### Data Quality and Agreement Standards
+
+Annotations were conducted by five bilingual annotators fluent in both Tagalog and English. To establish measurement reliability, annotations were required to satisfy pre-specified statistical thresholds before inclusion in the final corpus.
+
+The specific agreement statistics and pre-declared acceptance thresholds required for each prediction level are presented in @tbl-annotation.
+
+| Task | Prediction Target | Agreement Metric | Minimum Acceptance Threshold |
+|---|---|---|---|
+| Named entity recognition | Token-level entity spans | Mean pairwise entity-level Macro-F1 | .75 |
+| Intent classification | Message-level category | Fleiss's kappa | .60 |
+| Urgency classification | Message-level priority | Fleiss's kappa | .60 |
+
+: Inter-annotator agreement metrics and acceptance thresholds. {#tbl-annotation}
+
+*Note.* Token-level entity spans are evaluated under exact boundary and entity type matching. Categorical tasks are evaluated across all five annotators using Fleiss's kappa.
+
+Reliability for the categorical tasks of intent classification and urgency classification is measured using Fleiss's kappa, which accounts for chance agreement across multiple raters. For named entity recognition, reliability is evaluated using the mean pairwise entity-level Macro-F1 score across annotators. If an annotation pass fails to reach these thresholds during validation rounds, the team revises the guidelines and performs re-annotation before final adjudication.
+
+The five-step multi-task annotation pipeline, double-annotation validation rounds, agreement quality gates, and consensus adjudication procedures appear in @fig-annotation-pipeline.
+
+![Multi-task annotation and adjudication pipeline illustrating the five-step protocol, quality acceptance gates, and guideline revision loop.](figures/fig-3-2-annotation-pipeline){#fig-annotation-pipeline}
+
+*Note.* BIO = Begin, Inside, Outside token tagging. LID = language identification. CMI = Code-Mixing Index. NER = named entity recognition. LGU = local government unit. Dashed red lines designate the iterative guideline revision and re-annotation feedback loop triggered when inter-annotator agreement fails to satisfy pre-declared thresholds.
+
+### Linguistic Stratification
+
+To evaluate model performance across different levels of language mixing, each post is assigned to a linguistic stratum using its Code-Mixing Index (CMI). The CMI quantifies the proportion of language-dependent tokens in a text that belong to languages other than the primary matrix language.
+
+Tokens are classified as Tagalog, English, or language-independent (such as punctuation, URLs, numerical values, and emojis). Posts are then partitioned into three strata:
+
+1. **Tagalog-dominant:** Messages where Tagalog serves as the primary matrix language and English tokens represent a minor fraction of the content.
+2. **Mixed Taglish:** Messages exhibiting balanced code-mixing, where neither language strictly dominates the token distribution.
+3. **English-dominant:** Messages where English serves as the primary matrix language and Tagalog tokens appear as occasional loanwords or phrases.
+
+Because the initial language screening requires texts to exhibit Taglish characteristics, the distribution of CMI values in the corpus is bounded by design. These strata allow the study to evaluate whether multi-task models maintain balanced performance across varied degrees of code-mixing.
+
+## Sampling Technique
+
+The sampling design defines the partitioning and resampling strategy used to train, validate, and evaluate the models. 
+
+The primary evaluation framework is leave-one-disaster-out (LODO) cross-validation across the six selected typhoon events ($K = 6$). For each fold, one complete typhoon event is held out exclusively as the test set, while the remaining $K - 1$ events form the training pool. Each disaster event is held out exactly once, ensuring that all posts in the corpus are evaluated out-of-distribution by a model that was not trained on data from that specific typhoon.
+
+Holding out entire disaster events mirrors real-world deployment conditions. A conventional random split across posts would place messages from the same disaster into both the training and test sets, allowing models to rely on event-specific keywords, local location names, and temporal markers. In contrast, leave-one-disaster-out partitioning measures the ability of the model to generalize to a novel disaster event.
+
+Within each fold, the training pool of five disaster events is divided into parameter fitting, early stopping, and hyperparameter tuning sets. A 15% development split is drawn from the training events, stratified jointly by disaster event and task labels. This development split is drawn once, held constant across all model configurations, and used strictly for validation. The holdout test event is never accessed during model training or checkpoint selection.
+
+To account for variance arising from stochastic optimization and random weight initialization, each model configuration is trained across $S = 5$ random seeds per fold using identical batch orders, learning rate schedules, and stopping criteria. The evaluation scores across the five seeds are averaged within each fold. Consequently, each disaster event contributes one paired observation to the evaluation, establishing the fold as the fundamental unit of statistical analysis ($N = K = 6$).
+
+Averaging performance across seeds within each fold prevents pseudo-replication and avoids artificially inflating the degrees of freedom. While seed repetitions capture local optimization variance, the primary inferential question concerns generalization across disaster events. The seed-level variance is preserved to compute confidence intervals and reporting tolerances rather than discarded.
+
+The choice of $K = 6$ folds is governed by the discrete resolution and minimum attainable significance level of non-parametric permutation testing. Under an exact paired sign-flipping permutation test, the minimum achievable one-sided significance level is determined by the number of folds:
+
+$$p_{\min} = 2^{-K}$$ {#eq-pmin}
+
+At $K = 4$, the minimum achievable p-value is $p_{\min} = .0625$, which cannot reach statistical significance at the standard $\alpha = .05$ threshold even under a unanimous outcome across all folds. A minimum of five folds achieves $p_{\min} = .03125$, and six folds provides $p_{\min} = .015625$. Increasing the number of random seeds reduces within-fold estimation noise, but only increasing the number of independent disaster folds improves the resolution of the permutation test.
+
+The resulting partition schedule, showing the held-out test event and training pool for each fold, is documented in @tbl-folds.
+
+| Fold | Held-Out Test Event | Training Events | Evaluation Context |
+|---|---|---|---|
+| 1 | Ulysses 2020 | Rolly, Odette, Karding, Egay, Carina | Temporally adjacent typhoon Rolly remains in training pool |
+| 2 | Rolly 2020 | Ulysses, Odette, Karding, Egay, Carina | High-intensity wind and surge profile held out |
+| 3 | Odette 2021 | Ulysses, Rolly, Karding, Egay, Carina | Evaluates model under pronounced regional and linguistic shift |
+| 4 | Karding 2022 | Ulysses, Rolly, Odette, Egay, Carina | Rapid-intensification hazard profile held out |
+| 5 | Egay 2023 | Ulysses, Rolly, Odette, Karding, Carina | Monsoon-enhanced flooding profile held out |
+| 6 | Carina 2024 | Ulysses, Rolly, Odette, Karding, Egay | Most recent urban flooding event held out |
+
+: Leave-one-disaster-out fold assignments across the six selected disaster events. {#tbl-folds}
+
+*Note.* Each fold holds out one disaster event exclusively for out-of-domain evaluation. The remaining five disaster events form the training and validation pool.
+
+The leave-one-disaster-out cross-validation framework, development split stratification, multi-seed training protocol, and fold-level score aggregation appear in @fig-lodo-scheme.
+
+![Leave-one-disaster-out cross-validation framework illustrating the six-fold partition schedule, development split stratification, multi-seed training protocol, and fold-level score aggregation.](figures/fig-3-3-lodo-scheme){#fig-lodo-scheme}
+
+*Note.* LODO = leave-one-disaster-out. K = number of disaster folds. S = number of random initialization seeds per fold. In each fold k, one complete disaster is held out strictly for out-of-domain evaluation, while the remaining five disasters form the training pool. The training pool is partitioned into an 85% parameter fitting set and a 15% stratified development set. Metrics are averaged across the five seeds to yield one paired observation per fold (N = K = 6) for non-parametric permutation testing.
+
+## Instruments to Be Used
+
+The empirical evaluation requires capturing measurements across three primary dimensions: predictive task accuracy, internal multi-task optimization dynamics, and operational serving efficiency. In experimental computing, the measurement apparatus comprises both the physical hardware testbed where execution takes place and the software profiling tools that capture system telemetry.
+
+### Physical Benchmarking Testbed
+
+Operational metrics such as inference latency and memory utilization cannot be evaluated in abstraction from the underlying hardware architecture. All inference efficiency benchmarks and model evaluations are conducted on a dedicated local commodity workstation.
+
+Using a dedicated local workstation provides an isolated and realistic execution environment. Unlike shared cloud computing clusters or multi-tenant virtual machines, a dedicated physical testbed prevents concurrent network jobs and external server contention from introducing noise into latency and memory recordings. Furthermore, conducting benchmarks on an 8 GB consumer GPU evaluates whether unified multi-task triage pipelines can operate effectively on commodity hardware accessible to local emergency response agencies, rather than relying on enterprise-grade server infrastructure. The hardware configuration, cooling state, and background processes are held constant across all experimental trials so that observed variations reflect architectural differences rather than hardware fluctuations. The complete hardware component inventory, software runtime stack, and responsible compute budget are documented in Section 3.8 (@tbl-environment).
+
+### Software Profiling and Measurement Instruments
+
+System performance is tracked using dedicated software measurement tools integrated into the execution pipeline. Each instrument is chosen to observe a specific operational property with high precision while minimizing measurement interference.
+
+To measure single-request inference latency, the benchmarking suite employs the monotonic clock provided by the Python standard library through `time.perf_counter_ns`. A monotonic timer is essential because it guarantees strictly non-decreasing time measurement, ensuring that clock adjustments from network time protocols or operating system adjustments do not distort measurements. Because GPU kernel launches are asynchronous, the measurement framework invokes explicit device synchronization before starting and stopping the timer. This ensures that the recorded duration captures the complete execution path from initial token processing to the generation of output logits. The benchmark workload evaluates batch-size-one requests running all three triage tasks concurrently, reflecting real-time emergency dispatch conditions.
+
+Memory utilization is measured using two distinct tools to separate framework memory from operating system footprint. Peak GPU memory is tracked using `torch.cuda.max_memory_allocated`, which records the byte-exact maximum memory allocated to active tensors (model weights, attention buffers, and intermediate activations) by the PyTorch caching allocator. This counter is reset between measurement trials. Peak host memory is monitored through `psutil`, which samples the resident set size (RSS) from the operating system process table. Measuring resident set size captures runtime memory overhead outside the framework allocator, including dynamic library loading and Python runtime dependencies.
+
+To analyze multi-task training dynamics, task-specific loss gradients are extracted at the final shared layer of the encoder during backpropagation. This extraction utilizes PyTorch backward hooks to capture the direction of the gradient vectors for each task head. The instrument calculates the cosine similarity between pairwise task gradients, recording the frequency of gradient conflicts across training iterations. The gradient extraction is strictly side-effect-free, meaning it inspects gradient tensors without altering backpropagation or modifying the optimizer update steps.
+
+Diagnostic execution profiling is supported by the PyTorch Profiler. This tool captures operator-level kernel execution times and memory allocations, providing fine-grained telemetry to confirm that computational bottlenecks remain consistent across models.
+
+@tbl-instruments details the operational specifications, precision thresholds, and implementation packages across the benchmarking suite.
+
+| Instrument | Measured Property | Precision and Resolution | Implementation Tool |
+|---|---|---|---|
+| Monotonic latency timer | Batch-1 end-to-end request latency | Nanosecond clock resolution, reported in milliseconds | `time.perf_counter_ns` in Python standard library |
+| Framework memory counter | Peak GPU video memory allocation | Byte-exact framework tracking, reported in megabytes | `torch.cuda.max_memory_allocated` in PyTorch |
+| Process memory monitor | Peak host system resident memory (RSS) | Page-level operating system resolution, reported in megabytes | `psutil` process sampling via operating system |
+| Gradient extraction hook | Pairwise task-gradient cosine alignment | 32-bit floating-point vector cosine, unitless $[-1, 1]$ | PyTorch autograd backward hooks |
+| Operator execution profiler | Kernel-level execution duration and memory | Microsecond event timestamps for diagnostic analysis | `torch.profiler` framework suite |
+
+: Measurement instruments, target operational properties, and implementation tools. {#tbl-instruments}
+
+*Note.* RSS = resident set size. Peak GPU memory reflects byte-exact framework allocations managed by the PyTorch caching allocator.
+
+### Instrument Reliability, Profiling Overhead, and Observer Effect
+
+The benchmarking protocol incorporates several experimental controls to ensure measurement validity and prevent instrumentation artifacts from distorting results:
+
+1. **Warm-up iterations:** To eliminate transient initialization costs, such as kernel compilation, dynamic library linking, and memory allocation caches, each model executes multiple unmeasured warm-up passes before timing begins.
+2. **Isolation of profiling overhead:** High-overhead diagnostic profiling, such as operator-level tracing, is executed during dedicated diagnostic profiling runs rather than during primary latency and memory benchmarking trials.
+3. **Environment stability:** All models are evaluated using identical, locked versions of PyTorch, Hugging Face Transformers, and the CUDA runtime library, preventing software version discrepancies from influencing comparative scores.
+
+### Excluded Benchmark Suites and Tools
+
+Several established benchmarking frameworks were evaluated and deliberately excluded from the experimental design:
+
+1. **MLPerf benchmark suite:** While MLPerf is a standard for evaluating hardware accelerators, it evaluates pre-defined reference models on standardized workloads. This study evaluates custom multi-task architectures on a fixed machine, making MLPerf unsuited for isolating architectural trade-offs.
+2. **Inference optimization engines:** Frameworks such as TensorRT, ONNX Runtime, and specialized model compilers apply layer fusion, kernel auto-tuning, and post-training quantization. While valuable for production deployment, profiling models through an external compiler would measure the compiler's optimization capabilities rather than the inherent computational differences between single-task and multi-task network designs.
+3. **Edge and mobile profilers:** Because the study focuses on workstation-level emergency triage pre-screening on commodity GPU hardware, dedicated mobile and embedded edge profiling frameworks are outside the operational scope of the investigation.
+
+## Procedure of Data Gathering
+
+The experimental procedure organizes the dataset, evaluation folds, and measurement instruments into a structured workflow that advances from data acquisition to model training, efficiency profiling, and telemetry logging. Experimental parameters, including pre-processing filters, evaluation splits, and hyperparameter search grids, are pre-specified prior to model execution. Pre-specifying these configurations prevents post hoc tuning and ensures that all experimental findings remain auditable and reproducible. The overarching experimental procedure, tracing the end-to-end workflow from initial corpus ingestion and annotation to multi-task model training, hardware efficiency profiling, and statistical hypothesis testing, appears in @fig-procedure-flow.
+
+![End-to-end experimental procedure flowchart outlining data ingestion, multi-task model training, inference benchmarking, and statistical hypothesis testing.](figures/fig-3-4-procedure-flow){#fig-procedure-flow}
+
+*Note.* PAGASA = Philippine Atmospheric, Geophysical and Astronomical Services Administration. DPA 2012 = Data Privacy Act of 2012 (Republic Act No. 10173). PII = personally identifiable information. CMI = Code-Mixing Index. LID = language identification. LODO = leave-one-disaster-out cross-validation. STL = single-task learning. MTL = multi-task learning. PCGrad = Projecting Conflicting Gradients. VRAM = video random access memory. RAM = random access memory. RSS = resident set size.
+
+### Data Ingestion, Filtering, and Privacy Protection
+
+Data collection begins by identifying official landfall timestamps ($t_0$) recorded in bulletins issued by the Philippine Atmospheric, Geophysical and Astronomical Services Administration (PAGASA). Social media posts are retrieved within a standardized temporal window spanning 24 hours prior to landfall to 72 hours following landfall. Posts are collected through research archives and authorized tweet hydration protocols using query terms that combine disaster names, official hashtags, and bilingual crisis terms in Tagalog and English.
+
+Raw posts undergo an automated cleaning and ingestion pipeline. Duplicate records and non-text elements are removed, and text normalization is applied to standardize whitespace and character encodings. Each post is then evaluated against the language screening criteria defined in Section 3.2. Posts that fail the language identification and Code-Mixing Index screening are logged and excluded from the corpus.
+
+To safeguard user privacy and comply with the Data Privacy Act of 2012 (Republic Act No. 10173), all personally identifiable information is removed from working datasets prior to annotation. User handles, full names, numerical telephone contacts, URLs containing account parameters, and non-public metadata are stripped. The resulting text instances are assigned anonymous internal identifiers and sealed with cryptographic content hashes to ensure data integrity.
+
+### Annotation Execution and Consensus Adjudication
+
+The multi-task annotation scheme is applied using a five-step protocol executed by five bilingual annotators, structured as shown in @fig-annotation-pipeline:
+
+1. **Guideline calibration:** The research team annotates a shared practice batch of posts to calibrate understanding of the guidelines and resolve edge cases in disaster categorization.
+2. **Production annotation:** The corpus is divided into equal subsets, and each subset is independently annotated by a designated team member.
+3. **Double-annotation round:** A panel of three annotators independently re-annotates a stratified subsample comprising at least 20% of the corpus, working blind to the original annotations.
+4. **Agreement assessment:** Inter-annotator agreement statistics are computed across the double-annotated subsample. Categorical tasks (intent classification and urgency classification) are evaluated using Fleiss's kappa, while named entity recognition is evaluated using mean pairwise entity-level Macro-F1. If scores fail to meet the acceptance thresholds specified in Section 3.2, the annotation guidelines are refined and the affected instances are re-annotated.
+5. **Consensus adjudication:** Remaining annotation discrepancies within the validation subsample are reviewed in joint consensus meetings. Final adjudicated labels are established and finalized before freezing the dataset.
+
+### Dataset Partitioning and Support Audit
+
+Once the dataset is finalized, the leave-one-disaster-out (LODO) evaluation folds are generated. For each of the six folds, posts from five disaster events are assigned to the training pool, and posts from the remaining event are reserved exclusively as the holdout test set.
+
+Within the training pool of each fold, a 15% development validation split is drawn using joint stratification across disaster events and category labels. This development split is drawn once and held constant across all model configurations to provide an identical validation benchmark for early stopping and hyperparameter selection. The holdout test event remains untouched during all stages of training and validation.
+
+Before training begins, an automated support audit checks the training and evaluation splits to ensure that all target categories contain sufficient instance representation. This audit confirms that every fold maintains the data support required for reliable evaluation across individual tasks and linguistic strata.
+
+### Model Training and Balancing Execution
+
+Model execution follows a disciplined sequence to maintain experimental parity across architectures:
+
+1. **Environment initialization:** The software stack, random seeds, and model weights are initialized on the dedicated workstation. Baseline tokenizer behavior and GPU memory bounds are confirmed using short pre-flight checks.
+2. **Single-task baseline training:** Dedicated single-task models for named entity recognition, intent classification, and urgency classification are trained across all six folds and five random seeds. Performance variance across single-task seeds is recorded to establish empirical baseline tolerances for subsequent comparisons.
+3. **Multi-task model training:** Multi-task architectures are trained across three distinct balancing configurations: uniform loss weighting, tuned static loss weighting, and gradient surgery via PCGrad (Projecting Conflicting Gradients). All multi-task configurations are trained under identical computational budgets, sharing the same hyperparameter grid search space over learning rates and weight decay values.
+4. **Gradient telemetry extraction:** During training of the uniform multi-task configuration, task-specific loss gradients at the final shared encoder layer are inspected at regular checkpoint intervals. Pairwise gradient cosine similarities are calculated and logged to monitor optimization dynamics without modifying model parameters.
+5. **Run integrity monitoring:** Training runs are monitored for numerical stability. If a run experiences loss divergence (non-finite loss values) or class collapse (where predictions degenerate into a single dominant category on the development split), the run is automatically restarted once using the same random seed. A second failure triggers manual inspection under pre-specified exclusion criteria.
+
+### Inference Profiling and Hardware Benchmarking
+
+Inference efficiency is evaluated on the dedicated workstation testbed using batch-size-one workloads that process all three triage tasks simultaneously, reflecting real-world emergency dispatch conditions.
+
+The profiling workflow proceeds as follows:
+1. **Warm-up phase:** The model executes multiple unmeasured inference passes to initialize dynamic CUDA kernels, establish memory caches, and ensure steady-state execution.
+2. **Latency measurement:** High-resolution monotonic timers record end-to-end execution duration over a fixed number of repeated trials. Device synchronization barriers are invoked before and after execution to capture all asynchronous GPU operations.
+3. **Memory tracking:** Peak GPU memory allocation is recorded using framework-level memory tracking counters, reset between consecutive trials. Concurrently, host system resident set size is sampled from the operating system process table to capture memory consumption outside the framework allocator.
+4. **Serving configuration comparisons:** Efficiency measurements are collected across sequential execution (evaluating each head in sequence within the shared model), concurrent execution (evaluating heads in parallel where memory bandwidth permits), and separate single-task baseline execution.
+
+### Telemetry Logging and Research Dissemination
+
+All training dynamics, evaluation metrics, and hardware measurements are automatically recorded into structured log files directly from the execution scripts, eliminating manual transcription errors.
+
+@tbl-logs outlines the log file formats, primary recorded fields, and measurement units.
+
+| Log Type | Format | Primary Recorded Fields | Data Scale and Units |
+|---|---|---|---|
+| Execution manifest | JSON | Model configuration, fold identifier, seed index, software versions, hyperparameter values | Structured metadata |
+| Training progress | CSV | Optimization step, training epoch, task loss values, validation Macro-F1 scores, early stopping trigger | Dimensionless loss scale, F1 score |
+| Checkpoint evaluation | CSV | Fold identifier, seed index, checkpoint step, task-specific out-of-domain Macro-F1, mean per-task Macro-F1 | Dimensionless F1 score |
+| Gradient telemetry | CSV | Checkpoint window, task pair, mean gradient cosine similarity, gradient conflict rate | Cosine $[-1, 1]$, frequency ratio $[0, 1]$ |
+| Efficiency trials | CSV | Serving configuration, trial index, end-to-end latency, peak GPU memory, peak host RAM | Milliseconds, megabytes |
+| Corpus manifest | JSON | Anonymous post identifier, disaster event, Code-Mixing Index value, assigned linguistic stratum | Structured records, CMI percentage |
+
+: Automated telemetry and log schemas emitted during experimental execution. {#tbl-logs}
+
+*Note.* JSON = JavaScript Object Notation. CSV = comma-separated values. CMI = Code-Mixing Index.
+
+Following the completion of the study, the research artifacts will be prepared for public dissemination. In compliance with social media platform terms of service and standard research conventions, the benchmark dataset will be released as anonymized tweet identifiers paired with ground-truth annotation labels. A dataset documentation sheet, comprehensive model cards, and open-source repository code will be provided to ensure complete external reproducibility.
+
+## Statistical Treatment
+
+The experimental protocol produces paired evaluation measurements across the six leave-one-disaster-out folds. The statistical treatment establishes how these empirical measurements are converted into inferential conclusions, defining the test statistics, error control criteria, and decision rules. 
+
+Following established statistical recommendations in natural language processing, inferential tests must match the hierarchical structure of the experimental design. Because the primary objective is to evaluate model generalization to unseen disaster events, the fundamental unit of statistical analysis is the fold ($N = K = 6$). Scores from the five random seeds within each fold are averaged before conducting inferential tests, ensuring that local optimization noise does not inflate sample size or produce pseudo-replication. Formal hypothesis testing is set at a significance level of $\alpha = .05$.
+
+### Primary Comparative Inference
+
+The primary statistical instrument for comparing model configurations across disaster folds is the exact paired sign-flipping permutation test. Under the null hypothesis, each fold-level difference between two competing configurations is equally likely to be positive or negative. The test evaluates the observed mean difference $\bar{d}$ against the distribution of mean differences obtained from all $2^K$ possible sign assignments:
+
+$$p = \frac{1}{2^K} \sum_{\mathbf{s} \in \{\pm 1\}^K} \mathbf{1}\!\left[ \frac{1}{K} \sum_{k=1}^K s_k\, d_k \ge \bar{d} \right]$$ {#eq-signflip}
+
+With $K = 6$ folds, the exact permutation test evaluates all 64 sign permutations, yielding a minimum achievable p-value of $p_{\min} = 2^{-6} = .015625$. The permutation test is applied to three confirmatory research questions:
+
+1. **Comparative Generalization of Multi-Task Learning:** To determine whether the unified multi-task model achieves superior generalization over dedicated single-task models, the tested differences are defined as $d_k = \overline{\mathrm{Macro\text{-}F1}}_{\mathrm{MTL}}^{(k)} - \overline{\mathrm{Macro\text{-}F1}}_{\mathrm{STL}}^{(k)}$, representing the difference in mean per-task Macro-F1 on the holdout disaster of fold $k$. The hypotheses are formulated as:
+   $$H_0\colon \mu_{\mathrm{MTL}} - \mu_{\mathrm{STL}} \le 0 \quad \text{versus} \quad H_1\colon \mu_{\mathrm{MTL}} - \mu_{\mathrm{STL}} > 0$$
+   The null hypothesis is rejected if the one-sided permutation test yields $p < .05$.
+
+2. **Contrast Between Multi-Task Balancing Mechanisms:** To evaluate whether gradient surgery via PCGrad reduces task interference relative to standard uniform loss weighting, the tested differences are defined as $d_k = \overline{\mathrm{Macro\text{-}F1}}_{\mathrm{PCGrad}}^{(k)} - \overline{\mathrm{Macro\text{-}F1}}_{\mathrm{Uniform}}^{(k)}$ in mean per-task Macro-F1. The hypotheses are:
+   $$H_0\colon \mu_{\mathrm{PCGrad}} - \mu_{\mathrm{Uniform}} \le 0 \quad \text{versus} \quad H_1\colon \mu_{\mathrm{PCGrad}} - \mu_{\mathrm{Uniform}} > 0$$
+   The null hypothesis is rejected if $p < .05$.
+
+3. **Asymmetry in Inter-Task Gradient Conflict:** To determine whether gradient conflict concentrates primarily at the boundary between the token-level task (named entity recognition) and the sequence-level tasks (intent and urgency), the average gradient conflict rate between named entity recognition and the sequence tasks ($\bar\kappa_{\mathrm{NER,seq}}$) is compared against the conflict rate between the two sequence tasks ($\bar\kappa_{\mathrm{seq,seq}}$). Because the pairwise combinations involving named entity recognition share the same gradient vector ($g_{\mathrm{NER}}$), their gradient conflict rates are averaged into a single composite metric:
+   $$\bar\kappa_{\mathrm{NER,seq}} = \frac{\kappa_{\mathrm{NER,Intent}} + \kappa_{\mathrm{NER,Urgency}}}{2}$$
+   The gradient conflict rate between the two sequence-level tasks is defined directly as $\bar\kappa_{\mathrm{seq,seq}} = \kappa_{\mathrm{Intent,Urgency}}$. The sample fold differences are $d_k = \bar\kappa_{\mathrm{NER,seq}}^{(k)} - \bar\kappa_{\mathrm{seq,seq}}^{(k)}$, evaluated under:
+   $$H_0\colon \mu_{\kappa,\mathrm{NER,seq}} - \mu_{\kappa,\mathrm{seq,seq}} \le 0 \quad \text{versus} \quad H_1\colon \mu_{\kappa,\mathrm{NER,seq}} - \mu_{\kappa,\mathrm{seq,seq}} > 0$$
+   The null hypothesis is rejected if $p < .05$. In addition to the composite test, all three individual pairwise gradient conflict rates are reported descriptively to display the full interaction matrix.
+
+### Stratified Linguistic Analysis
+
+To determine whether the multi-task model maintains positive transfer across different levels of language mixing, performance is evaluated separately within the Tagalog-dominant and Mixed Taglish strata.
+
+Because linguistic strata cut across disaster events with varying proportions, stratified differences are evaluated using a cluster bootstrap procedure. The $K = 6$ disaster fold identifiers are resampled with replacement over $B = 10,000$ bootstrap iterations. For each bootstrap replicate, per-stratum Macro-F1 scores are computed across the resampled out-of-fold predictions to generate a distribution of per-stratum performance differences:
+
+$$\Delta_{\mathrm{stratum}}^{(b)} = \overline{\mathrm{Macro\text{-}F1}}_{\mathrm{MTL}}^{*(b)} - \overline{\mathrm{Macro\text{-}F1}}_{\mathrm{STL}}^{*(b)}$$ {#eq-bootstrap}
+
+With $K = 6$ disaster clusters, the theoretical space of unique cluster resamples contains $\binom{11}{6} = 462$ distinct multisets. Executing 10,000 iterations provides a dense, stable Monte Carlo approximation of the bootstrap distribution across this finite cluster space. A linguistic stratum demonstrates positive transfer if the lower bound of its one-sided confidence interval strictly excludes zero. To maintain family-wise error control across the two tested strata, significance is evaluated using the Holm-Bonferroni correction. The stratum exhibiting the stronger effect must have the lower bound of its 97.5% one-sided confidence interval strictly exceed zero, while the second stratum must clear zero at the 95% one-sided confidence level. 
+
+To guard against potential discrete distribution artifacts arising from the finite cluster count, an exact paired sign-flipping permutation test on fold-level stratum differences is reported alongside the bootstrap interval as a non-parametric robustness check. The English-dominant stratum is reported descriptively to document domain behavior without formal hypothesis testing.
+
+### Practical Equivalence Testing (TOST)
+
+When comparing complex optimization methods such as PCGrad against tuned static loss weights, standard significance tests that fail to reject the null cannot establish practical equivalence between the two methods. Instead, the evaluation tests for practical equivalence against a pre-specified margin of $\delta_{\mathrm{opt}} = .01$ in mean per-task Macro-F1 using Two One-Sided Tests (TOST).
+
+The difference in mean per-task Macro-F1 ($d_k = \overline{\mathrm{Macro\text{-}F1}}_{\mathrm{PCGrad}}^{(k)} - \overline{\mathrm{Macro\text{-}F1}}_{\mathrm{Tuned}}^{(k)}$) is evaluated using a two-sided 90% confidence interval, which is mathematically equivalent to conducting two one-sided tests at the $\alpha = .05$ significance level. To remain consistent with the non-parametric design of the study, this interval is constructed using bootstrap percentile estimation across the fold differences. For comparison with standard TOST conventions, the parametric t-interval ($t_{.95, 5} \approx 2.015$, with a half-width of approximately $0.82 \times \mathrm{SD}_{\mathrm{diff}}$) is reported alongside, with the caveat that it reaches the same conclusion only when the observed difference is near zero and $\mathrm{SD}_{\mathrm{diff}} \lesssim 0.012$:
+
+$$\text{Equivalence criterion: } [-\delta_{\mathrm{opt}}, \delta_{\mathrm{opt}}] \quad \text{such that} \quad \mathrm{CI}^{\mathrm{lower}}_{90\%} > -\delta_{\mathrm{opt}} \quad \text{and} \quad \mathrm{CI}^{\mathrm{upper}}_{90\%} < \delta_{\mathrm{opt}}$$
+
+If the 90% confidence interval falls entirely within $[-\delta_{\mathrm{opt}}, \delta_{\mathrm{opt}}]$, the two balancing techniques are declared practically equivalent. If the upper bound falls below $\delta_{\mathrm{opt}}$ without the lower bound clearing $-\delta_{\mathrm{opt}}$, PCGrad is judged non-superior but not equivalent.
+
+### Correlation of Optimization Dynamics
+
+To examine whether pairwise gradient conflicts during training are associated with task performance degradation, the relationship between the gradient conflict rate and subsequent task performance is analyzed. For each training run and task, the gradient conflict rate $\kappa_t(c)$ observed during checkpoint window $c$ is paired with the window-to-window change (first difference) in task validation score in the subsequent checkpoint window:
+
+$$\Delta \mathrm{F1}_t(c \to c+1) = \mathrm{F1}_t(c+1) - \mathrm{F1}_t(c)$$
+
+The association between the gradient conflict rate and subsequent task progression is measured using Spearman's rank correlation coefficient. A negative median correlation across runs and tasks indicates that elevated gradient conflict is followed by degraded task learning. Trajectory plots and interquartile ranges are reported to document optimization behavior over time.
+
+### Descriptive Operational Benchmarking
+
+Unlike model generalization across unseen disasters, operational engineering metrics represent direct physical measurements on a dedicated hardware testbed. Consequently, these metrics are evaluated descriptively using empirical distributions rather than null-hypothesis significance tests:
+
+1. **Inference Latency and Memory Footprint:** End-to-end latency, peak GPU video memory, and peak host resident memory are reported as the mean and standard deviation across repeated timed trials. Reductions achieved by the unified multi-task model relative to sequential single-task execution are quantified directly as percentage savings.
+2. **Non-Inferiority Margin for Individual Tasks:** To assess whether unifying the three tasks into a single shared encoder degrades individual task accuracy beyond acceptable tolerances, each task's performance difference ($\Delta \mathrm{F1}_t = \mathrm{Macro\text{-}F1}_{\mathrm{MTL},t} - \mathrm{Macro\text{-}F1}_{\mathrm{STL},t}$) is assessed against a pre-specified non-inferiority bound $-\epsilon$. The non-inferiority margin $\epsilon$ is fixed at 1.5 times the pooled seed-level standard deviation of the single-task baselines. Non-inferiority is supported if each task's mean difference clears $-\epsilon$.
+
+### Alternative Statistical Tests Considered and Excluded
+
+Several conventional statistical techniques were evaluated and deliberately excluded based on sample size constraints and the structure of the data:
+
+1. **Paired Student's t-test:** The paired t-test requires that the differences between pairs follow a normal distribution and assumes stable variance estimates. At a sample size of $K = 6$ folds, the assumption of normality cannot be reliably tested or defended, making the t-test unreliable.
+2. **Wilcoxon Signed-Rank Test as Primary:** The Wilcoxon signed-rank test converts numerical performance differences into ranks, discarding the magnitude of score improvements. While Wilcoxon tests are computed as supplementary robustness checks, the exact paired sign-flipping permutation test is preferred as the primary inferential tool because it retains full magnitude information without making parametric distributional assumptions such as normality.
+3. **Pooled Instance-Level Significance Tests:** Applying statistical tests directly across all individual tweets or seeds ignores the clustered structure of disaster events. Pooling treats dependent observations as independent, artificially inflating degrees of freedom and producing false significance.
+4. **Hierarchical Mixed-Effects Models:** While mixed-effects models can represent nested data structures, accurately estimating random disaster effects and task interactions requires a substantially larger number of disaster clusters than the six historical events available in this study.
+
+The mapping between each confirmatory research question, its formal inferential test, and its designated decision criteria is synthesized in @tbl-statistical-tests.
+
+| Analytical Objective | Statistical Instrument | Evaluated Metric | Decision Criterion | Robustness Check |
+|---|---|---|---|---|
+| Multi-task versus single-task generalization | Exact paired sign-flipping permutation | Mean difference in mean per-task Macro-F1 across folds | $p < .05$, one-sided | Wilcoxon signed-rank test |
+| PCGrad versus uniform balancing contrast | Exact paired sign-flipping permutation | Mean difference in mean per-task Macro-F1 across folds | $p < .05$, one-sided | Wilcoxon signed-rank test |
+| Inter-task gradient conflict asymmetry | Exact paired sign-flipping permutation | Mean difference between token-sequence and sequence-sequence gradient conflict rate | $p < .05$, one-sided | Inspection of individual pairwise cosines |
+| Stratified language transfer | Cluster bootstrap with Holm correction | Out-of-fold per-stratum Macro-F1 differences | Lower confidence bound excludes zero | Sign-flipping permutation across fold strata |
+| Balancing practical equivalence | Two One-Sided Tests (TOST) via 90% confidence interval | Fold-level difference between PCGrad and tuned static weights | 90% confidence interval within $[-.01, .01]$ | Full confidence interval span reporting |
+| Gradient conflict versus task progress | Spearman rank correlation | Rank correlation between gradient conflict rate and window-to-window F1 delta | Median correlation across runs $< 0$ | Interquartile range and trajectory plots |
+| Hardware inference efficiency | Descriptive empirical benchmarking | Batch-1 latency, peak GPU VRAM, peak host RAM | Descriptive summary (mean and SD) | Timed trials across sequential and concurrent modes |
+| Individual task non-inferiority | Non-inferiority margin evaluation | Per-task Macro-F1 difference against non-inferiority bound | Mean performance difference $\ge -\epsilon$ | 95% confidence interval reporting |
+
+: Summary of statistical and benchmarking methods across all analytical objectives. {#tbl-statistical-tests}
+
+*Note.* MTL = multi-task learning. STL = single-task learning. PCGrad = Projecting Conflicting Gradients. TOST = Two One-Sided Tests.
+
+## Data Analysis
+
+While Section 3.6 established the inferential frameworks and decision criteria, this section formalizes the operational metrics, mathematical formulations, and evaluation granularities applied across all experimental conditions. All performance, transfer, and computational efficiency metrics are computed identically across single-task baselines and multi-task architectures to ensure experimental parity.
+
+### Task Performance Metrics
+
+Intent classification and urgency classification are evaluated using classification Macro-F1. For each category $c \in C$, precision $P_c$ and recall $R_c$ are calculated from true positive, false positive, and false negative counts:
+
+$$P_c = \frac{\text{TP}_c}{\text{TP}_c + \text{FP}_c}, \quad R_c = \frac{\text{TP}_c}{\text{TP}_c + \text{FN}_c}$$
+
+The class-specific harmonic mean $F1_c$ and the overall task Macro-F1 are defined as:
+
+$$F1_c = \frac{2 P_c R_c}{P_c + R_c}, \quad \text{Macro-F1} = \frac{1}{|C|} \sum_{c \in C} F1_c$$
+
+Unweighted macro-averaging ensures that low-frequency emergency categories, such as urgent rescue requests, receive equal analytical weight to high-frequency majority categories.
+
+Named entity recognition is evaluated using entity-level Macro-F1 under strict CoNLL evaluation conventions. A predicted entity span is classified as a true positive if and only if its character start offset, character end offset, and semantic entity type match the ground-truth annotation exactly. Predicted spans with boundary discrepancies or type mismatches are scored as false positives, while unpredicted ground-truth spans are scored as false negatives. Class-level F1 scores are calculated per entity category and averaged unweighted across all defined entity types.
+
+Overall multi-task triage capability is summarized by unweighted mean per-task Macro-F1 across all $T = 3$ triage tasks:
+
+$$\overline{\text{Macro-F1}} = \frac{1}{T} \sum_{t=1}^T \text{Macro-F1}_t$$
+
+where named entity recognition enters at the entity level and classification tasks enter at the sequence level. Unweighted task averaging enforces parity across triage objectives, preventing any single task from dominating the mean evaluation.
+
+### Pooled Out-of-Fold Evaluation
+
+Stratified evaluations use a pooled out-of-fold construction. In leave-one-disaster-out cross-validation ($K = 6$), each disaster event serves as the holdout evaluation set exactly once. Concatenating holdout predictions across all six folds yields a comprehensive evaluation corpus covering all 6,820 annotated posts, where every prediction is out-of-domain by construction.
+
+Per-stratum Macro-F1 is evaluated on this pooled corpus across the three linguistic strata: English-dominant, Tagalog-dominant, and Mixed Taglish. Stratified scores are computed per random seed and then averaged across the five initialization seeds. Instance support is defined over unique social media posts. For named entity recognition, a post provides support for an entity type if it contains at least one ground-truth span of that type. To prevent statistical distortion from extreme low-frequency categories, inferential comparisons across strata require a minimum cell count of $n \ge 25$ unique instances per stratum-by-class cell.
+
+### Task Interference and Transfer Formulations
+
+Task interference is quantified through per-task negative transfer ($\text{NT}_t$), defined as the performance difference between the dedicated single-task baseline and the multi-task model:
+
+$$\text{NT}_t = \text{Macro-F1}_{\text{STL}, t} - \text{Macro-F1}_{\text{MTL}, t}$$ {#eq-ntt}
+
+Positive values indicate negative transfer, representing performance degradation resulting from multi-task weight sharing, whereas negative values indicate positive transfer and collaborative task synergy. The mean positive transfer across the full system is defined as:
+
+$$\Delta \text{MTL} = -\frac{1}{T} \sum_{t=1}^T \text{NT}_t = \overline{\text{Macro-F1}}_{\text{MTL}} - \overline{\text{Macro-F1}}_{\text{STL}}$$
+
+For any two multi-task balancing configurations $A$ and $B$, the difference in summed negative transfer satisfies an exact algebraic identity:
+
+$$\sum_{t=1}^T \text{NT}_t^{(A)} - \sum_{t=1}^T \text{NT}_t^{(B)} = T \times \big( \overline{\text{Macro-F1}}^{(B)} - \overline{\text{Macro-F1}}^{(A)} \big)$$ {#eq-ntidentity}
+
+Because single-task baseline terms cancel identically in this subtraction, the net difference in negative transfer between two balancing strategies equals the mean per-task score gap scaled by the number of tasks $T$. Consequently, the primary comparative contrast between balancing methods is evaluated directly on mean per-task Macro-F1, while per-task negative transfer distributions isolate specific sources of task interference.
+
+To evaluate learning dynamics during training, window-to-window validation score changes are tracked across consecutive checkpoint windows:
+
+$$\Delta \text{F1}_t(c \to c+1) = \text{F1}_t(c+1) - \text{F1}_t(c)$$
+
+Checkpoint intervals are normalized by the proportion of completed optimization steps, enabling valid temporal comparisons across runs that terminate at different early-stopping epochs. Each training run contributes $C - 1$ consecutive transition boundaries.
+
+### Gradient Conflict Diagnostics
+
+Task interaction during backpropagation is diagnosed by inspecting task loss gradients at the final shared encoder layer. The cosine similarity between gradient vectors $g_i$ and $g_j$ for task pair $(i, j)$ on batch $b$ is defined as:
+
+$$\cos(g_{i,b}, g_{j,b}) = \frac{g_{i,b} \cdot g_{j,b}}{\|g_{i,b}\|_2 \|g_{j,b}\|_2}$$
+
+Within checkpoint window $c$, pairwise gradient conflict rate ($\kappa_{i,j}(c)$) is the proportion of optimization steps where the gradients point in opposing directions:
+
+$$\kappa_{i,j}(c) = \frac{1}{B_c} \sum_{b=1}^{B_c} \mathbb{I}\big(\cos(g_{i,b}, g_{j,b}) < 0\big)$$
+
+where $B_c$ denotes the total number of optimization batches within the window and $\mathbb{I}(\cdot)$ is the indicator function. The overall gradient conflict rate of task $t$ across the other two triage tasks is calculated as the mean of its two pairwise gradient conflict rates:
+
+$$\kappa_t(c) = \frac{1}{|T| - 1} \sum_{j \ne t} \kappa_{t,j}(c)$$
+
+Window-mean cosine similarity is reported alongside the gradient conflict rate because task gradients in overparameterized models frequently operate near orthogonality ($\cos \approx 0$). In this regime, minor directional fluctuations can cause the sign of the inner product to alternate without representing severe optimization conflict [@jiang2023forkmerge].
+
+To evaluate whether gradient conflict precedes subsequent validation degradation, the lead-lag relationship is measured using the Spearman rank correlation:
+
+$$\rho_{\text{conflict}} = \rho\big(\kappa_t(c),\, \Delta \text{F1}_t(c \to c+1)\big)$$
+
+evaluated across the $C - 1$ checkpoint transition windows. First-order differencing of validation scores ($\Delta \text{F1}$) removes shared monotonic trends over training time that would otherwise create spurious correlations. The distribution of correlation coefficients across all $K \times S \times T$ run-task pairs is summarized using the median and interquartile range.
+
+### Computational Efficiency and Serving Metrics
+
+Inference latency is measured in milliseconds over repeated batch-size-one forward passes that evaluate all three triage tasks concurrently. Following an unmeasured warm-up phase, execution time is captured using monotonic timers flanked by explicit GPU synchronization barriers. Latency is reported as the mean and standard deviation across repeated trials.
+
+Memory consumption is reported in megabytes across two complementary operational metrics: peak GPU allocated memory (framework-level VRAM) and host resident set size (system RAM). Peak GPU memory tracks tensor allocations via framework memory counters, while host resident memory tracks physical RAM occupancy sampled directly from operating system process records.
+
+Relative resource reduction is calculated against the eager all-resident sequential baseline:
+
+$$\text{Reduction}_{\text{Resource}} = 1 - \frac{\text{Resource}_{\text{unified}}}{\text{Resource}_{\text{sequential}}}$$
+
+This metric is evaluated for both end-to-end inference latency and peak memory utilization. An on-demand load-and-unload sequential serving baseline is evaluated descriptively to contextualize extreme memory-constrained scenarios, but is excluded from primary reduction claims due to severe latency overheads incompatible with operational dispatch requirements.
+
+### Per-Task Non-Inferiority Margin and Tokenizer Fertility
+
+To protect against asymmetric multi-task compromises where the unified model satisfies mean per-task performance at the expense of an individual triage capability, an objective non-inferiority threshold is established. The non-inferiority margin $\epsilon$ is derived from the empirical variance of single-task baseline runs:
+
+$$\epsilon = 1.5 \times \sqrt{\frac{1}{KT} \sum_{k=1}^K \sum_{t=1}^T s^2_{k,t}}$$
+
+where $s^2_{k,t}$ denotes the sample variance of Macro-F1 across the five initialization seeds for fold $k$ and task $t$ under single-task training. Pooling baseline variance across all folds and tasks establishes an objective non-inferiority threshold grounded in normal stochastic variation.
+
+Tokenizer fertility is evaluated as an explanatory linguistic diagnostic, defined as the average number of subword tokens produced per whitespace-delimited word:
+
+$$\text{Fertility} = \frac{\text{Total Subword Tokens}}{\text{Total Whitespace Words}}$$
+
+Fertility is computed descriptively across each linguistic stratum. Elevated fertility indicates elevated subword fragmentation, providing an empirical explanation for performance disparities across Tagalog and Taglish text where morphological complexity and colloquial compounding challenge standard pretraining vocabularies.
+
+The complete mathematical definitions, evaluation granularities, and experimental objectives across all triage and computational metrics are registered in @tbl-metrics.
+
+| Metric | Formulation | Granularity | Primary Analytical Purpose |
+|---|---|---|---|
+| Classification Macro-F1 | $\frac{1}{|C|}\sum_c F1_c$, with $F1_c = \frac{2P_cR_c}{P_c+R_c}$ | Message-level classification | Intent classification and urgency classification benchmarking |
+| Entity-level Macro-F1 | Exact boundary and type match, macro-averaged across entity types | Token span-level recognition | Named entity recognition benchmarking |
+| Mean per-task Macro-F1 | $\overline{\text{Macro-F1}} = \frac{1}{T}\sum_t \text{Macro-F1}_t$ | Model-level per fold | Unified multi-task benchmarking and cross-disaster generalization |
+| Per-stratum Macro-F1 | Pooled out-of-fold evaluation across linguistic strata, seed-averaged, $n \ge 25$ | Linguistic stratum-level | Cross-linguistic robustness evaluation across disaster strata |
+| Per-task negative transfer | $\text{NT}_t = \text{Macro-F1}_{\text{STL},t} - \text{Macro-F1}_{\text{MTL},t}$, per fold | Task-level per fold | Task interference and negative transfer quantification |
+| Net balancing transfer gap | Difference in negative transfer via @eq-ntidentity | Model-level comparison | Comparative multi-task balancing strategy analysis |
+| Window-to-window score change | $\Delta \text{F1}_t(c \to c+1) = \text{F1}_t(c+1) - \text{F1}_t(c)$ | Task-level by checkpoint interval | Validation trajectory and optimization progress tracking |
+| Gradient conflict rate | $\kappa_{i,j}(c) = \frac{1}{B_c}\sum_{b=1}^{B_c} \mathbb{I}(\cos(g_{i,b}, g_{j,b}) < 0)$, $\kappa_t(c) = \frac{1}{2}\sum_{j \ne t}\kappa_{t,j}(c)$ | Task pair and task by checkpoint window | Inter-task gradient alignment and optimization conflict diagnostics |
+| Lead-lag correlation | Spearman $\rho(\kappa_t(c), \Delta \text{F1}_t(c \to c+1))$ across transitions | Run by task | Temporal correlation between gradient conflict and validation progress |
+| Inference latency | Mean and standard deviation across repeated timed trials | Serving configuration | Real-time emergency triage latency profiling |
+| Peak memory footprint | Maximum observed GPU VRAM and host RAM across trials | Serving configuration | Hardware resource utilization profiling |
+| Relative footprint reduction | $1 - \text{Resource}_{\text{unified}} / \text{Resource}_{\text{sequential}}$ | Serving configuration | Operational deployment efficiency on commodity hardware |
+| Per-task non-inferiority margin | $\epsilon = 1.5 \times \sqrt{\frac{1}{KT}\sum_{k,t} s^2_{k,t}}$ | Task-level across folds | Individual task non-inferiority evaluation in the unified model |
+| Tokenizer fertility | Subword tokens divided by whitespace words per stratum | Corpus stratum-level | Morphological fragmentation analysis across language varieties |
+
+: Complete metric registry detailing operational formulations, measurement granularities, and analytical purposes. {#tbl-metrics}
+
+*Note.* TP = true positive. FP = false positive. FN = false negative. CMI = Code-Mixing Index. NT = negative transfer.
+
+## Software System Description
+
+The benchmarking pipeline, multi-task balancing algorithms, and serving workflows run on a unified research software system. This section details the system architecture across three distinct views: its structural decomposition, operational use cases, and deployment environment.
+
+### System Structure
+
+The software system is organized into three primary subsystems: the data plane, the model core, and the execution orchestrators.
+
+The data plane executes data ingestion, deduplication, language identification, Code-Mixing Index screening, text pre-processing, and linguistic stratum assignment. It implements the data collection and preparation pipeline established in Section 3.5, outputting an immutable, cryptographically sealed corpus store ensuring identical data inputs across all training folds.
+
+The model core is built around a single shared encoder, SEA-LION-ModernBERT-300M, an open-access foundational model released under the MIT license by AI Singapore [@aisingapore2026sealion]. The encoder is paired with three task-specific prediction heads: a token-classification head for named entity recognition, and two sequence-classification heads for disaster intent classification and urgency classification. A single pretrained encoder checkpoint serves all experimental configurations. The multi-task models feed the shared encoder representations into all three heads simultaneously, whereas single-task baselines pair the identical encoder with an individual head. Task head architectures remain identical across single-task and multi-task models to enforce architectural parity. The SHA-256 cryptographic hash of the base checkpoint is pinned in the execution manifest to verify model identity across all logged runs.
+
+The structural decomposition, subsystem interfaces, and automated telemetry flows connecting the data plane, model core, and execution orchestrators appear in @fig-system-architecture.
+
+![System block diagram illustrating the structural decomposition, subsystem interfaces, and automated telemetry logging pipeline.](figures/fig-3-5-system-architecture){#fig-system-architecture}
+
+*Note.* DPA 2012 = Data Privacy Act of 2012. PII = personally identifiable information. FastText LID = FastText language identification. CMI = Code-Mixing Index. RoPE = Rotary Position Embeddings. BIO = Begin, Inside, Outside token tagging. MTL = multi-task learning. LODO = leave-one-disaster-out. PCGrad = Projecting Conflicting Gradients. VRAM = video random access memory. RAM = random access memory.
+
+The parameter distribution of the model core is a critical factor in memory efficiency. SEA-LION-ModernBERT-300M employs a Gemma-3 SentencePiece vocabulary comprising 262,144 tokens with an embedding hidden dimension of 768. Consequently, the input embedding matrix contains approximately $2.01 \times 10^8$ parameters ($201{,}326{,}592$ parameters), accounting for roughly 64.4% of the model's total parameter budget of $312{,}510{,}976$ parameters ($\approx 3.13 \times 10^8$ parameters, with $111{,}184{,}384$ non-embedding encoder parameters). In 32-bit floating point precision, this embedding layer alone occupies approximately 805 megabytes of memory before accounting for layer activations. In a multi-task configuration, this substantial footprint is instantiated exactly once, whereas maintaining three separate single-task models requires triplicating the embedding parameters in memory ($2{,}416 \text{ MB}$ or $\approx 2.42 \text{ GB}$). Furthermore, because embedding operations consist of index lookups rather than dense matrix multiplications, checkpoint parameter size does not directly scale forward-pass computational cost. The structural tensor flow, parameter distribution, and task-specific head branches are depicted in @fig-neural-architecture.
+
+![Neural network architecture and parameter distribution across model components.](figures/fig-3-6-neural-architecture){#fig-neural-architecture}
+
+*Note.* V = vocabulary size. d = hidden dimension. RoPE = Rotary Position Embeddings. LOC = location entities. INFRA = infrastructure entities. BIO = Begin, Inside, Outside token tagging. MTL = multi-task learning. STL = single-task learning.
+
+The execution orchestrators coordinate computational execution through two specialized engines:
+
+1. **Training orchestrator:** Manages the full benchmark execution grid across six model configurations, six disaster folds, and five initialization seeds ($180$ total production runs), enforcing automated run-integrity policies and capturing gradient telemetry as defined in Section 3.5.
+2. **Serving orchestrator:** Evaluates inference efficiency across deployed model configurations, comparing the unified multi-task architecture against the eager all-resident sequential baseline, concurrent head evaluation, and the memory-saving on-demand load-and-unload baseline.
+
+### Use Cases
+
+System operations are structured around three primary actors:
+
+1. **Response analyst:** Queries operational triage outputs during disaster response, inspecting filtered shortlists of urgent citizen posts with associated entity extractions and confidence scores.
+2. **System operator:** Initializes, executes, and monitors benchmark training runs and hardware profiling experiments.
+3. **MLOps worker:** An automated execution role that orchestrates batch training runs, performs out-of-domain checkpoint evaluations, and generates structured telemetry logs.
+
+The concrete execution flows, preconditions, and automated error-handling policies for each operational role are detailed in @tbl-usecases.
+
+| Use Case | Actor | Precondition | Primary Flow | Exception Handling |
+|---|---|---|---|---|
+| Query triage output | Response analyst | Unified model deployed and serving inference requests | The analyst submits classification filters based on urgency level, intent category, or geographic entity. The system returns filtered, ranked messages with predictive confidences for human verification. | If no messages satisfy the specified confidence threshold, the system returns an empty result set and prompts the analyst to broaden query filters. |
+| Run benchmark configuration | System operator | Execution manifest, dataset splits, and launch verification tests passed | The operator selects a configuration, fold, and seed combination from the manifest, starts the training orchestrator, and monitors execution to completion while verifying log generation. | If loss divergence or class collapse occurs, the run-integrity policy triggers an automated re-run with the same seed. A second failure terminates the run under pre-specified exclusion criteria. |
+| Execute evaluation and logging | MLOps worker | Model training completed with saved checkpoint weights | The worker evaluates out-of-domain Macro-F1 across saved checkpoints, formats telemetry records according to the schema, and registers run artifacts in the manifest. | If schema validation fails, the worker halts pipeline execution and flags the run record for manual inspection without silent modification. |
+| Profile inference efficiency | System operator | Trained model checkpoints accessible and testbed locked in stable power profile | The operator loads the target serving configuration, runs warm-up passes, executes the designated number of timed trials, and emits hardware efficiency logs. | If concurrent multi-task serving encounters GPU memory contention, the configuration is marked as hardware-infeasible and logged according to experimental protocol. |
+
+: System use case specifications detailing actor interactions, operational flows, and failure handling. {#tbl-usecases}
+
+*Note.* MLOps = Machine Learning Operations. System workflows and failure handling are structured to maintain auditable execution records.
+
+The interactions between system actors, primary operational use cases, and conditional exception-handling extensions are depicted in @fig-use-cases.
+
+![UML use-case diagram illustrating operational actors, primary triage and benchmarking workflows, and conditional exception-handling extensions.](figures/fig-3-7-use-cases){#fig-use-cases}
+
+*Note.* MLOps = Machine Learning Operations. GPU = graphics processing unit. VRAM = video random access memory. RAM = random access memory. Dashed arrows designate UML extension relationships executed conditionally under failure or resource contention.
+
+### Materials and Equipment
+
+Experimental training and hardware profiling are conducted on a single dedicated commodity workstation. The testbed specifications, introduced in Section 3.4, are standardized across all experimental conditions. @tbl-environment documents the complete hardware and software stack.
+
+| System Parameter | Specifications and Operational Configuration |
+|---|---|
+| Workstation Host | Desktop workstation, 64-bit Windows 11 host operating system |
+| Execution Environment | Windows Subsystem for Linux 2 (WSL 2), Ubuntu 24.04 LTS, Linux kernel 6.6 |
+| Central Processing Unit | 13th Gen Intel Core i5-13500HX, 14 cores (6 performance cores, 8 efficient cores), 20 threads |
+| Host Memory | 32 GB DDR5 system RAM, 4800 MT/s |
+| Graphics Processing Unit | NVIDIA GeForce RTX 4060 Laptop GPU, 8 GB GDDR6 VRAM, 128-bit memory bus |
+| Graphics Driver and CUDA | NVIDIA Driver 572.83, CUDA Toolkit 12.8 runtime |
+| Deep Learning Frameworks | Python 3.12.3, PyTorch 2.8.0+cu128, Hugging Face Transformers 4.57.6 |
+| Base Encoder Checkpoint | SEA-LION-ModernBERT-300M base pretrain, verified SHA-256 checkpoint hash |
+| Precision Configuration | 32-bit floating point precision (fp32) applied across training and inference |
+| Power and Thermal Profile | AC mains connected, maximum performance cooling and power policy enforced |
+| Edge Target Systems | None. Low-power embedded edge devices are excluded and identified as future work. |
+
+: Standardized computational environment for experimental training and inference profiling. {#tbl-environment}
+
+*Note.* WSL 2 = Windows Subsystem for Linux 2. LTS = Long-Term Support. RAM = random access memory. VRAM = video random access memory. fp32 = 32-bit floating point.
+
+The computational budget adheres to auditable accounting principles following the ACL Rolling Review reporting guidelines. Evaluating six model configurations across six leave-one-disaster-out folds and five initialization seeds requires $6 \times 6 \times 5 = 180$ full training runs. Additional single-seed exploratory runs support hyperparameter tuning across a standardized grid, allocated equally across all configurations. Hardware profiling requires negligible compute time relative to model training. Prior to production training, a short footprint trial calculates the empirical execution time per optimization step, yielding an estimated total GPU-hour requirement recorded in the execution manifest. All computation runs on the local workstation without reliance on commercial cloud platforms or external computing clusters, ensuring that the study's computational requirements remain within reach of resource-constrained emergency management agencies.
+
+## Testing and Evaluation
+
+Before the system executes production benchmarking runs, the underlying pipeline code and measurement instruments undergo systematic verification. In scientific computing, software verification guards against silent data leakage, calculation errors, memory accumulation, and gradient corruption that would invalidate empirical findings. All verification tests run within continuous integration suites and must pass before production training commences.
+
+### Unit Verification and Algorithmic Correctness
+
+Unit tests evaluate individual pipeline components in isolation using deterministic synthetic fixtures:
+
+1. **Tokenizer round-trip consistency:** Verifies that tokenization followed by detokenization reproduces benchmark text fixtures exactly, modulo documented text normalization rules, confirming that subword splitting behaves deterministically across all language mixtures.
+2. **Loss-normalization scale parity:** Verifies that per-task mean-reduced loss computations match hand-calculated ground-truth values to floating-point tolerance, confirming that 1:1:1 multi-task loss weighting maintains scale parity across varying token-level and sequence-level batch compositions.
+3. **Task head output dimensions:** Validates output tensor shapes for all three heads across synthetic batch fixtures, confirming that named entity recognition outputs sequence length by entity class logits while intent and urgency heads produce exact class-dimension logits.
+4. **Code-Mixing Index implementation fixtures:** Validates the automated CMI calculation function against hand-calculated test cases spanning monolingual English, monolingual Tagalog, balanced code-switched text, and lexical borrowing edge cases, ensuring consistent language screening and stratum assignment.
+5. **Pooled out-of-fold evaluation construction:** Confirms that concatenating held-out fold predictions covers every corpus instance exactly once without duplicate evaluations or data contamination from training folds.
+
+### Pipeline Stability and Stress Testing
+
+Integration and stress tests verify interoperability and operational stability across pipeline subsystems:
+
+1. **End-to-end execution pipeline:** Executes an automated smoke test across a miniature training, checkpointing, evaluation, and log generation cycle, validating all emitted CSV and JSON outputs against predefined schema definitions.
+2. **Gradient inspection side-effect verification:** Confirms that enabling gradient telemetry hooks does not perturb model training. Model weights and optimizer states following a fixed batch update with gradient inspection enabled are verified to be bitwise identical to updates executed with logging disabled.
+3. **Latency scaling across batch sizes:** Profiles inference latency across varying batch dimensions to verify throughput behavior under increasing load, maintaining batch size one as the primary operational evaluation.
+4. **Thermal stability monitoring:** Continuously logs GPU core and memory temperatures during sustained inference benchmarking, confirming that thermal throttling does not introduce artificial latency variance into timed trials.
+5. **Memory leak detection:** Tracks peak GPU allocated memory and host resident set size across successive evaluation blocks, confirming that memory allocations remain stable without monotonic memory accumulation.
+
+The pre-flight verification matrix, targeted operational risks, and acceptance criteria across all pipeline layers are consolidated in @tbl-tests.
+
+| Test Case | Level | Verification Objective | Pass Criterion |
+|---|---|---|---|
+| Tokenizer round-trip | Unit | Guard against token corruption during encoding | Encode-decode reproduces fixtures exactly modulo documented normalizations |
+| Loss-normalization parity | Unit | Prevent loss magnitude distortion across task types | Mean-reduced loss matches hand-computed fixture to floating-point tolerance |
+| Head output dimensions | Unit | Ensure tensor alignment with classification heads | NER emits sequence by entity logits, sequence heads emit class logits |
+| CMI implementation | Unit | Verify accurate language screening and stratification | Code reproduces hand-calculated CMI values on standardized linguistic test cases |
+| Pooled fold construction | Unit | Ensure strict out-of-domain evaluation without leakage | Every post appears exactly once in pooled test set with support counted accurately |
+| End-to-end pipeline | Integration | Validate entire execution and telemetry cycle | Smoke-scale run completes training and evaluation while logs satisfy schema rules |
+| Gradient logging purity | Integration | Ensure telemetry hooks do not alter model updates | Optimizer state after update with logging matches update without logging |
+| Latency load scaling | Stress | Characterize throughput behavior across batch sizes | Batch-1 latency remains stable across sessions, batch curve reported descriptively |
+| Thermal behavior | Stress | Prevent undetected clock throttling from skewing latency | On-die GPU temperature remains below throttling limit throughout timed sessions |
+| Memory leak detection | Stress | Guard against memory accumulation during serving | Peak VRAM and host RAM remain stable across repeated trial blocks |
+
+: Systematic testing plan establishing verification objectives and pass criteria across all pipeline levels. {#tbl-tests}
+
+*Note.* CMI = Code-Mixing Index. NER = named entity recognition. VRAM = video random access memory. RAM = random access memory.
+
+### Software Quality Standards Alignment
+
+To ground software evaluation within established engineering frameworks, the research artifact is mapped to the relevant characteristics of the ISO/IEC 25010 software product quality standard [@iso25010]. Because the artifact is a specialized research and benchmarking pipeline rather than a commercial consumer application, evaluation focuses on the operational characteristics relevant to experimental validity and real-time crisis triage: performance efficiency, reliability, and portability. Other characteristics from the standard, including usability, security, compatibility, and maintainability, are formally documented as non-applicable within the context of this study.
+
+@tbl-iso presents the software quality mapping, detailing the applicability rationale and verification evidence for each evaluated characteristic.
+
+| Quality Characteristic | Operational Applicability | Architectural Evidence and Verification Mechanism |
+|---|---|---|
+| Performance efficiency | Applicable | Time behavior is demonstrated through batch-1 inference latency benchmarking. Resource utilization is established through peak GPU allocated memory and host resident memory profiling. |
+| Reliability | Applicable | Pipeline robustness is safeguarded by the automated run-integrity policy with divergence detection, continuous integration schema validation, and deterministic random seed controls. |
+| Portability | Applicable | Multi-platform adaptability is supported by containerized dependencies, pinned environment manifests, and open-source dissemination packages enabling external reproduction on standard commodity hardware. |
+| Functional suitability | Non-applicable | The system is an experimental scientific benchmark rather than an interactive end-user software product with formal commercial business requirements. |
+| Compatibility | Non-applicable | The software operates as a standalone research testbed and does not interface with external enterprise software ecosystems or legacy municipal dispatch networks. |
+| Usability | Non-applicable | The artifact is designed exclusively for research operation by technical practitioners and lacks graphical user interfaces or public accessibility features. |
+| Security | Non-applicable | Operational risk is addressed prior to model execution through the Data Privacy Act scrubbing pipeline, rather than through runtime access control or user authentication modules. |
+| Maintainability | Non-applicable | Long-term code lifecycle maintenance across independent software teams is outside the scope of this single-investigator academic thesis. |
+
+: Mapping of research software artifacts to ISO/IEC 25010 quality characteristics. {#tbl-iso}
+
+*Note.* Quality characteristics are defined according to ISO/IEC 25010 (@iso25010). Non-applicable characteristics reflect differences between research benchmark pipelines and interactive commercial products.
+
