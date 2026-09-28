@@ -1,7 +1,12 @@
-% Caption styling
+% Black text, including links and citations
+\AtBeginDocument{\hypersetup{colorlinks=true, allcolors=black}}
+
+% Captions: APA 7 layout (bold number, italic title, flush left)
 \usepackage{caption}
-\DeclareCaptionFormat{indented}{\leftskip=0.5in#1#2#3}
-\captionsetup{format=indented, labelsep=newline, labelfont=bf, textfont=it, justification=raggedright, singlelinecheck=false, skip=6pt}
+\DeclareCaptionFormat{apa}{#1#2#3}
+\captionsetup{format=apa, labelsep=newline, labelfont=bf, textfont=it, justification=raggedright, singlelinecheck=false, font={stretch=1.0}}
+\setlength{\abovecaptionskip}{4pt}
+\setlength{\belowcaptionskip}{0pt}
 
 % Running header and pagination
 \usepackage{scrlayer-scrpage}
@@ -21,11 +26,27 @@
 \def\fps@figure{H}
 \makeatother
 
-% Table typography and alignment
+% Headings: no extra space (afterskip 1pt keeps them display-style)
+\RedeclareSectionCommands[
+  beforeskip=0pt,
+  afterskip=1pt,
+  afterindent=true
+]{chapter,section,subsection,subsubsection,paragraph}
+
+% No paragraph or float spacing on top of the double line spacing
+\setlength{\parskip}{0pt}
+\setlength{\textfloatsep}{0pt}
+\setlength{\intextsep}{0pt}
+
+% Tables: single-spaced, footnote-size, flush left
 \usepackage{etoolbox}
 \AtBeginEnvironment{longtable}{\singlespacing\footnotesize}
 \AtBeginEnvironment{tabular}{\singlespacing\footnotesize}
 \setlength{\LTleft}{0pt}
-\setlength{\LTright}{\fill}
+\setlength{\LTright}{0pt}
 \setlength{\LTcapwidth}{\textwidth}
 \setlength{\LTpost}{0pt}
+
+% Chapter headings centered; Chapter 3 already spells out its number
+\renewcommand*{\raggedchapter}{\centering}
+\renewcommand*{\chapterformat}{\ifnum\value{chapter}=3\relax\else\thechapter\autodot\enspace\fi}
