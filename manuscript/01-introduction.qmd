@@ -2,34 +2,36 @@
 
 ## Statement of the Problem
 
-This study addresses negative transfer in a shared multi-task model for Taglish disaster tweet triage. Although loss weighting and gradient surgery are widely proposed to address task interference, it remains unclear whether tuned static weighting, gradient surgery, or their combination performs best relative to equal weighting in code-switched text. Evaluating these training methods requires identical inputs across all three triage tasks to benchmark against the dedicated single-task baselines, but no public corpus jointly annotates these three tasks on the same tweets. This study therefore designs and constructs a Taglish dataset for disaster triage across three linguistic strata to determine which training method best mitigates negative transfer in the shared multi-task model on unseen typhoon events.
+The general problem of this study is the performance degradation caused by negative transfer during the joint training of mixed-granularity tasks on code-switched Taglish disaster tweets.
 
 The specific questions are the following:
 
-1. How well do the dedicated single-task baselines perform across the three triage tasks within each of the three linguistic strata on unseen typhoon events? *(Baseline Analysis)*
+1. How do single-task baselines perform on the three disaster triage tasks within each linguistic stratum on unseen typhoon events? *(Baseline Analysis)*
 
-2. How can a Taglish dataset for disaster triage across three linguistic strata be designed and constructed as a proof-of-concept benchmark for the controlled comparison of multi-task training methods? *(Design & Artifact Creation)*
+2. How can a Taglish dataset for disaster triage be constructed to support a controlled evaluation of multi-task training methods? *(Design & Artifact Creation)*
 
-3. What is the empirical performance of the shared multi-task model in terms of inference latency per tweet and peak memory usage compared with the dedicated single-task baselines? *(Empirical Benchmarking)*
+3. How does the multi-task model compare to the single-task baselines in inference efficiency on unseen typhoon events? *(Empirical Benchmarking)*
 
-4. Is there a statistically significant difference in negative transfer among equal weighting, tuned static weighting, gradient surgery (PCGrad), and tuned static weighting with gradient surgery on unseen typhoon events? *(Comparative Validation)*
+4. Is there a statistically significant difference in negative transfer among the five multi-task training methods on unseen typhoon events? *(Comparative Validation)*
 
 ## Objectives
 
-The general objective of this study is to design and construct a Taglish dataset for disaster triage across three linguistic strata to determine which training method best mitigates negative transfer in the shared multi-task model on unseen typhoon events.
+The general objective of this study is to determine which multi-task training method best mitigates negative transfer in the joint training of disaster triage tasks on code-switched Taglish disaster tweets.
 
 The specific objectives are the following:
 
-1. To establish the per-task performance of the dedicated single-task baselines across the three triage tasks within each of the three linguistic strata on unseen typhoon events. *(Baseline Analysis)*
+1. To evaluate the performance of single-task baselines on the three disaster triage tasks within each linguistic stratum on unseen typhoon events. *(Baseline Analysis)*
 
-2. To design and construct a Taglish dataset for disaster triage across three linguistic strata as a proof-of-concept benchmark for the controlled comparison of multi-task training methods. *(Design & Artifact Creation)*
+2. To construct a Taglish dataset for disaster triage that supports a controlled evaluation of multi-task training methods. *(Design & Artifact Creation)*
 
-3. To establish the empirical performance of the shared multi-task model in terms of inference latency per tweet and peak memory usage compared with the dedicated single-task baselines. *(Empirical Benchmarking)*
+3. To compare the inference efficiency of the multi-task model and the single-task baselines on unseen typhoon events. *(Empirical Benchmarking)*
 
-4. To statistically evaluate the difference in negative transfer among equal weighting, tuned static weighting, gradient surgery (PCGrad), and tuned static weighting with gradient surgery on unseen typhoon events. *(Comparative Validation)*
+4. To determine whether a statistically significant difference in negative transfer exists among the five multi-task training methods on unseen typhoon events. *(Comparative Validation)*
 
 ## Hypotheses
 
-**Null Hypothesis ($H_0$).** There is no statistically significant difference in negative transfer among equal weighting, tuned static weighting, gradient surgery (PCGrad), and tuned static weighting with gradient surgery on unseen typhoon events.
+The five multi-task training methods evaluated are equal weighting, tuned static weighting, loss balancing (GradNorm), gradient surgery (PCGrad), and loss balancing with gradient surgery (GradNorm with PCGrad).
 
-**Alternative Hypothesis ($H_1$).** A statistically significant difference in negative transfer exists between at least two of the four training methods on unseen typhoon events.
+**Null Hypothesis ($H_0$).** There is no statistically significant difference in negative transfer among the five training methods on unseen typhoon events.
+
+**Alternative Hypothesis ($H_1$).** At least one of the five training methods differs significantly in negative transfer from at least one of the others on unseen typhoon events.

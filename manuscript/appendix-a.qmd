@@ -1,3 +1,26 @@
 # Supplementary Material
 
-Placeholder — Appendix A.
+This appendix contains the reference material cited in Chapter 3.
+
+| No. | Event (Local / International Name) | Landfall Date |
+|---|---|
+| 1 | Ulysses (Vamco) | Nov 2020 |
+| 2 | Rolly (Goni) | Nov 2020 |
+| 3 | Odette (Rai) | Dec 2021 |
+| 4 | Karding (Noru) | Sep 2022 |
+| 5 | Egay (Doksuri) | Jul 2023 |
+| 6 | Carina (Gaemi) | Jul 2024 (no landfall) |
+
+: Disaster Events in the Taglish Disaster Tweet Dataset {#tbl-roster}
+
+*Note.* Local names are assigned by PAGASA and international names by the Japan Meteorological Agency.
+
+| Task | Labels |
+|---|---|
+| Named entity recognition | LOCATION, INFRASTRUCTURE |
+| Intent classification | Rescue or immediate assistance, Casualty or missing persons, Displacement or evacuation, Infrastructure or utility damage, Donation needs or offers, Caution or advice, Other useful information, Not relevant |
+| Urgency classification | Urgent, Standard, Low |
+
+: Task Label Inventory for the Multi-Task Annotation Scheme {#tbl-labels}
+
+*Note.* Intent categories follow the HumAID humanitarian taxonomy [@alam2021humaid]. Urgency levels adapt the urgent and non-urgent distinction of a prior scheme [@ermino2022urgency] to three levels, following the multi-level priority convention of TREC-IS [@wang2021transformer].
