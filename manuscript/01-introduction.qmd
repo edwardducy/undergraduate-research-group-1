@@ -30,7 +30,7 @@ Taken together, the gaps traced above amount to a single problem. When the three
 
 ## Statement of the Problem
 
-The gaps traced in the Background converge on the general problem of this study, which is the performance degradation caused by negative transfer during the joint training of mixed-granularity tasks on code-switched Taglish disaster tweets. The three triage tasks differ in granularity, since named entity recognition labels individual tokens while intent and urgency classify whole posts, and their competing losses share one encoder during training. Whether that sharing helps or harms each task on Taglish, measured on typhoons absent from training, is the open question this study answers.
+The gaps established in the Background converge on the general problem of this study, which is the performance degradation caused by negative transfer during the joint training of mixed-granularity tasks on code-switched Taglish disaster tweets. The three triage tasks differ in granularity, since named entity recognition labels individual tokens while intent and urgency classify whole posts, and their competing losses share one encoder during training. Whether that sharing helps or harms each task on Taglish, measured on typhoons absent from training, is the open question this study answers.
 
 Four specific questions operationalize the general problem, one for each phase of the design-science workflow that structures the study.
 
@@ -84,7 +84,7 @@ The theoretical framework treats the corpus and the triage model as one artifact
 
 ## Scope and Delimitations
 
-The conceptual framework named the artifact and its inputs and outputs, and this section fixes the boundaries of the work. The scope covers the data, the model configurations, and the hardware. The delimitations state every boundary that the study set on purpose, each with its reason.
+The conceptual framework names the artifact and its inputs and outputs, and this section fixes the boundaries of the work. The scope covers the data, the model configurations, and the hardware. The delimitations state every boundary that the study set on purpose, each with its reason.
 
 ### Scope of the Study
 
@@ -116,7 +116,7 @@ Each typhoon serves as the held-out test set in its own fold. The six events the
 
 ## Significance of the Study
 
-The delimitations bounded what the study attempts, and this section states who benefits from those attempts. The benefits flow from the three deliverables of the conceptual framework: the triage corpus, the trained model, and the evidence on the five training methods.
+The delimitations set bounds on what the study attempts, and this section states who benefits from those attempts. The benefits flow from the three deliverables of the conceptual framework: the triage corpus, the trained model, and the evidence on the five training methods.
 
 - **Primary beneficiaries.** Local disaster responders gain a triage model that serves all three outputs from one shared encoder, so monitoring during a landfall needs one deployment instead of three. The serving efficiency profile quantifies the memory and latency consequences of that consolidation on the hardware a city disaster office already owns.
 
@@ -130,7 +130,7 @@ This section fixes the operational meaning of the terms that the study uses thro
 
 **Average negative transfer.** The task-average of the three negative transfer values for one training method on one held-out typhoon event, with task scores first averaged across seeds. This is the score that the hypothesis test compares across the five methods.
 
-**Code-Mixing Index (CMI).** For each post, the share of language-dependent tokens that fall outside the post's matrix language. The index is computed on every post before annotation begins.
+**Code-Mixing Index (CMI).** The share of language-dependent tokens that fall outside the post's matrix language, computed per post before annotation begins.
 
 **Combined method (GradNorm with PCGrad).** The training method that applies PCGrad to the per-task gradients of the GradNorm-weighted losses, the fifth method that the hypothesis test compares.
 
