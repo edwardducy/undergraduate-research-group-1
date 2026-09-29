@@ -3,13 +3,15 @@ project:
 
 book:
   title: "Benchmarking Dynamic Multitask Balancing in a Multilingual Encoder for Joint Triage of Taglish Disaster Tweets"
-  author: "Prinz Edward Ducyogen"
-  date: today
+  author:
+    - Isaiah Raphael Almuena
+    - Prinz Edward L. Ducyogen
+    - Carlo Miguel Geronimo
+    - Kyle Uri Gabriel Lu
+    - Yngwie Sebastian Patricio
   output-file: thesis
 
-# Chapter lists live in the profiles: the full list in _quarto-full.yml and the
-# Chapter 1 cut in _quarto-ch1.yml. Render the whole thesis with `mise run pdf`
-# and the Chapter 1 cut with `mise run ch1`.
+# Chapter lists live in the profiles: _quarto-full.yml and _quarto-ch1.yml.
 profile:
   group:
     - [full, ch1]
@@ -36,6 +38,8 @@ format:
     linestretch: 2.0
     # Thesis styling
     include-in-header: latex-styles.tex
+    template-partials:
+      - title.tex
     filters:
       - caption-notes.lua
   html:

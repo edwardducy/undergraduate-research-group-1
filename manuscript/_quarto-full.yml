@@ -1,6 +1,4 @@
-# Profile: the whole thesis. This is the default when no profile is given.
 book:
-  output-file: thesis
   chapters:
     - index.qmd
     - 01-introduction.qmd

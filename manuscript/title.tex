@@ -1,0 +1,42 @@
+$-- ------------------------------------------------------------------
+$-- CEU undergraduate thesis title page.
+$-- Overrides Quarto's default title partial: instead of defining
+$-- \title/\author/\date for the class's \maketitle, we redefine
+$-- \maketitle outright (before-body.tex calls it as usual).
+$-- Layout follows the CEU Makati CSIT title-page exemplar: bold
+$-- uppercase title, centered blocks, bold author names, date last.
+$-- ------------------------------------------------------------------
+$if(title)$
+\makeatletter
+\renewcommand{\maketitle}{%
+  \begin{titlepage}
+    \singlespacing
+    \centering
+    \vspace*{0.75in}%
+    {\large\bfseries\MakeUppercase{$title$}}\par
+    \vspace{0.5in}
+    An Undergraduate Thesis\par
+    \vspace{0.5in}
+    Presented to the Department of\par
+    Computer Science and Information Technology\par
+    Centro Escolar University\par
+    Makati Campus\par
+    \vspace{0.5in}
+    In Partial Fulfillment\par
+    of the Requirements for the Degree\par
+    Bachelor of Science in Computer Science\par
+    \vspace{0.5in}
+    by\par
+    \vspace{0.35in}
+    {\bfseries
+      $for(authors)$
+      $it.name.literal$\par
+      $endfor$
+    }%
+    \vfill
+    September 2026\par
+    \vspace*{0.25in}%
+  \end{titlepage}
+}
+\makeatother
+$endif$
