@@ -3,10 +3,8 @@
 
 % Captions: APA 7 layout (bold number, italic title, flush left)
 \usepackage{caption}
-\DeclareCaptionFormat{apa}{#1#2#3}
-\captionsetup{format=apa, labelsep=newline, labelfont=bf, textfont=it, justification=raggedright, singlelinecheck=false, font={stretch=1.0}}
+\captionsetup{format=plain, labelsep=newline, labelfont=bf, textfont=it, justification=raggedright, singlelinecheck=false, font={stretch=1.0}}
 \setlength{\abovecaptionskip}{4pt}
-\setlength{\belowcaptionskip}{0pt}
 
 % Running header and pagination
 \usepackage{scrlayer-scrpage}
@@ -29,8 +27,7 @@
 % Headings: no extra space (afterskip 1pt keeps them display-style)
 \RedeclareSectionCommands[
   beforeskip=0pt,
-  afterskip=1pt,
-  afterindent=true
+  afterskip=1pt
 ]{chapter,section,subsection,subsubsection,paragraph}
 
 % No paragraph or float spacing on top of the double line spacing

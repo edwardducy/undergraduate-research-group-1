@@ -1,5 +1,7 @@
 # Literature Review
 
+Chapter 1 established the research problem and the five multi-task training methods whose comparison defines the study. This chapter reviews the literature behind each design choice, moving from crisis informatics and its triage tasks, through Taglish code-switching and the encoder decision, to the multi-task optimization record itself.
+
 ## Crisis Informatics and Joint Triage Tasks
 
 ### Global Crisis Informatics

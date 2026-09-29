@@ -1,0 +1,55 @@
+\documentclass[tikz,border=6mm]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage{fontspec}
+
+\usetikzlibrary{positioning,arrows.meta}
+
+% Pure black-and-white palette for print
+\begin{document}
+\begin{tikzpicture}[
+    font=\small,
+    >=Stealth,
+    iobox/.style={
+        draw=black,
+        fill=white,
+        rounded corners=5pt,
+        align=center,
+        inner sep=10pt,
+        font=\scriptsize,
+        line width=0.9pt,
+        text width=8.8cm
+    },
+    bigarrow/.style={->, very thick, draw=black}
+]
+
+    \node[iobox] (input) {
+        {\textbf{INPUT}\par}\vspace{4pt}
+        $\bullet$~Typhoon tweet archives\\[2pt]
+        $\bullet$~Pretrained multilingual encoder\\[2pt]
+        $\bullet$~Single-task baseline models\\[2pt]
+        $\bullet$~Training methods under comparison\\[2pt]
+        $\bullet$~Benchmark hardware testbed
+    };
+
+    \node[iobox, below=1.0cm of input] (process) {
+        {\textbf{PROCESS}\par}\vspace{4pt}
+        1.~Baseline analysis\\[2pt]
+        2.~Corpus construction\\[2pt]
+        3.~Empirical benchmarking\\[2pt]
+        4.~Comparative validation
+    };
+
+    \node[iobox, below=1.0cm of process] (output) {
+        {\textbf{OUTPUT}\par}\vspace{4pt}
+        $\bullet$~Multi-Task Corpus of Taglish Disaster Tweets\\[2pt]
+        $\bullet$~Trained triage model\\[2pt]
+        $\bullet$~Per-stratum evaluation scores (accuracy, F1)\\[2pt]
+        $\bullet$~Negative-transfer findings ($p$-values)\\[2pt]
+        $\bullet$~Serving efficiency profile ($t_{\mathrm{exec}}$, throughput, $M_{\mathrm{RAM}}$)
+    };
+
+    \draw[bigarrow] (input.south) -- (process.north);
+    \draw[bigarrow] (process.south) -- (output.north);
+
+\end{tikzpicture}
+\end{document}
