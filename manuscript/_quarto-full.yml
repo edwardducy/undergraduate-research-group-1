@@ -1,0 +1,13 @@
+# Profile: the whole thesis. This is the default when no profile is given.
+book:
+  output-file: thesis
+  chapters:
+    - index.qmd
+    - 01-introduction.qmd
+    - 02-literature.qmd
+    - 03-methodology.qmd
+    - 04-results.qmd
+    - 05-conclusion.qmd
+    - references.qmd
+  appendices:
+    - appendix-a.qmd

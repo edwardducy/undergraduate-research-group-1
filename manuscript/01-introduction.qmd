@@ -1,18 +1,26 @@
 # Introduction
 
+## Introduction to the Study
+
+This study sits at the junction of natural language processing and disaster response. The two fields meet whenever a typhoon fills social platforms with Taglish posts that name stranded families, damaged infrastructure, and urgent needs. Sorting those posts quickly is a classification problem, and solving it in two languages at once is a multi-task problem. The study treats disaster triage on code-switched Taglish text as one shared computational task rather than three separate pipelines.
+
+The central obstacle is negative transfer, the degradation that appears when tasks of different granularity train together and one task ends up worse than it would alone. A shared encoder that serves all three triage outputs from one pass promises a lower serving cost, but only if joint training holds every task's accuracy. Whether it does, and which of the five training methods limits it best, remains unresolved for code-switched text. The audits that tested such methods never covered a mixed-language corpus. This study answers the open question by constructing the triage corpus that the comparison requires and by testing the five methods on typhoon events the models never see.
+
+The contribution is threefold, namely a jointly annotated Taglish triage corpus, a benchmark that evaluates multi-task training on unseen events, and evidence on which method holds accuracy at the lowest serving cost. The chapter then proceeds in the established order. The Background establishes the gap, the Statement of the Problem and the Objectives fix the four questions, and the Hypotheses state the testable claim. The Theoretical and Conceptual Frameworks position the artifact, and the Scope, the Significance, and the Definitions bound and complete the chapter.
+
 ## Background of the Study
 
 The Philippines is one of the most cyclone-exposed countries on earth. An average of 19 to 20 tropical cyclones enter the Philippine Area of Responsibility each year, and super typhoons have grown more frequent across the 1979 to 2022 record [@basconcillo2025cyclone]. The storms of November 2024 show the scale that responders manage. Nika, Ofel, and Pepito arrived back to back and affected 5,084,774 persons across 8,806 barangays, according to the February 2025 government situation report [@dswd2025dromic52]. Relief at that scale depends on how quickly scattered information becomes usable decisions.
 
 Much of that information now appears first on social media. In 2024, more than 68 million Filipinos aged 10 to 64, four of every five in that age group, used the internet for social media [@psa2024flemms]. A review of 250 disaster studies tracks how responders mine these platforms for actionable information [@gopal2026social]. A survey of 355 recent papers reports that crisis posts give aid providers a near-immediate picture of conditions on the ground [@lewis2025tapping].
 
-The messages arrive in Taglish, the Tagalog-English mix of everyday Philippine posting. In the reference Taglish corpus, tweets average 55.2 percent Tagalog and 19.4 percent English words [@herrera2022tweettaglish], while nationwide, Tagalog is the home language of 39.9 percent of households [@psa2023language]. This study calls the sorting task disaster triage, in which each message needs the location and infrastructure it names, the humanitarian need it reports, and its urgency. A landfall produces more such messages than manual review can absorb, in two languages at once.
+The posts arrive in Taglish, the Tagalog-English mix of everyday Philippine posting. In the reference Taglish corpus, tweets average 55.2 percent Tagalog and 19.4 percent English words [@herrera2022tweettaglish], while nationwide, Tagalog is the home language of 39.9 percent of households [@psa2023language]. This study calls the sorting task disaster triage, in which each post needs the location and infrastructure it names, the humanitarian need it reports, and its urgency. A landfall produces more such posts than manual review can absorb, in two languages at once.
 
 Automated classification already handles parts of this job. Transformer models sort English disaster tweets into humanitarian categories at weighted F1 between 0.768 and 0.781 [@alam2021humaid], and a single model can learn message type and priority together [@wang2021transformer]. Accuracy still drops when the model faces an event it never trained on [@seeberger2022enhancing], and every new typhoon is exactly such an event.
 
-The usual deployment trains one model per task, so three triage tasks need three encoders in memory and three passes over every message. That cost falls hardest on the hardware a city disaster office can afford. Multi-task learning is the alternative, in which one shared encoder feeds three small task-specific heads [@wang2021transformer; @seeberger2022enhancing]. Its central risk is negative transfer, meaning that a task trained jointly can end up worse than the same task trained alone.
+The usual deployment trains one model per task, so three triage tasks need three encoders in memory and three passes over every post. That cost falls hardest on the hardware a city disaster office can afford. Multi-task learning is the alternative, in which one shared encoder feeds three small task-specific heads [@wang2021transformer; @seeberger2022enhancing]. Its central risk is negative transfer, meaning that a task trained jointly can end up worse than the same task trained alone.
 
-Balancing methods exist to control this risk. Some rescale each task's loss, as equal weighting, tuned static weighting, and GradNorm do, while others rewrite the gradients themselves, as PCGrad does. Recent audits, however, complicate the choice. One large-scale audit found that specialized optimizers did not beat careful plain optimization [@xin2022current]. Another found that plain equal weighting with standard regularization matched or beat the specialists [@kurin2022defense], and a third reports that measured conflict between task gradients is mostly mild [@gama2025uniform]. No audit has tested a mixed-language corpus where token-level and message-level tasks share one encoder.
+Balancing methods exist to control this risk. Some rescale each task's loss, as equal weighting, tuned static weighting, and GradNorm do, while others rewrite the gradients themselves, as PCGrad does. Recent audits, however, complicate the choice. One large-scale audit found that specialized optimizers did not beat careful plain optimization [@xin2022current]. Another found that plain equal weighting with standard regularization matched or beat the specialists [@kurin2022defense], and a third reports that measured conflict between task gradients is mostly mild [@gama2025uniform]. No audit has tested a mixed-language corpus where token-level and post-level tasks share one encoder.
 
 For Taglish, the resources needed to test any of this are thin. The reference corpus, TweetTaglish, holds 21,150 tweets but carries no disaster triage labels [@herrera2022tweettaglish], and the Tagalog entity benchmark TF-NERD covers 2,337 general-domain paragraphs with single-annotator labels [@ramos2023tfnerd]. No Philippine corpus labels the three triage tasks together, and no local benchmark separates results by linguistic stratum, tests on held-out typhoon events, or measures inference cost. The pattern is buildable, as COMI-LINGUA shows by annotating five tasks over 125,615 Hindi-English code-switched instances [@sheth2025comilingua], but nothing equivalent exists for Taglish disaster response.
 
@@ -20,7 +28,7 @@ These gaps meet in one problem. When the three mixed-granularity tasks train tog
 
 ## Statement of the Problem
 
-The gaps traced in the Background converge on the general problem of this study, which is the performance degradation caused by negative transfer during the joint training of mixed-granularity tasks on code-switched Taglish disaster tweets. The three triage tasks differ in granularity, since named-entity recognition labels individual tokens while intent and urgency classify whole messages, and their competing losses share one encoder during training. Whether that sharing helps or harms each task on Taglish, measured on typhoons absent from training, is the open question this study answers.
+The gaps traced in the Background converge on the general problem of this study, which is the performance degradation caused by negative transfer during the joint training of mixed-granularity tasks on code-switched Taglish disaster tweets. The three triage tasks differ in granularity, since named entity recognition labels individual tokens while intent and urgency classify whole posts, and their competing losses share one encoder during training. Whether that sharing helps or harms each task on Taglish, measured on typhoons absent from training, is the open question this study answers.
 
 Four specific questions operationalize the general problem, one for each phase of the design-science workflow that structures the study.
 
@@ -28,9 +36,9 @@ Four specific questions operationalize the general problem, one for each phase o
 
 2. How can a Taglish dataset for disaster triage be constructed to support a controlled evaluation of multi-task training methods? (Design & Artifact Creation)
 
-3. How does the multi-task model compare to the single-task baselines in inference efficiency on unseen typhoon events? (Empirical Benchmarking)
+3. How does the multi-task model compare to the single-task baselines in serving efficiency on unseen typhoon events? (Empirical Benchmarking)
 
-4. Is there a statistically significant difference in negative transfer among the five multi-task training methods on unseen typhoon events? (Comparative Validation)
+4. Is there a statistically significant difference in average negative transfer among the five multi-task training methods on unseen typhoon events? (Comparative Validation)
 
 ## Objectives
 
@@ -40,23 +48,23 @@ Answering the four questions defines the objectives of the study. The general ob
 
 2. To construct a Taglish dataset for disaster triage that supports a controlled evaluation of multi-task training methods. (Design & Artifact Creation)
 
-3. To compare the inference efficiency of the multi-task model and the single-task baselines on unseen typhoon events. (Empirical Benchmarking)
+3. To compare the serving efficiency of the multi-task model and the single-task baselines on unseen typhoon events. (Empirical Benchmarking)
 
-4. To determine whether a statistically significant difference in negative transfer exists among the five multi-task training methods on unseen typhoon events. (Comparative Validation)
+4. To determine whether a statistically significant difference in average negative transfer exists among the five multi-task training methods on unseen typhoon events. (Comparative Validation)
 
 ## Hypotheses
 
 The comparative objective reduces to a single testable claim, stated here as one null and one alternative hypothesis. The five multi-task training methods it compares are equal weighting, tuned static weighting, loss balancing with GradNorm, gradient surgery with PCGrad, and loss balancing combined with gradient surgery.
 
-**Null hypothesis ($H_0$).** There is no statistically significant difference in negative transfer among the five training methods on unseen typhoon events.
+**Null hypothesis ($H_0$).** There is no statistically significant difference in average negative transfer among the five training methods on unseen typhoon events.
 
-**Alternative hypothesis ($H_1$).** At least one of the five training methods differs significantly in negative transfer from at least one of the others on unseen typhoon events.
+**Alternative hypothesis ($H_1$).** At least one of the five training methods differs significantly in average negative transfer from at least one of the others on unseen typhoon events.
 
 ## Theoretical Framework
 
 The claim tested by the hypotheses rests on the Design Science Research Methodology (DSRM) that @peffers2007design formalized, which frames research as the construction and rigorous evaluation of an artifact that solves an identified problem. Three constructs from this framework carry the study. The artifact is the made object that addresses the problem. The evaluation is the empirical test of that object against explicit criteria. The process is the staged movement from problem to validated artifact, in which the output of one stage becomes the input of the next.
 
-This study instantiates each construct directly. The artifact is twofold, consisting of the Taglish disaster-triage corpus with its three concurrent label sets and the multi-task triage model trained on it. The five training methods compared by the hypotheses are design alternatives for that artifact. The evaluation criteria are the study's measured variables, namely per-task macro F1, relative transfer against single-task baselines, inference latency, and peak memory, reported per linguistic stratum on typhoons held out of training. The four problem phases instantiate the DSRM process in the same order, from baseline analysis through artifact construction and empirical benchmarking to comparative validation. The shared-encoder design also follows the founding premise of multi-task learning, that tasks trained together can borrow representational strength from one another [@caruana1997multitask]. Its documented counterpart, in which conflicting task demands leave a task worse than isolated training, is the negative transfer the evaluation measures.
+This study instantiates each construct directly. The artifact is twofold, consisting of the Taglish disaster-triage corpus with its three concurrent label sets and the multi-task triage model trained on it. The five training methods compared by the hypotheses are design alternatives for that artifact. The evaluation criteria are the study's measured variables, namely per-task F1, negative transfer against single-task baselines, execution latency, and peak memory, reported per linguistic stratum on typhoons held out of training. The four problem phases instantiate the DSRM process in the same order, from baseline analysis through artifact construction and empirical benchmarking to comparative validation. The shared-encoder design also follows the founding premise of multi-task learning, that tasks trained together can borrow representational strength from one another [@caruana1997multitask]. Its documented counterpart, in which conflicting task demands leave a task worse than isolated training, is the negative transfer the evaluation measures.
 
 DSRM disciplines the analysis of results in three ways. The analysis will read results as design knowledge, stating which balancing mechanism holds task accuracy at the lowest serving cost. It will report the conditions of that conclusion as well, namely the linguistic strata and event types where the conclusion holds or fails. The study will trace shortcomings through the process stages, attributing any measured degradation to the corpus, the model, or the training method rather than asserting one in general. Finally, the framework bounds the study's claims, since findings will speak to the artifact class of shared-encoder triage models on code-switched short text and not to multi-task learning at large.
 
@@ -66,8 +74,112 @@ The theoretical framework treats the corpus and the triage model as one artifact
 
 ![Research workflow of the study as an input-process-output view](figures/fig-1-1-research-workflow-ipo){#fig-research-ipo}
 
-Figure @fig-research-ipo presents the research workflow from source materials to validated findings. The inputs name the data sources, the pretrained encoder, the single-task baselines, the training methods under comparison, and the hardware testbed, and the process repeats the four phases of the statement of the problem in order. The outputs lead with the Multi-Task Corpus of Taglish Disaster Tweets, the primary artifact that the second objective constructs, followed by the trained model, the evaluation scores, the negative-transfer findings, and the serving efficiency profile. Chapter 3 fixes the datasets, hardware specifications, baseline parameters, and metric definitions behind each element.
+@fig-research-ipo presents the research workflow from source materials to validated findings. The inputs name the data sources, the pretrained encoder, the single-task baselines, the training methods under comparison, and the hardware testbed, and the process repeats the four phases of the statement of the problem in order. The outputs lead with the Multi-Task Corpus of Taglish Disaster Tweets, the primary artifact that the second objective constructs, followed by the trained model, the evaluation scores, the negative-transfer findings, and the serving efficiency profile. Chapter 3 fixes the datasets, hardware specifications, baseline parameters, and metric definitions behind each element.
 
 ![Software artifact of the study as an input-process-output view](figures/fig-1-2-artifact-ipo){#fig-artifact-ipo}
 
-Figure @fig-artifact-ipo presents the software artifact at serving time. A Taglish post enters, preprocessing prepares it, and one shared-encoder pass feeds the three task heads. The outputs pair the triage record with the measurements the evaluation requires, namely task accuracy and F1, execution latency ($t_{\mathrm{exec}}$), throughput, memory ($M_{\mathrm{RAM}}$), and the p-values of the hypothesis tests.
+@fig-artifact-ipo presents the software artifact at serving time. A Taglish post enters, preprocessing prepares it, and one shared-encoder pass feeds the three task heads. The outputs pair the triage record with the measurements the evaluation requires, namely task accuracy and F1, execution latency ($t_{\mathrm{exec}}$), throughput, memory ($M_{\mathrm{RAM}}$), and the p-values of the hypothesis tests.
+
+## Scope and Delimitations
+
+The conceptual framework named the artifact and its inputs and outputs, and this section fixes the boundaries of the work. The scope covers the data, the model configurations, and the hardware. The delimitations state each boundary that the study set on purpose, together with its reason.
+
+### Scope of the Study
+
+The study covers Taglish disaster posts from six Philippine typhoons between 2020 and 2024, namely Ulysses, Rolly, Odette, Karding, Egay, and Carina. Each collection window runs from 24 hours before to 72 hours after the event's officially recorded landfall or onset of impact. The corpus targets roughly 6,000 to 10,000 posts, and every post carries all three label sets together with its linguistic stratum.
+
+On this corpus, the study trains eight model configurations, namely three single-task baselines and the five training methods applied to one shared encoder with three task heads. All configurations share identical computational budgets and hyperparameter search spaces, so the comparison isolates the training method. Evaluation runs leave-one-disaster-out folds with a 15 percent development split and five random seeds per configuration.
+
+All training and profiling run on one commodity laptop with an Intel Core i5-13500HX processor, 32 GB of RAM, and a GeForce RTX 4060 laptop GPU with 8 GB of VRAM. Serving efficiency is measured at batch size one after warm-up passes. The measured variables are task accuracy, macro F1, entity-level F1, average negative transfer, execution latency, throughput, and memory.
+
+### Delimitations of the Study
+
+The study sets the following boundaries on purpose.
+
+- **Language.** The corpus covers Taglish only. Other Philippine languages, such as Cebuano and Ilocano, fall outside, because Tagalog-English mixing dominates Philippine disaster posting and keeps annotation tractable.
+
+- **Hazard.** Only typhoon events enter the corpus. Earthquakes, volcanic eruptions, and other hazards fall outside, because typhoons dominate the Philippine hazard record and carry well-defined impact windows.
+
+- **Platform.** The corpus draws on Twitter (now X) posts accessed through research archives. Other platforms fall outside, because event-based crisis collection is established practice for this platform.
+
+- **Modality.** Only text enters the pipeline. Images, video, and audio fall outside, because the triage tasks are linguistic.
+
+- **Encoder.** The study fixes one encoder across all configurations and does not compare encoder families, because the comparison isolates training methods rather than architectures.
+
+- **Serving.** Efficiency profiling covers batch-one serving on the single laptop. Distributed clusters, mobile devices, and edge hardware fall outside, because the deployment scenario is one local machine that a city disaster office can afford.
+
+- **Evaluation mode.** The study evaluates the artifact by benchmark only. A live deployment with responders falls outside, because the research question concerns training-method behavior rather than field operations.
+
+Six held-out events bound the strength of every cross-event claim, and the study reports this limit together with its findings rather than claiming generalization beyond the event roster.
+
+## Significance of the Study
+
+The delimitations bounded what the study attempts, and this section states who benefits from those attempts. The benefits flow from the three deliverables of the conceptual framework, namely the triage corpus, the trained model, and the evidence on the five training methods.
+
+- **Primary beneficiaries.** Local disaster responders gain a triage model that serves all three outputs from one shared encoder, so monitoring during a landfall needs one deployment instead of three. The serving efficiency profile quantifies the memory and latency consequences of that consolidation on the hardware a city disaster office already owns.
+
+- **Secondary beneficiaries.** Researchers working on Tagalog and Taglish natural language processing gain the Multi-Task Corpus of Taglish Disaster Tweets, the first local corpus carrying all three triage label sets together with linguistic strata and event metadata. The benchmark protocol adds unseen-event folds, budget parity across methods, and instrumented serving measurement, which makes reported numbers reproducible and comparable across studies.
+
+- **Tertiary beneficiaries.** Future researchers inherit a documented workflow that pairs design-science staging with controlled method comparison, together with reusable code, corpus splits, and model checkpoints. Communities in the typhoon path stand to gain faster triage of their posts when response desks adopt the model.
+
+## Definitions of Terms
+
+This section fixes the operational meaning of the terms that the study uses throughout the manuscript. Each definition states how the term behaves inside the pipeline, the model, or the statistical analysis rather than its dictionary sense. The later chapters inherit these terms.
+
+**Average negative transfer.** The task-average of the three negative transfer values for one training method on one held-out typhoon event, with task scores first averaged across seeds. This is the score that the hypothesis test compares across the five methods.
+
+**Code-Mixing Index (CMI).** For each post, the share of language-dependent tokens that fall outside the post's matrix language. The index is computed on every post before annotation begins.
+
+**Combined method (GradNorm with PCGrad).** The training method that applies PCGrad to the per-task gradients of the GradNorm-weighted losses, the fifth method that the hypothesis test compares.
+
+**Disaster triage.** The sorting function the model performs on each post, emitting the LOCATION and INFRASTRUCTURE spans, one intent label, and one urgency label.
+
+**Entity-level F1 (strict).** The named entity recognition score in which a predicted span counts as correct only when its start offset, end offset, and entity type all match the reference annotation.
+
+**Equal weighting.** The training method that combines the three task losses with equal, fixed weights at every optimization step.
+
+**Execution latency ($t_{\mathrm{exec}}$).** The mean end-to-end time in milliseconds to triage one post, measured over the timed batch-one trials that follow unmeasured warm-up passes.
+
+**Gradient surgery (PCGrad).** The training method that, when the cosine similarity between two task gradients is negative, projects out of each gradient the component that conflicts with the other before the gradients combine.
+
+**Intent classification.** The post-level triage task that assigns each post one label naming the humanitarian need it reports.
+
+**Language-dependent token.** A token that the language-identification step assigns to either Tagalog or English, excluding tokens that belong to neither language.
+
+**Leave-one-disaster-out (LODO).** The evaluation design that forms one fold per typhoon event, holding that event out of training and development and using it only as the test set.
+
+**Linguistic stratum.** The per-post assignment to Tagalog-dominant, Mixed Taglish, or English-dominant, determined from the Code-Mixing Index under thresholds fixed in the annotation guidelines before labeling begins.
+
+**Loss balancing (GradNorm).** The training method that rescales the three task losses during training so that the norms of their gradients stay balanced as training progresses.
+
+**Macro F1.** The unweighted mean of the per-class F1 scores over a classification task's label set, giving each class equal weight regardless of frequency.
+
+**Matrix language.** The language that accounts for the largest share of a post's language-dependent tokens and serves as the baseline of the Code-Mixing Index.
+
+**Memory ($M_{\mathrm{RAM}}$ and $M_{\mathrm{VRAM}}$).** The peak resident set size of the host process and the peak memory allocated on the graphics processing unit recorded for each serving scenario during profiling.
+
+**Mixed-granularity tasks.** The structural difference among the three triage tasks, in which named entity recognition labels individual tokens while intent and urgency classification label whole posts.
+
+**Multi-Task Corpus of Taglish Disaster Tweets.** The primary artifact of the study, namely the post collection in which every post carries all three label sets together with its linguistic stratum and event metadata. In running text, the name shortens to the triage corpus.
+
+**Multi-task triage model.** One shared encoder with three task heads trained jointly under one of the five training methods, producing all three triage outputs from one shared-encoder pass.
+
+**Named entity recognition (NER).** The triage task that extracts every LOCATION and INFRASTRUCTURE span from a post, labeling individual tokens rather than whole posts.
+
+**Negative transfer.** The amount by which a task trained jointly performs below the same task trained alone, computed as the single-task F1 minus the multi-task F1 for that task.
+
+**Serving scenario.** One of the three profiling modes for measuring efficiency, namely the multi-task model with sequential heads, the multi-task model with concurrent heads, or a single-task baseline.
+
+**Shared encoder.** The single pretrained transformer body whose contextual representations feed all three task heads, held constant across every model configuration in the study.
+
+**Single-task baseline.** The same encoder with exactly one task head trained on one task, serving as the reference point for both the negative transfer and the efficiency comparisons.
+
+**Taglish.** The language regime of the corpus, in which a post's language-dependent tokens divide between Tagalog and English, quantified per post by the Code-Mixing Index.
+
+**Throughput.** The number of posts processed per second, derived from the elapsed time of the same trials that measure execution latency.
+
+**Tuned static weighting.** The training method that combines the three task losses with fixed weights selected on the development split over a pre-specified grid before the final training runs.
+
+**Unseen typhoon event.** A typhoon event whose posts are excluded from training and development in a fold and appear only in that fold's test set.
+
+**Urgency classification.** The post-level triage task that assigns each post one label for how soon its reported need demands response.

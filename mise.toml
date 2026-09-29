@@ -8,6 +8,11 @@ description = "Build the thesis in PDF format only, deleting existing HTML outpu
 dir = "{{config_root}}/manuscript"
 run = "quarto render --to pdf"
 
+[tasks.ch1]
+description = "Build Chapter 1 alone as a standalone PDF"
+dir = "{{config_root}}/manuscript"
+run = "quarto render --profile ch1 --to pdf"
+
 [tasks.html]
 description = "Build the thesis in HTML format only, deleting existing PDF output from _book"
 dir = "{{config_root}}/manuscript"

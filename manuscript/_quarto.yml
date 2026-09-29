@@ -6,16 +6,13 @@ book:
   author: "Prinz Edward Ducyogen"
   date: today
   output-file: thesis
-  chapters:
-    - index.qmd
-    - 01-introduction.qmd
-    - 02-literature.qmd
-    - 03-methodology.qmd
-    - 04-results.qmd
-    - 05-conclusion.qmd
-    - references.qmd
-  appendices:
-    - appendix-a.qmd
+
+# Chapter lists live in the profiles: the full list in _quarto-full.yml and the
+# Chapter 1 cut in _quarto-ch1.yml. Render the whole thesis with `mise run pdf`
+# and the Chapter 1 cut with `mise run ch1`.
+profile:
+  group:
+    - [full, ch1]
 
 # Shared options
 bibliography: bibliography.bib

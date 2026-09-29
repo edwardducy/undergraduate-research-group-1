@@ -1,0 +1,8 @@
+# Profile: Chapter 1 alone as a standalone PDF.
+# Usage: quarto render --profile ch1 --to pdf
+book:
+  output-file: thesis-ch1
+  chapters:
+    - index.qmd
+    - 01-introduction.qmd
+    - references.qmd
