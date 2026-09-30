@@ -1,11 +1,5 @@
-$-- ------------------------------------------------------------------
-$-- CEU undergraduate thesis title page.
-$-- Overrides Quarto's default title partial: instead of defining
-$-- \title/\author/\date for the class's \maketitle, we redefine
-$-- \maketitle outright (before-body.tex calls it as usual).
-$-- Layout follows the CEU Makati CSIT title-page exemplar: bold
-$-- uppercase title, centered blocks, bold author names, date last.
-$-- ------------------------------------------------------------------
+$-- \maketitle is redefined outright: the CEU layout needs custom blocks
+$-- that \title/\author/\date cannot express.
 $if(title)$
 \makeatletter
 \renewcommand{\maketitle}{%

@@ -1,24 +1,18 @@
-% Black text, including links and citations
 \AtBeginDocument{\hypersetup{colorlinks=true, allcolors=black}}
 
-% Captions: APA 7 layout (bold number, italic title, flush left).
-% stretch must match linestretch in _quarto.yml: float boxes restore the
-% ambient baselineskip, so captions need the stretch set explicitly here.
+% stretch must match linestretch in _quarto.yml
 \usepackage{caption}
 \captionsetup{format=plain, labelsep=newline, labelfont=bf, textfont=it, justification=raggedright, singlelinecheck=false, font={stretch=2.0}}
 \setlength{\abovecaptionskip}{4pt}
 
-% Running header and pagination
 \usepackage{scrlayer-scrpage}
 \clearpairofpagestyles
 \ohead{\pagemark}
 \setkomafont{disposition}{\normalfont\bfseries}
 
-% Paragraph indentation
 \setlength{\parindent}{0.5in}
 \usepackage{indentfirst}
 
-% Figure placement
 \usepackage{floatrow}
 \floatsetup[figure]{capposition=top}
 \usepackage{float}
@@ -26,16 +20,14 @@
 \def\fps@figure{H}
 \makeatother
 
-% Headings: no extra space (afterskip 1pt keeps them display-style)
+% afterskip 1pt rather than 0pt keeps the headings display-style
 \RedeclareSectionCommands[
   beforeskip=0pt,
   afterskip=1pt
 ]{chapter,section,subsection,subsubsection,paragraph}
 
-% Headings flattened to body size: strict double spacing requires every
-% text line on the same doubled 12pt grid, and larger heading fonts
-% re-inflate the baseline glue above each heading line. Bold serif comes
-% from the disposition font below.
+% Heading fonts stay body-size: larger fonts re-inflate the glue above
+% each heading line and break the uniform double-spaced grid.
 \setkomafont{chapter}{\normalsize}
 \setkomafont{section}{\normalsize}
 \setkomafont{subsection}{\normalsize}
@@ -43,36 +35,29 @@
 \setkomafont{paragraph}{\normalsize}
 \setkomafont{subparagraph}{\normalsize}
 
-% No paragraph spacing on top of the double line spacing; list separation
-% is handled by enumitem (KOMA's \@list levels would reset raw \topsep /
-% \itemsep settings at every \begin{enumerate}).
+% enumitem, because KOMA's \@list levels reset raw \topsep/\itemsep settings.
 \setlength{\parskip}{0pt}
 \usepackage{enumitem}
 \setlist{nosep}
 
-% [H] floats sit on the double-spaced grid: the caption label should land
-% one body line below the preceding text. Measured at begin document so
-% \baselineskip carries the line stretch; the +5.2pt compensates the float
-% box's baseline join arithmetic.
+% One body line: set at begin document so \baselineskip carries the line
+% stretch; +5.2pt compensates the float box join.
 \AtBeginDocument{\setlength{\intextsep}{\dimexpr\baselineskip+5.2pt\relax}}
 
-% Tables: footnote-size, flush left; line spacing inherited (double)
 \usepackage{etoolbox}
 \AtBeginEnvironment{longtable}{\footnotesize}
 \AtBeginEnvironment{tabular}{\footnotesize}
 \setlength{\LTleft}{0pt}
 \setlength{\LTright}{0pt}
 \setlength{\LTcapwidth}{\textwidth}
-% Calibrated so a mid-page table caption lands one body line below the
-% callout text (page-top tables are unaffected: TeX discards the skip).
+% Calibrated so a mid-page caption sits one body line below the callout
+% (at page top TeX discards the skip).
 \setlength{\LTpre}{7.6pt}
 \setlength{\LTpost}{0pt}
 
-% Chapter headings centered; chapters 1 and 3 carry "Chapter N" as their
-% literal titles, so the autonumber is suppressed for those two levels only.
-% The suppression tests the rendered number ("1"), not the counter, so the
-% appendix chapter — whose counter is also 1 but renders as "A" — keeps its
-% autonumber.
+% No autonumber where the title already says "Chapter N" (chapters 1 and 3).
+% Tests \thechapter, not the counter, so the appendix (counter 1, rendered
+% "A") keeps its number.
 \renewcommand*{\raggedchapter}{\centering}
 \makeatletter
 \renewcommand*{\chapterformat}{%
@@ -85,9 +70,7 @@
   \fi}
 \makeatother
 
-% Section numbers print without KOMA's automatic trailing dot ("1.1", not
-% "1.1."): the per-level <level>format macros replace KOMA's default number
-% format (number + \autodot + \enskip), keeping the same en-space gap.
+% Overrides KOMA's default, which ends the number in a trailing dot.
 \renewcommand*{\sectionformat}{\thesection\enskip}
 \renewcommand*{\subsectionformat}{\thesubsection\enskip}
 \renewcommand*{\subsubsectionformat}{\thesubsubsection\enskip}

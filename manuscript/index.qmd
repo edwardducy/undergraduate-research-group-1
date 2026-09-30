@@ -1,5 +1,2 @@
-<!-- index.qmd is the required home page of the Quarto book; it carries the
-     first chapter. The preface page was removed as unneeded; if an abstract
-     or acknowledgements page is ever required, put it here ahead of the
-     included chapter. -->
+<!-- Quarto books require a home page, so chapter 1 renders from here. -->
 {{< include 01-introduction.qmd >}}
