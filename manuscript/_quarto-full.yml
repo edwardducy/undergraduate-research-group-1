@@ -1,7 +1,6 @@
 book:
   chapters:
     - index.qmd
-    - 01-introduction.qmd
     - 02-literature.qmd
     - 03-methodology.qmd
     - 04-results.qmd

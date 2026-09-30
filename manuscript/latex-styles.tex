@@ -1,9 +1,11 @@
 % Black text, including links and citations
 \AtBeginDocument{\hypersetup{colorlinks=true, allcolors=black}}
 
-% Captions: APA 7 layout (bold number, italic title, flush left)
+% Captions: APA 7 layout (bold number, italic title, flush left).
+% stretch must match linestretch in _quarto.yml: float boxes restore the
+% ambient baselineskip, so captions need the stretch set explicitly here.
 \usepackage{caption}
-\captionsetup{format=plain, labelsep=newline, labelfont=bf, textfont=it, justification=raggedright, singlelinecheck=false, font={stretch=1.0}}
+\captionsetup{format=plain, labelsep=newline, labelfont=bf, textfont=it, justification=raggedright, singlelinecheck=false, font={stretch=2.0}}
 \setlength{\abovecaptionskip}{4pt}
 
 % Running header and pagination
@@ -30,20 +32,64 @@
   afterskip=1pt
 ]{chapter,section,subsection,subsubsection,paragraph}
 
-% No paragraph or float spacing on top of the double line spacing
-\setlength{\parskip}{0pt}
-\setlength{\textfloatsep}{0pt}
-\setlength{\intextsep}{0pt}
+% Headings flattened to body size: strict double spacing requires every
+% text line on the same doubled 12pt grid, and larger heading fonts
+% re-inflate the baseline glue above each heading line. Bold serif comes
+% from the disposition font below.
+\setkomafont{chapter}{\normalsize}
+\setkomafont{section}{\normalsize}
+\setkomafont{subsection}{\normalsize}
+\setkomafont{subsubsection}{\normalsize}
+\setkomafont{paragraph}{\normalsize}
+\setkomafont{subparagraph}{\normalsize}
 
-% Tables: single-spaced, footnote-size, flush left
+% No paragraph spacing on top of the double line spacing; list separation
+% is handled by enumitem (KOMA's \@list levels would reset raw \topsep /
+% \itemsep settings at every \begin{enumerate}).
+\setlength{\parskip}{0pt}
+\usepackage{enumitem}
+\setlist{nosep}
+
+% [H] floats sit on the double-spaced grid: the caption label should land
+% one body line below the preceding text. Measured at begin document so
+% \baselineskip carries the line stretch; the +5.2pt compensates the float
+% box's baseline join arithmetic.
+\AtBeginDocument{\setlength{\intextsep}{\dimexpr\baselineskip+5.2pt\relax}}
+
+% Tables: footnote-size, flush left; line spacing inherited (double)
 \usepackage{etoolbox}
-\AtBeginEnvironment{longtable}{\singlespacing\footnotesize}
-\AtBeginEnvironment{tabular}{\singlespacing\footnotesize}
+\AtBeginEnvironment{longtable}{\footnotesize}
+\AtBeginEnvironment{tabular}{\footnotesize}
 \setlength{\LTleft}{0pt}
 \setlength{\LTright}{0pt}
 \setlength{\LTcapwidth}{\textwidth}
+% Calibrated so a mid-page table caption lands one body line below the
+% callout text (page-top tables are unaffected: TeX discards the skip).
+\setlength{\LTpre}{7.6pt}
 \setlength{\LTpost}{0pt}
 
-% Chapter headings centered; Chapter 3 already spells out its number
+% Chapter headings centered; chapters 1 and 3 carry "Chapter N" as their
+% literal titles, so the autonumber is suppressed for those two levels only.
+% The suppression tests the rendered number ("1"), not the counter, so the
+% appendix chapter — whose counter is also 1 but renders as "A" — keeps its
+% autonumber.
 \renewcommand*{\raggedchapter}{\centering}
-\renewcommand*{\chapterformat}{\ifnum\value{chapter}=3\relax\else\thechapter\autodot\enspace\fi}
+\makeatletter
+\renewcommand*{\chapterformat}{%
+  \edef\reserved@a{\thechapter}%
+  \def\reserved@b{1}%
+  \ifx\reserved@a\reserved@b\else
+    \ifnum\value{chapter}=3\relax\else
+      \thechapter\enspace
+    \fi
+  \fi}
+\makeatother
+
+% Section numbers print without KOMA's automatic trailing dot ("1.1", not
+% "1.1."): the per-level <level>format macros replace KOMA's default number
+% format (number + \autodot + \enskip), keeping the same en-space gap.
+\renewcommand*{\sectionformat}{\thesection\enskip}
+\renewcommand*{\subsectionformat}{\thesubsection\enskip}
+\renewcommand*{\subsubsectionformat}{\thesubsubsection\enskip}
+\renewcommand*{\paragraphformat}{\theparagraph\enskip}
+\renewcommand*{\subparagraphformat}{\thesubparagraph\enskip}

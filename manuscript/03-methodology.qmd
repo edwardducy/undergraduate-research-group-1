@@ -44,7 +44,7 @@ Latency trials use batch size one, matching the SingleStream scenario standardiz
 | Framework memory counter | Peak allocated GPU memory | `torch.cuda.max_memory_allocated` |
 | Process memory monitor | Peak host resident set size (RSS) | `psutil` |
 
-: Measurement Instruments and Measured Properties {#tbl-instruments}
+: Measurement Instruments and Measured Properties {#tbl-instruments tbl-colwidths="[17,36,40]"}
 
 *Note.* RSS = resident set size.
 

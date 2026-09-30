@@ -39,3 +39,5 @@ docs/
 *.fls
 *.fdb_latexmk
 *.synctex.gz
+
+/.quarto/

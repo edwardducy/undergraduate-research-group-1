@@ -10,8 +10,8 @@ function Para(el)
       if el.content[1] and el.content[1].t == "Space" then
         table.remove(el.content, 1)
       end
-      local prefix = pandoc.RawInline("latex", "\\vspace{-8pt}{\\footnotesize\\singlespacing\\textit{Note.} ")
-      local suffix = pandoc.RawInline("latex", "\\par}\\vspace{6pt}")
+      local prefix = pandoc.RawInline("latex", "\\vspace{-8pt}{\\footnotesize\\textit{Note.} ")
+      local suffix = pandoc.RawInline("latex", "\\par}")
       table.insert(el.content, 1, prefix)
       table.insert(el.content, suffix)
       return el
