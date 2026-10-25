@@ -120,7 +120,7 @@ Kyle will now explain how we will test and evaluate the model.
 
 ### Kyle
 
-Thank you, Carlo. Before any model is trained, we will split our labeled posts once into training, validation, and test posts. The models will learn only from the training posts. We will use the validation posts to make every choice, such as which optimizer to keep. The test posts will be used only once, at the very end, to compare the final model with the single-task models. This way, the final scores come from posts that played no part in training or in any of our choices, so they are not inflated.
+Thank you, Carlo. Our dataset will come from the tropical cyclones that crossed the Philippines from 2020 to 2026. Following Seeberger et al., we will keep only the cyclones with at least 400 Taglish posts after cleaning, which should give us about 3,900 posts. Before any model is trained, we will split these labeled posts once into training, validation, and test posts. The models will learn only from the training posts. We will use the validation posts to make every choice, such as which optimizer to keep. The test posts will be used only once, at the very end, to compare the final model with the single-task models. This way, the final scores come from posts that played no part in training or in any of our choices, so they are not inflated.
 
 The labels themselves must also be trustworthy, so we will measure how much our two annotators agree after each batch. Our targets are a Cohen's kappa of at least .61 for the categories and an F1-score of at least .74 for the entities. If a batch falls below either target, we will revise the labeling guidelines before the next one.
 

@@ -79,3 +79,125 @@ clicks: 4
 ---
 
 <SpecificObjectives />
+
+---
+clicks: 10
+---
+
+# Baseline studies and the gap
+
+<LiteratureTable />
+
+---
+clicks: 8
+---
+
+# The dataset and its three parts
+
+<DatasetSplit />
+
+---
+clicks: 4
+---
+
+# Labels are double-checked
+
+<LabelCheck />
+
+---
+clicks: 5
+---
+
+<MeasuresPanel />
+
+---
+clicks: 5
+---
+
+<OptimizerGates />
+
+---
+clicks: 3
+---
+
+<FinalComparison />
+
+---
+clicks: 2
+---
+
+# The prototype is checked feature by feature
+
+<PrototypeTests />
+
+---
+clicks: 6
+---
+
+# The plan, November 2026 to April 2027
+
+<ScheduleGantt />
+
+---
+clicks: 3
+---
+
+# Three reasons the plan is realistic
+
+<FeasibilityCards />
+
+---
+clicks: 3
+---
+
+# Immediate next steps
+
+<NextSteps />
+
+---
+clicks: 4
+---
+
+# Three checkpoints before full labeling
+
+<LabelingGate />
+
+---
+clicks: 5
+---
+
+<RiskCards />
+
+---
+
+<div class="quote">
+
+### In summary
+
+One model that <strong class="classification">sorts Taglish typhoon posts by type of report</strong> and <strong class="ner">picks out their key details</strong>, with the optimizer that best reduces **negative transfer** without needing too much training time or memory
+
+</div>
+
+---
+
+<ReferenceList :page="1" />
+
+---
+
+<ReferenceList :page="2" />
+
+---
+
+<ReferenceList :page="3" />
+
+---
+
+<ReferenceList :page="4" />
+
+---
+
+<ReferenceList :page="5" />
+
+---
+
+<ReferenceList :page="6" />
