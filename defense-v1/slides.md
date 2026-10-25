@@ -44,3 +44,36 @@ clicks: 5
 ---
 
 <RiskMap />
+
+---
+title: Both Outputs Need a Taglish Dataset
+clicks: 7
+---
+
+<!-- Slide 2 · Background and Problem Statement · Isaiah, paragraph 2 -->
+
+<RevealTitle>Both Outputs Need a Taglish Dataset</RevealTitle>
+
+<DatasetGap />
+
+---
+title: Practical Benefits and Deliverables
+clicks: 5
+---
+
+<!-- Slide 5 · Expected Scientific Contribution · Isaiah -->
+
+<RevealTitle>Practical Benefits and Deliverables</RevealTitle>
+
+<BenefitMap />
+
+---
+title: Why the Plan Is Feasible
+clicks: 5
+---
+
+<!-- Slide 8 · Development and Testing Schedule · Isaiah -->
+
+<RevealTitle>Why the Plan Is Feasible</RevealTitle>
+
+<FeasibilityCharts />

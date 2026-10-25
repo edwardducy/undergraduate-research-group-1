@@ -20,20 +20,44 @@ const enter = { duration: 0.3, ease: 'power1.out' }
 const exit = { duration: 0.2, ease: 'power1.in' }
 const travel = { duration: 1.2, ease: 'power1.inOut' }
 const pop = { duration: 0.25, ease: 'back.out(3)' }
+const sweep = { duration: 0.35, ease: 'power2.inOut' }
+const moveShort = { duration: 0.5, ease: 'power2.inOut' }
+const dial = { duration: 0.45, ease: 'power2.inOut' }
+// How far a label travels as the dial turns by one row, and how flat it gets at the wheel's edge
+const roll = 16
+const edge = 0.2
 
 const root = ref<HTMLElement>()
 
+const figures = [
+  { key: 'rank', number: '1st', lines: ['Highest disaster risk', 'among 193 countries'] },
+  { key: 'cyclones', number: '8–9', lines: ['Tropical cyclones cross', 'the country each year'] },
+]
+
+// A block in the text's colour sweeps in over the number, the number appears under it,
+// and the block sweeps out the other side. The statement then fades in like the rest of the deck
+function revealFigure(timeline: gsap.core.Timeline, figure: string) {
+  timeline
+    .to(`${figure} .block`, { scaleX: 1, ...sweep })
+    .set(`${figure} .text`, { opacity: 1 })
+    .set(`${figure} .block`, { transformOrigin: '100% 50%' })
+    .to(`${figure} .block`, { scaleX: 0, ...sweep })
+    .to(`${figure} .statement`, { opacity: 1, ...enter }, '<')
+}
+
 useClickTimeline(root, (timeline) => {
-  gsap.set('.rank, .cyclones, .storm, .track, .casing, .requests .post, .legend > *', { opacity: 0 })
+  gsap.set('.storm, .track, .casing, .requests .post, .legend .one, .legend .request-key, .legend .other-key > *, .figure .text, .statement', { opacity: 0 })
+  gsap.set('.legend .one text, .legend .other-key text', { transformOrigin: '50% 50%' })
+  gsap.set('.figure .block', { scaleX: 0, transformOrigin: '0% 50%' })
   gsap.set('.track, .casing', { strokeDasharray: 1, strokeDashoffset: 1 })
   gsap.set('.posts .post', { scale: 0, transformOrigin: '50% 50%' })
   gsap.set('.requests', { opacity: 0 })
 
+  timeline.addLabel('step0')
+  revealFigure(timeline, '.rank')
+  timeline.addLabel('step1')
+  revealFigure(timeline, '.cyclones')
   timeline
-    .addLabel('step0')
-    .to('.rank', { opacity: 1, ...enter })
-    .addLabel('step1')
-    .to('.cyclones', { opacity: 1, ...enter })
     .addLabel('step2')
     .to('.storm, .track, .casing', { opacity: 1, ...enter })
     .to('.track, .casing', { strokeDashoffset: 0, ...travel }, '<')
@@ -43,10 +67,18 @@ useClickTimeline(root, (timeline) => {
     .to('.posts .post', { scale: 1, ...pop, stagger: { amount: 2, from: 'random', ease: 'power3.out' } })
     .to('.legend .one', { opacity: 1, ...enter }, '<')
     .addLabel('step4')
-    .to('.posts', { opacity: 0.35, ...exit })
+    // "One post" first slides down to the row of "Other posts". After a short pause, a dial turns
+    // its words into "Other posts". Like a picker wheel, the old words roll up and away while the
+    // new ones roll up from below, and squashing them as they move stands in for the wheel's curve.
+    // The dot stays in place and only fades to the lighter grey of the other posts
+    .to('.legend .one', { y: 28, ...moveShort })
+    .to('.legend .one text', { y: -roll, scaleY: edge, opacity: 0, ...dial }, '+=0.25')
+    .fromTo('.legend .other-key text', { y: roll, scaleY: edge, opacity: 0 }, { y: 0, scaleY: 1, opacity: 1, ...dial }, '<')
+    .to('.legend .one circle', { opacity: 0, ...dial }, '<')
+    .to('.legend .other-key circle', { opacity: 1, ...dial }, '<')
+    .to('.posts', { opacity: 0.35, ...exit }, '<')
     .to('.requests, .requests .post', { opacity: 1, ...enter }, '<')
-    .to('.legend .one', { opacity: 0, ...exit }, '<')
-    .to('.legend .sorted', { opacity: 1, ...enter }, '<')
+    .to('.legend .request-key', { opacity: 1, ...enter }, '<')
     .addLabel('step5')
 })
 </script>
@@ -54,13 +86,13 @@ useClickTimeline(root, (timeline) => {
 <template>
   <div ref="root" class="risk-map">
     <div class="figures">
-      <div class="figure rank">
-        <div class="number">1st</div>
-        <div class="statement">Highest disaster risk<br>among 193 countries</div>
-      </div>
-      <div class="figure cyclones">
-        <div class="number">8–9</div>
-        <div class="statement">Tropical cyclones cross<br>the country each year</div>
+      <div v-for="figure in figures" :key="figure.key" class="figure" :class="figure.key">
+        <div class="number"><span class="reveal"><span class="text">{{ figure.number }}</span><span class="block" /></span></div>
+        <div class="statement">
+          <template v-for="(line, index) in figure.lines" :key="index">
+            <br v-if="index > 0">{{ line }}
+          </template>
+        </div>
       </div>
     </div>
 
@@ -96,10 +128,14 @@ useClickTimeline(root, (timeline) => {
           <text x="312" y="18">One post</text>
         </g>
         <g class="sorted">
-          <circle class="post request" cx="300" cy="12" r="5" />
-          <text x="312" y="18">Requests or urgent needs</text>
-          <circle class="post faded" cx="300" cy="40" r="5" />
-          <text x="312" y="46">Other posts</text>
+          <g class="request-key">
+            <circle class="post request" cx="300" cy="12" r="5" />
+            <text x="312" y="18">Requests or urgent needs</text>
+          </g>
+          <g class="other-key">
+            <circle class="post faded" cx="300" cy="40" r="5" />
+            <text x="312" y="46">Other posts</text>
+          </g>
         </g>
       </g>
     </svg>
@@ -142,6 +178,22 @@ svg {
   font-size: var(--text-md);
   font-weight: 600;
   line-height: 1.3;
+}
+
+.reveal {
+  position: relative;
+  display: inline-block;
+}
+
+/* The block takes the colour of the text it reveals. Every block starts exactly at the text's
+   left edge, so the blocks of all lines line up on the left */
+.block {
+  position: absolute;
+  top: -0.08em;
+  bottom: -0.08em;
+  left: 0;
+  right: -0.08em;
+  background: currentColor;
 }
 
 .land {
