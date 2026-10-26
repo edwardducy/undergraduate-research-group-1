@@ -193,7 +193,6 @@ useClickTimeline(root, (timeline) => {
       <text class="note interval-note" x="440" y="452" text-anchor="end">Bar shows the 95% confidence interval</text>
     </svg>
 
-    <footer>Illustration, not results</footer>
   </div>
 </template>
 
@@ -375,11 +374,4 @@ svg {
   fill: var(--color-ink);
 }
 
-footer {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  font-size: var(--text-2xs);
-  color: var(--color-subtle);
-}
 </style>

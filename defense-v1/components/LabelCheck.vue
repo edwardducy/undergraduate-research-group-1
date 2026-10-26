@@ -35,7 +35,7 @@ const root = ref<SVGSVGElement>()
 useClickTimeline(root, (timeline) => {
   const token = (name: string) => getComputedStyle(document.documentElement).getPropertyValue(name).trim()
 
-  gsap.set('.compare, .label-note, .chart, .bar-group > *:not(.bar), .second, .guidelines', { opacity: 0 })
+  gsap.set('.compare, .chart, .bar-group > *:not(.bar), .second, .guidelines', { opacity: 0 })
   gsap.set('.mark', { scaleX: 0, transformOrigin: '0% 50%' })
   gsap.set('.bar', { attr: { y: chart.base, height: 0 } })
   gsap.set('.mark-check', { scale: 0.4, transformOrigin: '50% 50%' })
@@ -45,7 +45,7 @@ useClickTimeline(root, (timeline) => {
     // Both annotators label the batch, and the two sets of labels are compared
     .to('.chip', { fill: token('--color-classification'), ...enter, stagger: 0.05 })
     .to('.mark', { scaleX: 1, ...draw, stagger: 0.04 }, '<0.1')
-    .to('.compare, .label-note', { opacity: 1, ...enter }, '>-0.1')
+    .to('.compare', { opacity: 1, ...enter }, '>-0.1')
     .addLabel('step1')
 
     // The annotators move aside and the first batch's agreement rises past both targets
@@ -94,7 +94,6 @@ useClickTimeline(root, (timeline) => {
         <path class="arrow-head" d="M 332 260 l 12 -7 v 14 z M 552 260 l -12 -7 v 14 z" />
         <text class="name-text" x="442" y="292" text-anchor="middle">How much they agree</text>
       </g>
-      <text class="footer label-note" x="442" y="350" text-anchor="middle">Labels shown as an illustration</text>
     </g>
 
     <!-- Before the next batch, the guidelines are revised -->
@@ -118,7 +117,6 @@ useClickTimeline(root, (timeline) => {
       <text class="tag second" x="470" y="14">Batch 2</text>
       <text class="footer" x="884" y="14" text-anchor="end">Dashed line, the target</text>
       <path class="axis" :d="`M 460 ${chart.base} H 884`" />
-      <text class="footer" x="0" y="380">Scores shown as an illustration</text>
     </g>
     <g v-for="bar in bars" :key="bar.key" class="bar-group" :class="bar.key">
       <rect class="bar" :class="{ failed: bar.failed }" :x="bar.x - 40" width="80" rx="3" />

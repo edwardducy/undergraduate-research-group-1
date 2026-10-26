@@ -15,23 +15,35 @@ const lines = [['Baha', 'sa', 'Marikina,'], ['need ng tubig', 'para', 'sa'], ['m
 const real = new Set(['Marikina,', 'need ng tubig', 'mga bata!'])
 const answers = new Set(['Baha', 'Marikina,', 'need ng tubig'])
 
-// Every number is the model's score, comparing its answers with the key
-const correct = [...answers].filter(piece => real.has(piece)).length
-const precision = correct / answers.size
-const recall = correct / real.size
-const f1 = (2 * precision * recall / (precision + recall)).toFixed(2).replace(/^0/, '')
-
 // The side not being discussed fades back but stays readable
 const dim = 0.35
 
-// Illustration only. How much the multi-task model lost, as a share of the bar and as a score
+// Illustration only. How much of the bar the multi-task model lost. Words stand in for the score,
+// since the panel is not expected to read it
 const lost = 14
-const loss = '−0.03'
+
+// Training on the left and labeling on the right, each with its time measure, then its memory measure
+const phases = [
+  {
+    key: 'training', x: 210, input: 'Training posts', model: 'Model learns',
+    measures: [
+      { key: 'time', y: 250, name: 'Training time', line: 'How long the model takes to learn' },
+      { key: 'memory', y: 380, name: 'Peak memory during training', line: 'The most memory it uses to learn' },
+    ],
+  },
+  {
+    key: 'labeling', x: 674, input: 'A new post', model: 'Saved model labels it',
+    measures: [
+      { key: 'time', y: 250, name: 'Time to label each post', line: 'How long it takes for one new post' },
+      { key: 'memory', y: 380, name: 'Size of the saved model', line: 'The storage space it takes up' },
+    ],
+  },
+]
 
 const root = ref<HTMLElement>()
 
 useClickTimeline(root, (timeline) => {
-  gsap.set('.model-side, .count-row, .check, .not-found, .marks-legend, .scene.transfer, .scene.cost, .row, .transfer-part', { opacity: 0 })
+  gsap.set('.model-side, .count-row, .check, .not-found, .marks-legend, .scene.transfer, .scene.cost, .diagram, .measure, .transfer-part', { opacity: 0 })
   gsap.set('.check', { scale: 0.4, transformOrigin: '50% 50%' })
   // The multi-task bar starts as long as the single-task bar, then falls short of it
   gsap.set('.multi', { width: '100%' })
@@ -68,14 +80,23 @@ useClickTimeline(root, (timeline) => {
     .to('.dot-value', { opacity: 1, ...enter }, '>-0.1')
     .to('.transfer-part.result', { opacity: 1, ...enter }, '<0.2')
     .addLabel('step3')
-    // Speed
-    .to('.scene.transfer, .footer', { opacity: 0, ...exit })
+    // One measure per click, in the order the script names them. Each side's diagram appears
+    // with its first measure. Training time, with the training side
+    .to('.scene.transfer', { opacity: 0, ...exit })
     .to('.scene.cost', { opacity: 1, ...enter })
-    .to('.row.speed', { opacity: 1, ...enter }, '<')
+    .to('.diagram.training', { opacity: 1, ...enter }, '<')
+    .to('.measure.time.training', { opacity: 1, ...enter }, '>-0.1')
     .addLabel('step4')
-    // Memory
-    .to('.row.memory', { opacity: 1, ...enter })
+    // Time to label each post, with the labeling side
+    .to('.diagram.labeling', { opacity: 1, ...enter })
+    .to('.measure.time.labeling', { opacity: 1, ...enter }, '>-0.1')
     .addLabel('step5')
+    // Peak memory during training
+    .to('.measure.memory.training', { opacity: 1, ...enter })
+    .addLabel('step6')
+    // Size of the saved model
+    .to('.measure.memory.labeling', { opacity: 1, ...enter })
+    .addLabel('step7')
 })
 </script>
 
@@ -114,9 +135,10 @@ useClickTimeline(root, (timeline) => {
             </div>
           </div>
           <div class="counts">
-            <div class="count-row correct"><b>{{ correct }} of {{ answers.size }}</b><span>of its answers are correct</span></div>
-            <div class="count-row found"><b>{{ correct }} of {{ real.size }}</b><span>of the correct answers found</span></div>
-            <div class="count-row f1"><b>{{ f1 }}</b><span>F1-score, balancing the two</span></div>
+            <!-- Plain statements instead of scores, since the panel is not expected to read fractions -->
+            <div class="count-row correct"><b>Most are right</b><span>Of its answers, one is wrong</span></div>
+            <div class="count-row found"><b>Most are found</b><span>Of the correct answers, one is missed</span></div>
+            <div class="count-row f1"><b>F1-score</b><span>Balances the two</span></div>
           </div>
         </div>
       </div>
@@ -137,56 +159,46 @@ useClickTimeline(root, (timeline) => {
             <div class="long track">
               <div class="multi" />
               <!-- The part of the single-task score that the multi-task model lost -->
-              <div class="drop" :style="{ width: `${lost}%` }"><span class="drop-label">Lost, {{ loss }}</span></div>
+              <div class="drop" :style="{ width: `${lost}%` }"><span class="drop-label">Lost accuracy</span></div>
             </div>
           </div>
         </div>
         <div class="transfer-part axis">
-          <span class="axis-label gain">Above 0, a gain</span>
+          <span class="axis-label gain">Above the line, a gain</span>
           <div class="axis-line" />
-          <div class="zero"><span>0</span></div>
+          <div class="zero"><span>No change</span></div>
           <div class="fall" />
           <div class="dot-wrap">
             <div class="dot" />
-            <span class="dot-value">{{ loss }}</span>
+            <span class="dot-value">Lower</span>
           </div>
-          <span class="axis-label loss">Below 0, a loss</span>
+          <span class="axis-label loss">Below the line, a loss</span>
         </div>
       </div>
-      <p class="transfer-part result">Below 0, the multi-task model lost accuracy, so this is negative transfer</p>
+      <!-- Red text is kept for the words "negative transfer" only -->
+      <p class="transfer-part result">The multi-task model scored lower, so this is <strong class="negative">negative transfer</strong></p>
     </section>
 
+    <!-- Each measure sits under the moment it is measured, while training or once labeling new posts -->
     <section class="scene cost">
-      <div v-for="row in [
-        { key: 'speed', name: 'Speed', cards: [{ icon: 'clock', title: 'Training time' }, { icon: 'bolt', title: 'Time to label each post' }] },
-        { key: 'memory', name: 'Memory', cards: [{ icon: 'chip', title: 'Peak memory during training' }, { icon: 'disk', title: 'Size of the saved model' }] },
-      ]" :key="row.key" class="row" :class="row.key"
-      >
-        <div class="tag">{{ row.name }}</div>
-        <div class="cards">
-          <div v-for="card in row.cards" :key="card.title" class="card">
-            <svg viewBox="-16 -16 32 32" width="36" height="36" class="icon">
-              <template v-if="card.icon === 'clock'">
-                <circle r="12" />
-                <path d="M 0 -6 V 0 L 5 4" />
-              </template>
-              <path v-else-if="card.icon === 'bolt'" d="M 3 -13 L -8 3 H 0 L -3 13 L 8 -3 H 0 Z" />
-              <template v-else-if="card.icon === 'chip'">
-                <rect x="-9" y="-9" width="18" height="18" rx="2" />
-                <path d="M -4 -9 V -14 M 4 -9 V -14 M -4 9 V 14 M 4 9 V 14 M -9 -4 H -14 M -9 4 H -14 M 9 -4 H 14 M 9 4 H 14" />
-              </template>
-              <template v-else>
-                <path d="M -11 -12 H 7 L 11 -8 V 12 H -11 Z" />
-                <path d="M -6 -12 V -5 H 5 V -12 M -6 12 V 3 H 6 V 12" />
-              </template>
-            </svg>
-            <span class="card-title">{{ card.title }}</span>
-          </div>
-        </div>
-      </div>
+      <svg viewBox="0 0 884 456" width="884" height="456">
+        <path class="divider" d="M 442 0 V 456" />
+        <g v-for="phase in phases" :key="phase.key">
+          <g class="diagram" :class="phase.key">
+            <text class="input-text" :x="phase.x" y="28" text-anchor="middle">{{ phase.input }}</text>
+            <path class="line" :d="`M ${phase.x} 42 V 84`" />
+            <path class="head" :d="`M ${phase.x} 96 l -7 -12 h 14 z`" />
+            <rect class="model-box" :x="phase.x - 135" y="100" width="270" height="64" rx="12" />
+            <text class="model-text" :x="phase.x" y="140" text-anchor="middle">{{ phase.model }}</text>
+          </g>
+          <g v-for="item in phase.measures" :key="item.name" class="measure" :class="[item.key, phase.key]">
+            <text class="measure-name" :x="phase.x" :y="item.y" text-anchor="middle">{{ item.name }}</text>
+            <text class="measure-line" :x="phase.x" :y="item.y + 34" text-anchor="middle">{{ item.line }}</text>
+          </g>
+        </g>
+      </svg>
     </section>
 
-    <div class="footer">Illustration, made-up posts and scores</div>
   </div>
 </template>
 
@@ -286,33 +298,40 @@ useClickTimeline(root, (timeline) => {
 }
 
 .counts {
-  margin-top: var(--space-2);
+  margin-top: var(--space-1);
 }
 
 .count-row {
-  display: grid;
-  grid-template-columns: 112px 1fr;
-  column-gap: var(--space-1);
-  align-items: baseline;
+  display: flex;
+  flex-direction: column;
   padding: 2px 0;
 }
 
 .count-row b {
-  font-size: var(--text-3xl);
+  font-size: var(--text-lg);
   font-weight: 700;
-  letter-spacing: -0.02em;
-  text-align: right;
+  line-height: var(--leading-tight);
+  letter-spacing: -0.01em;
 }
 
 .count-row span {
   font-size: var(--text-2xs);
   font-weight: 600;
+  color: var(--color-muted);
 }
 
+/* The F1-score sits on one line, with its meaning beside it */
 .count-row.f1 {
-  margin-top: var(--space-1);
-  padding-top: var(--space-1);
+  flex-direction: row;
+  align-items: baseline;
+  gap: var(--space-1);
+  margin-top: 4px;
+  padding-top: 6px;
   border-top: 2px solid var(--color-land);
+}
+
+.count-row.f1 b {
+  white-space: nowrap;
 }
 
 .count-row.f1 span {
@@ -399,7 +418,7 @@ useClickTimeline(root, (timeline) => {
   white-space: nowrap;
   font-size: var(--text-2xs);
   font-weight: 700;
-  color: var(--color-negative);
+  color: var(--color-ink);
 }
 
 .axis {
@@ -425,10 +444,12 @@ useClickTimeline(root, (timeline) => {
 
 .zero span {
   position: absolute;
-  right: -20px;
+  left: calc(100% + 8px);
   top: -12px;
+  white-space: nowrap;
   font-size: var(--text-2xs);
   font-weight: 600;
+  color: var(--color-muted);
 }
 
 /* The red line the dot leaves as it drops below 0 */
@@ -461,7 +482,7 @@ useClickTimeline(root, (timeline) => {
   white-space: nowrap;
   font-size: var(--text-xs);
   font-weight: 700;
-  color: var(--color-negative);
+  color: var(--color-ink);
 }
 
 .axis-label {
@@ -479,54 +500,59 @@ useClickTimeline(root, (timeline) => {
 
 .axis-label.loss {
   bottom: 0;
-  color: var(--color-negative);
 }
 
 .transfer-part.result {
   margin-top: var(--space-3);
   font-size: var(--text-md);
   font-weight: 700;
+  color: var(--color-ink);
+}
+
+.transfer-part.result .negative {
   color: var(--color-negative);
 }
 
-.row {
-  margin-bottom: var(--space-4);
+.divider {
+  stroke: var(--color-land);
+  stroke-width: 2;
 }
 
-.cards {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-2);
+.input-text {
+  font-size: var(--text-xs);
+  fill: var(--color-ink);
 }
 
-.card {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-2) var(--space-3);
-  border-radius: 10px;
-  background: var(--color-land);
+.model-box {
+  fill: var(--color-surface);
+  stroke: var(--color-ink);
+  stroke-width: 2;
 }
 
-.card-title {
-  font-size: var(--text-base);
-  font-weight: 600;
+.model-text {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  fill: var(--color-ink);
 }
 
-.icon {
-  flex: none;
+.line {
   fill: none;
   stroke: var(--color-ink);
   stroke-width: 2;
-  stroke-linejoin: round;
-  stroke-linecap: round;
 }
 
-.footer {
-  position: absolute;
-  right: 0;
-  top: 0;
+.head {
+  fill: var(--color-ink);
+}
+
+.measure-name {
+  font-size: var(--text-md);
+  font-weight: 700;
+  fill: var(--color-ink);
+}
+
+.measure-line {
   font-size: var(--text-2xs);
-  color: var(--color-subtle);
+  fill: var(--color-muted);
 }
 </style>

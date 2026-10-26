@@ -47,14 +47,14 @@ const bars = [
   [232, 172], [130, 118], [176, 158], [280, 192], [164, 148], [190, 170],
 ].map(([before, after], index) => ({ before, after, x: 6 + index * 33.6, over: before > chart.limit }))
 
-// Risk 3. Test, fix, and test again, then a stress test where memory stays flat
+// Risk 3. Test, fix, and test again, centred in the panel
 const loop = [
   { name: 'Test', x: 0 },
   { name: 'Fix', x: 160 },
   { name: 'Test again', x: 320 },
 ]
-const loopArrows = [arrow(126, 92, 156, 92), arrow(286, 92, 316, 92)]
-const stress = { base: 410, top: 236 }
+const loopY = 200
+const loopArrows = [arrow(126, loopY + 28, 156, loopY + 28), arrow(286, loopY + 28, 316, loopY + 28)]
 
 // Risk 4. The fallbacks for posts, then the month of buffer
 const fallbacks = [
@@ -73,10 +73,9 @@ useClickTimeline(root, (timeline) => {
 
   // The risks wait in a faint grey until their turn
   gsap.set('.item, .item .plan', { color: colour('faint') })
-  gsap.set('.panel, .check, .reveal, .post, .before, .fixed-note', { opacity: 0 })
+  gsap.set('.panel, .check, .reveal, .before, .fixed-note', { opacity: 0 })
   gsap.set('.check', { scale: 0.4, transformOrigin: '50% 50%' })
   gsap.set('.memory-bar', { attr: { y: chart.base, height: 0 } })
-  gsap.set('.flat', { strokeDasharray: 1, strokeDashoffset: 1 })
 
   let previous = -1
   const focus = (index: number) => {
@@ -116,13 +115,11 @@ useClickTimeline(root, (timeline) => {
     .to('.fixed-note', { opacity: 1, ...enter, stagger: 0.15 }, '<0.2')
     .addLabel('step3')
 
-  // Prototype. A failed use case is fixed and tested again, and memory stays flat under a stress test
+  // Prototype. A failed use case is fixed and tested again
   focus(2)
   timeline
     .to('.prototype .reveal', { opacity: 1, ...enter, stagger: 0.15 }, '>0.1')
     .to('.prototype .check', { opacity: 1, scale: 1, ...pop }, '>')
-    .to('.post', { opacity: 1, duration: 0.15, stagger: 0.04 }, '<')
-    .to('.flat', { strokeDashoffset: 0, duration: 1, ease: 'power1.out' }, '<')
     .addLabel('step4')
 
   // Data and delays. The fallbacks for posts, then the month of buffer
@@ -205,33 +202,24 @@ useClickTimeline(root, (timeline) => {
           <text class="small" x="286" y="90">Frozen in</text>
           <text class="small" x="286" y="112">every model</text>
         </g>
-        <text class="small fixed-note" x="0" y="432">All fit now. Slowed runs are repeated</text>
+        <text class="small fixed-note" x="0" y="432">All fit now</text>
       </g>
 
       <!-- Risk 3. Prototype failures -->
       <g class="panel prototype">
-        <text class="tag" x="0" y="40">A use case fails</text>
+        <text class="tag" x="0" :y="loopY - 24">A use case fails</text>
         <g v-for="(step, index) in loop" :key="step.name" class="reveal">
-          <rect class="box" :x="step.x" y="64" width="124" height="56" rx="10" />
-          <text class="box-text" :x="step.x + 62" y="99" text-anchor="middle">{{ step.name }}</text>
+          <rect class="box" :x="step.x" :y="loopY" width="124" height="56" rx="10" />
+          <text class="box-text" :x="step.x + 62" :y="loopY + 35" text-anchor="middle">{{ step.name }}</text>
           <template v-if="index > 0">
             <path class="line" :d="loopArrows[index - 1].shaft" />
             <path class="head" :d="loopArrows[index - 1].head" />
           </template>
         </g>
-        <g class="check" transform="translate(436 66)">
+        <g class="check" :transform="`translate(436 ${loopY + 2})`">
           <circle r="13" />
           <path d="M -6 0 L -1.5 5 L 6.5 -5" />
         </g>
-
-        <g class="reveal">
-          <text class="tag" x="0" y="196">Stress test</text>
-          <path class="axis" :d="`M 0 ${stress.base} H ${width}`" />
-          <text class="small" x="0" :y="stress.base + 30">Incoming posts</text>
-          <text class="limit-text" :x="width" :y="stress.top + 34" text-anchor="end">Memory stays flat</text>
-        </g>
-        <rect v-for="post in 16" :key="post" class="post" :x="12 + (post - 1) * 27" :y="stress.base - 26" width="18" height="18" rx="3" />
-        <path class="flat" :d="`M 0 ${stress.top + 80} C 60 ${stress.top + 40} 110 ${stress.top + 44} 160 ${stress.top + 46} H ${width}`" pathLength="1" />
       </g>
 
       <!-- Risk 4. Too few posts, or delays -->
@@ -409,16 +397,6 @@ svg {
   stroke: var(--color-ink);
   stroke-width: 2;
   stroke-linecap: round;
-}
-
-.post {
-  fill: var(--color-land);
-}
-
-.flat {
-  fill: none;
-  stroke: var(--color-ink);
-  stroke-width: 3;
 }
 
 .month {

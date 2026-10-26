@@ -12,7 +12,8 @@ const exit = { duration: 0.2, ease: 'power1.in' }
 const draw = { duration: 0.5, ease: 'power2.out' }
 const pop = { duration: 0.25, ease: 'back.out(3)' }
 
-// Optimizers out of the running fade back but stay readable
+// Equal weighting fades back while it is not being compared. An optimizer that is out of the
+// running leaves the chart, so only the ones still in the running are shown
 const dim = 0.3
 // Marks the choice, the same green as on the schedule and checkpoint slides
 const chosen = '#15803d'
@@ -89,12 +90,13 @@ useClickTimeline(root, (timeline) => {
     .to('.mean-line, .note.differ', { opacity: 0, ...exit }, '<')
     .to('.bar[data-index="0"]', { fill: colour('ink'), ...enter }, '<')
     .to('.ew-line, .ew-label', { opacity: 1, ...enter }, '<')
-    .to(at('.column', others.filter(index => !passed.includes(index))), { opacity: dim, ...exit }, '<0.2')
+    .to(at('.column', others.filter(index => !passed.includes(index))), { opacity: 0, ...exit, duration: 0.4 }, '<0.2')
     .to(at('.badge.pass', passed), { opacity: 1, scale: 1, ...pop, stagger: 0.12 }, '>')
     .to('.note.below', { opacity: 1, ...enter }, '<')
     .addLabel('step2')
 
-  // Both task scores. A mark for each task, and the one that lowers a task falls out
+  // Both task scores. A mark for each task. The one that lowers a task fades back, so its cross
+  // can still be read, and leaves the chart on the next step
   focus(2)
   timeline
     .to('.badge.pass, .note.below', { opacity: 0, ...exit }, '<')
@@ -109,6 +111,7 @@ useClickTimeline(root, (timeline) => {
   timeline
     .to('.badge.task, .task-key, .note.both, .ew-line, .ew-label, .loss-legend', { opacity: 0, ...exit }, '<')
     .to('.bar', { scaleY: 0, ...exit }, '<')
+    .to(at('.column', Object.keys(lowers).map(Number)), { opacity: 0, ...exit }, '<')
     .to('.column[data-index="0"]', { opacity: dim, ...exit }, '<')
     .to('.time-legend', { opacity: 1, ...enter }, '>')
     .to('.time-bar', { scaleY: 1, ...draw, stagger: 0.08 }, '<')
@@ -116,13 +119,13 @@ useClickTimeline(root, (timeline) => {
     .to('.final-label, .note.qualify', { opacity: 1, ...enter }, '<')
     .addLabel('step4')
 
-  // If none qualifies, equal weighting is kept
+  // If none qualifies, equal weighting is kept. It is the only optimizer left on the chart
   focus(4)
   timeline
     .to('.time-bar, .final-label, .note.qualify, .time-legend', { opacity: 0, ...exit }, '<')
+    .to(at('.column', others), { opacity: 0, ...exit }, '<')
     .to('.loss-legend', { opacity: 1, ...enter }, '>')
-    .to('.column', { opacity: dim, ...enter }, '<')
-    .to('.bar', { scaleY: 1, ...draw }, '<')
+    .to('.bar[data-index="0"]', { scaleY: 1, ...draw }, '<')
     .to('.column[data-index="0"]', { opacity: 1, ...enter }, '<')
     .to('.bar[data-index="0"]', { fill: chosen, ...enter }, '<')
     .to('.note.kept', { opacity: 1, ...enter }, '>-0.1')
@@ -195,7 +198,6 @@ useClickTimeline(root, (timeline) => {
       <text class="note-text note kept good" :x="columns[0].x - 14" :y="chart.base + 64">Equal weighting is kept, at no extra cost</text>
     </svg>
 
-    <footer>Illustration, not results</footer>
   </div>
 </template>
 
@@ -342,11 +344,4 @@ circle.ner {
   font-weight: 700;
 }
 
-footer {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  font-size: var(--text-2xs);
-  color: var(--color-subtle);
-}
 </style>

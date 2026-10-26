@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-// Built by scripts/references.py from the works cited in Chapters 1 to 3, in APA style
+// Built by scripts/references.py from the works cited in the presentation, in APA style
 import references from '../data/references.json'
 
 const props = defineProps<{ page: number }>()
 
 // The list is split into a set number of pages of about the same length, keeping the
 // alphabetical order. If this number changes, the reference pages in slides.md must change with it
-const pageCount = 6
+const pageCount = 2
 const size = (entry: string) => entry.replace(/<[^>]+>/g, '').length + 120
 
 const pages = computed(() => {
@@ -28,7 +28,7 @@ const entries = computed(() => pages.value[props.page - 1] ?? [])
 
 <template>
   <div class="references">
-    <h3>References, {{ page }} of {{ pages.length }}</h3>
+    <h3>{{ pages.length > 1 ? `References, ${page} of ${pages.length}` : 'References' }}</h3>
     <div class="columns">
       <!-- Pandoc's own markup, which only marks titles and volumes in italics -->
       <p v-for="(entry, index) in entries" :key="index" class="entry" v-html="entry" />

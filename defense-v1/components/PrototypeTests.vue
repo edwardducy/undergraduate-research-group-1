@@ -28,8 +28,6 @@ useClickTimeline(root, (timeline) => {
 
 <template>
   <div ref="root" class="prototype">
-    <p class="scope"><span class="flag">Outside the scope</span>Usability testing</p>
-
     <div class="card">
       <div class="use-case">
         <span class="tag">Use case</span>
@@ -57,34 +55,17 @@ useClickTimeline(root, (timeline) => {
 
     <p class="rule">A use case passes only if the actual result matches in every test case</p>
 
-    <div class="footer">Example test case</div>
   </div>
 </template>
 
 <style scoped>
+/* The full height of a slide with no heading, with the card and rule centred in it */
 .prototype {
   position: relative;
-  height: 384px;
-}
-
-.scope {
   display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  margin: 0 0 var(--space-4);
-  font-size: var(--text-base);
-  color: var(--color-muted);
-}
-
-.flag {
-  font-size: var(--text-2xs);
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--color-negative);
-  background: color-mix(in srgb, var(--color-negative) 10%, var(--color-surface));
-  border-radius: 6px;
-  padding: 4px 10px;
+  flex-direction: column;
+  justify-content: center;
+  height: 456px;
 }
 
 .card {
@@ -115,7 +96,8 @@ useClickTimeline(root, (timeline) => {
   font-size: var(--text-xs);
   font-weight: 700;
   color: var(--color-surface);
-  background: var(--color-ink);
+  /* The same green as the passed checks on the other slides */
+  background: #15803d;
   border-radius: 16px;
   padding: 4px 14px 4px 8px;
 }
@@ -156,11 +138,4 @@ useClickTimeline(root, (timeline) => {
   font-weight: 600;
 }
 
-.footer {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  font-size: var(--text-2xs);
-  color: var(--color-subtle);
-}
 </style>
