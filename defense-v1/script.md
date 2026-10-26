@@ -124,7 +124,7 @@ Thank you, Carlo. Our dataset will come from the tropical cyclones that crossed 
 
 The labels themselves must also be trustworthy, so we will measure how much our two annotators agree after each batch. Our targets are a Cohen's kappa of at least .61 for the categories and an F1-score of at least .74 for the entities. If a batch falls below either target, we will revise the labeling guidelines before the next one.
 
-Each model will be measured on the accuracy, speed, and memory Carlo mentioned. For accuracy, we will use the F1-score, which balances how many of the model's answers are correct with how many of the correct answers it finds. From these scores, we will compute negative transfer as the multi-task score minus the single-task score, so a negative number means the multi-task model lost accuracy. For speed, we will record the training time and the time the model takes to label each post. For memory, we will record the peak memory used during training and the storage size of the saved model.
+Each model will be measured on the accuracy, speed, and memory Carlo mentioned. For accuracy, we will use the F1-score, which balances how many of the model's answers are correct with how many of the correct answers it finds. From these scores, we will compute negative transfer as the multi-task score minus the single-task score, so if the multi-task model scores lower, it lost accuracy. For speed, we will record the training time and the time the model takes to label each post. For memory, we will record the peak memory used during training and the storage size of the saved model.
 
 These measures will decide the optimizer. First, an analysis of variance will check whether the 13 optimizers differ in negative transfer at all. If they do, Dunnett's test will compare each one with equal weighting. An optimizer qualifies only if it reduces negative transfer significantly without lowering the score on either task. Among those that qualify, the one with the shortest training time becomes the final optimizer. If none qualifies, we will keep equal weighting, since it adds no extra cost.
 
@@ -140,27 +140,21 @@ Yngwie will now present our schedule.
 
 Thank you, Kyle. This Gantt chart shows our plan from November 2026 to April 2027. Right after this defense, we will revise Chapters 1 to 3 based on the panel's comments. From mid-November, we will collect the posts and prepare for labeling, and full labeling will run from December to late January, including the Christmas break. We will not wait for labeling to finish. While it continues, we will write the benchmark code and its tests, and build and test the prototype, so both are ready when the data is. Training needs the finished dataset, so it will start in late January and run until late February. During February, we will also write Chapters 4 and 5 as the results come in. Every task will end by the end of February, which leaves all of March as a buffer before the final defense in the first week of April 2027.
 
-Isaiah will now explain why this plan is feasible.
-
-### Isaiah
-
-Thank you, Yngwie. Three things make this plan realistic. We have already run a training pilot, which confirmed that, after one change Kyle will explain, every model fits in our laptop's memory. The workload is also fixed in advance, at 92 tuning runs and 51 main runs, so the training time can be planned. Finally, our spending on the X API is capped at 200 US dollars, and a pilot search will help us spread it across the cyclones.
-
 Carlo will now present our immediate next steps.
 
 ## Immediate Next Steps
 
 ### Carlo
 
-Thank you, Isaiah. As soon as our proposal is approved, we will revise the chapters, as Yngwie mentioned. Alongside this, we will secure access to the full-archive search of the X API, since most of our posts will come from it.
+Thank you, Yngwie. As soon as our proposal is approved, we will revise the chapters, as Yngwie mentioned. Alongside this, we will secure access to the full-archive search of the X API, since most of our posts will come from it.
 
 Prinz will now present our targets for the coming weeks.
 
 ### Prinz
 
-Thank you, Carlo. In the next two to four weeks, we will start with the pilot search Isaiah mentioned. It will show how many posts remain after cleaning, which sets a limit for each cyclone. We will then collect and clean the posts and keep only the cyclones with at least 400 Taglish posts. At the same time, we will prepare for labeling by drafting our guidelines with Taglish examples, setting up doccano, and labeling a practice batch.
+Thank you, Carlo. In the next two to four weeks, we will start with a pilot search. It will show how many posts remain after cleaning, which sets a limit for each cyclone. We will then collect and clean the posts and keep only the cyclones with at least 400 Taglish posts. At the same time, we will prepare for labeling by drafting our guidelines with Taglish examples, setting up doccano, and labeling a practice batch.
 
-Full labeling will start only after three checkpoints. The practice batch must reach the agreement targets Kyle described. The selected cyclones must give us about 3,900 posts. And based on how many posts X gives us, we will decide whether to add posts from Facebook.
+Full labeling will start only after two milestones. The first is about the data. The selected cyclones must give us about 3,900 posts. If X gives us too few Taglish posts, we will add public posts from Facebook. The second is about the labels. Our practice batch must reach the agreement targets Kyle described. If it falls short, we will revise the guidelines and label another practice batch. Once both are met, full labeling starts in December, as shown on our schedule.
 
 Kyle will now present our technical risks and backup plans.
 
@@ -172,9 +166,9 @@ Thank you, Prinz. We have planned for four risks.
 
 The first is bugs in our code. Before any training, we will test each part, including every optimizer, on small examples with known answers, and then run the whole pipeline on a small sample.
 
-The second is our hardware, and we have already faced it. In our training pilot, four optimizers needed more memory than our 8 GB graphics processor. We solved this by freezing the embedding layer in every model. Earlier work found that this layer changes little during fine-tuning, so freezing it should cost little accuracy. We will also repeat any run that slows down from heat or low memory.
+The second is our hardware, and we have already faced it. In our training pilot, four optimizers needed more memory than our 8 GB graphics processor. We solved this by freezing the embedding layer in every model. Earlier work found that this layer changes little during fine-tuning, so freezing it should cost little accuracy.
 
-The third is the prototype. If a use case fails, we will fix and retest it, and a stress test will check that the model keeps up with incoming posts without its memory growing.
+The third is the prototype. If a use case fails, we will fix it and test it again.
 
 The last is data and delays. If the X API fails or gives too few Taglish posts, we will turn to public Facebook posts. If we are still short, we will report the smaller dataset as a limitation. Any other delay falls into the month of buffer Yngwie described.
 

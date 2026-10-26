@@ -92,20 +92,16 @@ clicks: 10
 clicks: 8
 ---
 
-# The dataset and its three parts
-
 <DatasetSplit />
 
 ---
 clicks: 4
 ---
 
-# Labels are double-checked
-
 <LabelCheck />
 
 ---
-clicks: 5
+clicks: 7
 ---
 
 <MeasuresPanel />
@@ -126,15 +122,11 @@ clicks: 3
 clicks: 2
 ---
 
-# The prototype is checked feature by feature
-
 <PrototypeTests />
 
 ---
 clicks: 6
 ---
-
-# The plan, November 2026 to April 2027
 
 <ScheduleGantt />
 
@@ -142,25 +134,13 @@ clicks: 6
 clicks: 3
 ---
 
-# Three reasons the plan is realistic
-
-<FeasibilityCards />
+<NextSteps />
 
 ---
 clicks: 3
 ---
 
-# Immediate next steps
-
-<NextSteps />
-
----
-clicks: 4
----
-
-# Three checkpoints before full labeling
-
-<LabelingGate />
+<LabelingMilestones />
 
 ---
 clicks: 5
@@ -185,19 +165,3 @@ One model that <strong class="classification">sorts Taglish typhoon posts by typ
 ---
 
 <ReferenceList :page="2" />
-
----
-
-<ReferenceList :page="3" />
-
----
-
-<ReferenceList :page="4" />
-
----
-
-<ReferenceList :page="5" />
-
----
-
-<ReferenceList :page="6" />
