@@ -1,7 +1,10 @@
 # /// script
 # requires-python = ">=3.12"
 # ///
-"""Build the reference list for slide 11 from the works cited in Chapters 1 to 3.
+"""Build the reference list for the last slides from the works cited in the presentation.
+
+Only the works cited by author and year on a slide or in script.md are listed. Works that are
+only named, such as HumAID, LibMTL, Cohen's kappa, Dunnett's test, and the optimizers, are not.
 
 Pandoc formats the entries with the paper's own bibliography and APA style file, so the
 slide matches the manuscript. Run with `uv run scripts/references.py` from the defense-v1 folder.
@@ -15,19 +18,27 @@ import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent.parent
-CHAPTERS = ["01-introduction.qmd", "02-literature.qmd", "03-methodology.qmd"]
 OUTPUT = Path(__file__).parent.parent / "data" / "references.json"
 
-# Citation keys look like @ali2026humaidner or [-@pagasa2026cyclone]. Cross-references such as
-# @tbl-usecases and @fig-use-cases have a hyphen and are not citations
-CITATION = re.compile(r"(?<![\w.])-?@([a-z][a-z0-9_]*\d{4}[a-z0-9_]*)")
+# The works cited in the presentation, by their keys in bibliography.bib. Update this list when a
+# citation is added to or removed from the slides or the script
+PRESENTATION_KEYS = [
+    "ali2026humaidner",
+    "bundnis2025worldriskreport",
+    "caoile2025urdaneta",
+    "ermino2022urgency",
+    "gama2026uniform",
+    "kurin2022unitary",
+    "pagasa2026cyclone",
+    "seeberger2025generalizing",
+    "somido2023actionable",
+    "yute2021satellite",
+    "zhu2025prefinetuning",
+]
 
 
 def cited_keys() -> list[str]:
-    keys: set[str] = set()
-    for chapter in CHAPTERS:
-        keys.update(CITATION.findall((ROOT / chapter).read_text(encoding="utf-8")))
-    return sorted(keys)
+    return sorted(PRESENTATION_KEYS)
 
 
 def formatted_entries(keys: list[str]) -> list[str]:
