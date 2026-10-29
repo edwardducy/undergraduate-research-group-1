@@ -18,16 +18,7 @@ canvas_docs/sample-manuscript-previous-batch.pdf
 canvas_docs/00-announcements/attachments/
 canvas_docs/*/files/
 
-# Archived mock defense build outputs
-archive/mock-defense-v1/slides.html
-archive/mock-defense-v1/slides_files/
-archive/mock-defense-v1/*.pdf
-
 # Figure PDFs, built from figures/*.typ by scripts/build_figures.py
 figures/*.pdf
 
-# Slidev presentation build outputs and dependencies
-defense-v1/node_modules/
-defense-v1/dist/
-defense-v1/.slidev/
 
