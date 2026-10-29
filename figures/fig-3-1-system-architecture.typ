@@ -10,23 +10,21 @@
   let sw = 0.8pt
   set-style(stroke: sw)
 
-  let W = 2.7          // main box width
-  let G = 0.15          // arrow gap inside a phase
-  let PT = 0.11        // frame padding above the first box
-  let PB = 0.26         // frame padding below the last box (holds the label)
-  let FG = 0.1         // gap between frames
-  let FX = 2.8        // frame half-width
+  let W = 2.7
+  let G = 0.15
+  let PT = 0.11
+  let PB = 0.26
+  let FG = 0.1
+  let FX = 2.8
   let arrow(a, b) = line(a, b, mark: (end: ">", fill: black, scale: 0.6), stroke: sw)
   let both(a, b) = line(a, b, mark: (start: ">", end: ">", fill: black, scale: 0.6), stroke: sw)
 
-  // a rectangle step centred at x, top edge at y; returns bottom y
   let step(x, y, w, h, body) = {
     rect((x - w / 2, y), (x + w / 2, y - h))
     content((x, y - h / 2), box(width: (w - 0.1) * 1in, align(center, body)))
   }
   let cyl(x, y, w, h, body) = {
     let e = 0.07
-    // body
     line((x - w / 2, y - e), (x - w / 2, y - h + e))
     line((x + w / 2, y - e), (x + w / 2, y - h + e))
     arc((x + w / 2, y - h + e), start: 0deg, stop: -180deg, radius: (w / 2, e))
@@ -43,12 +41,10 @@
     content((-FX + 0.1, bottom + 0.06), anchor: "south-west", text(size: 7.5pt, style: "italic", label))
   }
 
-  // ---------- layout, top to bottom ----------
   let y = 0
   io(0, y, 2.6, 0.36)[*Taglish typhoon posts* \ #small[(X API, with public Facebook pages as fallback)]]
   let y-in-bottom = y - 0.36
 
-  // Phase 1
   let f1-top = y-in-bottom - 0.15
   y = f1-top - PT
   let clean = y
@@ -71,7 +67,6 @@
   arrow((0, ann - 0.33), (0, split))
   arrow((0, split - 0.22), (0, ds))
 
-  // Phase 2
   let f2-top = f1-bottom - FG
   let ds-bottom = y
   y = f2-top - PT
@@ -105,7 +100,6 @@
   let f2-bottom = y - PB
   frame(f2-top, f2-bottom, [Model training and selection])
 
-  // Phase 3
   let f3-top = f2-bottom - FG
   let fm-bottom = y
   y = f3-top - PT - 0.05
@@ -122,7 +116,6 @@
   let f3-bottom = y - PB
   frame(f3-top, f3-bottom, [Prototype web application])
 
-  // Output
   let out = f3-bottom - 0.15
   arrow((0, y), (0, out))
   io(0, out, 2.6, 0.36)[*Posts sorted by category, with entities,* \ *for DRRMO staff*]

@@ -4,8 +4,6 @@
 #let double = 2 * single
 #let line-gap = double - 1em
 
-// The table of contents, list of tables, and list of figures, laid out like
-// earlier CEU theses: double-spaced entries with dot leaders and page numbers.
 #let front-matter() = {
   set par(first-line-indent: 0in, justify: false)
   let title(t) = block(width: 100%, below: line-gap, align(center, strong(t)))
@@ -15,7 +13,6 @@
       #link(loc)[#body#box(width: 1fr, repeat[.])#page-number]
     ]
   }
-  // Captions can end with a space, which would show before the dot leader.
   let trim(c) = if c.func() == [].func() and c.children.len() > 0 and c.children.last() == [ ] {
     c.children.slice(0, -1).join()
   } else { c }
@@ -140,8 +137,6 @@
 
   title-page(title: title, authors: authors)
 
-  // Front matter is numbered with Roman numerals from i, and the chapters
-  // with Arabic numerals from 1.
   {
     set page(numbering: "i")
     front-matter()

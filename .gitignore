@@ -12,12 +12,10 @@ service_account.json
 /.quarto/
 **/*.quarto_ipynb
 
-# Sample manuscript from a previous batch (large, and another group's work)
 canvas_docs/sample-manuscript-previous-batch.pdf
 canvas_docs/00-announcements/attachments/
 canvas_docs/*/files/
 
-# Figure PDFs, built from figures/*.typ by scripts/build_figures.py
 figures/*.pdf
 
 

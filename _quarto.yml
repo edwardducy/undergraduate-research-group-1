@@ -6,7 +6,6 @@ bibliography: bibliography.bib
 csl: apa.csl
 
 book:
-  # Benchmarking Dynamic Multi-Task Balancing in a Multilingual Encoder for Joint Triage of Taglish Disaster Tweets
   title: "Benchmarking Multi-Task Optimizers for Humanitarian Classification and Named Entity Recognition of Taglish Typhoon Tweets"
   author:
     - Isaiah Raphael Almuena

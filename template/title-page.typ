@@ -32,6 +32,5 @@
   v(1fr)
   [November 2026]
 
-  // The title page is not counted, so the front matter starts at page i.
   counter(page).update(0)
 })
