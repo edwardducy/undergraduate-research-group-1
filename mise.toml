@@ -4,26 +4,9 @@ uv = "latest"
 typst = "latest"
 pandoc = "latest"
 "aqua:quarto-dev/quarto-cli" = "latest"
-node = "26"
-pnpm = "latest"
-
-[tasks.sync]
-description = "Synchronize Quarto manuscript to Google Docs"
-run = "uv run python scripts/gdocs_manager.py sync"
-
-[tasks.diff]
-description = "Compare local manuscript with Google Doc"
-run = "uv run python scripts/gdocs_manager.py diff"
-
-[tasks.status]
-description = "Check Google Doc status and comment counts"
-run = "uv run python scripts/gdocs_manager.py status"
-
-[tasks.comments]
-description = "Display reviewer comments and feedback from Google Doc"
-run = "uv run python scripts/gdocs_manager.py comments"
 
 [tasks.build-figures]
 description = "Compile Typst figures to PDF"
 run = "uv run python scripts/build_figures.py"
+
 
