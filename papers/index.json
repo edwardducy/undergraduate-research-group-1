@@ -29,7 +29,7 @@
   {
     "citation_key": "elich2024paradigms",
     "title": "Examining Common Paradigms in Multi-Task Learning",
-    "year": 2024,
+    "year": 2025,
     "doi": "10.1007/978-3-031-85181-0_9",
     "summary": "Investigates multi-task optimization dynamics, showing that adaptive optimizers provide partial loss scale invariance and that gradient conflicts alone do not explain performance gaps relative to single-task baselines.",
     "arxiv_id": "2311.04698",
@@ -556,5 +556,14 @@
     "summary": "NVIDIA support article on system memory fallback. Starting with driver 536.40, applications that run out of GPU memory can use shared system memory and continue to run at lower speeds instead of crashing, with the switch happening close to the GPU memory limit. From driver 546.01, setting CUDA - Sysmem Fallback Policy to Prefer No Sysmem Fallback in the NVIDIA Control Panel turns this off, which keeps performance stable at the risk of a crash when more GPU memory is needed. The steps shown are for one program on Windows. Last updated October 31, 2023. Does not mention WSL.",
     "arxiv_id": null,
     "url": "https://nvidia.custhelp.com/app/answers/detail/a_id/5490/~/system-memory-fallback-for-stable-diffusion"
+  },
+  {
+    "citation_key": "dunnett1955multiple",
+    "title": "A Multiple Comparison Procedure for Comparing Several Treatments with a Control",
+    "year": 1955,
+    "doi": "10.1080/01621459.1955.10501294",
+    "summary": "Introduces Dunnett's test, a statistical procedure designed for comparing multiple experimental treatments against a single control group while controlling the family-wise error rate.",
+    "arxiv_id": null,
+    "url": "https://doi.org/10.1080/01621459.1955.10501294"
   }
 ]
