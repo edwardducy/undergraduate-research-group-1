@@ -3,11 +3,15 @@
   "private": true,
   "scripts": {
     "dev": "slidev --open",
+    "dev:remote": "slidev --open --remote",
+    "dev:tunnel": "slidev --open --remote --tunnel",
     "build": "slidev build",
     "export": "slidev export"
   },
   "dependencies": {
     "@slidev/cli": "^53.0.0",
-    "@slidev/theme-default": "latest"
+    "gsap": "^3.15.0",
+    "maplibre-gl": "6.11.2",
+    "markdown-it": "^14.3.3"
   }
 }

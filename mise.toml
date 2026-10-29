@@ -31,6 +31,14 @@ run = "uv run python scripts/build_figures.py"
 description = "Start Slidev development server for defense-v1"
 run = "pnpm --prefix defense-v1 dev"
 
+[tasks.defense-remote]
+description = "Start Slidev development server with mobile remote control for defense-v1"
+run = "pnpm --prefix defense-v1 dev:remote"
+
+[tasks.defense-tunnel]
+description = "Start Slidev development server with Cloudflare tunnel for defense-v1"
+run = "pnpm --prefix defense-v1 dev:tunnel"
+
 [tasks.defense-build]
 description = "Build static presentation for defense-v1"
 run = "pnpm --prefix defense-v1 build"

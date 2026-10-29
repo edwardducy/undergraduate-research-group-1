@@ -1,0 +1,294 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap');
+
+:root {
+  --space-0: 0.25rem;
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-5: 3rem;
+  --space-6: 4rem;
+
+  --text-2xs: 1.125rem;
+  --text-xs: 1.238rem;
+  --text-sm: 1.361rem;
+  --text-base: 1.497rem;
+  --text-md: 1.647rem;
+  --text-lg: 1.812rem;
+  --text-xl: 1.993rem;
+  --text-2xl: 2.192rem;
+  --text-3xl: 2.412rem;
+  --text-4xl: 2.653rem;
+  --text-5xl: 2.918rem;
+  --text-display: 4.4rem;
+
+  --leading-tight: 1.1;
+  --leading-body: 1.5;
+  --leading-list: 1.35;
+
+  --color-surface: #ffffff;
+  --color-ink: #262626;
+  --color-muted: #404040;
+  --color-subtle: #737373;
+  --color-faint: #c4c4c4;
+  --color-land: #ededed;
+  --color-classification: #1f5fbf;
+  --color-ner: #b45309;
+  --color-negative: #b91c1c;
+  --color-positive: #15803d;
+  --color-data: #0f766e;
+  --color-data-light: #7fbcb5;
+  --color-data-tint: #e7f3f1;
+  --color-removed: #a3a3a3;
+  --color-coding: #6d28d9;
+  --color-testing: #a78bfa;
+  --color-testing-tint: #f3efff;
+
+  --grid-columns: 12;
+  --grid-gutter: var(--space-3);
+
+  --margin-x: 78px;
+  --margin-top: 81px;
+  --margin-bottom: var(--space-5);
+  --margin-section: var(--space-4);
+}
+
+.slidev-layout {
+  padding: var(--margin-top) var(--margin-x) var(--margin-bottom);
+}
+
+h1 {
+  font-size: var(--text-2xl);
+  line-height: var(--leading-tight);
+  font-weight: 700;
+  text-wrap: balance;
+  margin-bottom: var(--space-3);
+}
+
+h3 {
+  font-size: var(--text-2xs);
+  font-weight: 600;
+  line-height: var(--leading-tight);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: var(--space-0);
+}
+
+p,
+li {
+  font-size: var(--text-base);
+  line-height: var(--leading-body);
+}
+
+.stack {
+  display: grid;
+}
+
+.stack > * {
+  grid-area: 1 / 1;
+}
+
+.slidev-layout:has(> .quote) {
+  height: 100%;
+}
+
+.quote {
+  height: 100%;
+  display: grid;
+  place-content: center;
+}
+
+.quote h3 {
+  margin-bottom: var(--space-2);
+}
+
+.quote p {
+  max-width: 36ch;
+  font-family: 'Source Serif 4', serif;
+  font-size: var(--text-2xl);
+  line-height: 1.35;
+}
+
+.quote strong {
+  font-weight: 600;
+}
+
+.quote .classification {
+  color: var(--color-classification);
+}
+
+.quote .ner {
+  color: var(--color-ner);
+}
+
+ph-cursor-fill,
+.laser-pointer {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .slidev-presenter > div:first-child,
+  .slidev-presenter .grid-section.main,
+  .slidev-presenter .grid-section.next,
+  .slidev-presenter .grid-section.note,
+  .slidev-presenter .notes-vertical-resizer,
+  .slidev-presenter .notes-vertical-resizer-left,
+  .slidev-presenter .notes-resizer,
+  .slidev-presenter .notes-row-resizer,
+  .slidev-presenter [role="separator"],
+  .slidev-presenter .drawing-controls,
+  .slidev-presenter #slidev-goto,
+  .slidev-presenter .slidev-context-menu,
+  .slidev-presenter .grid-section.bottom > div:last-child {
+    display: none !important;
+  }
+
+  .slidev-presenter {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    width: 100vw !important;
+    background-color: #09090b !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+  }
+
+  .slidev-presenter .grid-container {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+    width: 100% !important;
+    background: transparent !important;
+    gap: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .slidev-presenter .grid-section.bottom {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+    width: 100% !important;
+    padding: 20px 20px calc(20px + env(safe-area-inset-bottom, 0px)) !important;
+    background: transparent !important;
+    box-sizing: border-box !important;
+    gap: 16px !important;
+  }
+
+  .slidev-presenter .grid-section.bottom nav {
+    flex: 1 1 auto !important;
+    display: flex !important;
+    height: 100% !important;
+    width: 100% !important;
+  }
+
+  .slidev-presenter .grid-section.bottom nav > div {
+    display: flex !important;
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    height: 100% !important;
+    width: 100% !important;
+    gap: 16px !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  .slidev-presenter .grid-section.bottom nav > div > *:not(button[title*="previous" i]):not(button[title*="next" i]) {
+    display: none !important;
+  }
+
+  .slidev-presenter .grid-section.bottom nav button[title*="previous" i],
+  .slidev-presenter .grid-section.bottom nav button[title*="next" i] {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    border-radius: 24px !important;
+    touch-action: manipulation !important;
+    cursor: pointer !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+    transition: transform 0.1s ease, filter 0.1s ease !important;
+    box-sizing: border-box !important;
+    gap: 16px !important;
+  }
+
+  .slidev-presenter .grid-section.bottom nav button[title*="previous" i] > *,
+  .slidev-presenter .grid-section.bottom nav button[title*="next" i] > * {
+    display: none !important;
+  }
+
+  .slidev-presenter .grid-section.bottom nav button[title*="previous" i]::before {
+    content: "" !important;
+    display: inline-block !important;
+    width: 3.75rem !important;
+    height: 3.75rem !important;
+    background-color: currentColor !important;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='19' y1='12' x2='5' y2='12'%3E%3C/line%3E%3Cpolyline points='12 19 5 12 12 5'%3E%3C/polyline%3E%3C/svg%3E") no-repeat center / contain !important;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='19' y1='12' x2='5' y2='12'%3E%3C/line%3E%3Cpolyline points='12 19 5 12 12 5'%3E%3C/polyline%3E%3C/svg%3E") no-repeat center / contain !important;
+    flex-shrink: 0 !important;
+  }
+
+  .slidev-presenter .grid-section.bottom nav button[title*="previous" i] {
+    flex: 1 1 35% !important;
+    min-height: 120px !important;
+    background-color: #27272a !important;
+    border: 2px solid #3f3f46 !important;
+    color: #e4e4e7 !important;
+  }
+
+  .slidev-presenter .grid-section.bottom nav button[title*="previous" i]::after {
+    content: "PREV" !important;
+    font-size: 1.75rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.08em !important;
+  }
+
+  .slidev-presenter .grid-section.bottom nav button[title*="next" i]::before {
+    content: "NEXT" !important;
+    font-size: 2.25rem !important;
+    font-weight: 900 !important;
+    letter-spacing: 0.08em !important;
+  }
+
+  .slidev-presenter .grid-section.bottom nav button[title*="next" i]::after {
+    content: "" !important;
+    display: inline-block !important;
+    width: 4.5rem !important;
+    height: 4.5rem !important;
+    background-color: currentColor !important;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='5' y1='12' x2='19' y2='12'%3E%3C/line%3E%3Cpolyline points='12 5 19 12 12 19'%3E%3C/polyline%3E%3C/svg%3E") no-repeat center / contain !important;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='5' y1='12' x2='19' y2='12'%3E%3C/line%3E%3Cpolyline points='12 5 19 12 12 19'%3E%3C/polyline%3E%3C/svg%3E") no-repeat center / contain !important;
+    flex-shrink: 0 !important;
+  }
+
+  .slidev-presenter .grid-section.bottom nav button[title*="next" i] {
+    flex: 2 1 65% !important;
+    min-height: 200px !important;
+    background-color: #2563eb !important;
+    border: 2px solid #3b82f6 !important;
+    color: #ffffff !important;
+  }
+
+  .slidev-presenter .grid-section.bottom nav button[title*="previous" i]:active {
+    transform: scale(0.97) !important;
+    background-color: #18181b !important;
+  }
+
+  .slidev-presenter .grid-section.bottom nav button[title*="next" i]:active {
+    transform: scale(0.97) !important;
+    background-color: #1d4ed8 !important;
+  }
+
+  .slidev-presenter .grid-section.bottom nav button[disabled] {
+    opacity: 0.3 !important;
+    filter: grayscale(1) !important;
+    cursor: not-allowed !important;
+  }
+}
