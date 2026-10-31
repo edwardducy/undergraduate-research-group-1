@@ -4,7 +4,7 @@
 |---|---|
 | Researchers | Mr. Lu, Mr. Almuena, Mr. Patricio, Mr. Ducyogen, Mr. Geronimo |
 | Panel | Mr. Bautista, Mr. Cruz, Mr. Peralta |
-| Research Advisor | Mr. Florentino |
+| Research Advisor | Ms. Florentino |
 
 **About this transcript**
 
@@ -303,7 +303,7 @@
 
 **Mr. Cruz:** Ba't 'di niyo nilagay dito? But later, you'll discuss the...?
 
-**Mr. Florentino:** Later po, meron, idi-discuss nila.
+**Ms. Florentino:** Later po, meron, idi-discuss nila.
 
 **Researchers:** Yes po.
 
@@ -429,7 +429,7 @@
 
 **Mr. Peralta:** Covered for your study. And then naka-base din 'yan doon sa nag-research or 'yung na-reference niyo, tama?
 
-**Mr. Ducyogen:** Yes, Ma'am.
+**Mr. Ducyogen:** Yes po.
 
 **Mr. Peralta:** Sa kanya 3,900, may specific ba doon na bakit ginaya niyo siya na 3,900? Six years ang kinuha niyo eh, so 3,900 posts. What kind of posts is this? Is there a specific calamity? Kasi 'di ba sabi hindi lang typhoon, tama ba, or specific to typhoon lang?
 
@@ -457,7 +457,7 @@
 
 **Mr. Cruz:** Una na 'ko. Kanina pa ako nag-iisip. What would be the use or application of this study? Ano 'yung magiging pakinabang natin dito? Kunwari it works at the end. For what purpose siya? 'Yun ang iniisip ko kanina pa.
 
-**Mr. Florentino:** Proceed to the benefits. Who's going to discuss that?
+**Ms. Florentino:** Proceed to the benefits. Who's going to discuss that?
 
 **Mr. Almuena:** There's three main benefactors sa study namin. Firstly, 'yung mga LGU disaster offices, because we're able to give them a single model that can handle multiple types of tasks, like the report types and key details, all while being able to run locally without having to use a paid LLM service like Claude, Gemini, whatever. Meaning, they'll be able to run it on their own hardware rather than having to pay a separate entity. As for local universities, we want to give them specifics on how our 13 multi-task optimizers are able to reduce negative transfer, and at the same time the training cost, for pre-trained encoders and how they handle multiple tasks. And finally, in terms of communities, as mentioned earlier, we want first responders to use our model so that they're able to sort through and filter out the information, just so they'll be able to react faster.
 
@@ -497,7 +497,7 @@
 
 **Mr. Bautista:** How do you know the accuracy of the post? That's step number one. There's a post. How does your system or the model know this post is true? 'Yun 'yung first, before all the translation, kasi after translation you will check the accuracy also. First step, how do you know this post is true and you really need to get it? Do you cross-check that with another database, or do you just agree it's true because it's on X?
 
-**Mr. Florentino:** May part ng testing doon, Sir. They will explain.
+**Ms. Florentino:** May part ng testing doon, Sir. They will explain.
 
 **Mr. Peralta:** May assurance ba na 'pag binili natin kay X, ang ibibigay nila ay 'yung legit na post, or kayo pa ang magsasala doon since bayad naman siya? Para maka-ano tayo doon sa question ni Sir, para masabing fake 'to na post. Baka kasi 'yung mga paulit-ulit lang na post. Kasi may mga troll, 'di ba, 'yung mga binabayaran na troll farm. Tapos iisang tao lang pala nag-post no'n, iniiba lang para masira itong lugar na 'yon, "Baha dito, tapos sira ang ano," 'di ba? Tapos dito naman, siya pa rin 'yon, ibang account lang, nagda-dummy account. So kasama na ba 'yun? Or may dinadaanan tayo to check that? Pwede naman kasi ilagay 'yan sa conclusion niyo, na ito 'yung percentage na hindi accurate, or certain level ng accuracy. Meron bang ganoon?
 
@@ -509,7 +509,7 @@
 
 **Mr. Peralta:** Ime-mention niyo 'yan para clear siya na out of scope. And then paano niyo ite-test 'yung accuracy? What do you mean by accuracy? Accuracy para ma-identify itong post na ito? Is that what you mean by accuracy? Or accuracy ng pag-translate noong post na 'yon? Nasa SOP 3 'yun, I think, tatlo SOP niyo. 'Yung accuracy ba ng pag-translate and speed ng pag-translate?
 
-**Mr. Florentino:** You start from there, Mr. Lu. Explain how you're going to do it.
+**Ms. Florentino:** You start from there, Mr. Lu. Explain how you're going to do it.
 
 **Mr. Ducyogen:** First, the post will be cleaned. By cleaning, we will remove the personal details and redundant characters po. After that, we will label the post. By labeling, we will put the expected correct answer. For example, that post is an urgent request. This is done by a human.
 
@@ -521,11 +521,11 @@
 
 **Mr. Cruz:** So siya 'yung nagde-decide kung—
 
-**Mr. Florentino:** Machine learning po.
+**Ms. Florentino:** Machine learning po.
 
 **Mr. Bautista:** For training the model.
 
-**Mr. Florentino:** Oo, sa training.
+**Ms. Florentino:** Oo, sa training.
 
 **Mr. Ducyogen:** The labeled dataset will then be used to train the model. After that, we will train the single-task models and the 13 candidate models. We will save those models, then we will do the optimizer selection. During the optimizer selection, we will evaluate which of those 13 candidate models will be used for the final model, which will be used for the prototype application.
 
@@ -603,7 +603,7 @@
 
 **Mr. Bautista:** Oo, pero there's a part of cleaning—
 
-**Mr. Florentino:** I-clarify mo nga 'yung tasks. What are the tasks that your ano will do?
+**Ms. Florentino:** I-clarify mo nga 'yung tasks. What are the tasks that your ano will do?
 
 **Mr. Ducyogen:** 'Yung task lang po is classification of the intent of the post according to the—
 
@@ -673,11 +673,11 @@
 
 **Mr. Bautista:** What's Chapter 4 and 5?
 
-**Mr. Florentino:** 1 to 3 lang, Sir.
+**Ms. Florentino:** 1 to 3 lang, Sir.
 
 **Mr. Bautista:** Kasi nakalagay "write Chapters 4 and 5."
 
-**Mr. Florentino:** Yes. 'Yun na 'yung parang conclusion, Sir, data analysis.
+**Ms. Florentino:** Yes. 'Yun na 'yung parang conclusion, Sir, data analysis.
 
 **Mr. Bautista:** I just want to know, if the data is coming, what's 4 and 5.
 
@@ -707,7 +707,7 @@
 
 **Mr. Bautista:** 'Yung test plan, your test approach, what's your test strategy. It goes back to what dataset you are going to use and why, up to the timeline, up to the actual test scripts na i-e-execute ng tester.
 
-**Mr. Florentino:** Sir, at this point, ang concentration nila is on the research. 'Yung software engineering part, they will be deciding on it once you approve the... Pero they will include the test plan in Chapter 3, kasi kailangan nasa 3 'yun, pero wala pa siya rito. Pero you mentioned 'yung formulas ninyo for testing, 'di ba?
+**Ms. Florentino:** Sir, at this point, ang concentration nila is on the research. 'Yung software engineering part, they will be deciding on it once you approve the... Pero they will include the test plan in Chapter 3, kasi kailangan nasa 3 'yun, pero wala pa siya rito. Pero you mentioned 'yung formulas ninyo for testing, 'di ba?
 
 **Mr. Peralta:** F1, nakita ko may F1 score.
 
@@ -725,6 +725,6 @@
 
 **Mr. Bautista:** See, that's also you talking about your testing plan, testing strategy, or testing procedure. You're already testing. You're testing the use case, and if there's an error, fix it. So you are testing. Actually, you have a test process already in place, you are just not mentioning your whole strategy and the details. You already have it in there. So the details of how you would test the use case, that's part of the test plan. "This is the scope of the test plan, we will test this, these are the actual test scripts we're going to use." We do not expect all those details here, just mention the strategy and the approach. Kaya I'm asking kanina, what's in Chapter 4 and 5? Is that going to be it? That's why I kept asking kanina. So here you're already mentioning testing.
 
-**Mr. Florentino:** So you want it included, Sir, in Chapter 3, the test plan?
+**Ms. Florentino:** So you want it included, Sir, in Chapter 3, the test plan?
 
 **Mr. Bautista:** Oo, just a high level, what's in scope. That includes nga 'yung dataset kanina.
