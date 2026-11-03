@@ -27,15 +27,6 @@
     "url": "https://doi.org/10.1109/ACCESS.2026.3676354"
   },
   {
-    "citation_key": "elich2024paradigms",
-    "title": "Examining Common Paradigms in Multi-Task Learning",
-    "year": 2025,
-    "doi": "10.1007/978-3-031-85181-0_9",
-    "summary": "Investigates multi-task optimization dynamics, showing that adaptive optimizers provide partial loss scale invariance and that gradient conflicts alone do not explain performance gaps relative to single-task baselines.",
-    "arxiv_id": "2311.04698",
-    "url": "https://doi.org/10.1007/978-3-031-85181-0_9"
-  },
-  {
     "citation_key": "ali2026humaidner",
     "title": "HUMAID-NER: A Disaster Tweet Dataset for Joint Named Entity Recognition and Event Classification via Uncertainty-Weighted Multitask Learning",
     "year": 2026,
@@ -43,15 +34,6 @@
     "summary": "Introduces HUMAID-NER, which extends the HumAID benchmark with 60,000 English disaster tweets annotated in BIO (beginning, inside, outside) format for named entity recognition (NER) across ten disaster-specific entity types such as CASUALTY, DISPLACED, REQUEST, RESOURCE, and RESCUE (21 classes, about 175,000 spans), produced by an automatic pipeline that combines a spaCy transformer model, domain patterns, and regular expressions. Proposes a joint model on one RoBERTa-large encoder for NER and humanitarian event classification with homoscedastic uncertainty weighting and two-stage training that freezes the bottom 18 layers in the second stage. Under fixed task weights with a BERT-large encoder, classification macro-F1 peaked at epoch 3 and fell 1.4 points by epoch 15 while NER kept improving, which the paper attributes to the 2,688-to-1 ratio of token-level to sentence-level supervision. Uncertainty weighting stabilized training, and the full system reached 0.841 NER micro-F1 and 0.761 classification macro-F1 on the validation split. Notes the lack of human validation of the automatic labels, English-only data, validation-only and single-run results, and proposes combining PCGrad with uncertainty weighting, annotating the full corpus, and multilingual coverage.",
     "arxiv_id": "2609.16964",
     "url": "https://doi.org/10.62019/zabvxd97"
-  },
-  {
-    "citation_key": "weld2023survey",
-    "title": "A Survey of Joint Intent Detection and Slot-Filling Models in Natural Language Understanding",
-    "year": 2023,
-    "doi": "10.1145/3547138",
-    "summary": "Surveys natural language understanding work on intent detection, which classifies the goal of a whole utterance, and slot filling, which labels each token with a semantic slot, and on joint models of the two tasks. Describes three milestones in the field, separate intent detection, separate slot filling, and joint intent and slot models, and reviews for each the main research areas, technical approaches from classical methods through recurrent networks, attention, transformers, hierarchical, memory, and graph networks, and the issues addressed, such as limited labeled data, imbalance, unseen labels, and label dependency. Covers datasets, evaluation metrics, and representative results, and frames the review around how joint models balance the two tasks, whether syntactic features are fully used, and whether models generalize to new domains, languages, or unseen data. Argues that the Air Travel Information System (ATIS) and SNIPS datasets are near the end of their usefulness as benchmarks, that inconsistent experimental setups limit comparison, and that more naturally conversational, largely unannotated data and zero-shot or few-shot methods should be studied.",
-    "arxiv_id": "2101.08091",
-    "url": "https://doi.org/10.1145/3547138"
   },
   {
     "citation_key": "yu2020pcgrad",
@@ -124,24 +106,6 @@
     "summary": "Presents LibMTL, an open-source PyTorch library that implements 13 multi-task optimization strategies and 8 multi-task architectures in one framework for single-input settings, where all tasks share the same inputs, and multi-input settings, where each task has its own data. Organizes methods into architecture design, loss balancing, and gradient balancing, and notes that gradient balancing methods can approximate per-task gradients with gradients of the shared representation to reduce cost. Uses a modular design so that users can add new methods or apply existing ones to their own problems. Benchmarks the implemented methods on NYUv2 semantic segmentation, depth estimation, and surface normal prediction over three random seeds, and argues that LibMTL is more comprehensive and up to date than existing multi-task libraries such as RMTL and MTLV. Plans to keep adding new methods, documentation, applications from other areas, and backbones such as vision transformers.",
     "arxiv_id": null,
     "url": "https://jmlr.org/papers/v24/22-0347.html"
-  },
-  {
-    "citation_key": "peitz2025multiobjective",
-    "title": "Multi-objective Deep Learning: Taxonomy and Survey of the State of the Art",
-    "year": 2025,
-    "doi": "10.1016/j.mlwa.2025.100700",
-    "summary": "Surveys multi-objective deep learning, where a network is trained against several conflicting criteria such as multiple tasks, secondary goals like sparsity or robustness, or multiple hyperparameter criteria. Introduces a taxonomy that first separates decide-then-optimize methods, which seek one compromise, from optimize-then-decide methods, which approximate the whole Pareto front, and from interactive methods, then classifies algorithms as scalarization, multi-objective gradient descent (MGDA), evolutionary algorithms, or continuation. Reviews work in supervised, unsupervised and self-supervised, and generative learning, neural architecture search, applications in language, engineering, and physics-informed learning, and treats multi-objective reinforcement learning separately. Finds that the deep learning community has mostly chosen single-compromise methods, chiefly weighted sums and MGDA, because computing the full front is costly. Names as open problems interactive training with a decision maker, use in very high-dimensional settings, benchmarks with non-convex Pareto fronts, and the role of generative AI and large language models.",
-    "arxiv_id": "2412.01566",
-    "url": "https://doi.org/10.1016/j.mlwa.2025.100700"
-  },
-  {
-    "citation_key": "chen2024mtlnlp",
-    "title": "Multi-Task Learning in Natural Language Processing: An Overview",
-    "year": 2024,
-    "doi": "10.1145/3638234",
-    "summary": "Surveys multi-task learning in natural language processing (NLP) with a focus on deep learning. Groups architectures into parallel, hierarchical, modular, and generative adversarial types, and groups optimization techniques into loss construction, gradient regularization, data sampling, and task scheduling. Reviews applications as auxiliary multi-task learning, where extra tasks support a main task, and joint multi-task learning, where all tasks matter, along with multilingual and multimodal settings and studies of task relatedness. Describes how disjoint and multi-label data sources are handled and lists multi-task NLP benchmark datasets. Names as open problems choosing which tasks benefit from joint training, using unlabeled data through self-supervised or unsupervised tasks, building stronger pretrained language models with more advanced multi-task architectures, and extending multi-task learning beyond well-studied classification, sequence labeling, and generation tasks to dialogue and multimodal problems.",
-    "arxiv_id": "2109.09138",
-    "url": "https://doi.org/10.1145/3638234"
   },
   {
     "citation_key": "chen2020graddrop",
@@ -225,15 +189,6 @@
     "url": "https://doi.org/10.18653/v1/2025.nlp4pi-1.27"
   },
   {
-    "citation_key": "seeberger2025generalizing",
-    "title": "Generalizing to Unseen Disaster Events: A Causal View",
-    "year": 2025,
-    "doi": "10.18653/v1/2025.findings-ijcnlp.2",
-    "summary": "Proposes a causal debiasing method to reduce event and domain biases in social media disaster classification, improving model generalization across emerging disaster events.",
-    "arxiv_id": null,
-    "url": "https://doi.org/10.18653/v1/2025.findings-ijcnlp.2"
-  },
-  {
     "citation_key": "alam2021crisisbench",
     "title": "CrisisBench: Benchmarking Crisis-related Social Media Datasets for Humanitarian Information Processing",
     "year": 2021,
@@ -241,15 +196,6 @@
     "summary": "Introduces CrisisBench, which consolidates eight human-annotated crisis tweet datasets into 166.1k tweets for informativeness classification and 141.5k tweets for humanitarian classification, with class labels mapped manually by domain experts, exact and near duplicates removed by cosine similarity, and a language tag added to each tweet. Benchmarks a convolutional neural network (CNN), fastText, BERT, DistilBERT, and RoBERTa on fixed 70/10/20 splits of the English tweets, and tests event-aware training that adds the disaster type as a tag to each tweet. Models trained on a single source dataset performed worse on other datasets, for example a model trained on CrisisLex scored 14.3% lower in informativeness F1 on CrisisNLP than a model trained on CrisisNLP, while the consolidated model generalized better. With event-aware training, RoBERTa reached the highest weighted F1, 0.878 for informativeness and 0.870 for humanitarian classification. On the full multilingual data, the paper reports that humanitarian performance dropped by about 8% for BERT. Recommends removing duplicates and checking train-test overlap before labeling and training, and suggests multilingual and zero-shot classification, deeper models, and stronger regularization as future work.",
     "arxiv_id": null,
     "url": "https://doi.org/10.1609/icwsm.v15i1.18115"
-  },
-  {
-    "citation_key": "wang2025gptner",
-    "title": "GPT-NER: Named Entity Recognition via Large Language Models",
-    "year": 2025,
-    "doi": "10.18653/v1/2025.findings-naacl.239",
-    "summary": "Proposes GPT-NER, which recasts named entity recognition (NER) as text generation for large language models by asking the model to rewrite the input with entities of one type wrapped in special markers, retrieves in-context demonstrations by k-nearest-neighbor search, and adds a self-verification prompt to reduce entities wrongly extracted from text that contains none. Evaluates GPT-3 (davinci-003) on flat NER (CoNLL2003, OntoNotes5.0), nested NER (ACE2004, ACE2005, GENIA), and low-resource subsets of CoNLL2003. Retrieving demonstrations with token-level or entity-level embeddings rather than at random raised full CoNLL2003 F1 from 72.62 to 89.97, and self-verification added further gains. The best configuration reached 90.91 F1 on CoNLL2003 and 82.20 on OntoNotes5.0, within about 2 points of supervised BERT on CoNLL2003 (92.8) and about 7 points below it on OntoNotes5.0 (89.16) but below the best supervised models (94.6 and 92.07), with larger gaps on nested NER. With only 8 training sentences GPT-NER reached about 60 F1 while supervised models scored near 0, but supervised models improved faster once more data was available. Notes that performance had not plateaued at the GPT-3 token limit on demonstrations.",
-    "arxiv_id": "2304.10428",
-    "url": "https://doi.org/10.18653/v1/2025.findings-naacl.239"
   },
   {
     "citation_key": "ramos2023tfnerd",
@@ -268,15 +214,6 @@
     "summary": "Develops logistic regression models that classify the informativeness of tweets, that is, whether they describe the on-the-ground situation, for five Philippine disasters from 2012 to 2013 in the CrisisLexT26 dataset. Compares four feature sets, Bag-of-Words, term frequency-inverse document frequency (TF-IDF), Word2vec with Bag-of-Words, and Word2vec with TF-IDF, with the decision threshold set to maximize the geometric mean of sensitivity and specificity. The Bag-of-Words model performed best on accuracy (0.878), area under the curve (AUC, 0.939), precision (0.947), and F-score (0.899), while Word2vec with Bag-of-Words had the highest recall (0.885), and the simple models matched more complex models from earlier work without hand-made keyword lists. Attributes this partly to training on one country, which let the models focus on keywords specific to Philippine disasters. Suggests testing the models on more recent Philippine disasters and checking whether country-specific models generalize to other countries.",
     "arxiv_id": null,
     "url": "https://proceedings.spp-online.org/article/view/SPP-2023-PB-41"
-  },
-  {
-    "citation_key": "inoferio2025socialmedia",
-    "title": "The Role of Social Media in Philippine Disaster Management: A Systematic Literature Review",
-    "year": 2025,
-    "doi": null,
-    "summary": "Conducts a systematic review guided by the Preferred Reporting Items for Systematic Reviews and Meta-Analyses (PRISMA) framework of peer-reviewed studies from 2015 to 2024 on social media use in disaster risk management in the Philippines, drawn from Google Scholar, Scopus, and ScienceDirect and framed by the four thematic areas of the National Disaster Risk Reduction and Management Council (prevention and mitigation, preparedness, response, and rehabilitation and recovery). Of the 18 included articles, most studied the response phase and typhoons, especially Typhoon Haiyan, and Twitter was the most studied platform (15 of 19 platform uses), followed by Facebook, with little attention to TikTok or Flickr. Social media served for real-time communication, coordination of relief, and public sentiment. Finds little research on preparedness and none on mitigation, and only vague treatment of misinformation, public trust in disaster agencies, and economic and infrastructure recovery. Recommends studying less-examined platforms and disaster types, managing misinformation, and covering the preparedness and mitigation phases.",
-    "arxiv_id": null,
-    "url": "https://animorepository.dlsu.edu.ph/cgi/viewcontent.cgi?article=2573&context=conf_shsrescon"
   },
   {
     "citation_key": "montalan2025batayan",
@@ -369,15 +306,6 @@
     "url": "https://doi.org/10.1016/j.ijdrr.2026.106420"
   },
   {
-    "citation_key": "mueller2022taskconflict",
-    "title": "Do Text-to-Text Multi-Task Learners Suffer from Task Conflict?",
-    "year": 2022,
-    "doi": "10.18653/v1/2022.findings-emnlp.206",
-    "summary": "Investigates whether text-to-text language models avoid task conflict during multi-task learning. Shows that directional gradient conflicts and negative transfer occur at similar rates as in standard multi-task architectures.",
-    "arxiv_id": "2212.06645",
-    "url": "https://doi.org/10.18653/v1/2022.findings-emnlp.206"
-  },
-  {
     "citation_key": "pagasa2026cyclone",
     "title": "Tropical Cyclone Information",
     "year": null,
@@ -394,24 +322,6 @@
     "summary": "Annual report by Bündnis Entwicklung Hilft and the Institute for International Law of Peace and Armed Conflict (IFHV) that presents the WorldRiskIndex 2025, which combines exposure to natural hazards with societal vulnerability (susceptibility, lack of coping capacities, and lack of adaptive capacities) for 193 countries. Ranks the Philippines first with a score of 46.56 (exposure 39.99, vulnerability 54.20), ahead of India (40.73) and Indonesia (39.80), and attributes its position to high geographic fragmentation and exposure to weather-related extremes. Reports that risk hotspots remain concentrated in Asia and the Americas and that Africa shows the highest vulnerability. Focuses on floods, covering their types and drivers, governance, technology, local and Indigenous knowledge, early warning, and nature-based solutions, and includes a first local exposure analysis for the Philippines showing that flood risk varies by region with geography, infrastructure, and spatial planning. Notes that irregular and delayed national data can distort country rankings.",
     "arxiv_id": null,
     "url": "https://weltrisikobericht.de/wp-content/uploads/2025/09/WorldRiskReport_2025.pdf"
-  },
-  {
-    "citation_key": "chai2023improving",
-    "title": "Improving Gradient Trade-offs between Tasks in Multi-task Text Classification",
-    "year": 2023,
-    "doi": "10.18653/v1/2023.acl-long.144",
-    "summary": "Proposes GetMTL, a gradient trade-off method for multi-task text classification that searches near the average-loss gradient for an update that improves every task, rather than accepting an arbitrary Pareto optimal trade-off, and solves the problem through its dual. Proves convergence for convex losses. Evaluates GetMTL with a shared TextCNN encoder and task-specific classifiers on Amazon Review sentiment classification across 14 domains and on four 4-way topic classification tasks built from 20 Newsgroups, against single-task learning, uniform scaling, uncertainty weighting, GradNorm, the multiple gradient descent algorithm (MGDA), adversarial Tchebycheff, BanditMTL, and MetaWeighting over 10 runs. GetMTL reached 92.09% average topic accuracy, 0.83 points above BanditMTL, was best on 13 of 14 Amazon domains, and showed the lowest variance between task losses during training. States that GetMTL needs one backward pass per task at each step, so it cannot be applied to large task sets of well over 100 tasks.",
-    "arxiv_id": null,
-    "url": "https://doi.org/10.18653/v1/2023.acl-long.144"
-  },
-  {
-    "citation_key": "seeberger2022enhancing",
-    "title": "Enhancing Crisis-Related Tweet Classification with Entity-Masked Language Modeling and Multi-Task Learning",
-    "year": 2022,
-    "doi": "10.18653/v1/2022.nlp4pi-1.9",
-    "summary": "Combines entity-masked language modeling with hierarchical multi-label classification to improve crisis tweet categorization on the TREC-IS benchmark, reducing event overfitting and supporting cross-event generalization.",
-    "arxiv_id": "2211.11468",
-    "url": "https://doi.org/10.18653/v1/2022.nlp4pi-1.9"
   },
   {
     "citation_key": "tabuzo2026phmartiallawner",
@@ -529,15 +439,6 @@
     "summary": "Evaluates linear scalarization, which trains on a fixed weighted sum of task or domain losses, for multi-task and multi-domain learning across model capacities and dataset sizes. Sweeps scalarization weights for CIFAR-10 with STL-10 and DomainNet (multi-domain) and for 8-task CelebA and 7-task Taskonomy (multi-task), varying model width, encoder depth, and shared decoder layers, and proposes population-based training (PBT) to search the weights. The benefit of joint training over separate single-dataset models grew with model capacity, and small models could underperform them. The best weights were rarely uniform but were fairly stable across capacities within one architecture family. Gradient conflicts occurred throughout training and often rose near the end while the loss still fell, and low conflict levels did not track performance, suggesting that removing conflicts at every step may not justify the compute and memory cost. PBT-selected weights outperformed all compared methods, including uncertainty weighting, IMTL, CAGrad, GradDrop, and PCGrad, on DomainNet. Notes that scalarization only reaches convex parts of the Pareto front and that the empirical findings may not generalize to every setting.",
     "arxiv_id": "2310.08910",
     "url": "https://proceedings.neurips.cc/paper_files/paper/2023/hash/368559ed8ede03b21f624feaeb3a5867-Abstract-Conference.html"
-  },
-  {
-    "citation_key": "hu2023scalarization",
-    "title": "Revisiting Scalarization in Multi-Task Learning: A Theoretical Perspective",
-    "year": 2023,
-    "doi": "10.52202/075280-2106",
-    "summary": "Theoretical analysis of linear scalarization in two-layer linear multi-task regression networks. When the network is under-parametrized, scalarization with any fixed weights cannot reach some Pareto-optimal solutions, especially balanced trade-offs between tasks, because of 'gradient disagreement' between surfaces of the feasible region. When the network is wide enough (over-parametrized), the Pareto front reduces to one point and any weights suffice. A three-task SARCOS robot-arm experiment shows scalarization favoring one or two tasks while MGDA and MGDA-UB reach more balanced solutions. The authors note the results are limited to linear models and do not refute the empirical findings of Xin et al. (2022).",
-    "arxiv_id": "2308.13985",
-    "url": "https://proceedings.neurips.cc/paper_files/paper/2023/hash/97c8a8eb0e5231d107d0da51b79e09cb-Abstract-Conference.html"
   },
   {
     "citation_key": "merchant2020happens",
