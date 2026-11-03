@@ -466,5 +466,23 @@
     "summary": null,
     "arxiv_id": null,
     "url": "https://doi.org/10.1080/01621459.1955.10501294"
+  },
+  {
+    "citation_key": "vandenhende2022dense",
+    "title": "Multi-Task Learning for Dense Prediction Tasks: A Survey",
+    "year": 2022,
+    "doi": "10.1109/TPAMI.2021.3054719",
+    "summary": "Surveys deep multi-task learning (MTL) for dense prediction tasks in computer vision, which produce pixel-level outputs such as segmentation, depth, and surface normals. Groups architectures by where tasks interact into encoder-focused models, such as cross-stitch networks and multi-task attention networks (MTAN), and decoder-focused models, such as PAD-Net, PAP-Net, and MTI-Net. Also reviews task balancing methods, including uncertainty weighting, GradNorm, dynamic weight averaging, and the multiple gradient descent algorithm (MGDA). Compares these methods under a shared training protocol on the NYU Depth V2 (NYUD-v2, segmentation and depth) and PASCAL-Context (five tasks) validation sets, with comparisons grouped by backbone. Most models beat single-task networks on the related NYUD-v2 tasks, where PAP-Net reached an average relative gain of +12.10% at a high computational cost. Most fell short on the larger and more diverse PASCAL-Context task set, where the shared baseline and MTAN with a ResNet-18 backbone were 2.86% and 2.39% below single-task networks. Decoder-focused models outperformed encoder-focused ones on NYUD-v2, and MTI-Net was the strongest model on PASCAL-Context. Architecture usually mattered more than task balancing. Fixed weights from a grid search beat every automated balancing method on PASCAL-Context and all but GradNorm on NYUD-v2, and avoiding gradient competition as MGDA does could hurt performance. For encoder-focused models and task balancing methods, gains depended strongly on how well single-task baselines were tuned. Notes that architectures and optimization were studied separately, that the role of data properties was not analyzed, and that hyperparameter robustness needs further study.",
+    "arxiv_id": "2004.13379",
+    "url": "https://doi.org/10.1109/TPAMI.2021.3054719"
+  },
+  {
+    "citation_key": "lakens2022sample",
+    "title": "Sample Size Justification",
+    "year": 2022,
+    "doi": "10.1525/collabra.33267",
+    "summary": null,
+    "arxiv_id": null,
+    "url": "https://doi.org/10.1525/collabra.33267"
   }
 ]
