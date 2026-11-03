@@ -4,7 +4,7 @@
     "title": "Do Current Multi-Task Optimization Methods in Deep Learning Even Help?",
     "year": 2022,
     "doi": null,
-    "summary": "Demonstrates across language and vision benchmarks that multi-task optimization methods do not yield performance improvements beyond what is achievable via traditional optimization approaches.",
+    "summary": "Evaluates whether multi-task optimization (MTO) methods improve on scalarization, which minimizes a fixed weighted sum of task losses. Compares the multiple gradient descent algorithm (MGDA), GradNorm, PCGrad, IMTL, and random loss weighting against scalarization weight sweeps on Transformer translation from English into French paired with Chinese, German, or Romanian, and on the CityScapes and CelebA vision benchmarks, with learning rates tuned for every method. Every MTO method landed on the Pareto front traced by scalarization, and in most training runs the task weights it assigned barely changed. Tuned scalarization outperformed all MTO methods on the low-resource Romanian pair and on CityScapes. Computing per-task gradients cut training from about 12 to about 5 steps per second, while spending the same compute on a deeper model improved both tasks. Hyperparameter tuning affected results more than the choice of method, which suggests that reported MTO gains often come from under-tuned baselines. Notes that the grid search used to trace the scalarization front is computationally expensive and leaves reinforcement and self-supervised learning untested.",
     "arxiv_id": "2209.11379",
     "url": "https://proceedings.neurips.cc/paper_files/paper/2022/hash/580c4ec4738ff61d5862a122cdf139b6-Abstract-Conference.html"
   },
@@ -13,7 +13,7 @@
     "title": "In Defense of the Unitary Scalarization for Deep Multi-Task Learning",
     "year": 2022,
     "doi": null,
-    "summary": "Demonstrates that unitary scalarization summing task losses matches or improves upon complex multi-task optimizers when coupled with standard regularization and stabilization techniques from single-task learning.",
+    "summary": "Evaluates whether specialized multi-task optimizers outperform unitary scalarization, which minimizes the plain sum of task losses, when unitary scalarization uses standard single-task regularization and stabilization. Compares unitary scalarization with MGDA, IMTL, PCGrad, GradDrop, and two random loss weighting variants in one PyTorch pipeline on Multi-MNIST, 40-task CelebA, and Cityscapes, and on Meta-World MT10 and MT50 reinforcement learning, tuning weight decay and dropout and reporting confidence intervals over repeated runs. No optimizer consistently outperformed unitary scalarization, differences were not statistically significant or disappeared with regularization, and the specialized optimizers took longer per epoch. IMTL runs crashed from numerical overflow on Meta-World. Without explicit regularization, the specialized optimizers delayed overfitting much as weight decay did for unitary scalarization, which supports the view that they partly act as regularizers. Acknowledges that settings where unitary scalarization underperforms may exist, that grid searches under limited compute may have left some methods under-tuned, and that the regularization hypothesis is only a partial explanation.",
     "arxiv_id": "2201.04122",
     "url": "https://proceedings.neurips.cc/paper_files/paper/2022/hash/4f301ae934f396086bfefd1139039dbd-Abstract-Conference.html"
   },
@@ -22,7 +22,7 @@
     "title": "Uniform Loss vs. Specialized Optimization: A Comparative Analysis in Multi-Task Learning",
     "year": 2026,
     "doi": "10.1109/ACCESS.2026.3676354",
-    "summary": "Evaluates when specialized multi-task optimizers outperform uniform loss weighting, testing methods across progressively complex benchmark problems starting from Multi-MNIST.",
+    "summary": "Evaluates the claim that uniform loss (equally weighted task losses) matches specialized multi-task optimizers when hyperparameters and regularization are tuned. Screens 16 methods on a Multi-MNIST classification and reconstruction problem, then tests EDM, IMTL, CAGrad, RotoGrad, Nash-MTL, Auto-Lambda, CDTT, and FAMO on the most complex Cityscapes configuration and 11-task QM9, tracing only IMTL across progressively harder Cityscapes configurations with grid-searched hyperparameters. Most selected optimizers clearly outperformed uniform loss on Multi-MNIST. On two similar tasks, nearly all optimizers converged to weights near 0.5 and matched uniform loss. On Cityscapes, adding a third task and more segmentation classes, rather than shrinking the model, determined when IMTL pulled ahead of uniform loss, and lower cosine similarity between task gradients tracked larger gaps. On QM9, Nash-MTL (-53.6%) and FAMO (-56.9%) far exceeded uniform loss (-135.7%). Fixed weights derived from the optimizers competed in complex settings but were costly to find. Notes that the study covers supervised learning only, excludes NLP and reinforcement learning, tests only vanilla optimizers, and screens methods on one problem.",
     "arxiv_id": "2505.10347",
     "url": "https://doi.org/10.1109/ACCESS.2026.3676354"
   },
@@ -40,7 +40,7 @@
     "title": "HUMAID-NER: A Disaster Tweet Dataset for Joint Named Entity Recognition and Event Classification via Uncertainty-Weighted Multitask Learning",
     "year": 2026,
     "doi": "10.62019/zabvxd97",
-    "summary": "HUMAID-NER extends the HumAID benchmark with 60,000 English disaster tweets annotated in BIO format for named entity recognition (21 classes, 10 entity types, about 175,000 spans) via a three-stage hybrid pipeline, and trains a joint multitask system on one RoBERTa-large encoder that performs disaster NER and humanitarian event classification. Under fixed equal task weights, classification macro-F1 fell 1.2 to 1.4 points across epochs while NER improved, a pattern the authors attribute to the 2,688-to-1 gradient-signal imbalance between the two tasks. Homoscedastic uncertainty weighting with a two-stage layer-freezing schedule resolves the conflict, reaching 0.841 NER micro-F1 and 0.761 classification macro-F1. Future work requests combining PCGrad gradient surgery with uncertainty weighting, extending annotations to the full corpus, and multilingual coverage.",
+    "summary": "Introduces HUMAID-NER, which extends the HumAID benchmark with 60,000 English disaster tweets annotated in BIO (beginning, inside, outside) format for named entity recognition (NER) across ten disaster-specific entity types such as CASUALTY, DISPLACED, REQUEST, RESOURCE, and RESCUE (21 classes, about 175,000 spans), produced by an automatic pipeline that combines a spaCy transformer model, domain patterns, and regular expressions. Proposes a joint model on one RoBERTa-large encoder for NER and humanitarian event classification with homoscedastic uncertainty weighting and two-stage training that freezes the bottom 18 layers in the second stage. Under fixed task weights with a BERT-large encoder, classification macro-F1 peaked at epoch 3 and fell 1.4 points by epoch 15 while NER kept improving, which the paper attributes to the 2,688-to-1 ratio of token-level to sentence-level supervision. Uncertainty weighting stabilized training, and the full system reached 0.841 NER micro-F1 and 0.761 classification macro-F1 on the validation split. Notes the lack of human validation of the automatic labels, English-only data, validation-only and single-run results, and proposes combining PCGrad with uncertainty weighting, annotating the full corpus, and multilingual coverage.",
     "arxiv_id": "2609.16964",
     "url": "https://doi.org/10.62019/zabvxd97"
   },
@@ -49,7 +49,7 @@
     "title": "A Survey of Joint Intent Detection and Slot-Filling Models in Natural Language Understanding",
     "year": 2023,
     "doi": "10.1145/3547138",
-    "summary": "Comprehensive survey analyzing deep learning models that jointly optimize sentence-level intent classification and token-level slot filling.",
+    "summary": "Surveys natural language understanding work on intent detection, which classifies the goal of a whole utterance, and slot filling, which labels each token with a semantic slot, and on joint models of the two tasks. Describes three milestones in the field, separate intent detection, separate slot filling, and joint intent and slot models, and reviews for each the main research areas, technical approaches from classical methods through recurrent networks, attention, transformers, hierarchical, memory, and graph networks, and the issues addressed, such as limited labeled data, imbalance, unseen labels, and label dependency. Covers datasets, evaluation metrics, and representative results, and frames the review around how joint models balance the two tasks, whether syntactic features are fully used, and whether models generalize to new domains, languages, or unseen data. Argues that the Air Travel Information System (ATIS) and SNIPS datasets are near the end of their usefulness as benchmarks, that inconsistent experimental setups limit comparison, and that more naturally conversational, largely unannotated data and zero-shot or few-shot methods should be studied.",
     "arxiv_id": "2101.08091",
     "url": "https://doi.org/10.1145/3547138"
   },
@@ -58,7 +58,7 @@
     "title": "Gradient Surgery for Multi-Task Learning",
     "year": 2020,
     "doi": null,
-    "summary": "Proposes PCGrad to project conflicting task gradients onto normal planes, mitigating destructive gradient interference during multi-task training.",
+    "summary": "Proposes projecting conflicting gradients (PCGrad), which removes the part of each task gradient that conflicts with another task gradient (negative cosine similarity) before the shared update, and attributes multi-task optimization difficulty to a combination of conflicting gradients, large differences in gradient magnitude, and high curvature. Evaluates PCGrad on vision benchmarks (MultiMNIST, CityScapes, CelebA, 20-task CIFAR-100, NYUv2) and on Meta-World multi-task reinforcement learning. PCGrad lowered CelebA average error from 8.95 with the method of Sener and Koltun to 8.69, raised CIFAR-100 routing-network accuracy from 74.7% to 77.5%, gave MTAN the best result on 8 of 9 NYUv2 metrics, and solved all MT10 tasks and about 70% of MT50 tasks with millions fewer samples than independent agents. For the supervised experiments, training took up to 12 rather than 8 hours and up to 10 rather than 6 GB of GPU memory, and the reinforcement learning runs took up to 5 rather than 3 days. Notes that PCGrad can converge to a suboptimal point when two task gradients point in exactly opposite directions, and names meta-learning, continual learning, and natural language processing as settings for future work.",
     "arxiv_id": "2001.06782",
     "url": "https://proceedings.neurips.cc/paper_files/paper/2020/hash/3fe78a8acf5fda99de95303940a2420c-Abstract.html"
   },
@@ -67,7 +67,7 @@
     "title": "Conflict-Averse Gradient Descent for Multi-task Learning",
     "year": 2021,
     "doi": null,
-    "summary": "Introduces CAGrad to optimize a common descent direction that balances average task improvement with a worst-case performance guarantee, mitigating gradient conflict.",
+    "summary": "Proposes Conflict-Averse Gradient Descent (CAGrad), which searches within a ball around the average gradient for the update that maximizes the worst local improvement among tasks, solved through a dual problem over task weights. Proves convergence to a minimum of the average loss when the hyperparameter c is below 1 and shows that c of 0 recovers gradient descent while large c approaches the multiple gradient descent algorithm (MGDA). Evaluates CAGrad on a toy problem, Multi-Fashion+MNIST, NYUv2 and CityScapes with a multi-task attention network (MTAN) backbone, Meta-World MT10 and MT50 reinforcement learning, and semi-supervised CIFAR-10 with auxiliary tasks. CAGrad had the smallest average drop relative to single-task models on NYUv2 (0.20% against 3.97% for projecting conflicting gradients, PCGrad) and CityScapes (11.64% against 18.29%), mainly by improving the task other methods neglected. It reached 0.83 MT10 success against 0.72 for PCGrad, and a sub-sampled variant ran 2 to 5 times faster than PCGrad. Names objectives other than the average loss as future work.",
     "arxiv_id": "2110.14048",
     "url": "https://proceedings.neurips.cc/paper_files/paper/2021/hash/9d27fdf2477ffbff837d73ef7ae23db9-Abstract.html"
   },
@@ -76,7 +76,7 @@
     "title": "Multi-Task Learning as a Bargaining Game",
     "year": 2022,
     "doi": null,
-    "summary": "Proposes viewing multi-task gradient combinations as a cooperative bargaining game yielding the Nash bargaining solution to mitigate negative transfer.",
+    "summary": "Proposes Nash-MTL, which treats the combination of task gradients as a cooperative bargaining game among tasks and uses the Nash bargaining solution, a scale-invariant and proportionally fair update, as the joint direction. Proves convergence to a Pareto optimal point in the convex case and a Pareto stationary point in the non-convex case. Compares Nash-MTL with linear and scale-invariant scalarization, dynamic weight average, uncertainty weighting, MGDA, random loss weighting, PCGrad, GradDrop, CAGrad, and IMTL on 11-task QM9 molecular regression, NYUv2 and CityScapes with an MTAN backbone, and Meta-World MT10. Nash-MTL had the best mean rank on QM9, NYUv2, and CityScapes and the best average drop relative to single-task models on QM9 (62.0%) and NYUv2 (-4.04%), was second on CityScapes, and reached 0.91 MT10 success, matching one agent per task. A simple scale-invariant baseline beat most other methods on QM9. Notes that Nash-MTL needs one backward pass per task, which made it about 2 times slower than CAGrad and 4 times slower than PCGrad per MT10 episode (40.7 against 20.9 and 9.7 seconds), and shows that updating weights less often cut runtime with a small loss in performance, about tenfold on QM9 at every 50 steps and about fivefold on MT10 at every 50 to 100 steps.",
     "arxiv_id": "2202.01017",
     "url": "https://proceedings.mlr.press/v162/navon22a.html"
   },
@@ -85,7 +85,7 @@
     "title": "FAMO: Fast Adaptive Multitask Optimization",
     "year": 2023,
     "doi": null,
-    "summary": "Proposes Fast Adaptive Multitask Optimization, dynamically adjusting task loss weights with negligible computational overhead to improve convergence across conflicting tasks.",
+    "summary": "Proposes Fast Adaptive Multitask Optimization (FAMO), a dynamic weighting method that aims to decrease all task losses at an equal rate and updates task weights from the observed change in log losses between steps, so it needs neither per-task gradients nor more than constant extra space and time per step. Compares FAMO with scalarization, weighting methods, and gradient manipulation methods including the multiple gradient descent algorithm (MGDA), projecting conflicting gradients (PCGrad), conflict-averse gradient descent (CAGrad), impartial multi-task learning (IMTL), and Nash-MTL on CityScapes, NYUv2, 11-task QM9, 40-task CelebA, and Meta-World MT10, following the Nash-MTL setup for the supervised benchmarks and the CAGrad setup for MT10. FAMO reached average drops relative to single-task models of -4.10% on NYUv2, 58.5% on QM9, 8.13% on CityScapes, and 1.21% on CelebA, comparable to or better than the best gradient manipulation methods, and 0.83 MT10 success. Its training time per epoch was close to linear scalarization, while methods such as Nash-MTL took much longer and scaled with the number of tasks. Names its dependence on the regularization coefficient gamma, which mattered most on CityScapes, as a limitation and suggests finding a more principled way to set it.",
     "arxiv_id": "2306.03792",
     "url": "https://proceedings.neurips.cc/paper_files/paper/2023/hash/078a6ff619be958e92a2a0ff5ae29849-Abstract-Conference.html"
   },
@@ -94,7 +94,7 @@
     "title": "GradNorm: Gradient Normalization for Adaptive Loss Balancing in Deep Multitask Networks",
     "year": 2018,
     "doi": null,
-    "summary": "Introduces GradNorm, an adaptive loss weighting algorithm that balances multi-task training rates by dynamically scaling gradients according to relative inverse training progress.",
+    "summary": "Proposes GradNorm, which adjusts task loss weights during training so that the gradient norm of each task at the last shared layer moves toward a common scale multiplied by the relative inverse training rate of the task, controlled by a single asymmetry hyperparameter alpha. Evaluates GradNorm on synthetic regression tasks with different loss scales and on NYUv2 depth, surface normal, segmentation, and room keypoint prediction with VGG SegNet and ResNet backbones. On NYUv2 with keypoints and a ResNet backbone, GradNorm with alpha of 1.5 reduced depth error from 0.697 to 0.663 and keypoint error from 7.80% to 7.32% compared with equal weights, and outperformed uncertainty weighting, which grew weights too quickly on the synthetic tasks. None of 100 randomly weighted grid-search networks beat GradNorm, whose time-averaged weights were close to the best static weights. Training time rose by about 5%. Reports that GradNorm became unstable at alpha of 3 or above, and hopes to extend the method to class balancing and sequence-to-sequence models.",
     "arxiv_id": "1711.02257",
     "url": "https://proceedings.mlr.press/v80/chen18a.html"
   },
@@ -103,7 +103,7 @@
     "title": "Multi-Task Learning as Multi-Objective Optimization",
     "year": 2018,
     "doi": null,
-    "summary": "Formulates multi-task learning as multi-objective optimization, adapting the Multiple-Gradient Descent Algorithm to identify Pareto stationary points across conflicting task objectives.",
+    "summary": "Proposes treating multi-task learning as multi-objective optimization and adapts the Multiple Gradient Descent Algorithm (MGDA), which finds the minimum-norm convex combination of task gradients, using a Frank-Wolfe solver and an upper bound (MGDA-UB) that uses gradients with respect to the shared representation so that only one backward pass is needed. Proves that, when the representation Jacobian is full rank, MGDA-UB yields either a Pareto stationary point or a descent direction that decreases all objectives. Compares MGDA-UB with uniform scaling, single-task models, uncertainty weighting, and GradNorm on MultiMNIST, 40-task CelebA, and Cityscapes, and with grid search on MultiMNIST only. MGDA-UB matched single-task accuracy on MultiMNIST (97.26% and 95.90%), where every static weighting fell short, reached the lowest CelebA average error (8.25 against 9.62 for uniform scaling), and improved all three Cityscapes tasks, including 66.63 mean intersection over union (mIoU) against 54.59 for uniform scaling. Notes that the exact algorithm requires one backward pass per task, which motivates the upper bound, and reports Cityscapes results on the validation set because test labels are not public.",
     "arxiv_id": "1810.04650",
     "url": "https://proceedings.neurips.cc/paper/2018/hash/432aca3a1e345e339f35a30c8f65edce-Abstract.html"
   },
@@ -112,7 +112,7 @@
     "title": "Multi-Task Learning Using Uncertainty to Weigh Losses for Scene Geometry and Semantics",
     "year": 2018,
     "doi": "10.1109/CVPR.2018.00781",
-    "summary": "Proposes Uncertainty Weighting (UW) using homoscedastic task uncertainty to dynamically balance multi-objective losses without manual weight tuning.",
+    "summary": "Proposes weighting each task loss by a learned homoscedastic (task-dependent) uncertainty term derived from a Gaussian likelihood for regression and a scaled softmax likelihood for classification, so that task weights are learned with the model instead of tuned by hand. Evaluates the loss on CityScapes with one encoder and three decoders for semantic segmentation, instance segmentation, and inverse depth regression. A grid search over fixed weights showed that performance depends strongly on the weighting. On Tiny CityScapes, three-task uncertainty weighting reached 63.4% segmentation intersection over union (IoU), 3.50 instance error, and 0.522 depth error, compared with 50.1%, 3.79, and 0.592 for an unweighted sum and 62.8%, 3.61, and 0.549 for approximately optimal fixed weights, and it outperformed every single-task model. The learned weights were robust to initialization and changed during training. Leaves open what the optimal weighting is, where the shared encoder should split into task decoders, and how to quantify the relationship between tasks.",
     "arxiv_id": "1705.07115",
     "url": "https://doi.org/10.1109/CVPR.2018.00781"
   },
@@ -121,7 +121,7 @@
     "title": "LibMTL: A Python Library for Deep Multi-Task Learning",
     "year": 2023,
     "doi": null,
-    "summary": "Presents LibMTL, an open-source PyTorch library providing standardized implementations and benchmarks for multi-task learning architectures and loss balancing strategies.",
+    "summary": "Presents LibMTL, an open-source PyTorch library that implements 13 multi-task optimization strategies and 8 multi-task architectures in one framework for single-input settings, where all tasks share the same inputs, and multi-input settings, where each task has its own data. Organizes methods into architecture design, loss balancing, and gradient balancing, and notes that gradient balancing methods can approximate per-task gradients with gradients of the shared representation to reduce cost. Uses a modular design so that users can add new methods or apply existing ones to their own problems. Benchmarks the implemented methods on NYUv2 semantic segmentation, depth estimation, and surface normal prediction over three random seeds, and argues that LibMTL is more comprehensive and up to date than existing multi-task libraries such as RMTL and MTLV. Plans to keep adding new methods, documentation, applications from other areas, and backbones such as vision transformers.",
     "arxiv_id": null,
     "url": "https://jmlr.org/papers/v24/22-0347.html"
   },
@@ -130,7 +130,7 @@
     "title": "Multi-objective Deep Learning: Taxonomy and Survey of the State of the Art",
     "year": 2025,
     "doi": "10.1016/j.mlwa.2025.100700",
-    "summary": "Surveys multi-objective deep learning, providing a comprehensive taxonomy of Pareto optimization methods, gradient balancing algorithms, and scalarization techniques across multi-task domains.",
+    "summary": "Surveys multi-objective deep learning, where a network is trained against several conflicting criteria such as multiple tasks, secondary goals like sparsity or robustness, or multiple hyperparameter criteria. Introduces a taxonomy that first separates decide-then-optimize methods, which seek one compromise, from optimize-then-decide methods, which approximate the whole Pareto front, and from interactive methods, then classifies algorithms as scalarization, multi-objective gradient descent (MGDA), evolutionary algorithms, or continuation. Reviews work in supervised, unsupervised and self-supervised, and generative learning, neural architecture search, applications in language, engineering, and physics-informed learning, and treats multi-objective reinforcement learning separately. Finds that the deep learning community has mostly chosen single-compromise methods, chiefly weighted sums and MGDA, because computing the full front is costly. Names as open problems interactive training with a decision maker, use in very high-dimensional settings, benchmarks with non-convex Pareto fronts, and the role of generative AI and large language models.",
     "arxiv_id": "2412.01566",
     "url": "https://doi.org/10.1016/j.mlwa.2025.100700"
   },
@@ -139,7 +139,7 @@
     "title": "Multi-Task Learning in Natural Language Processing: An Overview",
     "year": 2024,
     "doi": "10.1145/3638234",
-    "summary": "Surveys multi-task learning paradigms, parameter sharing strategies, auxiliary training setups, and optimization algorithms across NLP applications.",
+    "summary": "Surveys multi-task learning in natural language processing (NLP) with a focus on deep learning. Groups architectures into parallel, hierarchical, modular, and generative adversarial types, and groups optimization techniques into loss construction, gradient regularization, data sampling, and task scheduling. Reviews applications as auxiliary multi-task learning, where extra tasks support a main task, and joint multi-task learning, where all tasks matter, along with multilingual and multimodal settings and studies of task relatedness. Describes how disjoint and multi-label data sources are handled and lists multi-task NLP benchmark datasets. Names as open problems choosing which tasks benefit from joint training, using unlabeled data through self-supervised or unsupervised tasks, building stronger pretrained language models with more advanced multi-task architectures, and extending multi-task learning beyond well-studied classification, sequence labeling, and generation tasks to dialogue and multimodal problems.",
     "arxiv_id": "2109.09138",
     "url": "https://doi.org/10.1145/3638234"
   },
@@ -148,7 +148,7 @@
     "title": "Just Pick a Sign: Optimizing Deep Multitask Models with Gradient Sign Dropout",
     "year": 2020,
     "doi": null,
-    "summary": "Proposes GradDrop, a probabilistic gradient sampling method that drops conflicting gradient components at an activation layer, evaluated on CelebA multi-task learning, CIFAR-100 transfer, and Waymo Open Dataset 3D object detection.",
+    "summary": "Proposes Gradient Sign Dropout (GradDrop), a layer placed before the prediction heads that measures how consistent the signs of task gradients are at each activation and randomly keeps either the positive or the negative gradients in proportion to that consistency. Proves that GradDrop updates vanish only at joint minima of all losses and equal standard gradient descent in expectation. Evaluates GradDrop against gradient clipping, gradient penalty, MGDA, PCGrad, and GradNorm on 40-task CelebA, ImageNet-to-CIFAR-100 transfer, and Waymo Open Dataset 3D vehicle detection. GradDrop lowered CelebA error from 8.71% to 8.52% and ran faster than the other multitask methods, at 0.45 of baseline speed against 0.20 for PCGrad. Combined with GradNorm, it reduced CIFAR-100 top-1 error from 29.4% to 28.9%, and it raised Waymo 3D average precision with heading (APH) from 53.0 to 56.0, while MGDA and GradNorm lowered 3D accuracy. Suggests that optimization of multitask loss surfaces should take gradient stochasticity into account.",
     "arxiv_id": "2010.06808",
     "url": "https://proceedings.neurips.cc/paper/2020/hash/16002f7a455a9d1fbdec97e3609a0650-Abstract.html"
   },
@@ -157,7 +157,7 @@
     "title": "Supplementing Satellite Imagery with Social Media Data for Remote Reconnaissance: A Case Study of the 2020 Taal Volcano Eruption",
     "year": 2021,
     "doi": "10.5194/isprs-archives-XLVI-4-W6-2021-329-2021",
-    "summary": "Extracts location and ashfall entities from tweets using named entity recognition and combines them with classified satellite imagery to map the 2020 Taal volcano eruption.",
+    "summary": "Evaluates social media data as a supplement to satellite imagery for remote reconnaissance after the January 2020 Taal Volcano eruption in the Philippines. Scrapes eruption tweets, extracts ashfall-affected locations from geotags and from tweet text with named entity recognition, maps them as dot density and kernel density hotspot maps, and overlays them on an ashfall extent map classified from DIWATA-2 satellite imagery with a support vector machine. The study mapped 808 locations, 255 from geotags and 553 geocoded from text, with Metro Manila holding 40.35% of points and Batangas and Cavite 21.78% each, and 79.33% of tweets appeared in the first two days of ashfall. Only 500 points fell within the satellite image, and 62 of these (12.4%) intersected classified heavy ash, although both sources placed heavy ash northeast of the volcano, and geotagged photos confirmed some locations. Notes that point density reflects proximity and the number of active Internet users, that land-water boundaries were misclassified as heavy ash, and recommends other image classification methods and tests on storm surges, earthquakes, and floods.",
     "arxiv_id": null,
     "url": "https://doi.org/10.5194/isprs-archives-XLVI-4-W6-2021-329-2021"
   },
@@ -166,7 +166,7 @@
     "title": "Evaluating Urgency of Typhoon-Related Tweets Through Sentiment Analysis Using Artificial Neural Networks",
     "year": 2022,
     "doi": "10.25147/ijcsr.2017.001.1.80",
-    "summary": "Evaluates typhoon-related tweet urgency using sentiment analysis with an artificial neural network trained on Philippine disaster data.",
+    "summary": "Develops an artificial neural network that classifies the urgency of typhoon-related tweets as a binary sentiment analysis task. Collects 4,020 English, Tagalog, and mixed tweets about Typhoon Ulysses posted from November 8 to 16, 2020, labeled as 2,010 urgent and 2,010 non-urgent, and trains a TensorFlow model with an 8-dimensional embedding over an 8,000-word vocabulary, global average pooling, and one dense hidden layer on 3,900 tweets, validating on 120. The model reached 99.87% training accuracy and 99.17% validation accuracy, and a separate validation on 100 tweets gave 99% accuracy, 97.67% sensitivity, 100% specificity, and 98.82% F1. Argues that the model could support government and NGO incident reporting systems. Recommends expanding the vocabulary with more diverse data, especially for multilingual inputs.",
     "arxiv_id": null,
     "url": "https://doi.org/10.25147/ijcsr.2017.001.1.80"
   },
@@ -175,7 +175,7 @@
     "title": "Natural Language Processing On Facebook Data For Optimized Disaster Response Strategies In Urdaneta City",
     "year": 2025,
     "doi": "10.64252/m9nt3376",
-    "summary": "Implements an Extract-Transform-Load framework using GPT to extract community sentiment, urgent requests, and disaster locations from Facebook comments in Urdaneta City, Philippines.",
+    "summary": "Develops a disaster response system for Urdaneta City, Pangasinan, that applies an Extract-Transform-Load pipeline with the OpenAI GPT application programming interface (API) and prompt engineering to comments on an official city Facebook page, performing sentiment classification, emotion and intent detection, and named entity recognition to surface urgent help requests, disaster locations, and community sentiment on a dashboard. Evaluates the system on accuracy, F1, latency, relevance, error rates, adaptability across languages, and user acceptance through a Technology Acceptance Model survey of 50 respondents. The system reached 90.2% accuracy and 94% F1 with an average processing time of 10.5 seconds, varied in accuracy by about 7% across Filipino, Ilocano, and Taglish comments, and errors leaned toward over-alerting. Three domain experts judged 17 of 20 flagged comments (85%) as disaster-relevant, and most survey respondents agreed that the system would improve access to disaster information. Concludes that analyzing Facebook comments can support real-time identification of distress and urgent needs for local disaster management.",
     "arxiv_id": null,
     "url": "https://doi.org/10.64252/m9nt3376"
   },
@@ -184,7 +184,7 @@
     "title": "Transformer-based Multi-task Learning for Disaster Tweet Categorisation",
     "year": 2021,
     "doi": "10.48550/arXiv.2110.08010",
-    "summary": "Evaluates transformer-based multi-task learning on disaster tweet categorization, training a shared encoder for information type classification and priority estimation on the TREC Incident Streams dataset.",
+    "summary": "Proposes transformer-based multi-task learning for disaster tweet categorization, fine-tuning one shared encoder for multi-label classification into 25 Text REtrieval Conference (TREC) Incident Streams information types and for priority estimation, with the two losses weighted equally, and an ensemble that merges predictions from several such models. Trains on the 2018 and 2019 TREC Incident Streams subsets and tests on the 2020A subset of 6,658 tweets from 15 crisis events, comparing against logistic regression and BERT single-task baselines and against runs submitted to the track. The BERT multi-task model improved ranking (normalized discounted cumulative gain, NDCG, 0.510 against 0.439) and alerting scores over single-task BERT and had the best overall harmonic mean, although single-task BERT scored higher on prioritization. An ensemble of BERT, ELECTRA, DistilBERT, and ALBERT multi-task models reached the best harmonic mean (0.314) and outperformed the participating runs on almost every metric. Notes that the approach uses only tweet text and two tasks from one corpus, and plans to add linked web pages and images, more tasks and corpora, and attention to processing speed.",
     "arxiv_id": "2110.08010",
     "url": "https://doi.org/10.48550/arXiv.2110.08010"
   },
@@ -193,7 +193,7 @@
     "title": "Green AI",
     "year": 2020,
     "doi": "10.1145/3381831",
-    "summary": "Advocates making computational efficiency and energy reporting evaluation criteria for AI research alongside accuracy to make deep learning greener and more accessible.",
+    "summary": "Advocates Green AI, research that treats computational efficiency as an evaluation criterion alongside accuracy, in contrast to Red AI, which buys accuracy gains with massive computation. Notes that compute for deep learning increased an estimated 300,000 times from 2012 to 2018, with a large carbon footprint and costs that make it difficult for researchers with fewer resources, especially in emerging economies, to take part in deep learning research. In a sample of 60 papers from ACL, NeurIPS, and CVPR, most targeted accuracy (90% at ACL, 80% at NeurIPS, 75% at CVPR). Models the cost of a result as proportional to the cost of processing one example, the size of the training set, and the number of hyperparameter experiments, and shows diminishing accuracy returns from larger models and more computation. Proposes reporting the financial cost of developing, training, and running models, with floating point operations as the preferred efficiency measure, while noting that this measure ignores memory and depends on implementation. Recommends reporting performance against training set size and compute budget and reporting the full number of experiments, including hyperparameter searches.",
     "arxiv_id": "1907.10597",
     "url": "https://doi.org/10.1145/3381831"
   },
@@ -202,7 +202,7 @@
     "title": "Multitask Learning",
     "year": 1997,
     "doi": "10.1023/A:1007379606734",
-    "summary": "Introduces multitask learning, demonstrating that training related tasks concurrently using a shared representation improves generalization through mutual inductive transfer.",
+    "summary": "Introduces multitask learning as inductive transfer in which related tasks are learned in parallel with a shared representation, so the training signals of extra tasks act as an inductive bias for the main task. Demonstrates the approach with backpropagation networks on simulated 1D-ALVINN road following with eight extra road-feature tasks, 1D-DOORS doorknob location and door type recognition from robot camera images, and pneumonia risk prediction on 14,199 Medis cases using 35 post-admission lab tests as extra outputs. Multitask networks reduced 1D-DOORS error by 23.5% for doorknob location and 31.4% for door type compared with the best single-task network, and lowered pneumonia risk error at every population fraction, significantly at 0.3 to 0.5. Explains the gains through statistical data amplification, attribute selection, eavesdropping, and representation bias, rules out alternative explanations, and extends multitask learning to k-nearest neighbor, kernel regression, and decision trees. Notes that transfer can hurt, as when an extra output lowered pneumonia performance for high-risk cases, and recommends testing multitask learning on each problem.",
     "arxiv_id": null,
     "url": "https://doi.org/10.1023/A:1007379606734"
   },
@@ -211,7 +211,7 @@
     "title": "Multi-task Learning to Enable Location Mention Identification in the Early Hours of a Crisis Event",
     "year": 2021,
     "doi": "10.18653/v1/2021.findings-emnlp.340",
-    "summary": "Investigates a multi-task learning approach to identify location mentions in disaster tweets by concurrently leveraging annotated data from related crisis domain tasks.",
+    "summary": "Investigates multi-task learning to improve fine-grained location mention identification in crisis tweets, a task with only a few thousand labeled examples, by training it alongside key-phrase identification, eyewitness-account classification, and humanitarian category classification. Compares single-task models, a location-only multi-task model that combines two location datasets (New York and New Zealand events), and a multi-task model with all tasks, each using BERT, RoBERTa, or ALBERT as the shared encoder. The all-task model outperformed the single-task model in test F1 in most settings, with average gains of 3.43% for BERT, 2.36% for RoBERTa, and 6.35% for ALBERT, and the largest gain (14.76%) on the combined location data with ALBERT. Adding only the second location task changed F1 by an average of -0.78% for BERT, 4.75% for RoBERTa, and 4.17% for ALBERT, and the paper suggests that dissimilar related tasks help generalization more than extra data for the same task, although RoBERTa gained more from the second location task than from all tasks. The choice of encoder strongly affected results. Plans to test other multi-task and domain adaptation strategies and to study effects of the type of crisis.",
     "arxiv_id": null,
     "url": "https://doi.org/10.18653/v1/2021.findings-emnlp.340"
   },
@@ -220,7 +220,7 @@
     "title": "Tapping into Social Media in Crisis: A Survey",
     "year": 2025,
     "doi": "10.18653/v1/2025.nlp4pi-1.27",
-    "summary": "Presents a systematic survey of 355 papers on language technologies applied to crisis social media content, reviewing crisis datasets, computational systems, and operational challenges.",
+    "summary": "Surveys language technology for crisis preparedness and response through a systematic review of 355 papers published from 2020 to 2024, covering new crisis social media corpora, natural language processing (NLP) systems, and real-world deployments. Of the 91 new corpora, 81 contain text only, 47 of the 89 text corpora are English only, and 63 were built from Twitter, and the most common annotations are class labels (54 corpora), while entity, relation, or event annotation appears in only 7. Classification accounts for 202 of 292 systems, and most systems are trained and evaluated on English Twitter text, while systems for tasks without gold corpora, such as visualization of damaged regions, are rarely evaluated quantitatively. Identifies six challenges, namely corpus quality, lack of multilinguality, lack of multimodality, little platform diversity, little diversity in annotation types and tasks, and weak engagement with aid providers and affected communities, and argues that research should follow actual rather than perceived needs. Notes that the review included only English papers from 2020 to 2024, that most papers were screened by one annotator, and that only a subset is discussed individually.",
     "arxiv_id": null,
     "url": "https://doi.org/10.18653/v1/2025.nlp4pi-1.27"
   },
@@ -238,7 +238,7 @@
     "title": "CrisisBench: Benchmarking Crisis-related Social Media Datasets for Humanitarian Information Processing",
     "year": 2021,
     "doi": "10.1609/icwsm.v15i1.18115",
-    "summary": "Consolidates eight human-annotated crisis datasets to provide 166.1k tweets for informativeness and 141.5k tweets for humanitarian classification, benchmarking deep learning models across binary and multiclass tasks.",
+    "summary": "Introduces CrisisBench, which consolidates eight human-annotated crisis tweet datasets into 166.1k tweets for informativeness classification and 141.5k tweets for humanitarian classification, with class labels mapped manually by domain experts, exact and near duplicates removed by cosine similarity, and a language tag added to each tweet. Benchmarks a convolutional neural network (CNN), fastText, BERT, DistilBERT, and RoBERTa on fixed 70/10/20 splits of the English tweets, and tests event-aware training that adds the disaster type as a tag to each tweet. Models trained on a single source dataset performed worse on other datasets, for example a model trained on CrisisLex scored 14.3% lower in informativeness F1 on CrisisNLP than a model trained on CrisisNLP, while the consolidated model generalized better. With event-aware training, RoBERTa reached the highest weighted F1, 0.878 for informativeness and 0.870 for humanitarian classification. On the full multilingual data, the paper reports that humanitarian performance dropped by about 8% for BERT. Recommends removing duplicates and checking train-test overlap before labeling and training, and suggests multilingual and zero-shot classification, deeper models, and stronger regularization as future work.",
     "arxiv_id": null,
     "url": "https://doi.org/10.1609/icwsm.v15i1.18115"
   },
@@ -247,7 +247,7 @@
     "title": "GPT-NER: Named Entity Recognition via Large Language Models",
     "year": 2025,
     "doi": "10.18653/v1/2025.findings-naacl.239",
-    "summary": "Proposes GPT-NER, an approach that frames named entity recognition as a text generation task to bridge the gap between sequence labeling and large language models.",
+    "summary": "Proposes GPT-NER, which recasts named entity recognition (NER) as text generation for large language models by asking the model to rewrite the input with entities of one type wrapped in special markers, retrieves in-context demonstrations by k-nearest-neighbor search, and adds a self-verification prompt to reduce entities wrongly extracted from text that contains none. Evaluates GPT-3 (davinci-003) on flat NER (CoNLL2003, OntoNotes5.0), nested NER (ACE2004, ACE2005, GENIA), and low-resource subsets of CoNLL2003. Retrieving demonstrations with token-level or entity-level embeddings rather than at random raised full CoNLL2003 F1 from 72.62 to 89.97, and self-verification added further gains. The best configuration reached 90.91 F1 on CoNLL2003 and 82.20 on OntoNotes5.0, within about 2 points of supervised BERT on CoNLL2003 (92.8) and about 7 points below it on OntoNotes5.0 (89.16) but below the best supervised models (94.6 and 92.07), with larger gaps on nested NER. With only 8 training sentences GPT-NER reached about 60 F1 while supervised models scored near 0, but supervised models improved faster once more data was available. Notes that performance had not plateaued at the GPT-3 token limit on demonstrations.",
     "arxiv_id": "2304.10428",
     "url": "https://doi.org/10.18653/v1/2025.findings-naacl.239"
   },
@@ -256,7 +256,7 @@
     "title": "TF-NERD: Tagalog Fine-grained Named Entity Recognition Dataset",
     "year": 2023,
     "doi": "10.1145/3639233.3639341",
-    "summary": "Presents TF-NERD, a fine-grained named entity recognition dataset for Tagalog containing 2,337 paragraphs annotated across 12 entity categories, establishing transformer benchmark baselines.",
+    "summary": "Introduces TF-NERD, a fine-grained Tagalog named entity recognition dataset of 2,337 paragraphs from TLUnified news text, hate speech and dengue tweets, and Tagalog Wikipedia, annotated with 6,459 entity mentions across 12 OntoNotes-based categories (art, event, facility, geopolitical entity, language, law, location, nationality or religious or political group, organization, person, product, and other). Fine-tunes three Filipino pretrained models, roberta-tagalog-base, electra-tagalog-base-cased-discriminator, and bert-tagalog-base-cased, and evaluates strict, exact type, exact boundary, and partial boundary matches. RoBERTa performed best with 78.93% strict-match F1, ahead of ELECTRA (74.57%) and BERT (69.33%), and all models handled person and geopolitical entities well. Error analysis showed location and facility entities often predicted as geopolitical entities, which the paper attributes to the single preposition that Tagalog uses for places, and, for the ELECTRA and BERT models, language entities confused with nationalities. Notes that a single annotator labeled the data and suggests measuring inter-annotator agreement, revisiting the entity categories, and testing uncased models.",
     "arxiv_id": null,
     "url": "https://doi.org/10.1145/3639233.3639341"
   },
@@ -265,7 +265,7 @@
     "title": "Identification of Actionable Tweets During Philippine Disasters Using Machine Learning",
     "year": 2023,
     "doi": null,
-    "summary": "Evaluates logistic regression models using Bag-of-Words, TF-IDF, and Word2Vec features to classify the informativeness of Philippine disaster tweets from the CrisisLexT26 dataset.",
+    "summary": "Develops logistic regression models that classify the informativeness of tweets, that is, whether they describe the on-the-ground situation, for five Philippine disasters from 2012 to 2013 in the CrisisLexT26 dataset. Compares four feature sets, Bag-of-Words, term frequency-inverse document frequency (TF-IDF), Word2vec with Bag-of-Words, and Word2vec with TF-IDF, with the decision threshold set to maximize the geometric mean of sensitivity and specificity. The Bag-of-Words model performed best on accuracy (0.878), area under the curve (AUC, 0.939), precision (0.947), and F-score (0.899), while Word2vec with Bag-of-Words had the highest recall (0.885), and the simple models matched more complex models from earlier work without hand-made keyword lists. Attributes this partly to training on one country, which let the models focus on keywords specific to Philippine disasters. Suggests testing the models on more recent Philippine disasters and checking whether country-specific models generalize to other countries.",
     "arxiv_id": null,
     "url": "https://proceedings.spp-online.org/article/view/SPP-2023-PB-41"
   },
@@ -274,7 +274,7 @@
     "title": "The Role of Social Media in Philippine Disaster Management: A Systematic Literature Review",
     "year": 2025,
     "doi": null,
-    "summary": "Conducts a systematic review of literature on social media use in Philippine disaster risk management across the four NDRRMC thematic areas.",
+    "summary": "Conducts a systematic review guided by the Preferred Reporting Items for Systematic Reviews and Meta-Analyses (PRISMA) framework of peer-reviewed studies from 2015 to 2024 on social media use in disaster risk management in the Philippines, drawn from Google Scholar, Scopus, and ScienceDirect and framed by the four thematic areas of the National Disaster Risk Reduction and Management Council (prevention and mitigation, preparedness, response, and rehabilitation and recovery). Of the 18 included articles, most studied the response phase and typhoons, especially Typhoon Haiyan, and Twitter was the most studied platform (15 of 19 platform uses), followed by Facebook, with little attention to TikTok or Flickr. Social media served for real-time communication, coordination of relief, and public sentiment. Finds little research on preparedness and none on mitigation, and only vague treatment of misinformation, public trust in disaster agencies, and economic and infrastructure recovery. Recommends studying less-examined platforms and disaster types, managing misinformation, and covering the preparedness and mitigation phases.",
     "arxiv_id": null,
     "url": "https://animorepository.dlsu.edu.ph/cgi/viewcontent.cgi?article=2573&context=conf_shsrescon"
   },
@@ -283,7 +283,7 @@
     "title": "Batayan: A Filipino NLP benchmark for evaluating Large Language Models",
     "year": 2025,
     "doi": "10.18653/v1/2025.acl-long.1509",
-    "summary": "Introduces Batayan, a benchmark consolidating eight tasks to evaluate large language models across understanding, reasoning, and generation competencies for Filipino and Taglish.",
+    "summary": "Introduces Batayan, a Filipino benchmark for large language models that covers understanding (paraphrase identification, question answering, sentiment analysis, toxicity detection), reasoning (causal reasoning, natural language inference), and generation (abstractive summarization, machine translation), with eight tasks in Tagalog and code-switched Taglish, three of which did not previously exist for Filipino. Builds the tasks through native-speaker translation or retranslation of PAWS, Belebele, Balanced COPA, XNLI, XL-Sum, and FLORES-200, together with natively sourced Philippine election tweets, and screens every sample with three raters for completeness, fluency, and sensibility. Serves as the Filipino component of the SEA-HELM leaderboard, evaluating instruction-tuned models zero-shot and base models five-shot with Filipino prompt templates. Models with explicit Filipino support and Filipino instruction tuning performed better than other models. Notes that the sentiment and toxicity tasks are limited to political tweets, that sample sizes were kept small for quality, and that error analysis was not possible, and plans tools to distinguish translationese from natural text.",
     "arxiv_id": "2502.14911",
     "url": "https://doi.org/10.18653/v1/2025.acl-long.1509"
   },
@@ -292,7 +292,7 @@
     "title": "HumAID: Human-Annotated Disaster Incidents Data from Twitter with Deep Learning Benchmarks",
     "year": 2021,
     "doi": "10.1609/icwsm.v15i1.18116",
-    "summary": "Introduces HumAID, a dataset of approximately 77,000 human-labeled disaster tweets across 11 humanitarian categories from 19 disaster events, establishing classification benchmarks with transformer and classic models.",
+    "summary": "Introduces HumAID, a dataset of 77,196 English tweets from 19 hurricanes, earthquakes, wildfires, and floods between 2016 and 2019, labeled with 11 humanitarian categories. The tweets were sampled from about 24.9 million collected tweets after date, location, language, classifier, word-count, and near-duplicate filtering, and three Amazon Mechanical Turk workers labeled each tweet, with a label kept when two of three agreed. Agreement was moderate to substantial, with an average Fleiss kappa of 0.55 and Krippendorff alpha of 0.57. On fixed 70/10/20 splits at the event, event-type, and combined levels, transformer models outperformed random forest, support vector machine, and fastText baselines, averaging 0.781 weighted F1 for RoBERTa against 0.710 for the support vector machine, and DistilBERT nearly matched BERT. Annotates only English tweets because of budget limits and assigns one label per tweet to reduce annotation effort, and suggests annotating other languages in future work.",
     "arxiv_id": "2104.03090",
     "url": "https://doi.org/10.1609/icwsm.v15i1.18116"
   },
@@ -301,7 +301,7 @@
     "title": "Smarter, Better, Faster, Longer: A Modern Bidirectional Encoder for Fast, Memory Efficient, and Long Context Finetuning and Inference",
     "year": 2025,
     "doi": "10.18653/v1/2025.acl-long.127",
-    "summary": "Redesigns the BERT encoder architecture using rotary position embeddings, unpadding, and FlashAttention-2, processing sequences of 8,192 tokens almost two times faster and designed for inference on common GPUs.",
+    "summary": "Introduces ModernBERT, an encoder-only model family (149 million parameters in base and 395 million in large) that adds rotary position embeddings, GeGLU activations (gated linear units built on GELU), pre-normalization, alternating global and 128-token local attention, unpadding, and FlashAttention, with layer shapes chosen for common GPUs, and is trained on 2 trillion mostly English tokens including code, with a native 8,192-token context and a modern byte-pair encoding (BPE) tokenizer. Compares the models with BERT, RoBERTa, DeBERTa-v3, NomicBERT, and GTE-en-MLM on the General Language Understanding Evaluation (GLUE) benchmark, BEIR short-context retrieval, MLDR long-context retrieval, and code retrieval. ModernBERT was the strongest model overall at both sizes and improved on BERT and RoBERTa in every category, ModernBERT-base was the first masked-language-model encoder to surpass DeBERTa-v3-base on GLUE, and ModernBERT-large nearly matched DeBERTa-v3-large. It processed 8,192-token inputs 2.65 to 3 times faster than the next-fastest encoder and handled the largest batches. Notes that the work covers only English, inherits web-data biases, uses only the masked language modeling objective, and leaves parameter scaling unexplored.",
     "arxiv_id": "2412.13663",
     "url": "https://doi.org/10.18653/v1/2025.acl-long.127"
   },
@@ -310,7 +310,7 @@
     "title": "Model Card for SEA-LION-ModernBERT-300M",
     "year": 2026,
     "doi": null,
-    "summary": "Official Hugging Face model card for SEA-LION-ModernBERT-300M, detailing the 300M parameter encoder built on ModernBERT architecture with Gemma 3 tokenizer, pretrained on 13 languages including Filipino and English across 3 trillion tokens.",
+    "summary": "Official Hugging Face model card for SEA-LION-ModernBERT-300M, an encoder from AI Singapore built on the ModernBERT-base architecture (22 layers, hidden size 768, 8k context) with a Gemma 3 SentencePiece tokenizer and a 262K vocabulary. The model was pretrained from scratch on 2 trillion tokens and then mid-trained on 1 trillion more, covering code and 13 languages (Burmese, Chinese, English, Filipino, Indonesian, Javanese, Khmer, Lao, Malay, Sundanese, Tamil, Thai, Vietnamese), with Filipino making up 2.5% of the data and English 35%. Lists uses such as fill-mask, text classification, and fine-tuning for downstream tasks, and describes evaluation on the SEA-BED (Southeast Asia Embedding Benchmark), CMTEB (Chinese Massive Text Embedding Benchmark), and MTEB (Massive Text Embedding Benchmark) suites, with a leaderboard chart shown for SEA-BED only. Training used 1,825 H200 graphics processing unit (GPU) hours with about 513 kg of CO2 emitted. States that the model was not tested against adversarial use or aligned for safety, and that users should validate its outputs. Last updated March 16, 2026.",
     "arxiv_id": null,
     "url": "https://huggingface.co/aisingapore/SEA-LION-ModernBERT-300M"
   },
@@ -319,7 +319,7 @@
     "title": "Improving Large-scale Language Models and Resources for Filipino",
     "year": 2022,
     "doi": null,
-    "summary": "Introduces the TLUnified pretraining corpus and trains RoBERTa-based language models for Filipino, evaluating downstream performance across text classification benchmarks.",
+    "summary": "Introduces TLUnified, a large-scale Filipino pretraining corpus that is larger and more topically varied than the earlier WikiText-TL-39, built from news and other sources with filters for non-Latin text, sentence length, punctuation, and word length, and pretrains RoBERTa base and large models on it. Evaluates the models against earlier Filipino BERT and ELECTRA models on the Filipino Hatespeech dataset (10,000 election tweets), the Filipino Dengue dataset (4,000 tweets recast as 32-class classification), and a regenerated NewsPH-NLI (natural language inference) Medium set that avoids overlap with the pretraining data. RoBERTa large improved test accuracy over the best earlier models by 4.07% on hate speech, 5.3% on dengue, and 4.04% on NLI, with an average gain of 4.47%. RoBERTa large outperformed RoBERTa base only marginally (0.09 to 0.9 points), which the paper attributes to the pretraining corpus still being too small to use the capacity of the large model.",
     "arxiv_id": "2111.06053",
     "url": "https://aclanthology.org/2022.lrec-1.701"
   },
@@ -328,7 +328,7 @@
     "title": "TweetTaglish: A Dataset for Investigating Tagalog-English Code-Switching",
     "year": 2022,
     "doi": null,
-    "summary": "Introduces TweetTaglish, a dataset of over 20,000 tweets to facilitate research on Tagalog-English code-switching in Philippine social media.",
+    "summary": "Introduces TweetTaglish, a public dataset of 21,150 tweets for studying Tagalog-English code-switching (Taglish), collected through multilingual Twitter searches with Tagalog terms identified in earlier research on oral Taglish and labeled at the word level as English, Tagalog, or Other by a dictionary-based algorithm. A check of the first 20 tweets by one author gave substantial agreement on tweet-level language proportions (kappa 0.7) but low agreement at the word level (kappa 0.15), partly because Spanish cognates such as para were labeled as Tagalog. On average, tweets were 55.2% Tagalog, 19.4% English, and 24.5% Other, and frequent pronouns such as ko and ako suggest informal, self-referential switching. Benchmarks regression models that predict the proportion of each language in a tweet, where a multilayer perceptron performed best (R2 0.909 for English, 0.883 for Tagalog, and 0.797 for Other), and Other was hardest to predict. Notes that the keyword strategy admitted some text from other languages such as Spanish, suggests more advanced collection methods, and hopes to test more advanced modeling approaches.",
     "arxiv_id": null,
     "url": "https://aclanthology.org/2022.lrec-1.225/"
   },
@@ -337,7 +337,7 @@
     "title": "Developing a Named Entity Recognition Dataset for Tagalog",
     "year": 2023,
     "doi": null,
-    "summary": "Presents the TLUnified-NER corpus for Tagalog, introducing a human-annotated dataset with three annotators that establishes benchmark token-level agreement of 0.81 kappa and entity-level agreement of 0.91 strict F1.",
+    "summary": "Introduces TLUnified-NER, a publicly available gold-standard Tagalog named entity recognition dataset of about 7.8k documents drawn mainly from news text in the TLUnified corpus and annotated iteratively by three native speakers for Person, Organization, and Location. Inter-annotator agreement reached a Cohen's kappa of 0.81 on all tokens, 0.65 on annotated tokens only, and 0.91 F1. Benchmarks spaCy's transition-based parser with different embeddings, where RoBERTa Tagalog reached the best overall F1 (90.34), followed by fastText (88.90), XLM-RoBERTa (88.03), and multilingual BERT (87.40), and most errors involved Location and Organization tags. Models trained on TLUnified-NER transferred to WikiANN better than the reverse, and WikiANN's silver labels agreed poorly with a reannotated version. Zero-shot large language models scored lower, with GPT-4 at 65.89 F1. Notes that the corpus is mostly news, so its domain is limited, and that only a transition-based parser was benchmarked, and plans a finer-grained tag set and other Philippine languages.",
     "arxiv_id": "2311.07161",
     "url": "https://aclanthology.org/2023.sealp-1.3/"
   },
@@ -346,7 +346,7 @@
     "title": "Online Emergency Response Management System for City Disaster Risk Reduction Management Office of Calamba City, Laguna",
     "year": 2025,
     "doi": "10.26483/ijarcs.v16i3.7254",
-    "summary": "Develops a web-based disaster emergency management system for Calamba City using NLP and TF-IDF to analyze incident reports for municipal resource coordination and evacuation planning.",
+    "summary": "Develops an online emergency response management system that combines geographic information systems, machine learning, and decision support for hazard monitoring, weather analysis, evacuation planning, resource tracking, and reporting for the City Disaster Risk Reduction and Management Office of Calamba City, Laguna. Uses term frequency-inverse document frequency (TF-IDF) vectorization with content-based filtering and natural language processing (NLP) to analyze incident reports, extract disaster type and severity, and recommend actions by similarity to past incidents. Evaluates the system with office personnel, GIS experts, and IT professionals selected by stratified sampling, using ISO 25010 software quality criteria, the Technology Acceptance Model, and accuracy metrics for the recommendation model. Content-based filtering with NLP reached the highest accuracy among the algorithms tested for recommending actions (91.0%, F1 0.91), ahead of hybrid methods (88.5%), collaborative filtering (85.3%), decision trees (84.1%), and association rules (78.6%). ISO 25010 ratings averaged 4.61 of 5, and acceptance ratings averaged 6.68 for ease of use and 6.69 for usefulness on a 7-point scale.",
     "arxiv_id": null,
     "url": "https://doi.org/10.26483/ijarcs.v16i3.7254"
   },
@@ -355,7 +355,7 @@
     "title": "An AI-Enhanced Decision Support System for Barangay Incident Monitoring and Community Risk Assessment",
     "year": 2026,
     "doi": "10.47760/OAJMR.2026.v02i06.002",
-    "summary": "Designs and evaluates an AI-enhanced decision support system for local barangay incident monitoring in the Philippines, automating risk categorization across incident reports for community safety.",
+    "summary": "Develops and evaluates a decision support system for incident monitoring and community risk assessment at Barangay Washington, Philippines, replacing paper logbooks with a Django and SQLite web platform that offers a rule-based engine for classifying incidents into low, medium, and high risk, analytical dashboards, heat maps, and automated alerts for incident clusters. Tests the system with six months of representative incident data and evaluates the classifier on 100 test records against risk levels assigned by experienced barangay officials. The classifier reached 89% overall accuracy, with F1 of 0.94 for high-risk, 0.85 for medium-risk, and 0.89 for low-risk incidents, and the dashboard showed theft (28%) and community disputes (22%) as the most frequent incidents, with incidents across multiple categories clustered between 6 p.m. and 10 p.m.. A preliminary System Usability Scale evaluation with eight officials gave a score of 82.5. Notes that results come from test data before full deployment, and recommends supervised machine learning classifiers, multi-barangay deployment, and longitudinal studies.",
     "arxiv_id": null,
     "url": "https://doi.org/10.47760/OAJMR.2026.v02i06.002"
   },
@@ -364,7 +364,7 @@
     "title": "Cultural values in disaster discourse: Behavioral propositions from the Philippines",
     "year": 2026,
     "doi": "10.1016/j.ijdrr.2026.106420",
-    "summary": "Conducts a discourse analysis of social media comments following four major Philippine typhoons from 2013 to 2021, proposing six behavioral propositions on cultural disaster response.",
+    "summary": "Conducts a discourse analysis of Facebook comments after four major Philippine typhoons, Haiyan (2013), Goni and Vamco (2020), and Rai (2021), guided by Filipino Psychology (Sikolohiyang Pilipino) and the cultural values kapwa (shared identity), bahala na (fatalistic risk-taking), utang na loob (debt of gratitude), bayanihan (collective cooperation), and diskarte (being strategic). Screens more than 37,500 comments down to 306 for close analysis using criteria of relevance, engagement, and substance. Proposes six preliminary behavioral propositions, namely that attitudes toward disasters are shaped by supernatural interpretations, that self-reliance is linked to institutional complacency in adaptation, that low trust in authority produces negative views of taxation and a preference for community-based response, that donors prefer giving directly to recipients with a ranking of intermediaries, that prayer is seen as effective non-material aid, and that online discourse is seen as a distraction from helping. Argues that these values help explain recovery-focused disaster governance. Notes limits of Facebook search, uneven online visibility of low-income groups, and that the propositions are context-specific and need testing.",
     "arxiv_id": null,
     "url": "https://doi.org/10.1016/j.ijdrr.2026.106420"
   },
@@ -382,7 +382,7 @@
     "title": "Tropical Cyclone Information",
     "year": null,
     "doi": null,
-    "summary": "Provides climatological records on tropical cyclones entering the Philippine Area of Responsibility. Reports that an average of twenty cyclones enter the region annually, with eight to nine crossing the country and seventy percent forming between July and October.",
+    "summary": "Official web page of the Philippine Atmospheric, Geophysical and Astronomical Services Administration (PAGASA) giving climatological information on tropical cyclones. Reports that more tropical cyclones enter the Philippine Area of Responsibility than any other region in the world, with an average of 20 per year, of which about 8 or 9 cross the Philippines. States that the typhoon season peaks from July through October, when nearly 70% of typhoons develop. Includes contact details for the Climate Monitoring and Prediction Section.",
     "arxiv_id": null,
     "url": "https://www.pagasa.dost.gov.ph/climate/tropical-cyclone-information"
   },
@@ -391,7 +391,7 @@
     "title": "WorldRiskReport 2025",
     "year": 2025,
     "doi": null,
-    "summary": "Assesses global disaster risk and ranks the Philippines first among all countries with a WorldRiskIndex score of 46.56. Analyzes high national exposure to severe weather hazards and presents local flood vulnerability assessments.",
+    "summary": "Annual report by Bündnis Entwicklung Hilft and the Institute for International Law of Peace and Armed Conflict (IFHV) that presents the WorldRiskIndex 2025, which combines exposure to natural hazards with societal vulnerability (susceptibility, lack of coping capacities, and lack of adaptive capacities) for 193 countries. Ranks the Philippines first with a score of 46.56 (exposure 39.99, vulnerability 54.20), ahead of India (40.73) and Indonesia (39.80), and attributes its position to high geographic fragmentation and exposure to weather-related extremes. Reports that risk hotspots remain concentrated in Asia and the Americas and that Africa shows the highest vulnerability. Focuses on floods, covering their types and drivers, governance, technology, local and Indigenous knowledge, early warning, and nature-based solutions, and includes a first local exposure analysis for the Philippines showing that flood risk varies by region with geography, infrastructure, and spatial planning. Notes that irregular and delayed national data can distort country rankings.",
     "arxiv_id": null,
     "url": "https://weltrisikobericht.de/wp-content/uploads/2025/09/WorldRiskReport_2025.pdf"
   },
@@ -400,7 +400,7 @@
     "title": "Improving Gradient Trade-offs between Tasks in Multi-task Text Classification",
     "year": 2023,
     "doi": "10.18653/v1/2023.acl-long.144",
-    "summary": "Proposes GetMTL, a multi-task learning method that balances task gradients near the average loss instead of searching for arbitrary Pareto solutions, improving overall performance across multi-task text classification benchmarks.",
+    "summary": "Proposes GetMTL, a gradient trade-off method for multi-task text classification that searches near the average-loss gradient for an update that improves every task, rather than accepting an arbitrary Pareto optimal trade-off, and solves the problem through its dual. Proves convergence for convex losses. Evaluates GetMTL with a shared TextCNN encoder and task-specific classifiers on Amazon Review sentiment classification across 14 domains and on four 4-way topic classification tasks built from 20 Newsgroups, against single-task learning, uniform scaling, uncertainty weighting, GradNorm, the multiple gradient descent algorithm (MGDA), adversarial Tchebycheff, BanditMTL, and MetaWeighting over 10 runs. GetMTL reached 92.09% average topic accuracy, 0.83 points above BanditMTL, was best on 13 of 14 Amazon domains, and showed the lowest variance between task losses during training. States that GetMTL needs one backward pass per task at each step, so it cannot be applied to large task sets of well over 100 tasks.",
     "arxiv_id": null,
     "url": "https://doi.org/10.18653/v1/2023.acl-long.144"
   },
@@ -418,7 +418,7 @@
     "title": "PHMartialLawNER: A Tagalog Named Entity Recognition Corpus for the Philippine Martial Law Era",
     "year": 2026,
     "doi": "10.18653/v1/2026.nlp4dh-1.16",
-    "summary": "Presents PHMartialLawNER, a named entity recognition dataset for historical Tagalog created from newspapers and underground documents of the Philippine Martial Law period, providing thirteen thousand sentence segments and baseline evaluations.",
+    "summary": "Introduces PHMartialLawNER, a gold-standard Tagalog named entity recognition corpus built from digitized newspapers and underground publications of the Martial Law period (1972 to 1986), with about 13k sentence segments (362,000 tokens) consolidated into 8k annotated spans through a semi-automatic pipeline with manual validation. The schema covers historically relevant types such as Person (individual, collective), Organization (political, government, military, other), Event, Production, Time, Numerical Statistics, Location, and Object-Weapon. Annotation agreement reached Cohen's kappa of 0.86 on all tokens and 0.72 on annotated tokens, with 0.74 pairwise F1, although agreement was uneven in later portions. Benchmarks GLiNER, calamanCy, RoBERTa Tagalog, and XLM-RoBERTa, where calamanCy-trf (83.98 F1), XLM-RoBERTa (83.97), and RoBERTa Tagalog (83.96) performed best on the full corpus, and GLiNER adapted well in few-shot training. Per-entity results showed that Organization-Military rose from 41.80% to 91.91% F1 with more data, while underrepresented and context-dependent types remained difficult, which the paper suggests corpus expansion and better annotation may address.",
     "arxiv_id": null,
     "url": "https://doi.org/10.18653/v1/2026.nlp4dh-1.16"
   },
@@ -427,7 +427,7 @@
     "title": "The Measurement of Observer Agreement for Categorical Data",
     "year": 1977,
     "doi": "10.2307/2529310",
-    "summary": "Proposes a statistical framework for measuring observer agreement on categorical data, introducing widely cited kappa benchmark intervals including substantial and almost perfect agreement.",
+    "summary": "Proposes a general statistical method for analyzing multivariate categorical data from observer reliability studies, expressing agreement as functions of observed proportions and testing hypotheses about them with weighted least squares. Tests interobserver bias through first-order marginal homogeneity and measures agreement with generalized kappa-type statistics, including weighted kappas that give partial credit to near agreement and a hierarchy of measures that combine adjoining categories. Illustrates the method with two neurologists classifying multiple sclerosis diagnoses in two patient populations. Offers benchmark intervals for interpreting kappa, below 0.00 as poor, 0.00 to 0.20 as slight, 0.21 to 0.40 as fair, 0.41 to 0.60 as moderate, 0.61 to 0.80 as substantial, and 0.81 to 1.00 as almost perfect, while stating that these divisions are arbitrary. Notes that the approach becomes computationally difficult when the number of observers or categories is large, and points to alternative methods for such sparse tables.",
     "arxiv_id": null,
     "url": "https://doi.org/10.2307/2529310"
   },
@@ -436,7 +436,7 @@
     "title": "A Coefficient of Agreement for Nominal Scales",
     "year": 1960,
     "doi": "10.1177/001316446002000104",
-    "summary": "Introduces the kappa coefficient to measure inter-annotator agreement on nominal scales while correcting for agreement occurring by chance.",
+    "summary": "Introduces the kappa coefficient for agreement between two judges who assign units to nominal categories, defined from the observed proportion of agreement and the proportion expected by chance, so that kappa is the proportion of agreement remaining after chance agreement is removed. Shows that kappa equals 0 when observed agreement equals chance agreement, is negative when agreement falls below chance, and reaches its upper limit of 1.00 only with perfect agreement, which requires both judges to have identical marginal distributions. Explains that the lower limit lies between 0 and -1.00 depending on the marginal distributions, and derives the maximum kappa attainable for given marginals. Shows that kappa equals the phi coefficient for two categories when the judges have the same marginal distributions. Provides the standard error of kappa and procedures for estimation and hypothesis testing, illustrated with a worked example.",
     "arxiv_id": null,
     "url": "https://doi.org/10.1177/001316446002000104"
   },
@@ -445,7 +445,7 @@
     "title": "Efficient Methods for Natural Language Processing: A Survey",
     "year": 2023,
     "doi": "10.1162/tacl_a_00577",
-    "summary": "Provides a comprehensive survey of efficiency in natural language processing across data, training, and inference, organizing efficiency approaches across model architectures, compression techniques, and hardware considerations while connecting efficiency metrics to environmental impact.",
+    "summary": "Surveys efficient methods in natural language processing, defining efficiency as achieving similar results with fewer resources such as data, time, storage, or energy, and, following Schwartz et al. (2020), framing cost as proportional to the cost per example, dataset size, and number of hyperparameter tuning runs. Organizes methods by stage of the model pipeline, covering data (filtering, active learning, curriculum learning), model design (efficient attention, sparse modeling, parameter efficiency, retrieval augmentation), pretraining, fine-tuning (parameter-efficient fine-tuning, multi-task and zero-shot learning, prompting), inference and compression (pruning, distillation, quantization), hardware use, efficiency evaluation, and model selection. Discusses evaluation through Pareto optimality, floating point operation (FLOP) counts, and power consumption, and the open challenges in measuring efficiency and its environmental impact. Concludes that most progress so far has been in model design for a given budget and hardware setting, and that key challenges include modeling trade-offs between task performance and resource use and the dependence between hardware and software choices.",
     "arxiv_id": "2209.00099",
     "url": "https://doi.org/10.1162/tacl_a_00577"
   },
@@ -454,7 +454,7 @@
     "title": "Data Privacy Act of 2012 (Republic Act No. 10173)",
     "year": 2012,
     "doi": null,
-    "summary": "Philippine law protecting personal information in government and private sector systems. Section 21 holds each personal information controller accountable for personal information under its control, including information transferred to a third party for processing, whether domestically or internationally.",
+    "summary": "Philippine law (Republic Act No. 10173) that protects the right to privacy while allowing the free flow of information, covering the processing of personal information in government and private-sector information and communications systems. Applies to any natural or juridical person processing personal information, including controllers and processors outside the Philippines that use equipment or maintain offices in the country, and excludes certain categories, among them personal information processed for journalistic, artistic, literary, or research purposes. Creates the National Privacy Commission to administer and enforce the Act, sets criteria for lawful processing, such as consent, contract, or legal obligation, and generally prohibits processing of sensitive personal information except in listed cases. Defines the rights of data subjects and requires security measures for personal information. Section 21 holds each personal information controller accountable for personal information under its control, including information transferred to a third party for processing domestically or internationally, and requires controllers to designate accountable individuals. Also sets rules for sensitive personal information held by government agencies and lists penalties for violations.",
     "arxiv_id": null,
     "url": "https://lawphil.net/statutes/repacts/ra2012/ra_10173_2012.html"
   },
@@ -463,7 +463,7 @@
     "title": "A Design Science Research Methodology for Information Systems Research",
     "year": 2007,
     "doi": "10.2753/mis0742-1222240302",
-    "summary": "Introduces the Design Science Research Methodology (DSRM) framework for information systems research, detailing a six-stage process model comprising problem identification, objective definition, design and development, demonstration, evaluation, and communication.",
+    "summary": "Introduces the Design Science Research Methodology (DSRM) for information systems (IS) research, built from a consensus of prior design science literature in information systems and related disciplines to provide principles, practice rules, and a process. Defines a nominal process of six activities, namely problem identification and motivation, definition of the objectives of a solution, design and development, demonstration, evaluation, and communication, with iteration back to earlier activities. Identifies four possible entry points into the process, a problem-centered initiation, an objective-centered solution, a design-and-development-centered initiation, and a client- or context-initiated solution. Demonstrates the methodology by applying it to four previously published studies, a public health data warehouse, a software reuse measure, voice and video over IP software, and an IS planning method, each starting from a different entry point. Argues that a shared methodology helps authors, reviewers, and editors judge design science research, which would otherwise risk being mistaken for weak empirical research or practice case studies, while stating that the DSRM is not the only appropriate methodology.",
     "arxiv_id": null,
     "url": "https://doi.org/10.2753/mis0742-1222240302"
   },
@@ -472,7 +472,7 @@
     "title": "Towards Impartial Multi-task Learning",
     "year": 2021,
     "doi": null,
-    "summary": "Proposes IMTL, which balances shared-parameter gradients so the combined gradient has equal projections onto each task and dynamically weights losses so task-specific losses stay at a comparable scale.",
+    "summary": "Proposes Impartial Multi-Task Learning (IMTL), which combines gradient balance (IMTL-G), a closed-form scaling of shared-parameter gradients so that the combined gradient has equal projections onto each task gradient, with loss balance (IMTL-L), a learned scaling that keeps task losses at a comparable scale. Shows how GradNorm, the Multiple Gradient Descent Algorithm (MGDA), PCGrad, and uncertainty weighting each favor certain tasks and reimplements them in one codebase with stronger settings. On Cityscapes semantic segmentation, instance segmentation, and disparity, IMTL reached the best mean intersection over union (mIoU, 77.00) and instance error (15.96) and the second-best disparity error (2.905, behind 2.895 for uncertainty weighting), all ahead of uniform scaling (58.99, 18.13, 3.512). It also had the best NYUv2 segmentation and surface normal results and the highest CelebA accuracy (91.12% against 90.01% for uniform scaling), and showed the smallest segmentation change (0.44 mIoU) when the segmentation loss was multiplied by 10. Computing IMTL-G on shared features instead of shared parameters avoided one backward pass per task, keeping iteration time close to GradNorm and MGDA.",
     "arxiv_id": null,
     "url": "https://openreview.net/forum?id=IMPnRXEWpvr"
   },
@@ -481,7 +481,7 @@
     "title": "Reasonable Effectiveness of Random Weighting: A Litmus Test for Multi-Task Learning",
     "year": 2022,
     "doi": null,
-    "summary": "Proposes random loss weighting and random gradient weighting, which sample task weights from a distribution at each step, and finds they perform comparably to twelve specialized methods, recommending them as baselines.",
+    "summary": "Proposes random weighting methods, random loss weighting (RLW) and random gradient weighting (RGW), which sample task weights from a distribution at every training step, as baselines for testing task balancing methods. Proves that random weighting converges like equal weighting and has a higher probability of escaping sharp local minima. Compares the methods with equal weighting and twelve loss or gradient balancing methods, including uncertainty weighting, GradNorm, the multiple gradient descent algorithm (MGDA), PCGrad, GradDrop, IMTL, and CAGrad, using hard parameter sharing on NYUv2, CityScapes, CelebA, Office-31, Office-Home, and multilingual paraphrase identification and part-of-speech tagging from XTREME with multilingual BERT. Both methods outperformed equal weighting, and RLW improved NYUv2 results by 1.04% over equal weighting, more than every loss balancing method and below only CAGrad and RotoGrad. RLW reached the best paraphrase accuracy (90.25%) and RGW the best part-of-speech F1 (91.16%). Results were robust to the sampling distribution. Plans to apply random weighting to more multi-task applications.",
     "arxiv_id": "2111.10603",
     "url": "https://openreview.net/forum?id=jjtFD8A1Wx"
   },
@@ -490,7 +490,7 @@
     "title": "Zero-Shot Classification of Crisis Tweets Using Instruction-Finetuned Large Language Models",
     "year": 2024,
     "doi": "10.1109/IHTC61819.2024.10855037",
-    "summary": "Tests GPT-4o, Gemini 1.5 Flash, and Claude 3.5 Sonnet with zero-shot prompts on CrisisBench crisis tweets for informativeness and 16 humanitarian categories. The best LLM reached 0.828 weighted F1 on informativeness against 0.883 for fine-tuned RoBERTa, the gap was larger on some source datasets, and the LLMs broadly underperformed fine-tuned CrisisTransformers models on humanitarian classification.",
+    "summary": "Evaluates three commercial large language models (LLMs), GPT-4o, Gemini 1.5 Flash, and Claude 3.5 Sonnet, on zero-shot classification of CrisisBench crisis tweets, using one prompt that asks whether a tweet is informative and ranks 16 humanitarian labels, with and without the name of the contemporaneous disaster and, for CrisisMMD, the attached image. For informativeness, GPT-4o performed best, reaching 0.828 weighted F1 against 0.883 for fine-tuned RoBERTa. The best LLM results fell further behind on some source datasets such as CrisisLexT26 (macro F1 0.492 against 0.848), and adding event names or images did not consistently help. Humanitarian classification was substantially worse, with Claude 3.5 Sonnet generally best but below fine-tuned CrisisTransformers models. Manual review of 150 tweets from the affected individual and caution and advice classes suggested that inconsistent label definitions merged from different CrisisBench source datasets, such as the overlap between affected individuals and personal updates in CrisisLexT26, had a substantial impact on LLM performance. Argues that binary F1 suits the informativeness task better than macro or weighted F1, and notes the absence of prompt engineering or fine-tuning and the preliminary nature of the humanitarian evaluation.",
     "arxiv_id": "2410.00182",
     "url": "https://doi.org/10.1109/IHTC61819.2024.10855037"
   },
@@ -499,7 +499,7 @@
     "title": "Fine-Tuned 'Small' LLMs (Still) Significantly Outperform Zero-Shot Generative AI Models in Text Classification",
     "year": 2024,
     "doi": "10.48550/arXiv.2406.08660",
-    "summary": "Compares fine-tuned RoBERTa, DeBERTa V3, ELECTRA, and XLNet with zero-shot GPT-3.5, GPT-4, and Claude 3 Opus on sentiment, stance, emotion, and party-position classification of news, tweets, and speeches, finding that the fine-tuned models significantly outperform the zero-shot models in every case. arXiv preprint.",
+    "summary": "Compares fine-tuned smaller language models (RoBERTa base and large, DeBERTa V3, ELECTRA large, XLNet large) with zero-shot models, namely BART large used for zero-shot classification based on natural language inference and the generative models GPT-3.5, GPT-4, and Claude 3 Opus on four classification tasks that differ in concept, text form, language, and number of classes, namely sentiment in New York Times economic coverage, stance in tweets about the Kavanaugh nomination, emotion in German political texts, and multi-class stance on party positions toward European integration. The strongest fine-tuned models outperformed the zero-shot models in every case, although XLNet large fell below them on sentiment, for example 0.92 accuracy for fine-tuned RoBERTa large on sentiment against 0.87 for GPT-4, with larger gaps on less standard tasks such as stance and emotion. An ablation with RoBERTa large at 50 to 1,000 training examples showed that performance rose quickly and leveled off between about 200 and 500 labels. Few-shot prompting did not improve GPT-3.5 or GPT-4 in exploratory runs. Releases a text classification toolkit and expects data augmentation, secondary pretraining, architecture changes, and prompt engineering to shift the balance in the future.",
     "arxiv_id": "2406.08660",
     "url": "https://arxiv.org/abs/2406.08660"
   },
@@ -508,7 +508,7 @@
     "title": "Spatiotemporal Typhoon Damage Assessment: A Multi-Task Learning Method for Location Extraction and Damage Identification from Social Media Texts",
     "year": 2025,
     "doi": "10.3390/ijgi14050189",
-    "summary": "Trains one BERT-base-Chinese model for toponym (location) extraction and multi-label typhoon damage identification of Sina Weibo texts about typhoons In-fa, Chaba, and Doksuri in China. The two tasks use different texts (MSRA news for location extraction, 6,000 labeled Weibo posts for damage). Loss weights are fixed by hand (0.001 on the location loss). In the ablation (mean of ten runs), plain multi-task learning changed F1 from 0.854 to 0.860 for location and from 0.876 to 0.875 for damage compared with separate models; most of the reported 4.3% and 2.5% gains come from added auxiliary classifiers and toponym-enhanced weights. No significance tests.",
+    "summary": "Proposes a multi-task framework on bert-base-chinese that jointly performs toponym (location) extraction and multi-label typhoon damage identification from Sina Weibo posts about typhoons In-fa, Chaba, and Doksuri in China, adding auxiliary classifiers over several BERT layers and toponym-enhanced weights that link the two tasks. Location extraction is trained on 6,000 texts from the Microsoft Research Asia (MSRA) named entity recognition dataset and damage identification on 6,000 manually labeled Weibo posts with six categories (damage, transportation, public, electricity, forestry, waterlogging), with hand-set loss weights of 0.3 for the auxiliary classifiers and 0.001 for the multi-task term. In an ablation averaged over ten runs, plain multi-task learning changed F1 from 0.854 to 0.860 for location and from 0.876 to 0.875 for damage compared with separate models, while the full model reached 0.891 and 0.898, so most of the gain came from the added components. Maps damage spatially and temporally across Chinese provinces and cities. Notes biases in Weibo users, toponym ambiguity, and treating each typhoon independently.",
     "arxiv_id": null,
     "url": "https://doi.org/10.3390/ijgi14050189"
   },
@@ -517,7 +517,7 @@
     "title": "Multi-Task Pre-Finetuning of Lightweight Transformer Encoders for Text Classification and NER",
     "year": 2025,
     "doi": "10.18653/v1/2025.emnlp-industry.118",
-    "summary": "Pre-finetunes small English BERT-like encoders (MiniLM, DistilBERT) for NER and text classification on mobile devices and evaluates on 5 NER and 16 classification datasets. Naive multi-task pre-finetuning causes interference: NER pushes entities of the same type toward similar representations, while classification makes token representations within a text more uniform, so the two task families place conflicting requirements on token embeddings. Naive joint pre-finetuning scored below individual pre-finetuning (MiniLM NER 76.4 vs 77.1), PCGrad improved it only slightly (+0.1 NER), and task-primary LoRA modules recovered individual-level performance.",
+    "summary": "Proposes multi-task pre-finetuning with task-primary low-rank adaptation (LoRA) modules for lightweight English encoders (MiniLM and DistilBERT) intended for mobile deployment with one shared backbone. Pre-finetunes for named entity recognition (NER) by distilling NuNER into the encoders and for text classification by contrastive learning on about 895 million text pairs, then evaluates on 5 NER and 16 text classification datasets. Each strategy improved its own task family (+0.7 NER F1 and +8.8 classification accuracy for MiniLM) but hurt the other, which the paper traces to conflicting demands on token embeddings, since NER makes entities of the same type more similar while classification makes tokens within a text more uniform. Naive joint pre-finetuning stayed below individual pre-finetuning (MiniLM NER 76.4 against 77.1), and PCGrad added only 0.1 NER points. Task-primary LoRAs on the last two layers matched individual pre-finetuning (77.1 NER, 63.9 classification). Notes that experiments used only English models and data and that the same LoRA configuration was applied to both task families.",
     "arxiv_id": null,
     "url": "https://aclanthology.org/2025.emnlp-industry.118/"
   },
@@ -526,7 +526,7 @@
     "title": "Scalarization for Multi-Task and Multi-Domain Learning at Scale",
     "year": 2023,
     "doi": "10.52202/075280-0740",
-    "summary": "Large-scale empirical study of scalarization (fixed loss weights) for multi-task and multi-domain learning on image benchmarks (CIFAR-10/STL-10, DomainNet, CelebA, Taskonomy). Benefits of joint training over single-dataset models grow with model capacity, and at small capacities joint training can underperform. The best weights are rarely uniform, so tuning them matters under imbalance. Gradient conflicts occur throughout training, rise near the end without harming performance, and are little affected by model size or weights, suggesting that removing them at every step may not justify the extra memory and compute of gradient-based optimizers. Weights tuned by population-based training outperformed uniform weighting and the tested optimizers (uncertainty weighting, IMTL-L, CAGrad, GradDrop, PCGrad) on DomainNet; differences on CelebA were very small. No NLP tasks.",
+    "summary": "Evaluates linear scalarization, which trains on a fixed weighted sum of task or domain losses, for multi-task and multi-domain learning across model capacities and dataset sizes. Sweeps scalarization weights for CIFAR-10 with STL-10 and DomainNet (multi-domain) and for 8-task CelebA and 7-task Taskonomy (multi-task), varying model width, encoder depth, and shared decoder layers, and proposes population-based training (PBT) to search the weights. The benefit of joint training over separate single-dataset models grew with model capacity, and small models could underperform them. The best weights were rarely uniform but were fairly stable across capacities within one architecture family. Gradient conflicts occurred throughout training and often rose near the end while the loss still fell, and low conflict levels did not track performance, suggesting that removing conflicts at every step may not justify the compute and memory cost. PBT-selected weights outperformed all compared methods, including uncertainty weighting, IMTL, CAGrad, GradDrop, and PCGrad, on DomainNet. Notes that scalarization only reaches convex parts of the Pareto front and that the empirical findings may not generalize to every setting.",
     "arxiv_id": "2310.08910",
     "url": "https://proceedings.neurips.cc/paper_files/paper/2023/hash/368559ed8ede03b21f624feaeb3a5867-Abstract-Conference.html"
   },
@@ -544,7 +544,7 @@
     "title": "What Happens To BERT Embeddings During Fine-tuning?",
     "year": 2020,
     "doi": "10.18653/v1/2020.blackboxnlp-1.4",
-    "summary": "Studies how fine-tuning changes BERT-base on MNLI, SQuAD, and dependency parsing with probing classifiers, representational similarity analysis, and layer ablations. Fine-tuning mainly changes the upper layers and leaves the lower layers close to the pretrained model, and it changes in-domain token representations more than out-of-domain ones. In partial freezing, where the embeddings and the bottom k layers are kept fixed, MNLI accuracy did not drop significantly unless the last two layers were frozen, SQuAD F1 dropped significantly when three or fewer layers could change, and dependency parsing dropped more rapidly.",
+    "summary": "Studies how fine-tuning changes BERT-base representations for natural language inference (MNLI), extractive question answering (SQuAD), and dependency parsing, using supervised probing, representational similarity analysis across layers and input domains, and layer ablations with partial freezing and truncation. Probing showed that linguistic structure from pretraining stays largely available after fine-tuning, with drops of up to about 3 F1 points that the paper calls comparable to seed variation, while parsing fine-tuning improved syntactic probes, raising constituent labeling by about 4 points. Representations changed mainly in the upper layers, with MNLI changing least, SQuAD diverging after layer 7, and parsing diverging from layer 5. With the embeddings and bottom layers frozen, MNLI accuracy did not drop significantly unless the last two layers were frozen, SQuAD F1 dropped significantly when three or fewer layers could change, and parsing dropped more rapidly. Fine-tuning altered in-domain token representations much more than out-of-domain ones. Concludes that fine-tuning is conservative, preserving linguistic features, affecting few layers, and remaining specific to in-domain examples, and suggests that using more of the model capacity may improve generalization.",
     "arxiv_id": "2004.14448",
     "url": "https://aclanthology.org/2020.blackboxnlp-1.4/"
   },
@@ -553,7 +553,7 @@
     "title": "System Memory Fallback for Stable Diffusion",
     "year": 2023,
     "doi": null,
-    "summary": "NVIDIA support article on system memory fallback. Starting with driver 536.40, applications that run out of GPU memory can use shared system memory and continue to run at lower speeds instead of crashing, with the switch happening close to the GPU memory limit. From driver 546.01, setting CUDA - Sysmem Fallback Policy to Prefer No Sysmem Fallback in the NVIDIA Control Panel turns this off, which keeps performance stable at the risk of a crash when more GPU memory is needed. The steps shown are for one program on Windows. Last updated October 31, 2023. Does not mention WSL.",
+    "summary": "NVIDIA support article on system memory fallback, last updated October 31, 2023. Explains that from driver 536.40, applications that exhaust graphics processing unit (GPU) memory can switch to shared system memory near the memory limit and keep running at lower speed instead of crashing, which can slow programs such as Stable Diffusion on 6 GB GPUs. States that from driver 546.01 the fallback can be turned off for a program by setting CUDA - Sysmem Fallback Policy to Prefer No Sysmem Fallback in the NVIDIA Control Panel, which keeps performance stable at the risk of a crash when more GPU memory is needed. Gives step-by-step instructions for one program on Windows and explains how to restore the driver default. Does not mention Windows Subsystem for Linux (WSL).",
     "arxiv_id": null,
     "url": "https://nvidia.custhelp.com/app/answers/detail/a_id/5490/~/system-memory-fallback-for-stable-diffusion"
   },
@@ -562,7 +562,7 @@
     "title": "A Multiple Comparison Procedure for Comparing Several Treatments with a Control",
     "year": 1955,
     "doi": "10.1080/01621459.1955.10501294",
-    "summary": "Introduces Dunnett's test, a statistical procedure designed for comparing multiple experimental treatments against a single control group while controlling the family-wise error rate.",
+    "summary": null,
     "arxiv_id": null,
     "url": "https://doi.org/10.1080/01621459.1955.10501294"
   }
