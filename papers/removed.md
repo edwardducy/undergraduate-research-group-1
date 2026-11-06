@@ -13,3 +13,6 @@
 | weld2023survey | A Survey of Joint Intent Detection and Slot-Filling Models in Natural Language Understanding (Weld et al., 2023) |
 | wang2025gptner | GPT-NER: Named Entity Recognition via Large Language Models (Wang et al., 2025) |
 | chen2024mtlnlp | Multi-Task Learning in Natural Language Processing: An Overview (Chen et al., 2024) |
+| yaneza2025calamba | Online Emergency Response Management System for City Disaster Risk Reduction Management Office of Calamba City, Laguna (Yaneza et al., 2025) |
+| besario2026barangay | An AI-Enhanced Decision Support System for Barangay Incident Monitoring and Community Risk Assessment (Besario et al., 2026) |
+| ramirez2026cultural | Cultural Values in Disaster Discourse: Behavioral Propositions from the Philippines (Ramirez et al., 2026) |

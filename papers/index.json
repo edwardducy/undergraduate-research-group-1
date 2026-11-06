@@ -279,33 +279,6 @@
     "url": "https://aclanthology.org/2023.sealp-1.3/"
   },
   {
-    "citation_key": "yaneza2025calamba",
-    "title": "Online Emergency Response Management System for City Disaster Risk Reduction Management Office of Calamba City, Laguna",
-    "year": 2025,
-    "doi": "10.26483/ijarcs.v16i3.7254",
-    "summary": "Develops an online emergency response management system that combines geographic information systems, machine learning, and decision support for hazard monitoring, weather analysis, evacuation planning, resource tracking, and reporting for the City Disaster Risk Reduction and Management Office of Calamba City, Laguna. Uses term frequency-inverse document frequency (TF-IDF) vectorization with content-based filtering and natural language processing (NLP) to analyze incident reports, extract disaster type and severity, and recommend actions by similarity to past incidents. Evaluates the system with office personnel, GIS experts, and IT professionals selected by stratified sampling, using ISO 25010 software quality criteria, the Technology Acceptance Model, and accuracy metrics for the recommendation model. Content-based filtering with NLP reached the highest accuracy among the algorithms tested for recommending actions (91.0%, F1 0.91), ahead of hybrid methods (88.5%), collaborative filtering (85.3%), decision trees (84.1%), and association rules (78.6%). ISO 25010 ratings averaged 4.61 of 5, and acceptance ratings averaged 6.68 for ease of use and 6.69 for usefulness on a 7-point scale.",
-    "arxiv_id": null,
-    "url": "https://doi.org/10.26483/ijarcs.v16i3.7254"
-  },
-  {
-    "citation_key": "besario2026barangay",
-    "title": "An AI-Enhanced Decision Support System for Barangay Incident Monitoring and Community Risk Assessment",
-    "year": 2026,
-    "doi": "10.47760/OAJMR.2026.v02i06.002",
-    "summary": "Develops and evaluates a decision support system for incident monitoring and community risk assessment at Barangay Washington, Philippines, replacing paper logbooks with a Django and SQLite web platform that offers a rule-based engine for classifying incidents into low, medium, and high risk, analytical dashboards, heat maps, and automated alerts for incident clusters. Tests the system with six months of representative incident data and evaluates the classifier on 100 test records against risk levels assigned by experienced barangay officials. The classifier reached 89% overall accuracy, with F1 of 0.94 for high-risk, 0.85 for medium-risk, and 0.89 for low-risk incidents, and the dashboard showed theft (28%) and community disputes (22%) as the most frequent incidents, with incidents across multiple categories clustered between 6 p.m. and 10 p.m.. A preliminary System Usability Scale evaluation with eight officials gave a score of 82.5. Notes that results come from test data before full deployment, and recommends supervised machine learning classifiers, multi-barangay deployment, and longitudinal studies.",
-    "arxiv_id": null,
-    "url": "https://doi.org/10.47760/OAJMR.2026.v02i06.002"
-  },
-  {
-    "citation_key": "ramirez2026cultural",
-    "title": "Cultural values in disaster discourse: Behavioral propositions from the Philippines",
-    "year": 2026,
-    "doi": "10.1016/j.ijdrr.2026.106420",
-    "summary": "Conducts a discourse analysis of Facebook comments after four major Philippine typhoons, Haiyan (2013), Goni and Vamco (2020), and Rai (2021), guided by Filipino Psychology (Sikolohiyang Pilipino) and the cultural values kapwa (shared identity), bahala na (fatalistic risk-taking), utang na loob (debt of gratitude), bayanihan (collective cooperation), and diskarte (being strategic). Screens more than 37,500 comments down to 306 for close analysis using criteria of relevance, engagement, and substance. Proposes six preliminary behavioral propositions, namely that attitudes toward disasters are shaped by supernatural interpretations, that self-reliance is linked to institutional complacency in adaptation, that low trust in authority produces negative views of taxation and a preference for community-based response, that donors prefer giving directly to recipients with a ranking of intermediaries, that prayer is seen as effective non-material aid, and that online discourse is seen as a distraction from helping. Argues that these values help explain recovery-focused disaster governance. Notes limits of Facebook search, uneven online visibility of low-income groups, and that the propositions are context-specific and need testing.",
-    "arxiv_id": null,
-    "url": "https://doi.org/10.1016/j.ijdrr.2026.106420"
-  },
-  {
     "citation_key": "pagasa2026cyclone",
     "title": "Tropical Cyclone Information",
     "year": null,
