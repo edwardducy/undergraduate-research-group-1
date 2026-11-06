@@ -216,15 +216,6 @@
     "url": "https://proceedings.spp-online.org/article/view/SPP-2023-PB-41"
   },
   {
-    "citation_key": "montalan2025batayan",
-    "title": "Batayan: A Filipino NLP benchmark for evaluating Large Language Models",
-    "year": 2025,
-    "doi": "10.18653/v1/2025.acl-long.1509",
-    "summary": "Introduces Batayan, a Filipino benchmark for large language models that covers understanding (paraphrase identification, question answering, sentiment analysis, toxicity detection), reasoning (causal reasoning, natural language inference), and generation (abstractive summarization, machine translation), with eight tasks in Tagalog and code-switched Taglish, three of which did not previously exist for Filipino. Builds the tasks through native-speaker translation or retranslation of PAWS, Belebele, Balanced COPA, XNLI, XL-Sum, and FLORES-200, together with natively sourced Philippine election tweets, and screens every sample with three raters for completeness, fluency, and sensibility. Serves as the Filipino component of the SEA-HELM leaderboard, evaluating instruction-tuned models zero-shot and base models five-shot with Filipino prompt templates. Models with explicit Filipino support and Filipino instruction tuning performed better than other models. Notes that the sentiment and toxicity tasks are limited to political tweets, that sample sizes were kept small for quality, and that error analysis was not possible, and plans tools to distinguish translationese from natural text.",
-    "arxiv_id": "2502.14911",
-    "url": "https://doi.org/10.18653/v1/2025.acl-long.1509"
-  },
-  {
     "citation_key": "alam2021humaid",
     "title": "HumAID: Human-Annotated Disaster Incidents Data from Twitter with Deep Learning Benchmarks",
     "year": 2021,
