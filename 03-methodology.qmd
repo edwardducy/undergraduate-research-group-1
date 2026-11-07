@@ -10,57 +10,11 @@ The study carries out the six activities of DSRM in order [@peffers2007design]. 
 
 ## Subjects of the Study
 
-The subjects of this study are a sample of Taglish typhoon posts and the models trained on them. The posts form the dataset that the study builds. The models are the final model, which is the main artifact of the study, and the single-task and candidate models used to select and evaluate it.
+The subjects of this study are the dataset it builds and the models it trains. The dataset consists of approximately 2,500 Taglish posts on X about the tropical cyclones of January to November 2026. The posts come from one day before to three days after the period each tropical cyclone spent within the Philippine Area of Responsibility, based on the dates in the tropical cyclone preliminary reports of PAGASA [-@pagasa2026prelim]. Each post is annotated for both tasks, with one of the ten humanitarian categories of HumAID [@alam2021humaid] for humanitarian classification and with the ten entity types of HUMAID-NER [@ali2026humaidner] for NER.
 
-**Dataset.** The population is the Taglish posts about tropical cyclones that crossed the Philippines between 2020 and 2026, posted on X or, if X does not provide enough posts, on Facebook (Section 3.5). The sample consists of the posts drawn from the tropical cyclones selected in Section 3.3. Each post is labeled with one of the ten humanitarian categories of HumAID [@alam2021humaid], and its entities are marked with the ten entity types of HUMAID-NER [@ali2026humaidner] in the BIO format. This format labels the first word of an entity as its beginning (B), the following words of the same entity as inside it (I), and every other word as outside any entity (O), which gives 21 possible labels per word. @tbl-dataset summarizes the dataset, and @tbl-categories and @tbl-entities define the categories and the entity types. The distribution of categories and entity types is known only after annotation, so it is reported with the results.
+The study trains 15 models on the dataset, two single-task models and 13 multi-task models. All of them start from the same pretrained transformer encoder, SEA-LION-ModernBERT-300M [@aisingapore2026sealion]. One single-task model performs humanitarian classification, and one performs NER. The 13 multi-task models share the same architecture and differ only in the multi-task optimizer used to train them. Each multi-task model is compared with the single-task models to measure its negative transfer. After training, one multi-task model is selected as the final model based on its negative transfer on the validation set and its training cost (Section 3.6). The final model is then compared with the single-task models on the test set, on F1-scores and computational cost.
 
-| Property | Specification |
-|:----------------------------|:-------------------------------------------|
-| Unit | One post, text only |
-| Language | Taglish |
-| Source | X, with public Facebook pages as a fallback |
-| Events | Tropical cyclones that crossed the Philippines from 2020 to 2026 |
-| Size | At least 2,801 training posts, about 3,900 posts in total |
-| Split | 72% training (about 2,800 posts), 14% validation (about 550), 14% test (about 550) |
-| Labels | One of 10 humanitarian categories per post, and one of 21 BIO labels per word for 10 entity types |
-| Personal details | User names, telephone numbers, email addresses, and links replaced with placeholders. Names in the text are kept because PERSON is an entity type, and post IDs are kept so that the dataset can be shared as IDs |
-| Length read by the model | Up to 128 tokens per post, with longer posts cut off |
-| File format | JSON Lines with UTF-8 encoding, a text file in which each line holds one post and its labels |
-| Fields per post | Post ID, cyclone, platform, date, text, category, entity spans, and part of the split |
-
-: Specification of the dataset {#tbl-dataset tbl-colwidths="[30,70]"}
-
-| Category | Definition |
-|:----------------------------|:-------------------------------------------|
-| Caution and advice | Warnings issued or lifted, and guidance or tips about the disaster |
-| Displaced people and evacuations | People who moved away because of the disaster, even for a short time, including evacuations |
-| Infrastructure and utility damage | Damage to buildings, houses, roads, bridges, power lines, communication lines, or vehicles |
-| Injured or dead people | Reports of people injured or killed by the disaster |
-| Missing or found people | Reports of people missing or found during the disaster |
-| Not humanitarian | Posts with no information related to humanitarian aid |
-| Other relevant information | Information useful for humanitarian aid that fits no other category |
-| Requests or urgent needs | Urgent needs or requests for supplies such as food, water, clothing, money, medicine, or blood |
-| Rescue, volunteering, or donation effort | Rescue, volunteer, or donation work, such as moving people to safe places, giving food or medical aid, or donating money or services |
-| Sympathy and support | Prayers, thoughts, and emotional support |
-
-: Humanitarian categories, adapted from Alam et al. [-@alam2021humaid] {#tbl-categories tbl-colwidths="[35,65]"}
-
-| Entity type | Definition | Example |
-|:----------------|:------------------------------|:----------------------|
-| LOCATION | Name of a place | "Marikina" |
-| DISASTER_TYPE | Named hazard or type of disaster | "Bagyong Kristine" (Tropical Storm Kristine) |
-| CASUALTY | Expression of injury or death | "3 patay" (3 dead) |
-| DISPLACED | Count of evacuated or displaced people | "500 evacuees" |
-| REQUEST | Expressed need for aid | "need ng tubig" (need water) |
-| RESOURCE | Aid supplies that are available | "relief goods" |
-| RESCUE | Emergency operation in progress | "rescue boats" |
-| ORGANIZATION | Named responding organization | "Philippine Red Cross" |
-| PERSON | Named individual | "Kapitan Santos" (Barangay Captain Santos) |
-| NUMBER | Number that is not part of another entity | "ika-3 araw" (the 3rd day) |
-
-: Entity types, adapted from Ali et al. [-@ali2026humaidner], with examples written for this study {#tbl-entities tbl-colwidths="[27,35,38]"}
-
-**Models.** The study trains the 15 model configurations stated in Chapter 1, which are two single-task models and 13 candidate models, each trained with a different multi-task optimizer. The candidate trained with the selected optimizer becomes the final model. All 15 start from the same pretrained encoder, SEA-LION-ModernBERT-300M [@aisingapore2026sealion]. Section 3.8.1 describes the architecture. All models are trained and tested on one laptop, described in Section 3.8.3.
+The 13 multi-task optimizers are chosen by two criteria. First, each optimizer was evaluated in at least two of the empirical studies of multi-task optimizers reviewed in Chapter 2, following Kurin et al. [-@kurin2022unitary], who compared well-established optimizers. Second, each optimizer can be trained with the same model and training setup as the others, so that only the optimizer differs. The 13 optimizers in @tbl-complexity are all those that meet both criteria.
 
 ## Sampling Technique
 
