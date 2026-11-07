@@ -12,10 +12,6 @@ service_account.json
 /.quarto/
 **/*.quarto_ipynb
 
-canvas_docs/sample-manuscript-previous-batch.pdf
-canvas_docs/00-announcements/attachments/
-canvas_docs/*/files/
-
 figures/*.pdf
 
 /data/
