@@ -28,31 +28,28 @@ The annotated posts are divided once into a training set (72%), a validation set
 
 ## Instruments to Be Used
 
-@tbl-instruments lists the tools of the study, and Section 3.8.3 gives their versions.
+The study uses three instruments, which are the annotation guidelines, the performance metrics, and the cost metrics. @tbl-metrics lists what each metric measures and the tool that produces it.
 
-| Instrument | Purpose |
-|:----------------------------|:-------------------------------------------|
-| X API, full-archive search | Collects public posts on X by keyword and date |
-| Language identification [@herrera2022tweettaglish] | Labels each word as English or Tagalog with an English and a Tagalog word list, after removing Tagalog affixes such as mag- and -um- |
-| GLiNER, model gliner_multi-v2.1 | Drafts the entity spans that the annotators correct, as in Tabuzo et al. [-@tabuzo2026phmartiallawner] |
-| doccano | Annotation tool, run on the computer of the study [@ramos2023tfnerd] |
-| seqeval | Span-level micro-F1 in its default mode [@ali2026humaidner] and agreement between the annotators on entities |
-| scikit-learn | Macro-F1 and Cohen's kappa |
-| SciPy | Analysis of variance (ANOVA), Dunnett's test, paired t-tests, and confidence intervals |
-| Python timer | Time of each training step, and processing time, read with `time.perf_counter()` after `torch.cuda.synchronize()` |
-| PyTorch memory statistics | Peak memory of the graphics processor, read with `torch.cuda.max_memory_allocated()` after `torch.cuda.reset_peak_memory_stats()` |
-| File system | Storage, the size of each saved model in mebibytes (MiB) |
-| nvidia-smi | Temperature, clock speed, and heat slowdowns of the graphics processor, recorded every second (`temperature.gpu`, `clocks.sm`, `clocks_event_reasons.sw_thermal_slowdown`, `clocks_event_reasons.hw_thermal_slowdown`) |
-| Windows performance counters | Shared memory of the graphics processor, recorded every second (`GPU Adapter Memory\Shared Usage`) |
-| psutil | Main memory used by the prototype server during the stress test |
+The dataset is annotated by two annotators who follow annotation guidelines (see @sec-guidelines). The guidelines define the ten humanitarian categories of HumAID [@alam2021humaid] and the ten entity types of HUMAID-NER [@ali2026humaidner], with example Taglish posts for each category and entity type. Each post receives one humanitarian category [@alam2021humaid], the one that best fits its main message. When two entity spans overlap, the longer span is kept [@ali2026humaidner]. Inter-annotator agreement is measured with Cohen's kappa [@cohen1960coefficient] for the categories and with an F1-score for the entities [@tabuzo2026phmartiallawner].
 
-: Instruments of the study {#tbl-instruments tbl-colwidths="[30,70]"}
+The performance of each model is measured with F1-scores (see Section 3.7), following HUMAID-NER [@ali2026humaidner]. Humanitarian classification is scored with macro-F1, and NER is scored with span-level micro-F1, in which a predicted span counts as correct only when its boundaries and entity type exactly match an annotated span.
 
-**Annotation guidelines.** The annotators follow written guidelines based on the definitions in @tbl-categories and @tbl-entities, with examples of each. As in HumAID [@alam2021humaid], each post receives one category, that of its main message. The guidelines also settle overlaps between entity types, such as a number inside a casualty count, which belongs to the CASUALTY entity.
+Computational cost is measured by training time, inference time, peak memory, and storage. Training time and inference time are measured as wall-clock time. Training time covers the training steps of a run, which include the forward and backward passes, the work of the multi-task optimizer, and the parameter update. It excludes scoring on the validation set and saving the model, which take the same time for every optimizer. Inference time covers the time a model takes to make predictions on posts. The graphics processing unit (GPU) runs separately from the main program, so each time is read only after the GPU finishes its work.
 
-**Timer.** The timer is added to the training loop of LibMTL. It records each training step, which covers computing the predictions and the gradients, the work of the multi-task optimizer, and the update of the model, but not validation or saving the model. Because the graphics processor works separately from the main program, the timer waits for the graphics processor to finish each step before reading the time.
+Peak memory is the highest GPU memory allocated during a run. It excludes the memory that PyTorch holds in reserve, which depends on PyTorch and not on the optimizer. Storage is the file size of the saved model. During each run, the temperature, clock speed, and shared memory use of the GPU are recorded every second, so that runs slowed by overheating or by running out of GPU memory can be found and repeated (Section 3.9).
 
-**Memory reading.** Peak memory is reset at the start of each run and read at its end. It counts the memory that holds the model, its gradients, and its intermediate results, but not the memory that PyTorch keeps in reserve, which depends on PyTorch rather than on the optimizer.
+| Metric | What it measures | Tool |
+|:-----------------|:---------------------------------------|:---------------|
+| Cohen's kappa | Agreement between the annotators on the categories | scikit-learn |
+| F1-score between annotators | Agreement between the annotators on the entities | seqeval |
+| Macro-F1 | Humanitarian classification performance | scikit-learn |
+| Span-level micro-F1 | NER performance | seqeval |
+| Training time | Wall-clock time of the training steps in a run | Python |
+| Inference time | Wall-clock time for a model to make predictions on posts | Python |
+| Peak memory | Highest GPU memory allocated during a run | PyTorch |
+| Storage | File size of the saved model | Operating system |
+
+: Metrics of the study {#tbl-metrics tbl-colwidths="[25,50,25]"}
 
 ## Procedure of Data Gathering
 
