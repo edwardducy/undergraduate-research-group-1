@@ -160,32 +160,35 @@ No changes.
 
 ## 3.2 Subjects of the Study
 
-- [ ] State the two criteria for choosing the optimizers. The optimizer was
+- [x] State the two criteria for choosing the optimizers. The optimizer was
   compared in at least two of the comparison studies reviewed in Chapter 2,
   following Kurin et al. (2022), who chose well-established optimizers. It also
   uses the same model and training setup as the others, so that only the
   optimizer differs. (P1, B3)
-- [ ] State that no study, standard, or formula sets how many optimizers to
+- [x] State that no study, standard, or formula sets how many optimizers to
   test, and that the cited studies did not explain their own numbers. (P1)
-- [ ] State that the 13 optimizers come from the group's own count of how many
+  Dropped while writing. Research papers do not include such a statement, and
+  the criteria already explain the number.
+- [x] State that the 13 optimizers come from the group's own count of how many
   earlier studies compared each optimizer, not from the list of any one study.
   (C3)
-- [ ] State that the number 13 follows from the criteria, so leaving any out
+- [x] State that the number 13 follows from the criteria, so leaving any out
   would need a supported reason. (B2)
-- [ ] Separate the choice of the 13 optimizers, made before training, from the
+- [x] Separate the choice of the 13 optimizers, made before training, from the
   choice of the final optimizer, made after training (see 3.6). (B16)
-- [ ] Remove Facebook as a fallback data source. (P4)
-- [ ] Change the period from 2020–2026 to January–November 2026. (P9)
-- [ ] Change the dataset size from 3,900 to about 2,500 posts, based on
+- [x] Remove Facebook as a fallback data source. (P4)
+- [x] Change the period from 2020–2026 to January–November 2026. (P9)
+- [x] Change the dataset size from 3,900 to about 2,500 posts, based on
   annotation capacity (Lakens, 2022). (P12, B8)
+  Section 3.2 gives only the number. The reason is given in Section 3.3.
 
 ## 3.3 Sampling Technique
 
-- [ ] Remove Facebook as a fallback data source. (P4)
-- [ ] Change the period to January–November 2026. Earlier years are excluded,
+- [x] Remove Facebook as a fallback data source. (P4)
+- [x] Change the period to January–November 2026. Earlier years are excluded,
   and December is left for labeling. (P9)
-- [ ] Remove the allocation of posts across years and tropical cyclones. (P11)
-- [ ] Change the dataset size to about 2,500 posts. Two annotators labeling 2
+- [x] Remove the allocation of posts across years and tropical cyclones. (P11)
+- [x] Change the dataset size to about 2,500 posts. Two annotators labeling 2
   to 3 hours a day on the 38 working days from December 2026 to January 2027
   can label about this many. (P12, B8)
 
@@ -213,6 +216,10 @@ No changes.
 - [ ] State the cost. X charges $0.005 (about ₱0.32) per post, so 2,500 posts
   cost at least $12.50 (about ₱800). The final total is known only after
   cleaning. (P8)
+- [ ] Describe the near-duplicate removal stated in Section 3.3, following
+  HumAID (Alam et al., 2021). Remove links and user mentions, represent each
+  post by the counts of its words and word pairs, and remove one post from each
+  pair with a cosine similarity above 0.75.
 
 ### Labeling
 
