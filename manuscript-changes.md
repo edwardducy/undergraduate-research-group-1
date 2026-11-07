@@ -1,0 +1,297 @@
+# Manuscript Changes from Panel Feedback
+
+# Chapter 1. Introduction
+
+## 1.1 Introduction to the Study
+
+- [ ] Follow the TIOC format, presenting the trend, the issue, the objective, and
+  the contribution in that order. (P19)
+- [ ] State that the study trains one model to perform both tasks, rather than
+  combining two existing models. The model does not correct or rewrite posts.
+  It only sorts each post into a humanitarian category and marks key details,
+  such as places and requested supplies. (C1)
+- [ ] Explain that responders need the posts classified because actionable
+  posts are slow to find among the many posted during a disaster (Somido &
+  Reyes, 2023). Classification shows which posts to act on first, and the key
+  details show where help is needed and what supplies are asked for. (C9)
+
+## 1.2 Background of the Study
+
+- [ ] Explain negative transfer in plain words, without terms such as "task
+  gradient." Negative transfer is when a model that learns both tasks does
+  worse on one of them than a model that learns that task alone. (B1)
+
+## 1.3 Statement of the Problem
+
+No changes.
+
+## 1.4 Objectives
+
+No changes.
+
+## 1.5 Hypotheses
+
+- [ ] Check that the hypotheses test whether the final model performs
+  differently from the single-task models, not better. The feedback places this
+  change in Section 3.6, but the hypotheses are written here. (P14)
+
+## 1.6 Theoretical Framework
+
+No changes.
+
+## 1.7 Conceptual Framework
+
+- [ ] Update Figure 1.2 to show how the final model processes a post, replacing
+  its outdated IPO model. (P22)
+
+## 1.8 Scope and Delimitations
+
+- [ ] Remove Facebook as a fallback data source. (P4)
+- [ ] Change the period from 2020–2026 to January–November 2026. (P9)
+- [ ] Remove the claim that Taglish changes over time. The feedback does not
+  say which section had it. (P10)
+- [ ] Change the dataset size from 3,900 to about 2,500 posts, based on
+  annotation capacity. (P12, B8)
+- [ ] State that all posts, including the test posts, come from January to
+  November 2026, taken from the days each tropical cyclone is in the Philippine
+  Area of Responsibility, as HumAID kept only the posts from the days of each
+  event (Alam et al., 2021). (P21)
+- [ ] State that training uses posts from past disasters and does not wait for
+  a new disaster. The posts are collected before labeling begins in December.
+  (C7)
+- [ ] State that posts from January to November 2026 are enough, because
+  training depends on the number of labeled posts, not the number of years.
+  (B5)
+- [ ] Narrow the scope to Taglish posts on X about the tropical cyclones of
+  January to November 2026. Posts from other dates or about other disasters are
+  out of scope. (B7)
+
+### 1.8.1 Scope of the Study
+
+- [ ] State that the study does not create new optimizers. It tests 13
+  optimizers from earlier studies and selects one for the final model. (P2)
+
+### 1.8.2 Delimitations of the Study
+
+- [ ] Add a regional delimitation. X does not reliably show the region of a
+  user, so posts cannot be counted by region, and the dataset may not represent
+  the Taglish of every region equally. The feedback places this in Section 1.8.
+  (P13, B7)
+- [ ] State that the optimizers do not depend on the place or language of the
+  data, because they act only on the numbers each task sends the model during
+  training. Earlier studies applied the same optimizers to images and text (Xin
+  et al., 2022). (B4)
+- [ ] State that the posts come only from X, because X is the only platform
+  whose license allows downloading and storing posts for annotation, and
+  because earlier disaster datasets were built on Twitter posts. (B9)
+- [ ] State that the model does not translate posts. It reads each Taglish post
+  as written, and its outputs are measured with F1-scores against the labels of
+  the annotators. (B10)
+- [ ] State that the study does not verify whether posts are true. (B11)
+- [ ] State that the study does not rate the urgency or priority of posts. (B14)
+- [ ] State that the study does not classify hazard types. Posts unrelated to
+  disasters are labeled *Not humanitarian*, as defined by HumAID (Alam et al.,
+  2021). (B15)
+- [ ] State that the study does not maintain the final model or the prototype
+  after it ends. The final model, the code, and the post IDs are released on
+  GitHub. (C12)
+
+### 1.8.3 Limitations of the Study (new)
+
+- [ ] Add this section, grouping the limitations by the data, the experiments,
+  and the results. (P20)
+  - Data. X users may not represent everyone affected by tropical cyclones,
+    rare categories may have too few test posts for precise F1-scores, and
+    disputed labels rest on one expert.
+  - Experiments. Three runs per candidate model may be too few to detect small
+    differences between optimizers, and training time and memory may differ on
+    other computers.
+  - Results. The findings may not hold for tropical cyclones outside January to
+    November 2026.
+
+## 1.9 Significance of the Study
+
+- [ ] Make researchers the main beneficiaries. They gain a labeled dataset of
+  Taglish typhoon posts and evidence on which optimizer works best. Local
+  disaster offices also benefit, since the final model can run on ordinary
+  office computers without paying for a commercial AI model such as GPT. (C8)
+
+## 1.10 Definitions of Terms
+
+- [ ] Revise the definition of negative transfer in plain words, as in 1.2.
+  (B1)
+
+# Chapter 2. Related Literature and Studies
+
+## 2.1 Natural Language Processing of Disaster Posts
+
+- [ ] State that each Philippine study in the review trained a model for one
+  task (Ermino et al., 2022). The one Philippine system that classifies urgency
+  and extracts place names sends comments to GPT instead of training a model
+  (Caoile & Aviles, 2025). (C5)
+
+## 2.2 Multi-Task Learning
+
+- [ ] State that Zou et al. (2025) is one of the reviewed studies and not a
+  model for this study. Only its finding on how training the two tasks together
+  affected each task is used, so the flooding and areas of China are not
+  compared. The study labels about 2,500 posts, not the 6,000 of Zou et al.
+  (P3)
+- [ ] State that the studies behind the 13 optimizers were conducted outside the
+  Philippines, but the optimizers still apply because they do not depend on the
+  language of the posts. How well each works on Taglish posts is not yet known,
+  so the study tests all 13. (C4)
+
+## 2.3 Algorithmic Literature Taxonomy Matrix
+
+No changes.
+
+## 2.4 Synthesis of Related Literature and Studies
+
+No changes.
+
+# Chapter 3. Methodology
+
+## 3.1 Research Methodology
+
+No changes.
+
+## 3.2 Subjects of the Study
+
+- [ ] State the two criteria for choosing the optimizers. The optimizer was
+  compared in at least two of the comparison studies reviewed in Chapter 2,
+  following Kurin et al. (2022), who chose well-established optimizers. It also
+  uses the same model and training setup as the others, so that only the
+  optimizer differs. (P1, B3)
+- [ ] State that no study, standard, or formula sets how many optimizers to
+  test, and that the cited studies did not explain their own numbers. (P1)
+- [ ] State that the 13 optimizers come from the group's own count of how many
+  earlier studies compared each optimizer, not from the list of any one study.
+  (C3)
+- [ ] State that the number 13 follows from the criteria, so leaving any out
+  would need a supported reason. (B2)
+- [ ] Separate the choice of the 13 optimizers, made before training, from the
+  choice of the final optimizer, made after training (see 3.6). (B16)
+- [ ] Remove Facebook as a fallback data source. (P4)
+- [ ] Change the period from 2020–2026 to January–November 2026. (P9)
+- [ ] Change the dataset size from 3,900 to about 2,500 posts, based on
+  annotation capacity (Lakens, 2022). (P12, B8)
+
+## 3.3 Sampling Technique
+
+- [ ] Remove Facebook as a fallback data source. (P4)
+- [ ] Change the period to January–November 2026. Earlier years are excluded,
+  and December is left for labeling. (P9)
+- [ ] Remove the allocation of posts across years and tropical cyclones. (P11)
+- [ ] Change the dataset size to about 2,500 posts. Two annotators labeling 2
+  to 3 hours a day on the 38 working days from December 2026 to January 2027
+  can label about this many. (P12, B8)
+
+## 3.4 Instruments to Be Used
+
+No changes.
+
+## 3.5 Procedure of Data Gathering
+
+### Data collection
+
+- [ ] Remove Facebook as a fallback data source, including from Table 3.1. Meta
+  does not allow automated collection without permission, and the Meta Content
+  Library does not allow downloads for annotation. If X has too few posts, the
+  smaller dataset is stated as a limitation. (P4)
+- [ ] State that posts are collected only through the X API, with permission
+  from X. Each post comes with its ID, which links to the original post. No
+  screenshots or copying. (P5)
+- [ ] Describe the collection protocol in the text and in Table 3.1. The study
+  searches the X API with search terms and the days around each tropical
+  cyclone, and X returns the post ID with each post. (P6)
+- [ ] State that users keep ownership of their posts but accept the X terms,
+  which let X license the posts. The study therefore does not ask each user for
+  consent. It may store the posts but removes posts that users delete. (P7)
+- [ ] State the cost. X charges $0.005 (about ₱0.32) per post, so 2,500 posts
+  cost at least $12.50 (about ₱800). The final total is known only after
+  cleaning. (P8)
+
+### Labeling
+
+- [ ] Add a table of annotator qualifications, the labeling timeline, and the
+  rules for settling disagreements. (P17)
+- [ ] Describe how disagreements are settled. The two annotators discuss first,
+  and a third annotator from outside the group, with disaster management or
+  crisis informatics experience, decides if they still disagree. The guidelines
+  are revised when agreement in a batch falls below its target. (P17, B13)
+- [ ] Add the complete labeling guidelines, with definitions, inclusion rules,
+  and Taglish examples for each category and entity type. (B17)
+- [ ] Define *Requests or urgent needs* in the guidelines as posts asking for
+  rescue, supplies, or immediate help. (B14)
+
+### Training
+
+- [ ] State the number of models and runs. There are 15 models (2 single-task
+  and 13 multi-task). Each is trained 4 times to find its best setting, except
+  tuned static weighting, which is trained 36 times. Then each multi-task model
+  is trained 3 times and each single-task model 5 times, and the final model
+  gets 2 more runs. This gives 92 tuning runs and 51 main runs. (C2)
+- [ ] State that each multi-task model is trained three times because of the
+  training time available. (B6)
+- [ ] Add a pilot run showing that all 13 optimizers fit in the laptop's memory
+  and that their estimated training time fits the time available. (C3)
+
+## 3.6 Statistical Treatment
+
+- [ ] State that results are reported as they are. The hypotheses test whether
+  the final model performs differently from the single-task models, not
+  better. (P14)
+- [ ] State that there is no minimum acceptable F1-score, because no earlier
+  study reports scores for both tasks on Taglish typhoon posts. The difference
+  from the single-task models is reported instead. (P15)
+- [ ] State how the final optimizer is chosen. Keep the optimizers with less
+  negative transfer than equal weighting that do not lower either task. Choose
+  the one with the least negative transfer, or the one with the lowest training
+  cost if others are within chance. If none beats equal weighting, choose equal
+  weighting. (B16)
+
+## 3.7 Data Analysis
+
+- [ ] Explain why F1-scores are used instead of accuracy. Accuracy can stay high
+  while a model misses rare categories and the few key details in each post.
+  (P16)
+- [ ] Give the F1-score formula, with precision and recall calculated from true
+  positives, false positives, and false negatives. (P18)
+- [ ] Add the check of whether 2,500 posts are enough. Train the single-task
+  models on 25%, 50%, 75%, and 100% of the training posts, and check whether
+  the F1-scores stop improving before 100%. (P12, B8)
+- [ ] Add an error analysis. The test posts the final model gets wrong are
+  reviewed for what they have in common. Hard posts are not added on purpose,
+  since the test posts are random. (C10)
+- [ ] Define speed as the mean processing time per test post, compared with the
+  combined time of the two single-task models. The optimizer does not affect
+  speed. (C11)
+
+## 3.8 Software System Description
+
+### 3.8.1 System Structure
+
+No changes.
+
+### 3.8.2 Use Cases
+
+No changes. Section 3.9 uses these for its test cases. (P18)
+
+### 3.8.3 Materials and Equipment
+
+- [ ] Remove Facebook as a fallback data source. (P4)
+- [ ] Check that the development tools and their versions are listed: Python,
+  PyTorch, Hugging Face Transformers, and LibMTL for the model, and React,
+  FastAPI, and PostgreSQL for the prototype. The response says these are
+  already there. (C6)
+
+## 3.9 Testing and Evaluation
+
+- [ ] Give each use case at least one test case, which passes when the actual
+  result matches the expected result. (P18)
+- [ ] Measure the time the final model and the single-task models take to label
+  one post, on the processor alone without the graphics card. (C8, C11)
+- [ ] Add a table of roles assigning each part of the study to a member,
+  covering data collection, cleaning, annotation, benchmark code, prototyping,
+  and testing. (B19)
