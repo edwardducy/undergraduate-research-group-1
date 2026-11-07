@@ -53,9 +53,11 @@ No changes.
 - [ ] Change the dataset size from 3,900 to about 2,500 posts, based on
   annotation capacity. (P12, B8)
 - [ ] State that all posts, including the test posts, come from January to
-  November 2026, taken from the days each tropical cyclone is in the Philippine
-  Area of Responsibility, as HumAID kept only the posts from the days of each
-  event (Alam et al., 2021). (P21)
+  November 2026, taken from one day before each tropical cyclone enters the
+  Philippine Area of Responsibility to three days after it leaves, according to
+  PAGASA. The window includes the warnings posted before a tropical cyclone
+  arrives and the requests and relief efforts that continue after it leaves.
+  (P21)
 - [ ] State that training uses posts from past disasters and does not wait for
   a new disaster. The posts are collected before labeling begins in December.
   (C7)
