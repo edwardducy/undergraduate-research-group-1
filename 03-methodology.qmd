@@ -1,6 +1,6 @@
 # METHODOLOGY
 
-This chapter describes how the study answers the research questions stated in Chapter 1. It first explains the research methodology and how the posts are selected, labeled, and divided. It then describes how the models are trained and measured and how their results are compared and analyzed. It ends with the software built for the study, which has two parts, a benchmarking system and a prototype web application, and with how both parts are tested.
+This chapter explains how the study answers its research questions. It describes how the posts are collected and annotated, how the models are trained and compared, and how the benchmarking system and the prototype web application are built and tested.
 
 ## Research Methodology
 
