@@ -18,85 +18,84 @@ The 13 multi-task optimizers are chosen by two criteria. First, each optimizer w
 
 ## Sampling Technique
 
-The study samples in two stages. It first selects the tropical cyclones by criterion sampling and then draws posts from them by stratified random sampling, with each selected cyclone as a stratum.
+The sampling frame consists of the posts on X that match the search terms (Section 3.5) and fall within the collection window of each tropical cyclone (Section 3.2). Where the windows of two tropical cyclones overlap, they are merged so that no post is collected twice.
 
-**Selection of tropical cyclones.** The cyclones are chosen by criterion sampling from the list of tropical cyclones that crossed the Philippines between 2020 and 2026, according to PAGASA [-@pagasa2026cyclone]. A cyclone is included when at least 400 Taglish posts about it remain after cleaning, following Seeberger et al. [-@seeberger2025generalizing], who kept only events with at least 400 posts. A post counts as Taglish when it contains at least one English word and one Tagalog word, identified with the dictionary-based method of Herrera et al. [-@herrera2022tweettaglish].
+The language of each word in a post is identified as English, Tagalog, or other with the dictionary-based method of Herrera et al. [-@herrera2022tweettaglish], and a post is included when it has at least one English word and one Tagalog word. Reposts and quotes are excluded. Exact and near-duplicate posts are also excluded, following HumAID [@alam2021humaid].
 
-**Selection of posts.** Posts are drawn by stratified random sampling with equal allocation. Each selected cyclone is a stratum and contributes an equal share of the total, or all of its posts if it has fewer, in which case the remaining share is divided equally among the other cyclones. This keeps the dataset from being drawn mostly from one cyclone. If Facebook posts are added (Section 3.5), they are pooled with the posts on X about the same cyclone. The total depends on how many posts the research group can annotate, but it must give at least 2,801 training posts, which means about 3,900 posts in total. This is the upper end of the range of 1,400 to 2,801 training examples that Tabuzo et al. [-@tabuzo2026phmartiallawner] recommended as a minimum for their Tagalog NER dataset.
+From the included posts, about 2,500 are selected for annotation by simple random sampling, so that the humanitarian categories keep the proportions in which they occur in real posts. The sample size is based on resource constraints [@lakens2022sample], because about 2,500 posts is the most that two annotators can label in 2 to 3 hours a day over the 38 working days from December 2026 to January 2027. A sample size based on resource constraints may not be large enough [@lakens2022sample], so Section 3.7 tests whether 2,500 posts are sufficient.
 
-**Data split.** After annotation, the dataset is divided once into training posts (72%), validation posts (14%), and test posts (14%) by stratified random sampling, using the proportions of HUMAID-NER [@ali2026humaidner]. Following HumAID [@alam2021humaid], the posts of each cyclone are divided separately, and a category with fewer than 15 posts in a cyclone is left out of that cyclone. This rule can remove a rare category from most or all cyclones. Missing or found people, for example, appears in only 4 of the 19 events in the data splits of HumAID. The categories that remain are therefore reported with the results. Each humanitarian category keeps the same share in all three parts, and all models and random seeds use the same split. The validation posts are used to choose the learning rate of each model, the task weights of tuned static weighting, and the saved epoch of each run, and to select the optimizer of the final model. The test posts are used only for the final model and the single-task models, after the selection, to compare them and to measure their processing time. The categories keep their natural proportions, with no resampling or class weights, so that the scores reflect how often each category occurs in real posts.
+The annotated posts are divided once into a training set (72%), a validation set (14%), and a test set (14%), following the proportions of HUMAID-NER [@ali2026humaidner]. The split is stratified by humanitarian category, so each category has the same share in all three sets.
 
 ## Instruments to Be Used
 
-@tbl-instruments lists the tools of the study, and Section 3.8.3 gives their versions.
+The study uses three instruments, which are the annotation guidelines, the performance metrics, and the cost metrics. @tbl-metrics lists what each metric measures and the tool that produces it.
 
-| Instrument | Purpose |
-|:----------------------------|:-------------------------------------------|
-| X API, full-archive search | Collects public posts on X by keyword and date |
-| Language identification [@herrera2022tweettaglish] | Labels each word as English or Tagalog with an English and a Tagalog word list, after removing Tagalog affixes such as mag- and -um- |
-| GLiNER, model gliner_multi-v2.1 | Drafts the entity spans that the annotators correct, as in Tabuzo et al. [-@tabuzo2026phmartiallawner] |
-| doccano | Annotation tool, run on the computer of the study [@ramos2023tfnerd] |
-| seqeval | Span-level micro-F1 in its default mode [@ali2026humaidner] and agreement between the annotators on entities |
-| scikit-learn | Macro-F1 and Cohen's kappa |
-| SciPy | Analysis of variance (ANOVA), Dunnett's test, paired t-tests, and confidence intervals |
-| Python timer | Time of each training step, and processing time, read with `time.perf_counter()` after `torch.cuda.synchronize()` |
-| PyTorch memory statistics | Peak memory of the graphics processor, read with `torch.cuda.max_memory_allocated()` after `torch.cuda.reset_peak_memory_stats()` |
-| File system | Storage, the size of each saved model in mebibytes (MiB) |
-| nvidia-smi | Temperature, clock speed, and heat slowdowns of the graphics processor, recorded every second (`temperature.gpu`, `clocks.sm`, `clocks_event_reasons.sw_thermal_slowdown`, `clocks_event_reasons.hw_thermal_slowdown`) |
-| Windows performance counters | Shared memory of the graphics processor, recorded every second (`GPU Adapter Memory\Shared Usage`) |
-| psutil | Main memory used by the prototype server during the stress test |
+The dataset is annotated by two annotators who follow annotation guidelines (see @sec-guidelines). The guidelines define the ten humanitarian categories of HumAID [@alam2021humaid] and the ten entity types of HUMAID-NER [@ali2026humaidner], with example Taglish posts for each category and entity type. Each post receives one humanitarian category [@alam2021humaid], the one that best fits its main message. When two entity spans overlap, the longer span is kept [@ali2026humaidner]. Inter-annotator agreement is measured with Cohen's kappa [@cohen1960coefficient] for the categories and with an F1-score for the entities [@tabuzo2026phmartiallawner].
 
-: Instruments of the study {#tbl-instruments tbl-colwidths="[30,70]"}
+The performance of each model is measured with F1-scores (see Section 3.7), following HUMAID-NER [@ali2026humaidner]. Humanitarian classification is scored with macro-F1, and NER is scored with span-level micro-F1, in which a predicted span counts as correct only when its boundaries and entity type exactly match an annotated span.
 
-**Annotation guidelines.** The annotators follow written guidelines based on the definitions in @tbl-categories and @tbl-entities, with examples of each. As in HumAID [@alam2021humaid], each post receives one category, that of its main message. The guidelines also settle overlaps between entity types, such as a number inside a casualty count, which belongs to the CASUALTY entity.
+Computational cost is measured by training time, inference time, peak memory, and storage. Training time and inference time are measured as wall-clock time. Training time covers the training steps of a run, which include the forward and backward passes, the work of the multi-task optimizer, and the parameter update. It excludes scoring on the validation set and saving the model, which take the same time for every optimizer. Inference time covers the time a model takes to make predictions on posts. The graphics processing unit (GPU) runs separately from the main program, so each time is read only after the GPU finishes its work.
 
-**Timer.** The timer is added to the training loop of LibMTL. It records each training step, which covers computing the predictions and the gradients, the work of the multi-task optimizer, and the update of the model, but not validation or saving the model. Because the graphics processor works separately from the main program, the timer waits for the graphics processor to finish each step before reading the time.
+Peak memory is the highest GPU memory allocated during a run. It excludes the memory that PyTorch holds in reserve, which depends on PyTorch and not on the optimizer. Storage is the file size of the saved model. During each run, the temperature, clock speed, and shared memory use of the GPU are recorded every second, so that runs slowed by overheating or by running out of GPU memory can be found and repeated (Section 3.9).
 
-**Memory reading.** Peak memory is reset at the start of each run and read at its end. It counts the memory that holds the model, its gradients, and its intermediate results, but not the memory that PyTorch keeps in reserve, which depends on PyTorch rather than on the optimizer.
+| Metric | What it measures | Tool |
+|:-----------------|:---------------------------------------|:---------------|
+| Cohen's kappa | Agreement between the annotators on the categories | scikit-learn |
+| F1-score between annotators | Agreement between the annotators on the entities | seqeval |
+| Macro-F1 | Humanitarian classification performance | scikit-learn |
+| Span-level micro-F1 | NER performance | seqeval |
+| Training time | Wall-clock time of the training steps in a run | Python |
+| Inference time | Wall-clock time for a model to make predictions on posts | Python |
+| Peak memory | Highest GPU memory allocated during a run | PyTorch |
+| Storage | File size of the saved model | Operating system |
+
+: Metrics of the study {#tbl-metrics tbl-colwidths="[25,50,25]"}
 
 ## Procedure of Data Gathering
 
-Data gathering has five steps, carried out in the following order.
+Posts are collected through the full-archive search of the X API, which returns the public posts that match a set of search terms within a date range. Each search covers the collection window of one tropical cyclone (Section 3.2) and uses the same search terms.
 
-**Step 1. Collection.** Posts on X are collected through the full-archive search of the X API, which charges a small fee for each post it returns. For each tropical cyclone on the PAGASA list (Section 3.3), the search covers the days the cyclone was in the Philippine Area of Responsibility, the area that PAGASA monitors, as HumAID kept only posts from the days of each event [@alam2021humaid]. The search terms combine the names of the cyclone, disaster hashtags such as #RescuePH [@ermino2022urgency], and Tagalog words that signal Taglish [@herrera2022tweettaglish]. Reposts are excluded because they repeat the text of other posts.
+A keyword search misses relevant posts that use none of its terms [@olteanu2014crisislex], so the search terms are chosen from real posts in a pilot search before collection. For the collection windows of two of the tropical cyclones in the study, posts are collected with common Tagalog words, and the posts about each tropical cyclone are identified by hand. Words that appear often in the posts about the first tropical cyclone but rarely in the other pilot posts become the search terms (see Appendix B). The share of the posts about the second tropical cyclone that the search terms return is the recall of the search terms, which is reported with the results.
 
-Spending on the X API is limited to US$200. A pilot search on a few cyclones first measures what share of the returned posts remains after cleaning, which sets a limit on the posts collected for each cyclone so that the budget is spread across the cyclones. Ermino et al. [-@ermino2022urgency] are also asked for the IDs of their typhoon posts, which are retrieved within the same budget.
+Users of X keep ownership of their posts but grant X a license to make them available to others [@x2026terms], so consent is not sought from each user. As the developer policy of X requires, posts deleted on X are also deleted from the dataset, and only the post IDs are shared [@x2026devpolicy]. The X API charges US\$0.005 for each post it returns [@x2026pricing], so the cost depends on the number of posts in the sampling frame, which the pilot search is used to estimate.
 
-If X does not provide enough Taglish posts, posts and comments are collected from public Facebook pages, such as those of local government units, news outlets, and PAGASA. As in Ramirez et al. [-@ramirez2026cultural], only publicly accessible comments are collected, and no profile information is stored. Each comment counts as a separate post. If the sample is still incomplete, the study uses the posts it has and reports the smaller dataset as a limitation.
+The inclusion criteria of Section 3.3 are then applied. Near-duplicate posts are found following HumAID [@alam2021humaid]. Links, user mentions, and non-ASCII characters are removed from a copy of each post, and the post is represented by the counts of its words and word pairs. When two posts have a cosine similarity above 0.75, one of them is removed. Cosine similarity ranges from 0 to 1, where 1 means the two posts have the same word counts. In the posts that remain, user names, telephone numbers, email addresses, and links are replaced with placeholders. The posts are stored only on the computer of the study, in line with the Data Privacy Act of 2012 [-@philippines2012dataprivacy].
 
-**Step 2. Cleaning and selection.** Following HumAID [@alam2021humaid], posts with fewer than three words or hashtags, not counting links and numbers, are removed, and so are exact and near-duplicate posts. Two posts count as near-duplicates when the cosine similarity of their counts of single words and word pairs is above 0.75, where cosine similarity is a score from 0 to 1 that shows how alike the two posts are. User names, telephone numbers, email addresses, and links are replaced with placeholders, and the posts are stored only on the computer of the study, in line with the Data Privacy Act [-@philippines2012dataprivacy]. Each remaining post is then checked for Taglish, and the cyclones and posts are selected as described in Section 3.3.
+Both annotators annotate every post in doccano from December 2026 to January 2027. @tbl-annotators lists their qualifications. The entity spans of each post are first pre-annotated by GLiNER, and the annotators correct them. After a practice batch of 50 posts that are not in the sample, the posts are annotated in eight batches of about 310 posts, and agreement is measured after each batch. The targets are a Cohen's kappa of at least .61, the lower bound of substantial agreement [@landis1977measurement], and an F1-score of at least .74, the agreement that Tabuzo et al. [-@tabuzo2026phmartiallawner] reached for Tagalog NER. When either value falls below its target, the guidelines are revised before the next batch. The annotators settle disagreements by discussion, and those that remain are adjudicated by a third annotator from outside the research group with experience in disaster management or crisis informatics.
 
-**Step 3. Annotation.** Two members of the research group who are fluent in Tagalog and English label every post in doccano and correct the entity spans drafted by GLiNER. After a practice batch, the posts are labeled in batches, and agreement is measured after each batch. The target is a Cohen's kappa of at least .61, the lower bound of substantial agreement [@landis1977measurement], and a span-level F1 of at least .74, the agreement that Tabuzo et al. [-@tabuzo2026phmartiallawner] reached for Tagalog NER. When either value falls below its target, the guidelines are revised before the next batch. Disagreements are settled by discussion, and posts without an agreed label or not in Taglish are removed. The labeled dataset is then split as described in Section 3.3.
+| Role | Name | Languages | Background | Relevant experience |
+|:------------|:------------|:------------|:----------------|:----------------|
+| Annotator 1 | [To be added] | Tagalog, English | [To be added] | [To be added] |
+| Annotator 2 | [To be added] | Tagalog, English | [To be added] | [To be added] |
+| Adjudicator | [To be added] | Tagalog, English | [To be added] | Disaster management or crisis informatics |
 
-**Step 4. Training.** All models are trained with the training loop of LibMTL [@lin2023libmtl] and the settings in @tbl-training. As in the benchmarks of Chapter 2, every model uses the same batch size for the same number of steps [@xin2022mtohelp], so training does not stop early. Only the learning rate is tuned for each model.
+: Qualifications of the annotators {#tbl-annotators tbl-colwidths="[16,18,18,24,24]"}
 
-| Setting | Value | Source |
-|:--------------------|:------------------------------|:--------------------|
-| Update method | Adam | LibMTL default |
-| Weight decay, which shrinks the learned values slightly at each update | 1 × 10^−5^ | LibMTL default |
-| Learning rate | Tuned from 1, 3, 5, and 8 × 10^−5^, constant during training | @warner2025modernbert, LibMTL default |
-| Limit on gradient size | None, except a maximum of 1.0 for Nash-MTL | LibMTL default |
-| Epochs | 10 | @warner2025modernbert |
-| Saved epoch | The epoch with the highest validation score | @kurin2022unitary |
-| Validation score | Mean of the two F1-scores, or the F1-score of a single-task model | @ali2026humaidner |
-| Batch size | 8 | Pilot run |
-| Number format | 32-bit numbers | LibMTL default |
-| Maximum length | 128 tokens | @ali2026humaidner |
-| Encoder parts trained | All except the embedding layer, in every epoch | Pilot run, @merchant2020happens |
-| GradNorm α and CAGrad c | 1.5 and 0.4 | @chen2018gradnorm, @liu2021cagrad |
-| Other optimizer settings | LibMTL defaults | @lin2023libmtl |
+All models are trained with LibMTL [@lin2023libmtl] and the settings in @tbl-training, and the settings not in the table follow the defaults of LibMTL. The learning rates and the number of epochs follow ModernBERT [@warner2025modernbert], and the maximum sequence length and the validation score follow HUMAID-NER [@ali2026humaidner]. The validation score is the mean of the two F1-scores, or the F1-score of a single-task model, and the checkpoint of the epoch with the highest validation score is kept [@kurin2022unitary]. GradNorm and CAGrad use the values of α and c in their original papers [@chen2018gradnorm; @liu2021cagrad]. Every model is trained for the same number of epochs without early stopping, as in the benchmark of Xin et al. [-@xin2022mtohelp], and only the learning rate is tuned for each model.
 
-: Training settings of all models {#tbl-training tbl-colwidths="[25,45,30]"}
+| Setting | Value |
+|:------------------------|:----------------------------------------|
+| Base optimizer | Adam |
+| Weight decay | 1 × 10^−5^ |
+| Learning rate | 1, 3, 5, or 8 × 10^−5^, constant |
+| Gradient clipping | None, except a maximum norm of 1.0 for Nash-MTL |
+| Epochs | 10 |
+| Batch size | 8 |
+| Precision | 32-bit floating point |
+| Maximum sequence length | 128 tokens |
+| Frozen layers | Embedding layer |
+| GradNorm α | 1.5 |
+| CAGrad c | 0.4 |
 
-A pilot run set the batch size, the number format, and the parts of the encoder that are trained. The single-task models and the candidate models were each trained for 15 steps on random tokens at the maximum length of 128 tokens, and their peak memory and step time were recorded. For some runs, the shared memory of the graphics processor (Section 3.9) was also recorded. Tuned static weighting was represented by equal weighting, which does the same work. With the whole encoder trained, PCGrad, CAGrad, Nash-MTL, and PCGrad with uncertainty weighting needed 10,692 to 11,980 MiB at a batch of 8, more than the 8,188 MiB of the graphics processor, while the other models needed about 6,060 MiB. Bfloat16 mixed precision, which uses 16-bit numbers for most calculations, did not bring the four below this limit, because the parameters, their gradients, and the values that Adam keeps stay in 32-bit numbers. The embedding layer holds 201 million of the 312 million parameters of the encoder. Without training this layer, the four optimizers needed at most 5,323 MiB. Merchant et al. [-@merchant2020happens] found that fine-tuning a BERT encoder changed mainly its upper layers. Keeping its embeddings and lower layers fixed lowered performance on inference and question answering only when few upper layers were left to train. The embedding layer is therefore not trained in any model, so that all 15 are compared under the same condition. A batch of 16 also fit, but only when no other program used the graphics processor. When one small program was also open, Nash-MTL moved part of its memory to the main memory, and each of its steps took about 50% longer. The batch size is therefore 8.
+: Training settings of all models {#tbl-training tbl-colwidths="[40,60]"}
 
-Each model except tuned static weighting is then trained once with random seed 0 at each of the four learning rates, and the rate with the highest validation score is kept, as in the benchmarks reviewed in Chapter 2 [@xin2022mtohelp; @kurin2022unitary; @gama2026uniform]. Tuned static weighting searches its task weights together with the learning rate [@gama2026uniform]. It is trained at each learning rate with nine weights for humanitarian classification, 0.1, 0.2, …, 0.9, and the weight of NER set to one minus that value [@xin2022mtohelp], and the best of these 36 runs sets both. The settings of the other optimizers are not tuned, as in the benchmark of Lin et al. [-@lin2022rlw].
+In a pilot run, some of the optimizers needed more than the 8 GB of GPU memory of the laptop when all layers of the encoder were trained. The embedding layer, which holds most of the parameters of the encoder, is therefore frozen in every model. Fine-tuning changes mainly the upper layers of a BERT encoder [@merchant2020happens], so freezing the embedding layer is expected to affect performance little. The batch size is 8, because at 16 one of the optimizers ran out of GPU memory when even one small program was open.
 
-Each candidate model is then trained with random seeds 1, 2, and 3, and each single-task model with seeds 1 to 5. After the selection (Section 3.6), the final model is also trained with seeds 4 and 5, giving five runs to pair with those of the single-task models. These 51 main runs follow the 92 tuning runs. Of the five runs of the final model, the one with the highest validation score is released and used in the prototype.
+To tune the learning rate, each model except tuned static weighting is trained once with random seed 0 at each of the four learning rates, and the rate with the highest validation score is kept [@xin2022mtohelp; @kurin2022unitary; @gama2026uniform]. Tuned static weighting searches its task weights together with the learning rate [@gama2026uniform]. At each learning rate, the weight of humanitarian classification is set to 0.1, 0.2, …, 0.9 and the weight of NER to one minus that value [@xin2022mtohelp], which gives 36 runs. The other settings of the optimizers are not tuned, as in the benchmark of Lin et al. [-@lin2022rlw].
 
-All runs are done with the laptop plugged in, in the Performance mode of Acer, and with no other programs open. The tuning runs, and then the main runs before the selection, are each done in a shuffled order so that changes in the condition of the laptop over time do not favor any optimizer.
+Each multi-task model is then trained with random seeds 1, 2, and 3, which is the number of runs the training time allows, and each single-task model with seeds 1 to 5. After the selection (Section 3.6), the final model is also trained with seeds 4 and 5, so that it has five runs to pair with those of the single-task models. This gives [N] tuning runs and [N] main runs. Of the five runs of the final model, the one with the highest validation score is used in the prototype.
 
-**Step 5. Log generation.** The training script writes the settings, random seed, validation scores of each epoch, step times, peak memory, nvidia-smi records, and shared memory records of each run to a JSON file, together with the test scores, processing time, and storage of the runs scored on the test posts. The records of all runs are then combined into one CSV table for the analysis.
+All runs are done with the laptop plugged in, in its Performance mode, and with other programs closed, so that training time and inference time are measured under the same condition. The tuning runs and the main runs are each done in a shuffled order, so that changes in the condition of the laptop over time do not favor any optimizer. The settings, random seed, validation scores, metrics (Section 3.4), and GPU records of each run are saved to a file.
 
 ## Statistical Treatment
 

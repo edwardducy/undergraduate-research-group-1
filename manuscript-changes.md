@@ -160,32 +160,35 @@ No changes.
 
 ## 3.2 Subjects of the Study
 
-- [ ] State the two criteria for choosing the optimizers. The optimizer was
+- [x] State the two criteria for choosing the optimizers. The optimizer was
   compared in at least two of the comparison studies reviewed in Chapter 2,
   following Kurin et al. (2022), who chose well-established optimizers. It also
   uses the same model and training setup as the others, so that only the
   optimizer differs. (P1, B3)
-- [ ] State that no study, standard, or formula sets how many optimizers to
+- [x] State that no study, standard, or formula sets how many optimizers to
   test, and that the cited studies did not explain their own numbers. (P1)
-- [ ] State that the 13 optimizers come from the group's own count of how many
+  Dropped while writing. Research papers do not include such a statement, and
+  the criteria already explain the number.
+- [x] State that the 13 optimizers come from the group's own count of how many
   earlier studies compared each optimizer, not from the list of any one study.
   (C3)
-- [ ] State that the number 13 follows from the criteria, so leaving any out
+- [x] State that the number 13 follows from the criteria, so leaving any out
   would need a supported reason. (B2)
-- [ ] Separate the choice of the 13 optimizers, made before training, from the
+- [x] Separate the choice of the 13 optimizers, made before training, from the
   choice of the final optimizer, made after training (see 3.6). (B16)
-- [ ] Remove Facebook as a fallback data source. (P4)
-- [ ] Change the period from 2020–2026 to January–November 2026. (P9)
-- [ ] Change the dataset size from 3,900 to about 2,500 posts, based on
+- [x] Remove Facebook as a fallback data source. (P4)
+- [x] Change the period from 2020–2026 to January–November 2026. (P9)
+- [x] Change the dataset size from 3,900 to about 2,500 posts, based on
   annotation capacity (Lakens, 2022). (P12, B8)
+  Section 3.2 gives only the number. The reason is given in Section 3.3.
 
 ## 3.3 Sampling Technique
 
-- [ ] Remove Facebook as a fallback data source. (P4)
-- [ ] Change the period to January–November 2026. Earlier years are excluded,
+- [x] Remove Facebook as a fallback data source. (P4)
+- [x] Change the period to January–November 2026. Earlier years are excluded,
   and December is left for labeling. (P9)
-- [ ] Remove the allocation of posts across years and tropical cyclones. (P11)
-- [ ] Change the dataset size to about 2,500 posts. Two annotators labeling 2
+- [x] Remove the allocation of posts across years and tropical cyclones. (P11)
+- [x] Change the dataset size to about 2,500 posts. Two annotators labeling 2
   to 3 hours a day on the 38 working days from December 2026 to January 2027
   can label about this many. (P12, B8)
 
@@ -197,28 +200,41 @@ No changes.
 
 ### Data collection
 
-- [ ] Remove Facebook as a fallback data source, including from Table 3.1. Meta
+- [x] Remove Facebook as a fallback data source, including from Table 3.1. Meta
   does not allow automated collection without permission, and the Meta Content
   Library does not allow downloads for annotation. If X has too few posts, the
   smaller dataset is stated as a limitation. (P4)
-- [ ] State that posts are collected only through the X API, with permission
+  Removed from 3.5. Facebook is still mentioned in Section 3.8.3.
+- [x] State that posts are collected only through the X API, with permission
   from X. Each post comes with its ID, which links to the original post. No
   screenshots or copying. (P5)
-- [ ] Describe the collection protocol in the text and in Table 3.1. The study
+  The screenshot statement was dropped because methods sections state what was
+  done. The post IDs are in the terms paragraph.
+- [x] Describe the collection protocol in the text and in Table 3.1. The study
   searches the X API with search terms and the days around each tropical
   cyclone, and X returns the post ID with each post. (P6)
-- [ ] State that users keep ownership of their posts but accept the X terms,
+  The search terms are chosen from real posts in a pilot search on two of the
+  study's tropical cyclones, and their recall is measured on the second one.
+- [x] State that users keep ownership of their posts but accept the X terms,
   which let X license the posts. The study therefore does not ask each user for
   consent. It may store the posts but removes posts that users delete. (P7)
 - [ ] State the cost. X charges $0.005 (about ₱0.32) per post, so 2,500 posts
   cost at least $12.50 (about ₱800). The final total is known only after
   cleaning. (P8)
+  Stated in 3.5 as US$0.005 per returned post, with the cost depending on the
+  size of the sampling frame, since X charges for every returned post and not
+  only the 2,500 sampled. The P8 response still says at least $12.50.
+- [x] Describe the near-duplicate removal stated in Section 3.3, following
+  HumAID (Alam et al., 2021). Remove links and user mentions, represent each
+  post by the counts of its words and word pairs, and remove one post from each
+  pair with a cosine similarity above 0.75.
 
 ### Labeling
 
-- [ ] Add a table of annotator qualifications, the labeling timeline, and the
+- [x] Add a table of annotator qualifications, the labeling timeline, and the
   rules for settling disagreements. (P17)
-- [ ] Describe how disagreements are settled. The two annotators discuss first,
+  The table has placeholders for the details of each person.
+- [x] Describe how disagreements are settled. The two annotators discuss first,
   and a third annotator from outside the group, with disaster management or
   crisis informatics experience, decides if they still disagree. The guidelines
   are revised when agreement in a batch falls below its target. (P17, B13)
@@ -234,10 +250,13 @@ No changes.
   tuned static weighting, which is trained 36 times. Then each multi-task model
   is trained 3 times and each single-task model 5 times, and the final model
   gets 2 more runs. This gives 92 tuning runs and 51 main runs. (C2)
-- [ ] State that each multi-task model is trained three times because of the
+  Runs per model are stated. The totals are placeholders until the optimizer
+  list in 3.2 is revised.
+- [x] State that each multi-task model is trained three times because of the
   training time available. (B6)
-- [ ] Add a pilot run showing that all 13 optimizers fit in the laptop's memory
-  and that their estimated training time fits the time available. (C3)
+- [ ] C3 is left to another group member. Its response in panel-feedback.md
+  was removed. The pilot run in 3.5 only sets the batch size and the frozen
+  layers. (C3)
 
 ## 3.6 Statistical Treatment
 
