@@ -311,7 +311,7 @@ No changes. Section 3.9 uses these for its test cases. (P18)
 
 - [ ] Give each use case at least one test case, which passes when the actual
   result matches the expected result. (P18)
-- [ ] Measure the time the final model and the single-task models take to label
+- [x] Measure the time the final model and the single-task models take to label
   one post, on the processor alone without the graphics card. (C8, C11)
 - [ ] Add a table of roles assigning each part of the study to a member,
   covering data collection, cleaning, annotation, benchmark code, prototyping,
