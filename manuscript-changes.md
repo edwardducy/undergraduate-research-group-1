@@ -285,7 +285,7 @@ No changes.
 - [ ] Add an error analysis. The test posts the final model gets wrong are
   reviewed for what they have in common. Hard posts are not added on purpose,
   since the test posts are random. (C10)
-- [ ] Define speed as the mean processing time per test post, compared with the
+- [x] Define speed as the mean processing time per test post, compared with the
   combined time of the two single-task models. The optimizer does not affect
   speed. (C11)
 

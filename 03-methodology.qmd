@@ -146,7 +146,7 @@ $$O_k = \frac{X_k - X_{\text{EW}}}{X_{\text{EW}}} \times 100$$
 
 **Storage and processing time.** Storage $W$ is the size of the saved model in mebibytes (Section 3.4). Processing time is the time a model takes to label all the test posts on the graphics processor of the laptop, in batches of the same size as in training. Before it is measured, the model labels the test posts once without timing, so that the one-time start-up work of the graphics processor is not counted. The test posts are then labeled three times, and the mean of the three times is used. During this measurement, the model uses the same number format as in training and does not compute gradients, and no other program is open on the laptop. Processing time is reported as the mean time per post,
 $$p = \frac{P}{N}$$
-where $P$ is the mean time in milliseconds that a model takes to label all $N$ test posts. For the single-task models, $W$ and $P$ are the sums for the two models, since both are needed to perform the two tasks. When posts are labeled one at a time (Section 3.9), $p$ is the latency, the time the model needs to label a single post.
+where $P$ is the mean time in milliseconds that a model takes to label all $N$ test posts. For the single-task models, $W$ and $P$ are the sums for the two models, since both are needed to perform the two tasks. When posts are labeled one at a time (Section 3.9), $p$ is the latency, the time the model needs to label a single post. The multi-task optimizer does not affect processing time, because it acts only on the losses or gradients during training [@lin2023libmtl] and all candidate models have the same architecture.
 
 ## Software System Description
 
