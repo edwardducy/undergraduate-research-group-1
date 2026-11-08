@@ -6,7 +6,7 @@
 
 - [ ] Follow the TIOC format, presenting the trend, the issue, the objective, and
   the contribution in that order. (P19)
-- [ ] State that the study trains one model to perform both tasks, rather than
+- [x] State that the study trains one model to perform both tasks, rather than
   combining two existing models. The model does not correct or rewrite posts.
   It only sorts each post into a humanitarian category and marks key details,
   such as places and requested supplies. (C1)
