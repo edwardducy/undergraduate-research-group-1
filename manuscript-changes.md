@@ -44,7 +44,7 @@ No changes.
 - [ ] Update Figure 1.2 to show how the final model processes a post, replacing
   its outdated IPO model. (P22)
 
-## 1.8 Scope and Delimitations
+## 1.8 Scope, Limitations, and Delimitations
 
 - [ ] Remove Facebook as a fallback data source. (P4)
 - [ ] Change the period from 2020–2026 to January–November 2026. (P9)
@@ -73,7 +73,20 @@ No changes.
 - [ ] State that the study does not create new optimizers. It tests 13
   optimizers from earlier studies and selects one for the final model. (P2)
 
-### 1.8.2 Delimitations of the Study
+### 1.8.2 Limitations of the Study
+
+- [ ] Add this section, grouping the limitations by the data, the experiments,
+  and the results. (P20)
+  - Data. X users may not represent everyone affected by tropical cyclones,
+    rare categories may have too few test posts for precise F1-scores, and
+    disputed labels rest on one expert.
+  - Experiments. Three runs per candidate model may be too few to detect small
+    differences between optimizers, and training time and memory may differ on
+    other computers.
+  - Results. The findings may not hold for tropical cyclones outside January to
+    November 2026.
+
+### 1.8.3 Delimitations of the Study
 
 - [ ] Add a regional delimitation. X does not reliably show the region of a
   user, so posts cannot be counted by region, and the dataset may not represent
@@ -97,19 +110,6 @@ No changes.
 - [ ] State that the study does not maintain the final model or the prototype
   after it ends. The final model, the code, and the post IDs are released on
   GitHub. (C12)
-
-### 1.8.3 Limitations of the Study (new)
-
-- [ ] Add this section, grouping the limitations by the data, the experiments,
-  and the results. (P20)
-  - Data. X users may not represent everyone affected by tropical cyclones,
-    rare categories may have too few test posts for precise F1-scores, and
-    disputed labels rest on one expert.
-  - Experiments. Three runs per candidate model may be too few to detect small
-    differences between optimizers, and training time and memory may differ on
-    other computers.
-  - Results. The findings may not hold for tropical cyclones outside January to
-    November 2026.
 
 ## 1.9 Significance of the Study
 
