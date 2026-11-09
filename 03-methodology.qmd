@@ -28,28 +28,11 @@ The annotated posts are divided once into a training set (72%), a validation set
 
 ## Instruments to Be Used
 
-The study uses three instruments, which are the annotation guidelines, the performance metrics, and the cost metrics. @tbl-metrics lists what each metric measures and the tool that produces it.
+The humanitarian category of each post is annotated according to the annotation guidelines (@sec-guidelines), which define the categories of Section 3.2. The two annotators annotate each post independently, and the inter-annotator agreement is measured with Cohen's kappa [@cohen1960coefficient]. The entity spans are annotated automatically by GLiNER [@zaratiana2024gliner] in zero-shot mode and are not checked by the annotators (Section 1.8.2).
 
-The dataset is annotated by two annotators who follow annotation guidelines (see @sec-guidelines). The guidelines define the ten humanitarian categories of HumAID [@alam2021humaid] and the ten entity types of HUMAID-NER [@ali2026humaidner], with example Taglish posts for each category and entity type. Each post receives one humanitarian category [@alam2021humaid], the one that best fits its main message. When two entity spans overlap, the longer span is kept [@ali2026humaidner]. Inter-annotator agreement is measured with Cohen's kappa [@cohen1960coefficient] for the categories and with an F1-score for the entities [@tabuzo2026phmartiallawner].
+The performance of each model is measured with F1-scores (Section 3.7), following HUMAID-NER [@ali2026humaidner]. Humanitarian classification is scored with macro-F1, and NER is scored with span-level micro-F1.
 
-The performance of each model is measured with F1-scores (see Section 3.7), following HUMAID-NER [@ali2026humaidner]. Humanitarian classification is scored with macro-F1, and NER is scored with span-level micro-F1, in which a predicted span counts as correct only when its boundaries and entity type exactly match an annotated span.
-
-Computational cost is measured by training time, inference time, peak memory, and storage. Training time and inference time are measured as wall-clock time. Training time covers the training steps of a run, which include the forward and backward passes, the work of the multi-task optimizer, and the parameter update. It excludes scoring on the validation set and saving the model, which take the same time for every optimizer. Inference time covers the time a model takes to make predictions on posts. The graphics processing unit (GPU) runs separately from the main program, so each time is read only after the GPU finishes its work.
-
-Peak memory is the highest GPU memory allocated during a run. It excludes the memory that PyTorch holds in reserve, which depends on PyTorch and not on the optimizer. Storage is the file size of the saved model. During each run, the temperature, clock speed, and shared memory use of the GPU are recorded every second, so that runs slowed by overheating or by running out of GPU memory can be found and repeated (Section 3.9).
-
-| Metric | What it measures | Tool |
-|:-----------------|:---------------------------------------|:---------------|
-| Cohen's kappa | Agreement between the annotators on the categories | scikit-learn |
-| F1-score between annotators | Agreement between the annotators on the entities | seqeval |
-| Macro-F1 | Humanitarian classification performance | scikit-learn |
-| Span-level micro-F1 | NER performance | seqeval |
-| Training time | Wall-clock time of the training steps in a run | Python |
-| Inference time | Wall-clock time for a model to make predictions on posts | Python |
-| Peak memory | Highest GPU memory allocated during a run | PyTorch |
-| Storage | File size of the saved model | Operating system |
-
-: Metrics of the study {#tbl-metrics tbl-colwidths="[25,50,25]"}
+Computational cost is measured with training time and peak memory. Training time is the wall-clock time of the training steps of a run, and peak memory is the highest graphics processing unit (GPU) memory allocated by PyTorch during a run. During each run, the temperature, clock speed, and shared memory use of the GPU are recorded every second with nvidia-smi, so that runs slowed by overheating or by running out of GPU memory can be found and repeated (Section 3.9).
 
 ## Procedure of Data Gathering
 
@@ -61,7 +44,7 @@ Users of X keep ownership of their posts but grant X a license to make them avai
 
 The inclusion criteria of Section 3.3 are then applied. Near-duplicate posts are found following HumAID [@alam2021humaid]. Links, user mentions, and non-ASCII characters are removed from a copy of each post, and the post is represented by the counts of its words and word pairs. When two posts have a cosine similarity above 0.75, one of them is removed. Cosine similarity ranges from 0 to 1, where 1 means the two posts have the same word counts. In the posts that remain, user names, telephone numbers, email addresses, and links are replaced with placeholders. The posts are stored only on the computer of the study, in line with the Data Privacy Act of 2012 [-@philippines2012dataprivacy].
 
-Both annotators annotate every post in doccano from December 2026 to January 2027. @tbl-annotators lists their qualifications. The entity spans of each post are first pre-annotated by GLiNER, and the annotators correct them. After a practice batch of 50 posts that are not in the sample, the posts are annotated in eight batches of about 310 posts, and agreement is measured after each batch. The targets are a Cohen's kappa of at least .61, the lower bound of substantial agreement [@landis1977measurement], and an F1-score of at least .74, the agreement that Tabuzo et al. [-@tabuzo2026phmartiallawner] reached for Tagalog NER. When either value falls below its target, the guidelines are revised before the next batch. The annotators settle disagreements by discussion, and those that remain are adjudicated by a third annotator from outside the research group with experience in disaster management or crisis informatics.
+The two annotators annotate every post in doccano from December 2026 to January 2027. @tbl-annotators lists their qualifications. The entity spans of each post are first pre-annotated by GLiNER, and the annotators correct them. After a practice batch of 50 posts that are not in the sample, the posts are annotated in eight batches of about 310 posts, and agreement is measured after each batch. The targets are a Cohen's kappa of at least .61, the lower bound of substantial agreement [@landis1977measurement], and an F1-score of at least .74, the agreement that Tabuzo et al. [-@tabuzo2026phmartiallawner] reached for Tagalog NER. When either value falls below its target, the guidelines are revised before the next batch. The annotators settle disagreements by discussion, and those that remain are adjudicated by a third annotator from outside the research group with experience in disaster management or crisis informatics.
 
 | Role | Name | Languages | Background | Relevant experience |
 |:------------|:------------|:------------|:----------------|:----------------|
@@ -95,7 +78,7 @@ To tune the learning rate, each model except tuned static weighting is trained o
 
 Each multi-task model is then trained with random seeds 1, 2, and 3, which is the number of runs the training time allows, and each single-task model with seeds 1 to 5. After the selection (Section 3.6), the final model is also trained with seeds 4 and 5, so that it has five runs to pair with those of the single-task models. This gives [N] tuning runs and [N] main runs. Of the five runs of the final model, the one with the highest validation score is used in the prototype.
 
-All runs are done with the laptop plugged in, in its Performance mode, and with other programs closed, so that training time and inference time are measured under the same condition. The tuning runs and the main runs are each done in a shuffled order, so that changes in the condition of the laptop over time do not favor any optimizer. The settings, random seed, validation scores, metrics (Section 3.4), and GPU records of each run are saved to a file.
+All runs are done with the laptop plugged in, in its Performance mode, and with other programs closed, so that training time is measured under the same condition in every run. The tuning runs and the main runs are each done in a shuffled order, so that changes in the condition of the laptop over time do not favor any optimizer. The settings, random seed, validation scores, metrics (Section 3.4), and GPU records of each run are saved to a file.
 
 ## Statistical Treatment
 
