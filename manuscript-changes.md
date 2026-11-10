@@ -245,13 +245,6 @@ No changes.
 
 ### Training
 
-- [ ] State the number of models and runs. There are 15 models (2 single-task
-  and 13 multi-task). Each is trained 4 times to find its best setting, except
-  tuned static weighting, which is trained 36 times. Then each multi-task model
-  is trained 3 times and each single-task model 5 times, and the final model
-  gets 2 more runs. This gives 92 tuning runs and 51 main runs. (C2)
-  Runs per model are stated. The totals are placeholders until the optimizer
-  list in 3.2 is revised.
 - [x] State that each multi-task model is trained three times because of the
   training time available. (B6)
 - [ ] C3 is left to another group member. Its response in panel-feedback.md
