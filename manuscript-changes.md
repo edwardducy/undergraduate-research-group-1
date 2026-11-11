@@ -17,9 +17,10 @@
 
 ## 1.2 Background of the Study
 
-- [ ] Explain negative transfer in plain words, without terms such as "task
-  gradient." Negative transfer is when a model that learns both tasks does
-  worse on one of them than a model that learns that task alone. (B1)
+- [ ] Explain negative transfer in plain words, and give a short explanation
+  of each technical term, such as "task gradient," at its first use. Negative
+  transfer is when a model that learns both tasks does worse on one of them
+  than a model that learns that task alone. (B1)
 
 ## 1.3 Statement of the Problem
 
@@ -77,51 +78,57 @@ No changes.
 
 - [ ] Add this section, grouping the limitations by the data, the experiments,
   and the results. (P20)
-  - Data. X users may not represent everyone affected by tropical cyclones,
-    rare categories may have too few test posts for precise F1-scores, and
-    disputed labels rest on one expert.
+  - Data. X users may not represent everyone affected by tropical cyclones or
+    the Taglish of every region, the 2,500 posts may be too few, rare
+    categories may have too few test posts for precise F1-scores, the entity
+    annotations from GLiNER are not checked by the annotators, and disputed
+    categories are decided by one adjudicator.
   - Experiments. Three runs per candidate model may be too few to detect small
-    differences between optimizers, and training time and memory may differ on
-    other computers.
-  - Results. The findings may not hold for tropical cyclones outside January to
-    November 2026.
+    differences between optimizers, training time and peak memory may differ on
+    other computers, and freezing the embedding layer may lower the F1-scores.
+  - Results. The findings may not hold for tropical cyclones of other years or
+    for other tasks and encoders.
+- [ ] Add a regional limitation. X does not reliably show the region of a
+  user, so posts cannot be counted by region, and the dataset may not represent
+  the Taglish of every region equally. (P13, B7)
 
 ### 1.8.3 Delimitations of the Study
 
-- [ ] Add a regional delimitation. X does not reliably show the region of a
-  user, so posts cannot be counted by region, and the dataset may not represent
-  the Taglish of every region equally. The feedback places this in Section 1.8.
-  (P13, B7)
-- [ ] State that the optimizers do not depend on the place or language of the
-  data, because they act only on the numbers each task sends the model during
-  training. Earlier studies applied the same optimizers to images and text (Xin
-  et al., 2022). (B4)
-- [ ] State that the posts come only from X, because X is the only platform
-  whose license allows downloading and storing posts for annotation, and
-  because earlier disaster datasets were built on Twitter posts. (B9)
-- [ ] State that the model does not translate posts. It reads each Taglish post
-  as written, and its outputs are measured with F1-scores against the labels of
-  the annotators. (B10)
+- [ ] State that the posts come only from X, because the developer policy of X
+  allows posts collected through its API to be stored, provided that posts
+  later deleted on X are also deleted, and because earlier disaster datasets
+  were built on Twitter posts. (B9)
+- [ ] Find a source for the terms of Meta if the reason for excluding Facebook
+  is to be stated. Without one, 1.8.3 gives only the reason for using X. (P4)
+- [ ] State that the study compares existing optimizers rather than creating a
+  new one. (P2)
+- [ ] State that the model does not translate posts, since its pretrained
+  transformer encoder was trained on both English and Filipino. (B10)
 - [ ] State that the study does not verify whether posts are true. (B11)
 - [ ] State that the study does not rate the urgency or priority of posts. (B14)
-- [ ] State that the study does not classify hazard types. Posts unrelated to
-  disasters are labeled *Not humanitarian*, as defined by HumAID (Alam et al.,
-  2021). (B15)
+- [ ] State that the study does not classify hazard types. (B15)
 - [ ] State that the study does not maintain the final model or the prototype
   after it ends. The final model, the code, and the post IDs are released on
   GitHub. (C12)
 
 ## 1.9 Significance of the Study
 
-- [ ] Make researchers the main beneficiaries. They gain a labeled dataset of
-  Taglish typhoon posts and evidence on which optimizer works best. Local
-  disaster offices also benefit, since the final model can run on ordinary
-  office computers without paying for a commercial AI model such as GPT. (C8)
+- [ ] Make researchers the main beneficiaries, in four groups. Researchers in
+  NLP and crisis informatics gain the annotated dataset. Researchers in
+  multi-task learning gain evidence on negative transfer and training cost.
+  Local disaster offices gain one model for both tasks, the F1-score comparison
+  with the single-task models, and the prototype. Future researchers gain the
+  released model, code, guidelines, and post IDs. Do not claim that the model
+  runs on office computers or compare it with GPT, since the study tests
+  neither. (C8)
 
 ## 1.10 Definitions of Terms
 
 - [ ] Revise the definition of negative transfer in plain words, as in 1.2.
   (B1)
+- [ ] Define "typhoon" and "Tweets" as used in the title. "Typhoon" refers to
+  any tropical cyclone, following its common use in the Philippines, and
+  "Tweets" refers to posts on X. Moved from 1.8.1.
 
 # Chapter 2. Related Literature and Studies
 
@@ -143,6 +150,10 @@ No changes.
   Philippines, but the optimizers still apply because they do not depend on the
   language of the posts. How well each works on Taglish posts is not yet known,
   so the study tests all 13. (C4)
+- [ ] State that the optimizers do not depend on the place or language of the
+  data, because they act only on the numbers each task sends the model during
+  training. Earlier studies applied the same optimizers to images and text (Xin
+  et al., 2022). Moved from 1.8.3, since it is not an exclusion. (B4)
 
 ## 2.3 Algorithmic Literature Taxonomy Matrix
 
@@ -242,6 +253,9 @@ No changes.
   and Taglish examples for each category and entity type. (B17)
 - [ ] Define *Requests or urgent needs* in the guidelines as posts asking for
   rescue, supplies, or immediate help. (B14)
+- [ ] State in the guidelines that posts unrelated to disasters are kept and
+  annotated *Not humanitarian*, as defined by HumAID (Alam et al., 2021).
+  Moved from 1.8.3, since it is not an exclusion. (B15)
 
 ### Training
 
