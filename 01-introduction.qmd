@@ -60,128 +60,94 @@ This study draws on the view of multi-task learning as inductive transfer, in wh
 
 The conceptual framework of this study consists of the research paradigm in @fig-research-paradigm and the design of the multi-task model in @fig-artifact. It centers on two comparisons, one among the 13 multi-task optimizers and one between the final multi-task model and the single-task models.
 
-![Research paradigm of the study](figures/fig-1-1-research-paradigm.pdf){#fig-research-paradigm}
+![Research Paradigm](figures/fig-1-1-research-paradigm.pdf){#fig-research-paradigm}
 
 @fig-research-paradigm follows the Input-Process-Output (IPO) model. The inputs are the Taglish posts, the categories of HumAID and the entity types of HUMAID-NER, the pretrained transformer encoder, the 13 multi-task optimizers, and the laptop used for training. The process has four steps, each answering one research question. The study first designs and builds the dataset and the multi-task model (RQ2) and then trains a single-task model for each task to measure the baseline F1-scores (RQ1). It then benchmarks the 13 multi-task optimizers and selects the optimizer of the final model based on negative transfer (RQ3). Finally, it compares the final model with the single-task models (RQ4). The outputs are the dataset, the final multi-task model, and the comparison of the 13 multi-task optimizers.
 
-![How the multi-task model processes an example post](figures/fig-1-2-artifact.pdf){#fig-artifact}
+![Multi-Task Model](figures/fig-1-2-artifact.pdf){#fig-artifact}
 
-@fig-artifact shows how the multi-task model processes an example post. Both tasks share one pretrained transformer encoder, which reads the post once. The classification head uses the output for the whole post and assigns it a humanitarian category, while the NER head uses the output for each token and identifies the named entities. During training, each head also measures its error on its task, which is called its loss. The multi-task optimizer uses the two losses to decide how the shared encoder is updated, and it is the only part that differs among the 13 candidate models. The example post was written for this illustration and is not from the dataset.
+@fig-artifact shows how the multi-task model processes an example post. Both tasks share one pretrained transformer encoder, which reads the post once. The classification head uses the output for the whole post and assigns it a humanitarian category, while the NER head uses the output for each token and identifies the named entities. The dashed lines show the steps that occur only during training, in which the multi-task optimizer decides how the errors of the two tasks update the shared encoder so that the model improves on both tasks.
 
 ## Scope, Limitations, and Delimitations
 
 ### Scope of the Study
 
-The study covers Taglish posts about tropical cyclones that crossed the Philippines between 2020 and 2026. The word "typhoon" in the title follows its common use in the Philippines, where it refers to any tropical cyclone. Likewise, "Tweets" in the title refers to posts on X, formerly Twitter, which is the main source of the dataset, although public Facebook posts may be added as the Delimitations describe. Every post in the dataset is labeled with one of the ten humanitarian categories of HumAID, and the words in it are labeled with the ten entity types of HUMAID-NER. The dataset is planned to give at least 2,801 training posts, or about 3,900 labeled posts in total (Chapter 3).
+The study covers Taglish posts on X, formerly Twitter, about the tropical cyclones of January to November 2026. The posts come from one day before to three days after the period each tropical cyclone spent within the Philippine Area of Responsibility, the area that PAGASA monitors for tropical cyclones, based on the dates in the preliminary reports of PAGASA [-@pagasa2026prelim]. The dataset consists of about 2,500 posts, each annotated with one of the ten humanitarian categories of HumAID [@alam2021humaid] and with the ten entity types of HUMAID-NER [@ali2026humaidner].
 
-The study trains 15 model configurations on this dataset. Two single-task models, one for each task, provide the baseline. The multi-task model shares the pretrained encoder between two task heads, one for each task. Thirteen candidate versions of this model are trained, one for each multi-task optimizer, and the candidate trained with the selected optimizer becomes the final model of the study. The 13 optimizers are equal weighting [@kurin2022unitary], tuned static weighting [@xin2022mtohelp], random loss weighting [@lin2022rlw], uncertainty weighting [@kendall2018uncertainty], gradient normalization (GradNorm) [@chen2018gradnorm], the multiple-gradient descent algorithm (MGDA) [@sener2018mgda], projecting conflicting gradients (PCGrad) [@yu2020pcgrad], gradient sign dropout (GradDrop) [@chen2020graddrop], impartial multi-task learning (IMTL) [@liu2021imtl], conflict-averse gradient descent (CAGrad) [@liu2021cagrad], Nash multi-task learning (Nash-MTL) [@navon2022bargaining], fast adaptive multitask optimization (FAMO) [@liu2023famo], and PCGrad with uncertainty weighting [@yu2020pcgrad; @kendall2018uncertainty]. All models use one pretrained encoder, SEA-LION-ModernBERT-300M, which was trained on 13 languages, including English and Filipino [@aisingapore2026sealion].
+The study trains two single-task models, one for each task, and a multi-task model that performs both tasks. All models are built on one pretrained transformer encoder, SEA-LION-ModernBERT-300M, which was trained on 13 languages, including English and Filipino [@aisingapore2026sealion], and the multi-task model shares this encoder between the two tasks. The multi-task model is trained with each of 13 existing multi-task optimizers reviewed in Section 2.2, which gives 13 candidate models from which the final model is selected based on negative transfer.
 
-The study measures the inter-annotator agreement of the labels. For every model, it measures predictive performance, training time, and peak memory. For the final model and the single-task models, it also measures storage and processing time. For each candidate model, it also computes negative transfer. Each candidate model is trained three times with different random seeds, and the final model and the two single-task models are trained five times, all on one laptop whose NVIDIA GeForce RTX 4060 Laptop GPU has 8 GB of memory. Before these runs, each model is trained a few more times to choose its learning rate, and tuned static weighting is also trained further times to choose its task weights. These tuning runs are not counted in training cost, but their time is reported separately. Chapter 3 describes the data source, the labeling process, the hardware, the training configuration, the selection rule, and which training run becomes the final model.
+The study measures the agreement between annotators on the labels. For every model, it measures the F1-score on each task, the training time, and the peak memory, which is the largest amount of GPU memory used during training.
 
-The study also builds a prototype web application that runs the final model, to show how staff of a local disaster risk reduction and management office could use it to sort posts. The prototype is tested only to confirm that each of its functions works.
+The study builds a prototype web application that performs humanitarian classification and NER on posts with the final model, and tests whether each of its functions works.
+
+### Limitations of the Study
+
+The dataset may not fully represent Taglish posts about tropical cyclones, and some of its entity annotations may be wrong. The posts come only from users of X, who may not represent everyone affected by tropical cyclones. X also does not reliably show the region of a user, so the dataset may not represent the Taglish of every region equally. The size of about 2,500 posts is set by annotation capacity rather than by what the models need, so the dataset may be too small, and Section 3.7 checks whether it is large enough with a learning curve. Rare humanitarian categories may also have too few test posts for precise F1-scores. The entity spans are annotated automatically by GLiNER and are not checked by the annotators (Section 3.4), so the F1-scores for NER measure agreement with these annotations rather than with human annotations. For the humanitarian categories, the disagreements that remain after discussion are decided by one adjudicator, and no agreement measure checks these decisions.
+
+The experiments are limited by the number of training runs and by the laptop used for training. Each candidate model is trained only three times, so the statistical tests may fail to detect small differences between an optimizer and equal weighting, and a difference that is not significant does not show that the two perform the same (Section 3.6). The training time and peak memory may differ on computers other than the laptop used. The F1-scores may also be lower than if every layer of the encoder were trained, because the embedding layer is frozen to fit the 8 GB of GPU memory of the laptop (Section 3.5).
+
+The findings may not hold beyond the conditions of the study. They come from the tropical cyclones of January to November 2026 and may not hold for tropical cyclones of other years. The comparison of the optimizers is based on one pair of tasks and one pretrained transformer encoder, and because the findings on multi-task optimizers depend on the problem [@gama2026uniform], the best optimizer may differ for other tasks or encoders.
 
 ### Delimitations of the Study
 
-**Social media platform.** The dataset uses posts from X, formerly Twitter, because earlier Philippine and international disaster datasets also use posts from Twitter [@ermino2022urgency; @somido2023actionable; @alam2021humaid], so the results can be compared with theirs. Public Facebook posts are added only if X does not provide enough Taglish posts, as described in Chapter 3, and the number of posts from each platform is reported. Other platforms are excluded.
+The dataset covers only Taglish posts on X about the tropical cyclones of January to November 2026. Posts from Facebook and other platforms are excluded. X allows posts collected through its API to be stored, provided that posts later deleted on X are also deleted [@x2026devpolicy], and earlier Philippine and international disaster datasets also use posts from Twitter [@ermino2022urgency; @somido2023actionable; @alam2021humaid]. Other Philippine languages, such as Cebuano and Waray, are excluded because results from a mix of languages would not show whether the model works the same way in each language. Other hazards, such as earthquakes and volcanic eruptions, are excluded because tropical cyclones alone cross the Philippines about eight or nine times a year [PAGASA, -@pagasa2026cyclone], which gives several events in a single year. Earlier years are excluded because training depends on the number of annotated posts rather than the number of years, and the study does not measure how Taglish changes over time. December is excluded because the posts must be collected before annotation begins that month. Images, video, and audio are excluded because both tasks are defined on text.
 
-**Language.** The dataset covers Taglish only. Other Philippine languages, such as Cebuano and Waray, are excluded because results from a mix of languages would not show whether the model and its optimizer work the same way in each one. Labeling posts in more languages also exceeds the resources of this study.
+The study covers only humanitarian classification and NER. Other tasks, such as sentiment analysis, urgency detection, and the classification of hazard types, are excluded because adding tasks would change how the tasks interfere with one another and make differences in negative transfer harder to attribute to the optimizers. The model therefore does not rate how urgent a request is or identify the type of hazard in a post. It also does not translate posts into English, since its pretrained transformer encoder was trained on both English and Filipino [@aisingapore2026sealion]. Whether a post is true is not verified, because checking a claim requires sources outside the post, such as official reports.
 
-**Hazard.** The dataset includes tropical cyclones only, which cross the Philippines about eight or nine times a year [PAGASA, -@pagasa2026cyclone]. Zou et al. [-@zou2025typhoon] similarly built their dataset from typhoons only, describing China as one of the most typhoon-prone countries in the world. Earthquakes, volcanic eruptions, and other hazards are excluded.
+The experiments compare 13 existing multi-task optimizers on one pretrained transformer encoder and one laptop. The study compares these optimizers rather than creating a new one, and other existing optimizers are excluded to keep the number of training runs feasible. Other encoders are excluded because they would add a variable besides the optimizer. Other computers are excluded so that the training time and peak memory of every optimizer are measured under the same conditions. The models are evaluated only on the test posts of the study, because other disaster datasets, such as the English dataset of HUMAID-NER [@ali2026humaidner], differ in language and annotation. The final model is also not compared with LLMs, such as GPT, which differ from it in size, training, and cost. Earlier studies have already made this comparison for classification [@bucher2024finetuned; @mcdaniel2024zeroshot].
 
-**Time period.** The dataset covers events from 2020 to 2026, the most recent years at the time of the study. Earlier events, such as Typhoon Haiyan (Yolanda) in 2013, are excluded.
-
-**Modality.** The study includes text only. Images, video, and audio are excluded because both tasks in this study are defined on text.
-
-**Tasks.** The study covers only humanitarian classification and NER. Other tasks, such as sentiment, emotion, or urgency detection, are excluded because adding tasks would change how the tasks interfere with one another, and differences in negative transfer would then be harder to attribute to the optimizers. Excluding them does not imply that they are less useful to responders.
-
-**Multi-task optimizers.** The study compares 13 optimizers. Most were evaluated in earlier studies that compared other optimizers with equal weighting [@xin2022mtohelp; @kurin2022unitary; @royer2023scalarization; @gama2026uniform], so the results can be compared with theirs. Ali et al. [-@ali2026humaidner] described uncertainty weighting, PCGrad, and GradNorm as complementary for disaster posts and suggested combining PCGrad with uncertainty weighting. Other optimizers are excluded to keep the number of training runs feasible on a single laptop.
-
-**Pretrained encoder.** The study uses one pretrained encoder for all models. Testing other pretrained encoders is excluded because a different encoder would introduce another variable besides the optimizer.
-
-**Training settings.** All models use the same training settings, described in Chapter 3, except the learning rate, which is tuned for each model on the validation posts. The learning rate is the only setting that the benchmarks of Xin et al. [-@xin2022mtohelp], Kurin et al. [-@kurin2022unitary], and Gama and Grassi [-@gama2026uniform] all tuned for every optimizer. The settings that belong to each optimizer follow the values of their authors or of LibMTL, a published software library for multi-task learning [@lin2023libmtl], and are not tuned, as in the benchmark of Lin et al. [-@lin2022rlw]. The task weights of tuned static weighting are the exception, because choosing them is what defines that optimizer.
-
-**Training hardware.** All training and measurement are performed on a single laptop. Cloud servers and other machines are excluded so that the training time and peak memory of every optimizer are measured under the same conditions. Because the graphics processor of this laptop has 8 GB of memory, the embedding layer of the encoder, which turns each token into numbers, is not trained in any model, so that all 13 optimizers fit in this memory (Chapter 3).
-
-**Test data.** The study evaluates all models only on posts from its own Taglish dataset. Other disaster datasets, such as the English HUMAID-NER dataset [@ali2026humaidner], are not used for evaluation because differences in language and labeling would change the scores for reasons unrelated to the models being compared.
-
-**Large language models.** The study does not compare the final model with LLMs. The research questions compare multi-task and single-task models built on the same pretrained encoder. An LLM differs from these models in size, training, and cost, so a comparison with it would answer a different question. Earlier studies have already compared smaller trained models with LLMs on classification [@bucher2024finetuned; @mcdaniel2024zeroshot].
-
-**Deployment.** The study develops the final model and evaluates it on test posts only. Use by emergency responders during actual disasters is excluded because the research questions concern how the model is designed, trained, and evaluated, not how responders use it.
-
-**Prototype.** The prototype is not evaluated for usability or tested with the staff of disaster risk reduction and management offices, because the research questions concern the model, not the application that presents it.
+The study does not cover the use of the final model or the prototype in practice. Use during actual disasters and usability testing with staff of local disaster risk reduction and management offices are excluded, because the research questions concern how the model is designed, trained, and evaluated. The final model and the prototype are also not maintained after the study. Instead, the final model, the code, and the post IDs of the dataset are released on GitHub so that other researchers can retrain the model on posts from new tropical cyclones.
 
 ## Significance of the Study
 
-**Primary beneficiaries.** Local government units (LGUs) and their disaster risk reduction and management offices gain a model that identifies both the type of report and its details in Taglish posts and that could run on a laptop like the one used in this study, without sending the posts to a paid LLM service. The study reports how the final model compares with the single-task models in predictive performance on each task and in storage and processing time, which shows what an office would gain or give up by running one model instead of two. The prototype shows how office staff could use the model to sort posts. Local universities and research groups also benefit, since the training time and peak memory show what they would need to build and update the model for these offices.
+The study mainly benefits researchers in NLP and in crisis informatics, the field that studies how information from social media can support disaster response. These researchers gain a dataset of Taglish typhoon posts annotated for both humanitarian classification and NER, which none of the studies reviewed provides, to train and evaluate models for both tasks.
 
-**Secondary beneficiaries.** Researchers in NLP and crisis informatics, the study of how information from social media can support disaster response, and developers of multi-task models gain a Taglish dataset labeled for both tasks and a benchmark of 13 multi-task optimizers on Taglish disaster posts. The benchmark shows whether any optimizer differs from equal weighting in negative transfer and how much training time and memory each needs. This adds evidence to the debate on whether the other optimizers outperform equal weighting, since the comparisons of several optimizers reviewed here did not use Taglish text or pair a task that labels a whole post with one that labels each word. The study also provides its code and labeling guidelines, which later studies can use to build similar datasets or to add tasks such as emotion detection. The final model and the labeled dataset are shared only in forms that data privacy rules and the terms of the platforms allow. The dataset, for example, is shared as a list of post IDs instead of the posts themselves.
+Researchers in multi-task learning gain evidence on how much specialized multi-task optimizers reduce negative transfer compared with equal weighting on Taglish posts, and at what training cost. Whether these optimizers perform better than equal weighting is still debated, and a result on one dataset and set of tasks may not hold on another [@kurin2022unitary; @xin2022mtohelp; @gama2026uniform]. Evidence from humanitarian classification and NER of Taglish posts therefore adds a case that the earlier comparisons did not cover.
 
-**Tertiary beneficiaries.** Communities affected by tropical cyclones could benefit indirectly. If responders adopt the final model, they may identify urgent requests for rescue and relief more quickly among the large number of incoming posts.
+Local disaster risk reduction and management offices gain one model that classifies Taglish posts and extracts their key details. The comparison of the final model with the single-task models shows what an office would gain or give up in F1-score by using one model instead of two. The prototype demonstrates how office staff could use the model to find requests for rescue and relief more quickly among the many posts made during a disaster.
+
+Future researchers who continue this work can retrain or extend the final model, because the study releases the final model, the code, the annotation guidelines, and the post IDs of the dataset on GitHub. They can retrain the final model on posts from new tropical cyclones, build similar datasets for other Philippine languages, or add tasks such as urgency detection. The dataset is shared as post IDs rather than the posts themselves, as the developer policy of X requires [@x2026devpolicy].
 
 ## Definitions of Terms
 
 The following terms are defined as they are used in this study.
 
-**Candidate model.** One of the 13 versions of the multi-task model, each trained with a different multi-task optimizer. The final model is selected from them.
+**Candidate model**: One of the 13 multi-task models, each trained with a different multi-task optimizer, from which the final model is selected.
 
-**Equal weighting.** The multi-task optimizer that gives both tasks the same task weight, which stays fixed throughout training. It is the reference against which the other optimizers are compared.
+**Equal weighting**: The multi-task optimizer that adds the losses of the tasks with the same weight throughout training [@kurin2022unitary]. In this study, it is the reference against which the other 12 optimizers are compared.
 
-**F1-score.** A score between 0 and 1 that combines precision and recall, computed on the validation or test posts. Humanitarian classification uses macro-F1, which gives every category equal weight, and NER uses span-level micro-F1, which counts an entity as correct only when its boundaries and its type both match the label. Chapter 3 gives the formulas.
+**F1-score**: A score from 0 to 1 that combines precision, the share of predictions that are correct, and recall, the share of correct answers that a model finds. In this study, humanitarian classification is scored with macro-F1, the mean of the F1-scores of all categories, and NER with span-level micro-F1, which counts an entity as correct only when both its boundaries and its type match the annotation [@ali2026humaidner].
 
-**Final model.** The candidate model trained with the multi-task optimizer selected under the third research question. It is the main outcome of the study. Chapter 3 describes which of its training runs is used.
+**Final model**: The candidate model trained with the multi-task optimizer selected based on negative transfer, which is compared with the single-task models.
 
-**Gradient conflict.** The case in which the two task gradients point in directions that work against each other, so a change that helps one task harms the other.
+**Humanitarian classification**: The task of assigning a post one category that names the kind of humanitarian information it reports [@alam2021humaid]. In this study, each post receives one of the ten categories of HumAID, such as requests or urgent needs.
 
-**Gradient dominance.** The case in which one task gradient is much larger than the other, so the model changes mostly in the direction that the task with the larger gradient needs.
+**Inter-annotator agreement**: The degree to which annotators who annotate the same items independently give the same annotations. In this study, it is measured with Cohen's kappa between the two annotators on the humanitarian categories [@cohen1960coefficient].
 
-**Humanitarian classification.** The task that assigns each post one category naming the kind of information it reports, such as a request for supplies or damaged infrastructure.
+**Multi-task model**: A model trained on several tasks together that shares a representation across them [@caruana1997multitask]. In this study, it is one pretrained transformer encoder shared by a task head for humanitarian classification and a task head for NER.
 
-**Inter-annotator agreement.** The degree to which different annotators assign the same label to the same post or word, which shows how consistently the dataset is labeled. Chapter 3 describes how it is measured.
+**Multi-task optimizer**: A method that decides how the training signals of the tasks are combined into one update of a multi-task model [@lin2023libmtl]. The study compares 13 multi-task optimizers.
 
-**Label.** The category or entity type that annotators assign to a post, or to a word in a post, which the models learn from and are tested against.
+**Named entity recognition (NER)**: The task of finding the words or phrases in a text that name specific details and assigning each an entity type. In this study, the posts are annotated with the ten entity types of HUMAID-NER, such as locations and requests [@ali2026humaidner].
 
-**Multi-task model.** A model with one pretrained encoder shared by both tasks and a task head for each. It is trained on both tasks together and produces both outputs for a post while reading it only once.
+**Negative transfer**: A drop in performance on a task when it is trained together with another task, compared with training it alone [@royer2023scalarization]. In this study, it is a lower F1-score of a candidate model on a task than that of the single-task model for that task, and a higher F1-score is positive transfer.
 
-**Multi-task optimizer.** A training method that controls how the tasks influence the model during training. Equal weighting and tuned static weighting keep the task weights fixed, and the other 11 optimizers adjust the task weights, the task gradients, or both during training. The study compares 13 multi-task optimizers, which Chapter 2 describes.
+**Peak memory**: The largest amount of GPU memory allocated during one training run.
 
-**Named entity recognition (NER).** The task that finds words or phrases in a post that name specific details, such as places, and assigns each an entity type. It works on parts of a post rather than the whole post.
+**Post**: A message published on social media. In this study, it is a public post on X, which the title calls a Tweet, the name used when X was called Twitter.
 
-**Negative transfer.** A drop in predictive performance on a task when a model is trained on both tasks together, compared with the single-task model for that task. It is measured as the change in F1-score, which is the score of the multi-task model minus the score of the single-task model. A negative change shows negative transfer, and a positive change shows positive transfer.
+**Pretrained transformer encoder**: A language model trained on large amounts of text before it is used for a task, which converts each token of a text into numbers that task heads can use. In this study, it is SEA-LION-ModernBERT-300M, which was trained on 13 languages, including English and Filipino [@aisingapore2026sealion].
 
-**Peak memory.** The largest amount of GPU memory, the memory of the laptop's graphics processor, that training uses at any one time. Chapter 3 describes how it is measured.
+**Single-task model**: A model trained on one task only. In this study, each single-task model uses the same pretrained transformer encoder as the multi-task model with one task head, and its F1-score is the baseline for measuring negative transfer on that task.
 
-**Post.** A message that a person publishes on social media. The dataset of this study mainly consists of posts on X, formerly Twitter, which were earlier called tweets.
+**Specialized multi-task optimizer**: A multi-task optimizer that adjusts how strongly each task influences the model as training proceeds [@gama2026uniform]. In this study, these are the 11 of the 13 optimizers that do not keep the task weights fixed.
 
-**Predictive performance.** The degree to which a model performs a task correctly on the validation or test posts, measured with F1-scores.
+**Taglish**: Code-switching between Tagalog and English in the same text [@herrera2022tweettaglish]. In this study, a post is Taglish when it has at least one English word and one Tagalog word.
 
-**Pretrained encoder.** The language model, SEA-LION-ModernBERT-300M, that was trained on large amounts of text before this study. It reads every post and converts the text into numbers that the task heads can use, and all models use the same encoder. In the multi-task model, both tasks share it.
+**Task head**: The part of a multi-task or single-task model that makes the predictions for one task from the output of the pretrained transformer encoder.
 
-**Processing time.** The time that a trained model takes to produce its outputs for the test posts, reported as the mean time per post. For the single-task models, the times of the two models are added. Chapter 3 describes how it is measured.
+**Token**: A word or part of a word that the pretrained transformer encoder reads as one unit.
 
-**Random seed.** A number that fixes the random choices made during training, such as the starting values of the task heads and the order of the training posts. Training with different seeds shows how much the results vary by chance.
+**Training cost**: The training time and peak memory of a model. Training time is the wall-clock time of the training steps of one run.
 
-**Single-task model.** A model trained on one task only, using the same pretrained encoder as the multi-task model. Its predictive performance serves as the baseline for measuring negative and positive transfer on that task.
-
-**Specialized optimizer.** Any of the 11 multi-task optimizers other than equal weighting and tuned static weighting. These optimizers adjust the task weights, change the task gradients, or do both during training.
-
-**Storage.** The disk space that the files of a trained model take up. For the single-task models, the files of the two models are counted together.
-
-**Taglish.** The mix of Tagalog and English that many Filipinos use in everyday writing, and the language of the posts in the dataset.
-
-**Task gradient.** The signal that one task sends the model during training to indicate how the model should change to reduce its error on that task.
-
-**Task head.** The component of a model that makes the predictions for one task, using the output of the pretrained encoder.
-
-**Task weight.** A number that sets how much one task influences training. During training, the error of the model on each task is multiplied by the task weight of that task before the two are added together.
-
-**Test posts.** Labeled posts that are kept out of training and selection and used only once, to compare the final model with the single-task models.
-
-**Token.** A word or part of a word that the model reads as one unit.
-
-**Training cost.** The training time and peak memory needed to train one model. Since the 13 candidate models share the same pretrained encoder, dataset, and laptop, differences in training cost between them come from their optimizers, as implemented in LibMTL or, for two of them, in the code of this study. It does not include the tuning runs that choose the learning rate and the task weights of tuned static weighting.
-
-**Training settings.** The values that control how a model is trained, such as how many times it goes through the training posts and how much it changes at each step, called the learning rate. All models in this study use the same values, except the learning rate, which is tuned for each model.
-
-**Tuned static weighting.** The multi-task optimizer that keeps the task weights fixed throughout training at values chosen together with the learning rate by testing several options on the validation posts before training, which requires training the model several times.
-
-**Validation posts.** Labeled posts that are kept out of training and used to choose the learning rate of each model, the task weights of tuned static weighting, and the point in each run at which the model is saved, and to select the multi-task optimizer for the final model.
+**Typhoon**: In the title, any tropical cyclone, a rotating storm that forms over warm ocean water. In this study, it covers all tropical cyclones that entered the Philippine Area of Responsibility from January to November 2026.
