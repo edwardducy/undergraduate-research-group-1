@@ -34,7 +34,7 @@ The performance of each model is measured with F1-scores, following HUMAID-NER [
 $$P_c = \frac{TP_c}{TP_c + FP_c}, \qquad R_c = \frac{TP_c}{TP_c + FN_c}, \qquad F1_c = \frac{2 P_c R_c}{P_c + R_c}$$
 where $P_c$ is precision, $R_c$ is recall, $TP_c$ counts correct predictions of $c$, $FP_c$ counts wrong predictions of $c$, and $FN_c$ counts instances of $c$ that the model missed. Humanitarian classification is scored with macro-F1, and NER is scored with span-level micro-F1, in which a predicted span is correct only when its boundaries and type both match a labeled span. F1-scores are reported on a scale of 0 to 1, and differences between them in percentage points.
 
-Negative transfer is measured on each task $t$ as the change $\Delta_t$ in F1-score from the single-task model, and on both tasks as the average change $\Delta_{\text{avg}}$,
+Transfer is measured on each task $t$ as the change $\Delta_t$ in F1-score from the single-task model, and on both tasks as the average change $\Delta_{\text{avg}}$,
 $$\Delta_t = F1_{\text{multi-task},\,t} - F1_{\text{single-task},\,t}, \qquad \Delta_{\text{avg}} = \frac{1}{2}\left(\Delta_1 + \Delta_2\right)$$
 where task 1 is humanitarian classification and task 2 is NER. A negative value shows negative transfer. The single-task score is the mean over the five runs of the single-task model for that task, since studies of multi-task optimizers measure the change against one single-task result for each task [@navon2022bargaining; @liu2023famo].
 
