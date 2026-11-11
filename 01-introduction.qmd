@@ -112,42 +112,42 @@ Future researchers who continue this work can retrain or extend the final model,
 
 The following terms are defined as they are used in this study.
 
-**Candidate model**: One of the 13 multi-task models, each trained with a different multi-task optimizer, from which the final model is selected.
+**Candidate model:** One of the 13 multi-task models, each trained with a different multi-task optimizer, from which the final model is selected.
 
-**Equal weighting**: The multi-task optimizer that adds the losses of the tasks with the same weight throughout training [@kurin2022unitary]. In this study, it is the reference against which the other 12 optimizers are compared.
+**Equal weighting:** The multi-task optimizer that adds the losses of the tasks with the same weight throughout training [@kurin2022unitary]. In this study, it is the reference against which the other 12 optimizers are compared.
 
-**F1-score**: A score from 0 to 1 that combines precision, the share of predictions that are correct, and recall, the share of correct answers that a model finds. In this study, humanitarian classification is scored with macro-F1, the mean of the F1-scores of all categories, and NER with span-level micro-F1, which counts an entity as correct only when both its boundaries and its type match the annotation [@ali2026humaidner].
+**F1-score:** A score from 0 to 1 that combines precision, the share of predictions that are correct, and recall, the share of correct answers that a model finds. In this study, humanitarian classification is scored with macro-F1, the mean of the F1-scores of all categories, and NER with span-level micro-F1, which counts an entity as correct only when both its boundaries and its type match the annotation [@ali2026humaidner].
 
-**Final model**: The candidate model trained with the multi-task optimizer selected based on negative transfer, which is compared with the single-task models.
+**Final model:** The candidate model trained with the multi-task optimizer selected based on negative transfer, which is compared with the single-task models.
 
-**Humanitarian classification**: The task of assigning a post one category that names the kind of humanitarian information it reports [@alam2021humaid]. In this study, each post receives one of the ten categories of HumAID, such as requests or urgent needs.
+**Humanitarian classification:** The task of assigning a post one category that names the kind of humanitarian information it reports [@alam2021humaid]. In this study, each post receives one of the ten categories of HumAID, such as requests or urgent needs.
 
-**Inter-annotator agreement**: The degree to which annotators who annotate the same items independently give the same annotations. In this study, it is measured with Cohen's kappa between the two annotators on the humanitarian categories [@cohen1960coefficient].
+**Inter-annotator agreement:** The degree to which annotators who annotate the same items independently give the same annotations. In this study, it is measured with Cohen's kappa between the two annotators on the humanitarian categories [@cohen1960coefficient].
 
-**Multi-task model**: A model trained on several tasks together that shares a representation across them [@caruana1997multitask]. In this study, it is one pretrained transformer encoder shared by a task head for humanitarian classification and a task head for NER.
+**Multi-task model:** A model trained on several tasks together that shares a representation across them [@caruana1997multitask]. In this study, it is one pretrained transformer encoder shared by a task head for humanitarian classification and a task head for NER.
 
-**Multi-task optimizer**: A method that decides how the training signals of the tasks are combined into one update of a multi-task model [@lin2023libmtl]. The study compares 13 multi-task optimizers.
+**Multi-task optimizer:** A method that decides how the training signals of the tasks are combined into one update of a multi-task model [@lin2023libmtl]. The study compares 13 multi-task optimizers.
 
-**Named entity recognition (NER)**: The task of finding the words or phrases in a text that name specific details and assigning each an entity type. In this study, the posts are annotated with the ten entity types of HUMAID-NER, such as locations and requests [@ali2026humaidner].
+**Named entity recognition (NER):** The task of finding the words or phrases in a text that name specific details and assigning each an entity type. In this study, the posts are annotated with the ten entity types of HUMAID-NER, such as locations and requests [@ali2026humaidner].
 
-**Negative transfer**: A drop in performance on a task when it is trained together with another task, compared with training it alone [@royer2023scalarization]. In this study, it is a lower F1-score of a candidate model on a task than that of the single-task model for that task, and a higher F1-score is positive transfer.
+**Negative transfer:** A drop in performance on a task when it is trained together with another task, compared with training it alone [@royer2023scalarization]. In this study, it is a lower F1-score of a candidate model on a task than that of the single-task model for that task, and a higher F1-score is positive transfer.
 
-**Peak memory**: The largest amount of GPU memory allocated during one training run.
+**Peak memory:** The largest amount of GPU memory allocated during one training run.
 
-**Post**: A message published on social media. In this study, it is a public post on X, which the title calls a Tweet, the name used when X was called Twitter.
+**Post:** A message published on social media. In this study, it is a public post on X, which the title calls a Tweet, the name used when X was called Twitter.
 
-**Pretrained transformer encoder**: A language model trained on large amounts of text before it is used for a task, which converts each token of a text into numbers that task heads can use. In this study, it is SEA-LION-ModernBERT-300M, which was trained on 13 languages, including English and Filipino [@aisingapore2026sealion].
+**Pretrained transformer encoder:** A language model trained on large amounts of text before it is used for a task, which converts each token of a text into numbers that task heads can use. In this study, it is SEA-LION-ModernBERT-300M, which was trained on 13 languages, including English and Filipino [@aisingapore2026sealion].
 
-**Single-task model**: A model trained on one task only. In this study, each single-task model uses the same pretrained transformer encoder as the multi-task model with one task head, and its F1-score is the baseline for measuring negative transfer on that task.
+**Single-task model:** A model trained on one task only. In this study, each single-task model uses the same pretrained transformer encoder as the multi-task model with one task head, and its F1-score is the baseline for measuring negative transfer on that task.
 
-**Specialized multi-task optimizer**: A multi-task optimizer that adjusts how strongly each task influences the model as training proceeds [@gama2026uniform]. In this study, these are the 11 of the 13 optimizers that do not keep the task weights fixed.
+**Specialized multi-task optimizer:** A multi-task optimizer that adjusts how strongly each task influences the model as training proceeds [@gama2026uniform]. In this study, these are the 11 of the 13 optimizers that do not keep the task weights fixed.
 
-**Taglish**: Code-switching between Tagalog and English in the same text [@herrera2022tweettaglish]. In this study, a post is Taglish when it has at least one English word and one Tagalog word.
+**Taglish:** Code-switching between Tagalog and English in the same text [@herrera2022tweettaglish]. In this study, a post is Taglish when it has at least one English word and one Tagalog word.
 
-**Task head**: The part of a multi-task or single-task model that makes the predictions for one task from the output of the pretrained transformer encoder.
+**Task head:** The part of a multi-task or single-task model that makes the predictions for one task from the output of the pretrained transformer encoder.
 
-**Token**: A word or part of a word that the pretrained transformer encoder reads as one unit.
+**Token:** A word or part of a word that the pretrained transformer encoder reads as one unit.
 
-**Training cost**: The training time and peak memory of a model. Training time is the wall-clock time of the training steps of one run.
+**Training cost:** The training time and peak memory of a model. Training time is the wall-clock time of the training steps of one run.
 
-**Typhoon**: In the title, any tropical cyclone, a rotating storm that forms over warm ocean water. In this study, it covers all tropical cyclones that entered the Philippine Area of Responsibility from January to November 2026.
+**Typhoon:** In the title, any tropical cyclone, a rotating storm that forms over warm ocean water. In this study, it covers all tropical cyclones that entered the Philippine Area of Responsibility from January to November 2026.
