@@ -42,7 +42,7 @@ Computational cost is measured with training time and peak memory. Training time
 
 ## Procedure of Data Gathering
 
-Posts are collected through the full-archive search of the X API, which charges US\$0.005 for each post it returns [@x2026pricing]. Each collection window (Section 3.2) is searched with the same query, which excludes reposts and quotes. The query contains the Tagalog keywords listed in Appendix B, which are related to tropical cyclones and their effects, such as *bagyo* (tropical cyclone) and *baha* (flood). Posts are collected in rounds, each sampled as described in Section 3.3, until about 2,500 posts meet the criteria in that section. These 2,500 posts cost at least US\$12.50.
+Posts are collected only through the full-archive search of the X API, which X provides with its permission and which charges US\$0.005 for each post it returns [@x2026pricing]. Screenshots and copying are not used. The API returns the ID of each post, which links to the original post on X. Each collection window (Section 3.2) is searched with the same query, which excludes reposts and quotes. The query contains the Tagalog keywords listed in Appendix B, which are related to tropical cyclones and their effects, such as *bagyo* (tropical cyclone) and *baha* (flood). Posts are collected in rounds, each sampled as described in Section 3.3, until about 2,500 posts meet the criteria in that section. These 2,500 posts cost at least US\$12.50.
 
 Near-duplicate posts are removed following HumAID [@alam2021humaid], which keeps one of any two posts whose unigram and bigram counts have a cosine similarity above 0.75 after links, usernames, and non-ASCII characters are removed.
 
