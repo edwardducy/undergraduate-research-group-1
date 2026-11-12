@@ -193,6 +193,14 @@ No changes.
   annotation capacity (Lakens, 2022). (P12, B8)
   Section 3.2 gives only the number. The reason is given in Section 3.3.
 
+- [ ] Apply the rule to the 13 optimizers. They are the optimizers evaluated in
+  at least two of seven comparison studies (Vandenhende et al., 2022; Xin et
+  al., 2022; Kurin et al., 2022; Lin et al., 2022; Lin et al., 2023; Royer et
+  al., 2023; Gama & Grassi, 2026) that can be trained with the same model and
+  setup, which excludes RotoGrad. DWA and GradVac replace FAMO and PCGrad with
+  uncertainty weighting. Rename tuned static weighting to linear
+  scalarization. Update Sections 3.5 and 3.8.1 to match.
+
 ## 3.3 Sampling Technique
 
 - [x] Remove Facebook as a fallback data source. (P4)
