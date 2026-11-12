@@ -166,7 +166,7 @@ Note. Each version is the lowest version with which the code of the study is run
 
 : Hardware of the study {#tbl-hardware tbl-colwidths="[25,75]"}
 
-The laptop in @tbl-hardware is the only machine used for training and measurement (Chapter 1). An internet connection is needed only to collect the posts and to download the encoder and the libraries. Training and measurement run without a connection. The code, the settings, and a file that fixes the version of every library are kept in a GitHub repository and archived on Zenodo with a permanent identifier. The labeled dataset is shared only in a form that complies with the Data Privacy Act of 2012 and the terms of the platforms. Posts from X are shared as post IDs, and posts from Facebook are not shared.
+The laptop in @tbl-hardware is the only machine used for training and measurement (Chapter 1). An internet connection is needed only to collect the posts and to download the encoder and the libraries. Training and measurement run without a connection. The code, the settings, and a file that fixes the version of every library are kept in a GitHub repository and archived on Zenodo with a permanent identifier. The labeled dataset is shared only in a form that complies with the Data Privacy Act of 2012 and the terms of the platforms. Posts from X are shared as post IDs.
 
 ## Testing and Evaluation
 
