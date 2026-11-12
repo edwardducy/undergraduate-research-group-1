@@ -1,0 +1,29 @@
+# Pilot Run {#sec-appendix-pilot}
+
+The pilot run was done before the tuning runs to check that every model fits in the 8 GB of GPU memory of the laptop and to set the limit on the growth of shared GPU memory used to check run validity (Section 3.9). Each model was trained for \[number\] steps with batch size 8, first with all layers trained and then with the embedding layer of the encoder frozen. During each run, nvidia-smi recorded the GPU every second (Section 3.4), and the memory counters of Windows recorded the shared GPU memory (Section 3.9).
+
+| Model | Peak GPU memory, all layers trained (MiB) | Peak GPU memory, embedding layer frozen (MiB) | Shared GPU memory growth (MiB) |
+|:--------------------|:--------------------|:--------------------|:--------------------|
+| Single-task, classification | \[value\] | \[value\] | \[value\] |
+| Single-task, NER | \[value\] | \[value\] | \[value\] |
+| Equal weighting | \[value\] | \[value\] | \[value\] |
+| Tuned static weighting | \[value\] | \[value\] | \[value\] |
+| Random loss weighting | \[value\] | \[value\] | \[value\] |
+| Uncertainty weighting | \[value\] | \[value\] | \[value\] |
+| GradNorm | \[value\] | \[value\] | \[value\] |
+| FAMO | \[value\] | \[value\] | \[value\] |
+| MGDA | \[value\] | \[value\] | \[value\] |
+| GradDrop | \[value\] | \[value\] | \[value\] |
+| IMTL | \[value\] | \[value\] | \[value\] |
+| PCGrad | \[value\] | \[value\] | \[value\] |
+| CAGrad | \[value\] | \[value\] | \[value\] |
+| Nash-MTL | \[value\] | \[value\] | \[value\] |
+| PCGrad with uncertainty weighting | \[value\] | \[value\] | \[value\] |
+
+: Memory use in the pilot run {#tbl-pilot tbl-colwidths="[28,24,24,24]"}
+
+Note. MiB = mebibyte. A value marked \[mark\] exceeded the 8 GB of GPU memory, so part of the run's memory was moved to main memory.
+
+\[State which optimizers did not fit when all layers were trained, which led to freezing the embedding layer and to the batch size of 8 (Section 3.5).\]
+
+\[State the largest growth in shared GPU memory seen in the runs that did not slow down, and how the limit of 50 MiB was set from it.\]

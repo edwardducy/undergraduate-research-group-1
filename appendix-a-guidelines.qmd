@@ -1,0 +1,80 @@
+# Annotation Guidelines {#sec-appendix-guidelines}
+
+These guidelines are used by the two annotators to assign a humanitarian category to each post (Section 3.4). They are a first draft and are revised after each practice batch of 50 posts until Cohen's kappa reaches at least .61 (Section 3.5). The final version is fixed before the sample is annotated.
+
+## Task
+
+Each post receives exactly one of the ten humanitarian categories of HumAID [@alam2021humaid], defined in @tbl-guideline-categories. The category describes the information that the post gives about humanitarian aid during a tropical cyclone, not the feelings of its author. The annotators label each post independently in doccano and do not discuss a post until both have labeled the whole batch. The urgency of a request is not rated, so every request receives the same category, and the type of hazard is not a category (Section 1.8.3).
+
+The entities of each post are not annotated by hand. They are labeled automatically by GLiNER (Section 3.4), as described in Section A.5.
+
+## Humanitarian Categories
+
+| Category | A post belongs to this category when it |
+|:---------------------|:-----------------------------------------------|
+| Caution and advice | Reports a warning that is raised or lifted, or gives guidance or tips about the tropical cyclone |
+| Displaced people and evacuations | Reports people who have left their homes because of the tropical cyclone, even for a short time, including evacuations |
+| Infrastructure and utility damage | Reports damage to buildings, houses, roads, bridges, power lines, communication lines, vehicles, or other infrastructure |
+| Injured or dead people | Reports people who are injured or dead because of the tropical cyclone |
+| Missing or found people | Reports people who are missing or who have been found |
+| Requests or urgent needs | Asks for rescue, supplies, or immediate help, or reports an urgent need, such as food, water, clothing, money, medicine, or blood |
+| Rescue, volunteering, or donation effort | Reports a rescue, a volunteer effort, or a donation, such as people being brought to safety, given food or medical aid, or sheltered |
+| Sympathy and support | Offers prayers, thoughts, or emotional support |
+| Other relevant information | Gives information useful for humanitarian aid that fits none of the categories above |
+| Not humanitarian | Gives no information related to humanitarian aid |
+
+: Humanitarian categories, adapted from Alam et al. (2021) {#tbl-guideline-categories tbl-colwidths="[30,70]"}
+
+Note. HumAID also has the label "Don't know or can't judge," which is not used. A post that the annotators cannot place is treated as a disagreement (Section 3.5).
+
+## Rules for Hard Cases
+
+1. A post that fits more than one category is given the category of its main information. When the main information is unclear, the annotators use the order below, from first to last. The order is Requests or urgent needs, Injured or dead people, Missing or found people, Displaced people and evacuations, Infrastructure and utility damage, Rescue, volunteering, or donation effort, Caution and advice, Other relevant information, and Sympathy and support. The order is confirmed or changed in the practice batches.
+2. A request for help on behalf of another person, such as a relative in a flooded area, is labeled Requests or urgent needs.
+3. A post that only shares or comments on a news report is labeled by the information in the report.
+4. A post that uses a disaster word such as *bagyo* or *baha* only as a joke, a comparison, or a figure of speech, or that has nothing to do with a tropical cyclone, such as a post about fans rioting over a celebrity breakup, is kept and labeled Not humanitarian.
+5. Further rules from the disagreements in each practice batch are added to this list before the sample is annotated.
+
+## Examples
+
+@tbl-guideline-examples gives one example post for each category. The posts were written for these guidelines and are not from the dataset. Like the posts in the sample, each has at least one English word and one Tagalog word (Section 3.3). They are replaced with posts from the practice batches, after usernames, phone numbers, email addresses, and links are replaced with placeholders (Section 3.5), before the sample is annotated.
+
+| Category | Example post | Reason |
+|:----------------|:------------------------------|:--------------------|
+| Caution and advice | Signal No. 3 na sa Albay. Ihanda na ang go bag at lumikas agad kung kailangan. | Reports a raised warning and gives guidance. |
+| Displaced people and evacuations | Mahigit 200 pamilya na ang nasa evacuation center sa Brgy. San Isidro dahil sa bagyo. | Reports families who left their homes. |
+| Infrastructure and utility damage | Brownout pa rin sa Brgy. Poblacion at nasira ang tulay dahil sa baha. | Reports damage to power supply and a bridge. |
+| Injured or dead people | Tatlo ang patay at lima ang sugatan sa landslide sa Rodriguez kagabi. | Reports people who died or were injured. |
+| Missing or found people | Missing pa rin si Lolo Ben. Hindi pa siya nakikita mula nang tumaas ang tubig kahapon. | Reports a person who is missing. |
+| Requests or urgent needs | Kailangan namin ng tubig at pagkain dito sa Brgy. San Isidro, Rodriguez. Wala pang relief na dumarating. | Asks for supplies. |
+| Rescue, volunteering, or donation effort | Nagpadala ng rubber boat ang rescue team ng LGU at nailigtas ang 15 residente. | Reports a rescue. |
+| Sympathy and support | Stay safe po sa lahat ng apektado ng bagyo. Ipagdarasal namin kayo. | Offers prayers. |
+| Other relevant information | No classes sa lahat ng antas sa Makati bukas dahil sa bagyo. | Gives information that may help people but fits no other category. |
+| Not humanitarian | Nag-riot ang fans sa concert dahil sa breakup ng idol nila, parang bagyo sa social media! | Uses *bagyo* as a figure of speech and has nothing to do with a tropical cyclone. |
+
+: Example post for each humanitarian category {#tbl-guideline-examples tbl-colwidths="[24,46,30]"}
+
+## Entity Types
+
+The entities of each post are labeled automatically by GLiNER in zero-shot mode, and the annotators do not check them (Sections 3.4 and 1.8.2). They follow the ten entity types of HUMAID-NER [@ali2026humaidner] in the BIO format, which gives 21 labels per token. A DISASTER_TYPE span marks the words that name a hazard, but the post itself is not classified by hazard (Section 1.8.3). @tbl-entity-types describes each type and gives an example. The examples are adapted from Ali et al. [-@ali2026humaidner] or written for these guidelines, and none is from the dataset.
+
+| Entity type | A span of text that names | Example |
+|:----------------|:------------------------------|:--------------------|
+| LOCATION | A place, such as a barangay, city, or province | Brgy. San Isidro |
+| DISASTER_TYPE | A hazard or an event type | storm surge |
+| CASUALTY | People who are injured or dead, with the number when given | tatlo ang patay |
+| DISPLACED | People who left their homes, with the number when given | 200 pamilya na lumikas |
+| REQUEST | An expressed need for aid | humihingi kami ng tulong |
+| RESOURCE | Aid supplies | relief goods |
+| RESCUE | An emergency operation that is going on | rescue team |
+| ORGANIZATION | A named group that responds to the disaster | Red Cross |
+| PERSON | A named person | Mayor Cruz |
+| NUMBER | A number that stands alone | Day 3 |
+
+: Entity types, adapted from Ali et al. (2026) {#tbl-entity-types tbl-colwidths="[24,46,30]"}
+
+Note. \[State the exact label text that is given to GLiNER for each type, its confidence threshold, and how overlapping spans are settled.\]
+
+## Disagreements
+
+The annotators settle each disagreement by discussion after both have labeled the batch. A disagreement that remains is decided by the adjudicator, who signs off on each batch (Section 3.5). A rule that changes during this process is added to the rules above, and the change is recorded with the batch in which it was made.

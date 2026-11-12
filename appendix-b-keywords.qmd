@@ -1,0 +1,19 @@
+# Search Keywords {#sec-appendix-keywords}
+
+The posts are collected through the full-archive search of the X API with one query for every collection window (Section 3.5). The query matches a post that contains any of the Tagalog keywords in @tbl-keywords and excludes reposts and quotes.
+
+| Keyword | English meaning | Group |
+|:--------------------|:--------------------|:--------------------|
+| *bagyo* | tropical cyclone | Tropical cyclone |
+| *baha* | flood | Effect |
+| \[keyword\] | \[meaning\] | \[group\] |
+
+: Tagalog search keywords {#tbl-keywords tbl-colwidths="[30,40,30]"}
+
+Note. \[State how the keywords were chosen, for example from the posts of an earlier tropical cyclone or from the terms used in PAGASA bulletins, and whether each keyword was tried in a test search before collection.\]
+
+The query has the form below, with the keywords joined by `OR`. The operators `-is:retweet` and `-is:quote` exclude reposts and quotes, and the start and end times of each search are those of the collection window.
+
+```text
+(bagyo OR baha OR [keyword] OR ...) -is:retweet -is:quote
+```

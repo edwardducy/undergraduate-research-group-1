@@ -19,6 +19,11 @@ book:
     - 02-literature.qmd
     - 03-methodology.qmd
     - references.qmd
+  appendices:
+    - appendix-a-guidelines.qmd
+    - appendix-b-keywords.qmd
+    - appendix-c-settings.qmd
+    - appendix-d-pilot.qmd
 
 format:
   typst:

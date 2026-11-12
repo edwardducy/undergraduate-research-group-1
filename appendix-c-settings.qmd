@@ -1,0 +1,47 @@
+# Training Settings {#sec-appendix-settings}
+
+@tbl-settings lists the settings shared by all 15 models, and @tbl-optimizer-settings lists the settings of each multi-task optimizer. The settings not listed in either table follow the defaults of LibMTL at commit 4336804 (Section 3.8.3).
+
+| Setting | Value |
+|:------------------------------|:------------------------------|
+| Encoder | SEA-LION-ModernBERT-300M, Hugging Face revision e3d70b8 |
+| Training library | LibMTL, commit 4336804 |
+| Frozen layers | Embedding layer of the encoder |
+| Optimizer of the model weights | \[name, from the training code\] |
+| Learning rate | Constant, chosen from 1, 3, 5, and 8 × 10^−5^ |
+| Weight decay | \[value\] |
+| Gradient clipping | \[norm, or none\] |
+| Batch size | 8 posts |
+| Maximum post length | \[number\] tokens |
+| Epochs | 10, without early stopping |
+| Checkpoint kept | Epoch with the highest validation score |
+| Validation score | Mean of the two F1-scores, or the F1-score of a single-task model |
+| Random seed of the tuning runs | 0 |
+| Random seeds of the main runs | 1 to 3 for multi-task models, 1 to 5 for single-task models and the final model |
+| Mixed precision | \[on or off\] |
+
+: Settings shared by all models {#tbl-settings tbl-colwidths="[40,60]"}
+
+| Optimizer | Setting | Value |
+|:--------------------|:--------------------|:--------------------|
+| Equal weighting | Task weights | 1 and 1 |
+| Tuned static weighting | Task weights | 0.1 to 0.9 for classification in steps of 0.1, and one minus that value for NER, tuned with the learning rate |
+| Random loss weighting | Task weights | Redrawn at every step, with no setting |
+| Uncertainty weighting | Starting value of the log-variance of each task | −0.5 |
+| GradNorm | α | 1.5 |
+| FAMO | Learning rate of the task weights | 0.025 |
+| | Weight decay of the task weights | 0.001 |
+| MGDA | Gradient normalization | None |
+| GradDrop | Leak | 0.0 |
+| IMTL | Starting value of the loss scale of each task | 0 |
+| PCGrad | None | None |
+| CAGrad | *c* | 0.5 |
+| | Rescale | 1 |
+| Nash-MTL | Update of the task weights | Every step |
+| | Optimization iterations | 20 |
+| | Maximum gradient norm | 1.0 |
+| PCGrad with uncertainty weighting | Settings of PCGrad and uncertainty weighting | As above \[confirm in the code written for this study\] |
+
+: Settings of each multi-task optimizer {#tbl-optimizer-settings tbl-colwidths="[25,40,35]"}
+
+Note. Values of the optimizers that come from LibMTL are its defaults at commit 4336804. Tuned static weighting and PCGrad with uncertainty weighting are written for this study. The task gradients of GradNorm, MGDA, GradDrop, and IMTL are taken at the output of the encoder, and those of PCGrad, CAGrad, Nash-MTL, and PCGrad with uncertainty weighting over all trained encoder parameters (Section 3.8.1). In LibMTL, GradNorm weights both tasks equally in its first epoch and trains only the task heads, and this study also trains the encoder in that epoch (Section 3.8.1). Nash-MTL solves its optimization with CVXPY and the ECOS solver (Section 3.8.3).

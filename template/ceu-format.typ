@@ -16,10 +16,15 @@
   let trim(c) = if c.func() == [].func() and c.children.len() > 0 and c.children.last() == [ ] {
     c.children.slice(0, -1).join()
   } else { c }
+  let chapter-number(loc) = {
+    let numbered = query(heading.where(level: 1).before(loc)).filter(h => h.numbering != none)
+    let pattern = if numbered.len() > 0 { numbered.last().numbering } else { "1" }
+    numbering(pattern, counter(heading).at(loc).first())
+  }
   let float-list(kind, supplement) = context {
     for f in query(figure.where(kind: kind)) {
       let loc = f.location()
-      let n = str(counter(heading).at(loc).first()) + "." + str(f.counter.at(loc).first())
+      let n = chapter-number(loc) + "." + str(f.counter.at(loc).first())
       entry(0in, [#strong[#supplement #n.] #trim(f.caption.body)], loc)
     }
   }
@@ -36,9 +41,9 @@
           par[CHAPTER]
           chapters-started = true
         }
-        entry(0.25in, [#counter(heading).at(loc).first(). #h.body], loc)
+        entry(0.25in, [#chapter-number(loc). #h.body], loc)
       } else {
-        let number = counter(heading).at(loc).map(str).join(".")
+        let number = numbering(h.numbering, ..counter(heading).at(loc))
         entry(if h.level == 2 { 0.25in } else { 0.5in }, [#number #h.body], loc)
       }
     }
@@ -51,6 +56,31 @@
   pagebreak()
   title[LIST OF FIGURES]
   float-list("quarto-float-fig", "Figure")
+}
+
+// Called by Quarto for the `appendices` of the book. Each appendix is lettered
+// (Appendix A), and its sections and tables follow the letter (A.1, Table A.1).
+#let appendices(title, doc, hide-parent: false) = {
+  counter(heading).update(0)
+  set heading(numbering: "A.1")
+  show heading.where(level: 1): it => {
+    if it.numbering == none {
+      // The break comes first even when the heading is hidden, so that its
+      // entry in the table of contents points to the page of Appendix A.
+      pagebreak(weak: true)
+      if not hide-parent { align(center, it.body) }
+    } else {
+      pagebreak(weak: true)
+      counter(figure.where(kind: "quarto-float-fig")).update(0)
+      counter(figure.where(kind: "quarto-float-tbl")).update(0)
+      align(center)[
+        Appendix #counter(heading).display("A") \
+        #it.body
+      ]
+    }
+  }
+  set figure(numbering: n => numbering("A.1", counter(heading).get().first(), n))
+  doc
 }
 
 #let ceu-format(title: none, authors: (), body) = {
