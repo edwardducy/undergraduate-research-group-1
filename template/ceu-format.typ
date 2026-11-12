@@ -1,5 +1,7 @@
 #import "title-page.typ": title-page
 
+#let appendix-state = state("appendix-state", none)
+
 #let single = 1.15em
 #let double = 2 * single
 #let line-gap = double - 1em
@@ -19,7 +21,11 @@
   let float-list(kind, supplement) = context {
     for f in query(figure.where(kind: kind)) {
       let loc = f.location()
-      let n = str(counter(heading).at(loc).first()) + "." + str(f.counter.at(loc).first())
+      let n = if appendix-state.at(loc) != none {
+        numbering("A", counter(heading).at(loc).first()) + str(f.counter.at(loc).first())
+      } else {
+        str(counter(heading).at(loc).first()) + "." + str(f.counter.at(loc).first())
+      }
       entry(0in, [#strong[#supplement #n.] #trim(f.caption.body)], loc)
     }
   }
@@ -31,6 +37,8 @@
       let loc = h.location()
       if h.level == 1 and h.numbering == none {
         entry(0in, upper(h.body), loc)
+      } else if h.level == 1 and appendix-state.at(loc) != none {
+        entry(0in, [Appendix #numbering("A", counter(heading).at(loc).first()). #h.body], loc)
       } else if h.level == 1 {
         if not chapters-started {
           par[CHAPTER]
@@ -88,10 +96,15 @@
     counter(figure.where(kind: "quarto-float-fig")).update(0)
     counter(figure.where(kind: "quarto-float-tbl")).update(0)
     set align(center)
-    if it.numbering != none [
-      Chapter #counter(heading).display("1") \
-      #it.body
-    ] else {
+    if it.numbering != none {
+      context if appendix-state.get() != none [
+        Appendix #counter(heading).display("A") \
+        #it.body
+      ] else [
+        Chapter #counter(heading).display("1") \
+        #it.body
+      ]
+    } else {
       it.body
     }
   }
@@ -145,4 +158,14 @@
   set page(numbering: "1")
   counter(page).update(1)
   body
+}
+
+// Quarto calls this for the book's appendices. Headings are lettered, and
+// tables and figures are numbered A1, A2, and so on, as APA 7 requires.
+#let appendices(title, doc, hide-parent: false) = {
+  appendix-state.update(title)
+  counter(heading).update(0)
+  set heading(numbering: "A.1")
+  set figure(numbering: n => numbering("A", counter(heading).get().first()) + str(n))
+  doc
 }
