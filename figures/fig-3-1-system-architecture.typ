@@ -42,7 +42,7 @@
   }
 
   let y = 0
-  io(0, y, 2.6, 0.36)[*Taglish typhoon posts* \ #small[(X API, with public Facebook pages as fallback)]]
+  io(0, y, 2.6, 0.36)[*Taglish typhoon posts* \ #small[(X API)]]
   let y-in-bottom = y - 0.36
 
   let f1-top = y-in-bottom - 0.15
@@ -51,7 +51,7 @@
   step(0, y, W, 0.22)[Cleaning and Taglish identification]
   y -= 0.22 + G
   let ann = y
-  step(0, y, W, 0.33)[Annotation by two annotators in doccano, with entity spans drafted by GLiNER]
+  step(0, y, W, 0.33)[Annotation of categories by two annotators in doccano, and of entity spans by GLiNER]
   y -= 0.33 + G
   let split = y
   step(0, y, W, 0.22)[Split into training, validation, and test posts]
@@ -86,11 +86,11 @@
   arrow((0.7, models - 0.33), (0.4, saved - 0.02))
   y -= 0.34 + G
   let sel = y
-  step(0, y, W, 0.33)[Optimizer selection on validation posts \ #small[(ANOVA, Dunnett's test, training time)]]
+  step(0, y, W, 0.33)[Optimizer selection on validation posts \ #small[(highest mean $Delta_"MTL"$)]]
   arrow((0, saved - 0.34), (0, sel))
   y -= 0.33 + G
   let ev = y
-  step(0, y, W, 0.33)[Final evaluation on test posts \ #small[(paired t-tests, storage, processing time)]]
+  step(0, y, W, 0.33)[Final evaluation on test posts \ #small[(paired t-tests and error analysis)]]
   arrow((0, sel - 0.33), (0, ev))
   y -= 0.33 + G
   let fm = y
