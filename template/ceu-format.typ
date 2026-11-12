@@ -110,6 +110,7 @@
   set table.header(repeat: false)
   set table.cell(breakable: false)
   show table: set par(justify: false, first-line-indent: 0in, leading: single - 1em, spacing: single - 1em)
+  show table: set text(hyphenate: true)
 
   show table: it => {
     if it.at("label", default: none) == <ceu-rebuilt> { return it }
