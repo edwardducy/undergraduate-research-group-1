@@ -1,0 +1,82 @@
+# Search Keywords and Post Counts {#sec-appendix-keywords}
+
+| Root | Form |
+|:-----|:-----|
+| *bagyo* | *bagyo* |
+| *bagyo* | *bagyong* |
+| *bagyo* | *bumabagyo* |
+| *bagyo* | *binagyo* |
+| *bagyo* | *binabagyo* |
+| *bagyo* | *bumagyo* |
+| *bagyo* | *mabagyo* |
+| *baha* | *baha* |
+| *baha* | *pagbaha* |
+| *baha* | *binabaha* |
+| *baha* | *binaha* |
+| *baha* | *bahain* |
+| *baha* | *bumaha* |
+| *baha* | *bumabaha* |
+| *baha* | *bahang* |
+| *baha* | *pagbinabaha* |
+| *baha* | *binahang* |
+| *baha* | *pagbahang* |
+| *baha* | *nabaha* |
+| *baha* | *binabahang* |
+
+: Keyword Forms {#tbl-keyword-forms tbl-colwidths="[50,50]"}
+
+| Local Name | Collection Window (2026) | Posts |
+|:-----------|:-------------------------|------:|
+| Ada | Jan 13 to Jan 25 | 1,949,063 |
+| Basyang | Feb 2 to Feb 9 | 2,040 |
+| Caloy | May 8 to May 14 | 384 |
+| Domeng | May 27 to Jun 9 | 770 |
+| Ester | May 27 to Jun 9 | 46,569 |
+| Francisco | Jun 19 to Jul 4 | 501,235 |
+| Gardo | Jun 19 to Jul 4 | 1,323 |
+| Henry | Jun 19 to Jul 4 | 689,540 |
+| Inday | Jul 6 to Jul 17 | 6,922 |
+| Josie | Jul 6 to Jul 17 | 35,363 |
+| Kiyapo | Jul 21 to Jul 27 | 763 |
+| Luis | Jul 31 to Aug 9 | 836,287 |
+| Maymay | Jul 31 to Aug 9 | 6,303 |
+| Neneng | Aug 17 to Aug 27 | 1,109 |
+| Obet | Aug 17 to Aug 27 | 1,269 |
+| Pilandok | Aug 29 to Sep 5 | 522 |
+| Queenie | Sep 22 to Sep 30 | 10,025 |
+| Rosal | Oct 19 to Oct 27 | 2,762 |
+
+: Posts Containing the Local Name of Each Tropical Cyclone {#tbl-storm-names tbl-colwidths="[30,45,25]"}
+
++--------------------------+-------------------------+---------+
+| Collection Window (2026) | Tropical Cyclones       | Posts   |
++:=========================+:========================+========:+
+| Jan 13 to Jan 25         | Ada                     | 16,927  |
++--------------------------+-------------------------+---------+
+| Feb 2 to Feb 9           | Basyang                 | 11,576  |
++--------------------------+-------------------------+---------+
+| May 8 to May 14          | Caloy                   | 6,630   |
++--------------------------+-------------------------+---------+
+| May 27 to Jun 9          | Domeng, Ester           | 13,718  |
++--------------------------+-------------------------+---------+
+| Jun 19 to Jul 4          | Francisco, Gardo, Henry | 15,905  |
++--------------------------+-------------------------+---------+
+| Jul 6 to Jul 17          | Inday, Josie            | 17,808  |
++--------------------------+-------------------------+---------+
+| Jul 21 to Jul 27         | Kiyapo                  | 10,365  |
++--------------------------+-------------------------+---------+
+| Jul 31 to Aug 9          | Luis, Maymay            | 18,864  |
++--------------------------+-------------------------+---------+
+| Aug 17 to Aug 27         | Neneng, Obet            | 25,435  |
++--------------------------+-------------------------+---------+
+| Aug 29 to Sep 5          | Pilandok                | 19,083  |
++--------------------------+-------------------------+---------+
+| Sep 22 to Sep 30         | Queenie                 | 10,259  |
++--------------------------+-------------------------+---------+
+| Oct 19 to Oct 27         | Rosal                   | 9,854   |
++--------------------------+-------------------------+---------+
+| Total                                              | 176,424 |
++----------------------------------------------------+---------+
+
+: Posts Matching the Keywords by Collection Window {#tbl-frame-counts tbl-colwidths="[35,40,25]"}
+

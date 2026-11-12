@@ -19,6 +19,8 @@ book:
     - 02-literature.qmd
     - 03-methodology.qmd
     - references.qmd
+  appendices:
+    - appendix-a-keywords.qmd
 
 format:
   typst:
