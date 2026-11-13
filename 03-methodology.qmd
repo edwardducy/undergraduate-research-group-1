@@ -149,32 +149,32 @@ The prototype is a minimum viable product. It is not a complete system for disas
 
 ## Testing and Evaluation
 
-Testing checks that the software of the study works as designed. The benchmarking system is tested so that its scores and measurements are computed correctly, and the prototype is tested so that each use case works.
+This section presents the test plan for the software of the study. Testing checks that the software works as designed. It does not measure how well the dataset is annotated or how well the final model performs. These are evaluated through the agreement between the annotators (Section 3.4) and the comparison of the final model with the single-task models on the test set (Sections 3.6 and 3.7).
 
-Testing moves from the smallest parts of the software to the whole system. Each part of the benchmarking code is tested first, then the whole benchmarking system, and finally the prototype. All tests run on the laptop in @tbl-hardware. The usability of the prototype and its performance on other computers are not tested, and the prototype is not tested with actual responders. Its use cases are instead tested by the researchers through functional testing. The benchmarking code is tested automatically with pytest, so that every test can be run again after any change to the code, and the prototype is tested by hand with written test cases. @tbl-tests summarizes what each test checks, how it is run, and when it passes.
+The test plan covers both systems in @fig-system-architecture. For the benchmarking system, it covers every step that produces the dataset or a result, from the collection and cleaning of the posts to the scores, the training cost, the statistical tests, and the 13 multi-task optimizers. For the prototype, it covers the eight use cases in @tbl-usecases and the labeling of the post stream. The usability of the prototype, its performance on other computers, and its use by actual responders are outside the plan, because the prototype only demonstrates the final model (Section 1.8).
 
-| Test | What It Checks | How It Is Run | Pass Criterion |
-|:----------------|:------------------------|:--------------------|:----------------|
-| Unit testing (benchmarking code) | Each part of the code gives the correct output, from the sampling and filtering of the posts to the scores, the training cost, the statistical tests, and the 13 optimizers | Automated pytest tests on small examples worked out by hand (Appendix D) | Every output matches its hand-worked result |
-| Integration testing (benchmarking system) | The parts of the code work together, from training to the result file of each run | Automated run of all 15 models on a small part of the data | Every model finishes and writes its result file |
-| Functional testing (prototype) | Each of the eight use cases works, and the prototype labels posts in the same way as the final model | Written test cases run by hand, with constructed posts in the post stream (Appendix E) | The actual result matches the expected result in every test case |
+Testing has three levels, which move from the smallest parts of the software to the whole system. @tbl-tests summarizes them. The benchmarking system is tested automatically with pytest, so that every test can be run again after any change. The prototype is tested by hand with written test cases, because its results are read from the screen.
 
-: Test Summary {#tbl-tests tbl-colwidths="[18,32,28,22]"}
+| Test Level | What Is Tested | How It Is Tested | When | Pass Criterion |
+|:-------------|:----------------|:------------------|:-------------|:----------------|
+| Unit testing | Each part of the benchmarking system | Automated tests on small examples with known outputs | Before the tuning runs | Every output matches its expected output |
+| Integration testing | The whole benchmarking system | Automated run of all 15 models on a small part of the dataset | Before the tuning runs | Every model finishes and writes its result file |
+| Functional testing | The eight use cases of the prototype and its labeling of the post stream | Written test cases run by hand with constructed posts | After the prototype is built | Every actual result matches its expected result |
 
-Before the tuning runs start, each part of the benchmarking code goes through unit testing, in which the part is run with pytest on small examples whose correct output is worked out by hand. The unit tests cover every step that produces the dataset or a result, from the sampling and filtering of the posts to the scores, the training cost, the statistical tests, and the 13 multi-task optimizers. Appendix D lists each test. Once every part passes, integration testing runs the whole benchmarking system for all 15 models on a small part of the data, from training to the result file of each run. This test passes when every model finishes and writes its result file. When any unit or integration test fails, the code is fixed and all the tests are run again, and the tuning runs start only after every test passes.
+: Test Plan Summary {#tbl-tests tbl-colwidths="[16,22,24,16,22]"}
 
-Once the prototype is built, functional testing checks each of the eight use cases in @tbl-usecases with at least one test case. Appendix E lists each test case with its input, expected result, and actual result. A use case passes when the actual result matches the expected result in every test case. When a test case fails, the prototype is fixed and every test case of that use case is run again.
+Unit testing runs each part of the benchmarking system on small examples whose correct output is worked out by hand. Appendix D lists each unit test. Integration testing then runs the whole benchmarking system for all 15 models on a small part of the dataset, from training to the result file of each run. Both levels are completed before the tuning runs start. When any test fails, the part is fixed and all the tests are run again, and the tuning runs start only after every test passes.
 
-@tbl-roles lists the role of each member of the research group, including who tests the software.
+Functional testing starts once the prototype is built. Each of the eight use cases has at least one test case. Two more test cases check that the prototype labels the posts of the stream in the same way as the final model did in the evaluation. The test cases of the use cases run on six constructed posts with fixed labels, so that the expected result of every step is known in advance. Appendix E lists each test case with its step, expected result, and actual result. A use case passes when the actual result matches the expected result in every one of its test cases. When a test case fails, the prototype is fixed and every test case of that use case is run again.
 
-| Role | Member | Responsibilities |
+@tbl-roles lists the role of each member of the research group. The tests are written and run by a member who does not develop the software, so that the software is not checked only by those who built it.
+
+| Member | Role | Responsibilities |
 |:--------------------|:--------------------|:------------------------------|
-| Project Manager | Kyle Uri Gabriel Lu | Plans the schedule, coordinates the group, and works with the adviser and the adjudicator |
-| Data Lead | Prinz Edward Ducyogen | Collects the posts, writes the annotation guidelines, and runs GLiNER for the entity spans |
-| Annotators | Carlo Miguel Geronimo and Isaiah Raphael Almuena | Assign a humanitarian category to every post in the practice batches and the sample |
-| Machine Learning Developers | Kyle Uri Gabriel Lu and Prinz Edward Ducyogen | Build and train the models and analyze the results |
-| Prototype Developer | Prinz Edward Ducyogen | Builds the prototype web application |
-| Quality Assurance | Yngwie Sebastian Patricio | Tests the benchmarking code and the prototype |
-| Technical Writers | Kyle Uri Gabriel Lu and Prinz Edward Ducyogen | Write the manuscript and release the code, post IDs, and final model |
+| Isaiah Raphael Almuena | Annotator | Assigns a humanitarian category to every post in the practice batches and the sample |
+| Prinz Edward Ducyogen | Data Lead and Developer | Collects the posts, writes the annotation guidelines, runs GLiNER, builds and trains the models, and builds the prototype |
+| Carlo Miguel Geronimo | Annotator | Assigns a humanitarian category to every post in the practice batches and the sample |
+| Kyle Uri Gabriel Lu | Project Manager and Developer | Plans the schedule, works with the adviser and the adjudicator, builds and trains the models, and analyzes the results |
+| Yngwie Sebastian Patricio | Tester | Writes and runs the tests of the benchmarking system and the prototype |
 
-: Researcher Roles {#tbl-roles tbl-colwidths="[25,25,50]"}
+: Researcher Roles {#tbl-roles tbl-colwidths="[32,22,46]"}
