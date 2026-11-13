@@ -10,9 +10,9 @@
   place(line(start: (0.15in, 0.26in), end: (0.24in, 0.42in), stroke: s))
 })
 
-#let actor(pos, name) = {
+#let actor(pos, name, label-dx: 0, label-dy: 0.8) = {
   let (x, y) = pos
-  (node(pos, stick-figure, inset: 0pt), node((x, y + 0.8), strong(name), height: 0pt))
+  (node(pos, stick-figure, inset: 0pt), node((x + label-dx, y + label-dy), strong(name), height: 0pt))
 }
 
 #let hand(pos, side) = (rel: (side * 0.11in, -0.05in), to: pos)
@@ -27,41 +27,41 @@
   body,
   shape: fletcher.shapes.ellipse,
   width: use-case-width,
-  height: 0.38in,
+  height: 0.32in,
   stroke: 0.8pt,
   fill: luma(96%),
 )
 
-#let staff-cases = (
-  [Import posts],
-  [Analyze posts],
-  [View analyzed posts],
-  [Correct a label],
-  [Filter posts],
-  [Mark post status],
-  [View summary],
-  [Export report],
+// Each use case with the actors linked to it, in the order of the use case table.
+#let cases = (
+  [Retrieve posts from X],
+  [Open the prototype],
+  [View the labeled posts],
+  [View the category of a post],
+  [View the entities of a post],
+  [Filter posts by category],
+  [Filter posts by entity type],
+  [Combine filters],
+  [Clear filters],
 )
 
-#let researcher-cases = (
-  [Load trained model],
-  [Export corrected labels],
-)
+#let researcher-pos = (0, 0)
+#let responder-pos = (0, 4.5)
+#let x-api-pos = (2, 0)
 
 #diagram(
-  spacing: (1.1in, 0.17in),
+  spacing: (1.1in, 0.1in),
   edge-stroke: 0.8pt,
 
   node((1, -1), strong[Prototype Web Application]),
-  ..(staff-cases + researcher-cases).enumerate().map(((y, body)) => use-case((1, y), body)),
-  node(enclose: ((1, -1), (1, 9)), inset: 10pt, stroke: 1pt, fill: luma(98%), snap: false),
+  ..cases.enumerate().map(((y, c)) => use-case((1, y), c)),
+  node(enclose: ((1, -1), (1, cases.len() - 1)), inset: 10pt, stroke: 1pt, fill: luma(98%), snap: false),
 
-  ..actor((0, 3.5))[DRRMO \ Staff],
-  ..actor((2, 0))[X],
-  ..actor((2, 8.5))[Researcher],
+  ..actor(researcher-pos, label-dx: -0.45, label-dy: 0)[Researcher],
+  ..actor(responder-pos, label-dx: -0.45, label-dy: 0)[Responder],
+  ..actor(x-api-pos, label-dx: 0.4, label-dy: 0)[X API],
 
-  ..range(staff-cases.len()).map(y => edge(hand((0, 3.5), 1), left-tip((1, y)), snap-to: none)),
-  edge(hand((2, 0), -1), right-tip((1, 0)), snap-to: none),
-  edge(hand((2, 8.5), -1), right-tip((1, 8)), snap-to: none),
-  edge(hand((2, 8.5), -1), right-tip((1, 9)), snap-to: none),
+  edge(hand(researcher-pos, 1), left-tip((1, 0)), snap-to: none),
+  ..range(1, cases.len()).map(y => edge(hand(responder-pos, 1), left-tip((1, y)), snap-to: none)),
+  edge(hand(x-api-pos, -1), right-tip((1, 0)), snap-to: none),
 )

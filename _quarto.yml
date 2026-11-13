@@ -23,6 +23,8 @@ book:
     - appendix-a-keywords.qmd
     - appendix-b-annotation.qmd
     - appendix-c-training-settings.qmd
+    - appendix-d-unit-tests.qmd
+    - appendix-e-functional-tests.qmd
 
 format:
   typst:
