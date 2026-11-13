@@ -19,7 +19,7 @@
       Measure baseline F1-scores (RQ1)
     + *Benchmark the 13 multi-task optimizers* \
       Compare negative transfer, training time, and peak memory, and select the optimizer based on negative transfer (RQ3)
-    + *Test the final model* \
+    + *Test the final multi-task model* \
       Compare it with the single-task models in F1-score, training time, and peak memory (RQ4)
   ],
   [
