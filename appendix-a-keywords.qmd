@@ -1,4 +1,4 @@
-# Search Keywords and Post Counts {#sec-appendix-keywords}
+# Search Keywords, Post Counts, and Collection Steps {#sec-appendix-keywords}
 
 | Root | Form |
 |:-----|:-----|
@@ -90,4 +90,4 @@
 | 5 | Steps 2 to 4 are repeated until the share is filled |
 | 6 | When the day has no more eligible posts, the rest of its share is divided among the other days, and a day with more matching posts receives more of it |
 
-: Steps of Collecting the Posts of Each Day {#tbl-collection-steps tbl-colwidths="[12,88]"}
+: Steps of Filling the Share of Posts for Each Day {#tbl-collection-steps tbl-colwidths="[12,88]"}
