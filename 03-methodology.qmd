@@ -88,75 +88,62 @@ The F1-scores of the final model are judged by how much they differ from those o
 
 ## Software System Description
 
-The software system of this study has two parts, a benchmarking system that prepares the dataset and trains, selects, and evaluates the models, and a prototype web application that presents posts labeled by the final model.
-
 ### System Structure
 
-@fig-system-architecture is read from top to bottom. Its first two phases, data preparation and model training and selection, make up the benchmarking system, and the third phase is the prototype web application. The cylinders are stored data, and the slanted boxes are the input and output of the whole system.
+The software of the study consists of two systems, shown in @fig-system-architecture. The benchmarking system produces the dataset and the final model. The prototype web application uses the final model to label a stream of test posts and shows them to a responder on a map and in a table. Both systems run on the laptop of the study, and the X API is used only to collect the posts of the dataset.
 
-The prototype has three parts, shown in the last phase of @fig-system-architecture. All three run on the computer of the study, so the posts that the responder views are not sent to an outside service. The interface, built with React, runs in a web browser, where the responder views the labeled posts and filters them by category or entity type. The server, built with FastAPI in Python, has two roles. Before the prototype is used, the researcher starts the retrieval of new posts. The server then requests the posts that match the search keywords from the X API, replaces their usernames, phone numbers, email addresses, and links with placeholders, as in the dataset, and labels each post with the final model. While the prototype is used, the server receives the requests from the interface and returns the matching posts from the database. The requests that the server accepts, such as a request for the posts of selected categories, are described in an API specification that FastAPI generates in the standard OpenAPI format. The specification is kept in the GitHub repository with the code. The database, PostgreSQL, stores the posts and the labels that the final model assigned to them.
+The benchmarking system has six parts. Post collection requests the posts from the X API (Section 3.5). Post cleaning applies the inclusion and exclusion criteria, which include the removal of duplicates, and replaces personal details with placeholders (Sections 3.3 and 3.5). Post annotation uses doccano, in which the annotators assign the humanitarian categories, and GLiNER, which marks the entity spans. The dataset holds the annotated posts in their training, validation, and test sets. Model training and evaluation trains the 15 models and measures their F1-scores, training time, and peak memory. The trained models are stored with these measurements, and the final model is taken from them.
+
+The prototype web application has five parts. The post stream replays the posts of the test set one after another, as if they were arriving during a tropical cyclone. Test posts are used because the final model has not seen them in training and because replaying them needs no connection to the X API. The server, built with FastAPI, holds the final model and labels each arriving post with its humanitarian category and its entities. It then looks up each LOCATION entity in the place list, a stored list of Philippine provinces, cities, municipalities, and barangays with their coordinates, to find where the post belongs on the map. A post whose location is not in the list, or matches more than one place, is not placed on the map and appears only in the table. The server stores each post with its labels and coordinates in the database, which is PostgreSQL. The web interface, built with React, runs in a web browser and shows the stored posts on a map and in a table. The map is drawn from a stored file of Philippine boundaries, so no part of the prototype sends posts to an outside service.
 
 ![System Architecture of the Benchmarking System and the Prototype Web Application](figures/fig-3-1-system-architecture.pdf){#fig-system-architecture}
 
 ### Use Cases
 
-@fig-use-cases shows the actors of the prototype web application and their use cases. Before the prototype is used, the researcher retrieves new posts from X, and the prototype labels them with the final model and stores them with their humanitarian categories and entities. The responder then views and filters these labeled posts. The X API is a secondary actor, an outside system that takes part in retrieving the posts but does not start any use case. The prototype is designed for responders, but it is not deployed or tested with them (Section 3.9). In the prototype, the model only suggests the category and the entities of each post, and the responder decides which posts to act on, so an error of the model does not become a final decision. @tbl-usecases groups the use cases into three categories and describes each one.
+The prototype is a minimum viable product. It is not a complete system for disaster response, but it has the features needed to demonstrate how the labels of the final model could support decisions on where help and resources are needed. Each use case is one feature that the responder can perform. @fig-use-cases shows the eight use cases, and @tbl-usecases describes them. The responder is the only actor, because the stream of posts is already connected and needs no action from a user. The prototype is designed for responders, but it is not deployed or tested with them (Section 3.9). The model only suggests the category and the entities of each post, and the responder decides which posts to act on, so an error of the model does not become a final decision.
 
 ![Use Case Diagram of the Prototype Web Application](figures/fig-3-2-use-cases.pdf){#fig-use-cases}
 
-| Use Case Category | Use Case | Use Case Description |
-|:----------------|:----------------|:----------------------------------------------|
-| Post Retrieval | Retrieve posts from X | Allow the researcher to start the retrieval of new posts that match the search keywords from X, which the prototype then labels with the final model and stores so that responders can view them (e.g., posts that contain *bagyo* or *baha*). |
-| Post Viewing | Open the prototype | Allow responders to open the prototype in a web browser, which shows the list of posts that the final model has already labeled. |
-| Post Viewing | View the labeled posts | Allow responders to see the list of all posts in the prototype, each with its text, its humanitarian category, and its highlighted entities. |
-| Post Viewing | View the category of a post | Allow responders to see the humanitarian category that the final model assigned to a post (e.g., requests or urgent needs). |
-| Post Viewing | View the entities of a post | Allow responders to see the entities that the final model marked in a post, each highlighted in the text with its entity type (e.g., "Brgy. Tumana, Marikina" highlighted as a location). |
-| Post Filtering | Filter posts by category | Allow responders to select one or more of the 10 humanitarian categories so that the list shows only the posts assigned those categories (e.g., only requests or urgent needs). |
-| Post Filtering | Filter posts by entity type | Allow responders to select one or more of the 10 entity types so that the list shows only the posts containing at least one entity of those types (e.g., only posts that name a location). |
-| Post Filtering | Combine filters | Allow responders to select categories and entity types at the same time so that the list shows only the posts that match both (e.g., requests or urgent needs that name a location). |
-| Post Filtering | Clear filters | Allow responders to remove all selected categories and entity types so that the list shows every post again. |
+| Use Case | Description |
+|:--------------------|:----------------------------------------------|
+| View posts on a map | The responder can see the labeled posts as points on a map of the Philippines, each placed by the LOCATION entity of the post. |
+| View posts in a table | The responder can see the labeled posts in a table, each with its time, its text, its humanitarian category, and its entities. |
+| View the details of a post | The responder can select a point on the map or a row of the table to see the full text of the post, with each entity highlighted by entity type. |
+| Filter posts by category | The responder can select one or more humanitarian categories, so that the map and the table show only the posts of those categories. |
+| Filter posts by entity type | The responder can select one or more entity types, so that the map and the table show only the posts that contain an entity of those types. |
+| Filter posts by location | The responder can select a province, city, or municipality, so that the map and the table show only the posts placed there. |
+| Search posts by keyword | The responder can type a word or phrase, so that the map and the table show only the posts whose text contains it. |
+| View a summary of posts | The responder can see the number of posts in each humanitarian category and in each province, city, or municipality, which shows where requests and reports are concentrated. |
 
-: Use Case Specifications {#tbl-usecases tbl-colwidths="[20,22,58]"}
+: Use Case Specifications {#tbl-usecases tbl-colwidths="[28,72]"}
 
 ### Materials and Equipment
 
-@tbl-software and @tbl-hardware list the software and hardware of the study. The laptop in @tbl-hardware is the only machine used for training and measurement. An internet connection is needed only to collect the posts and to download the encoder and the libraries, and training and measurement run without a connection. The code, the settings, and a file that fixes the version of every library are kept in a GitHub repository and archived on Zenodo with a permanent identifier.
+@tbl-software lists the main software of the study, and @tbl-hardware lists the laptop on which all of it runs. The laptop is the only machine used for training and measurement. An internet connection is needed only to collect the posts and to download the encoder and the libraries. The code, the settings, and a file that fixes the exact version of every library are kept in a GitHub repository and archived on Zenodo with a permanent identifier.
 
-| Software | Minimum version |
+| Software | Version |
 |:----------------------------|:-------------|
-| Operating system | Windows 11 64-bit |
-| Windows Subsystem for Linux | 2 |
-| Linux distribution | Ubuntu 26.04 LTS |
+| Ubuntu on Windows 11 | 26.04 LTS |
 | Python | 3.12 |
-| PyTorch | 2.8, built for CUDA 12.8 |
-| CUDA | 12.8 |
-| NVIDIA driver | 596.36 |
+| PyTorch | 2.8 |
 | Hugging Face Transformers | 4.57 |
-| SEA-LION-ModernBERT-300M encoder | Hugging Face revision e3d70b8 |
-| LibMTL | GitHub version, commit 4336804 (May 2025) |
-| CVXPY, for Nash-MTL | 1.9 |
-| ECOS solver for CVXPY | 2.0 |
+| LibMTL | GitHub version of May 2025 |
 | GLiNER | 0.2 |
-| GLiNER model, gliner_multi-v2.1 | Hugging Face revision 443d26d |
-| scikit-learn | 1.7 |
-| seqeval | 1.2 |
-| SciPy | 1.18 |
-| pytest | 9.1 |
 | doccano | 1.8 |
+| pytest | 9.1 |
 | FastAPI | 0.143 |
 | React | 19.3 |
-| Node.js | 22 |
 | PostgreSQL | 18 |
 
 : Software of the Study {#tbl-software tbl-colwidths="[50,50]"}
 
 | Hardware | Specification |
 |:----------------------------|:-------------|
-| Laptop | Acer Predator Helios Neo 16 (PHN16-71) |
-| Processor | Intel Core i5-13500HX with 14 cores and 20 threads |
-| Memory | 32 GB DDR5-4800 (2 × 16 GB) |
-| Graphics processor | NVIDIA GeForce RTX 4060 Laptop GPU with 8 GB of memory |
-| Storage | 1 TB NVMe solid-state drive (Kingston NV2) |
+| Device | Acer Predator Helios Neo 16 (PHN16-71) |
+| CPU | Intel Core i5-13500HX |
+| RAM | 32 GB |
+| GPU | NVIDIA GeForce RTX 4060 Laptop GPU |
+| VRAM | 8 GB |
 
 : Hardware of the Study {#tbl-hardware tbl-colwidths="[25,75]"}
 
@@ -170,13 +157,13 @@ Testing moves from the smallest parts of the software to the whole system. Each 
 |:----------------|:------------------------|:--------------------|:----------------|
 | Unit testing (benchmarking code) | Each part of the code gives the correct output, from the sampling and filtering of the posts to the scores, the training cost, the statistical tests, and the 13 optimizers | Automated pytest tests on small examples worked out by hand (Appendix D) | Every output matches its hand-worked result |
 | Integration testing (benchmarking system) | The parts of the code work together, from training to the result file of each run | Automated run of all 15 models on a small part of the data | Every model finishes and writes its result file |
-| Functional testing (prototype) | Each of the 9 use cases works, and the prototype labels posts in the same way as the final model | Written test cases run by hand, with a stand-in for the X API (Appendix E) | The actual result matches the expected result in every test case |
+| Functional testing (prototype) | Each of the eight use cases works, and the prototype labels posts in the same way as the final model | Written test cases run by hand, with constructed posts in the post stream (Appendix E) | The actual result matches the expected result in every test case |
 
 : Test Summary {#tbl-tests tbl-colwidths="[18,32,28,22]"}
 
 Before the tuning runs start, each part of the benchmarking code goes through unit testing, in which the part is run with pytest on small examples whose correct output is worked out by hand. The unit tests cover every step that produces the dataset or a result, from the sampling and filtering of the posts to the scores, the training cost, the statistical tests, and the 13 multi-task optimizers. Appendix D lists each test. Once every part passes, integration testing runs the whole benchmarking system for all 15 models on a small part of the data, from training to the result file of each run. This test passes when every model finishes and writes its result file. When any unit or integration test fails, the code is fixed and all the tests are run again, and the tuning runs start only after every test passes.
 
-Once the prototype is built, functional testing checks each of the nine use cases in @tbl-usecases with at least one test case. Appendix E lists each test case with its input, expected result, and actual result. A use case passes when the actual result matches the expected result in every test case. When a test case fails, the prototype is fixed and every test case of that use case is run again.
+Once the prototype is built, functional testing checks each of the eight use cases in @tbl-usecases with at least one test case. Appendix E lists each test case with its input, expected result, and actual result. A use case passes when the actual result matches the expected result in every test case. When a test case fails, the prototype is fixed and every test case of that use case is run again.
 
 @tbl-roles lists the role of each member of the research group, including who tests the software.
 
