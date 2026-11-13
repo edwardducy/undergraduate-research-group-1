@@ -33,7 +33,7 @@
   title[TABLE OF CONTENTS]
   context {
     let chapters-started = false
-    for h in query(heading).filter(h => h.body != [] and h.level <= 3) {
+    for h in query(heading).filter(h => h.body != [] and h.level <= 3 and not (h.level == 1 and h.numbering == none and appendix-state.at(h.location()) != none)) {
       let loc = h.location()
       if h.level == 1 and h.numbering == none {
         entry(0in, upper(h.body), loc)
@@ -166,6 +166,7 @@
   appendix-state.update(title)
   counter(heading).update(0)
   set heading(numbering: "A.1")
+  show heading.where(level: 1, numbering: none): it => if hide-parent { none } else { it }
   set figure(numbering: n => numbering("A", counter(heading).get().first()) + str(n))
   doc
 }
