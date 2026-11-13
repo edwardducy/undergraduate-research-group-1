@@ -14,10 +14,13 @@
 | Batch size | 8 |
 | Number format | 32-bit numbers |
 | Maximum length of a post | 128 tokens, with longer posts cut off |
-| Trained layers | All except the embedding layer of the encoder |
+| Trained layers | All except the embedding layer of the encoder, which holds 201 million of its 312 million parameters |
 | Task weights tried for linear scalarization | 0.1 to 0.9 in steps of 0.1 for humanitarian classification, and one minus that value for NER |
 | Random seed of the tuning runs | 0 |
 | Random seeds of the main runs and the learning curve | 1 to 5 |
+| Order of the runs | Randomized for the tuning runs and for the main runs, so that changes in the condition of the laptop over time do not favor any optimizer |
+| Subsets of the learning curve | Each drawn at random from the next larger one, with the same proportions of the humanitarian categories |
+| Learning rate of the learning curve | The rate tuned on the full training set |
 | Classification head | Joins the output for the first token with the mean output over all tokens |
 | NER head | Assigns each word one of 21 BIO labels through its first token |
 | Loss of each task | Cross-entropy |
