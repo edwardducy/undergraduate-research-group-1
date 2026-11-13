@@ -1,7 +1,5 @@
 # Functional Test Cases of the Prototype {#sec-appendix-functional-tests}
 
-@tbl-functional-test-posts lists the six constructed posts used in the test cases, and @tbl-functional-test-cases lists the test cases. Test cases FT-03 to FT-18 start with the server running and the database holding the six posts with their fixed labels. The place list holds Marikina, Quezon, Barangay Tumana in Marikina, and two barangays named Malanday.
-
 | Post | Text | Humanitarian Category | Entities |
 |:-----|:------------------------------|:----------------|:------------------------------|
 | P1 | "Need po namin ng rescue dito sa Brgy. Tumana, hanggang bubong na ang tubig" | Requests or urgent needs | REQUEST = "Need po namin ng rescue". LOCATION = "Brgy. Tumana" |
