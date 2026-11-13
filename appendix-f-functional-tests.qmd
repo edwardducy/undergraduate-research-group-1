@@ -3,7 +3,7 @@
 | Post | Text | Humanitarian Category | Entities |
 |:-----|:------------------------------|:----------------|:------------------------------|
 | P1 | "Need po namin ng rescue dito sa Brgy. Tumana, hanggang bubong na ang tubig" | Requests or urgent needs | REQUEST = "Need po namin ng rescue". LOCATION = "Brgy. Tumana" |
-| P2 | "Signal No. 3 na sa Quezon dahil kay Bagyong Henry, stay indoors everyone" | Caution and advice | NUMBER = "Signal No. 3". LOCATION = "Quezon". DISASTER_TYPE = "Bagyong Henry" |
+| P2 | "Signal No. 3 na sa Catanduanes dahil kay Bagyong Henry, stay indoors everyone" | Caution and advice | NUMBER = "Signal No. 3". LOCATION = "Catanduanes". DISASTER_TYPE = "Bagyong Henry" |
 | P3 | "Nagpadala ang Philippine Red Cross ng relief goods sa evacuation center" | Rescue, volunteering, or donation effort | ORGANIZATION = "Philippine Red Cross". RESOURCE = "relief goods" |
 | P4 | "Praying for everyone affected by the baha, ingat kayong lahat" | Sympathy and support | None |
 | P5 | "Almost 200 families na ang nasa covered court ng Marikina" | Displaced people and evacuations | DISPLACED = "Almost 200 families". LOCATION = "Marikina" |
@@ -15,10 +15,10 @@
 |:------|:--------------|:----------------------|:----------------------|:--------|:-----|
 | FT-01 | Post stream | Start the stream with P1 to P6 and an empty database | Six posts stored, each with one category and its entities. P1, P2, and P5 have coordinates |  |  |
 | FT-02 | Post stream | Start the stream with 20 posts of the test set and an empty database | Each post has the same category and entities as in the evaluation of the final multi-task model |  |  |
-| FT-03 | View posts on a map | Open the prototype | Points for P1 at Barangay Tumana, P2 at Quezon, and P5 at Marikina. No point for P3 and P4 |  |  |
+| FT-03 | View posts on a map | Open the prototype | Points for P1 at Barangay Tumana, P2 at Catanduanes, and P5 at Marikina. No point for P3 and P4 |  |  |
 | FT-04 | View posts on a map | Look for P6, whose location matches two places | No point on the map. Its row in the table is marked as having an unmatched location |  |  |
 | FT-05 | View posts in a table | Open the table | Six rows, each with the text, category, and entities in @tbl-functional-test-posts |  |  |
-| FT-06 | View the details of a post | Select the row of P2 | "Signal No. 3" highlighted as NUMBER, "Quezon" as LOCATION, and "Bagyong Henry" as DISASTER_TYPE |  |  |
+| FT-06 | View the details of a post | Select the row of P2 | "Signal No. 3" highlighted as NUMBER, "Catanduanes" as LOCATION, and "Bagyong Henry" as DISASTER_TYPE |  |  |
 | FT-07 | View the details of a post | Select the row of P4 | Text shown with nothing highlighted |  |  |
 | FT-08 | View the details of a post | Select the point at Marikina | P5 shown, with "Almost 200 families" highlighted as DISPLACED and "Marikina" as LOCATION |  |  |
 | FT-09 | Filter posts by category | Select Requests or urgent needs | The table shows P1 and P6. The map shows P1 |  |  |
@@ -30,6 +30,6 @@
 | FT-15 | Filter posts by location | Select Marikina | P1 and P5 |  |  |
 | FT-16 | Search posts by keyword | Type "rescue" | P1 |  |  |
 | FT-17 | Search posts by keyword | Type "baha" | P4 and P6 |  |  |
-| FT-18 | View a summary of posts | Open the summary | Requests or urgent needs = 2. Each of the other four categories of P1 to P6 = 1. Marikina = 2. Quezon = 1. No placed location = 3 |  |  |
+| FT-18 | View a summary of posts | Open the summary | Requests or urgent needs = 2. Each of the other four categories of P1 to P6 = 1. Marikina = 2. Catanduanes = 1. No placed location = 3 |  |  |
 
 : Functional Test Cases {#tbl-functional-test-cases tbl-colwidths="[8,22,28,25,9,8]"}
