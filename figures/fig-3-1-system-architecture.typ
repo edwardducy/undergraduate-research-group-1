@@ -43,7 +43,7 @@
 
   system((1, 3.5), [Prototype Web Application]),
   part((3, 4), [Post Stream], [Replays the test posts one by one]),
-  part((2, 4), [Server], [FastAPI, with the final model]),
+  part((2, 4), [Server], [FastAPI, with the#linebreak()final multi-task model]),
   part((1, 4), [Web Interface], [React, with a map and a table]),
   store((1, 5.35), [Database], [PostgreSQL]),
   store((3, 5.35), [Place List], [Philippine places with coordinates]),
@@ -55,7 +55,7 @@
   flow((3, 1), (3, 2))[],
   flow((3, 2), (2, 2))[],
   flow((2, 2), (1, 2))[],
-  flow((1, 2), (1, 2.9), (2, 2.9), (2, 4), label-pos: 0.78, label-side: left)[Final Model],
+  flow((1, 2), (1, 2.9), (2, 2.9), (2, 4), label-pos: 0.78, label-side: left)[Final Multi-Task Model],
   flow((3, 2), (3, 4), label-side: left, label-pos: 0.3)[Test Posts],
   flow((3, 4), (2, 4))[],
   edge((2, 4), (1, 4), "<|-|>"),
