@@ -90,36 +90,37 @@ The F1-scores of the final model are interpreted through their difference from t
 
 ## Software System Description
 
-The software system of this study has two parts, a benchmarking system that prepares the dataset and trains, selects, and evaluates the models, and a prototype web application that runs the final model.
+The software system of this study has two parts, a benchmarking system that prepares the dataset and trains, selects, and evaluates the models, and a prototype web application that presents posts labeled by the final model.
 
 ### System Structure
 
-![System Architecture of the Benchmarking System and the Prototype Web Application](figures/fig-3-1-system-architecture.pdf){#fig-system-architecture}
-
 @fig-system-architecture is read from top to bottom. Its first two phases, data preparation and model training and selection, make up the benchmarking system, and the third phase is the prototype web application. The cylinders are stored data, and the slanted boxes are the input and output of the whole system.
 
-The prototype has three parts, all of which run on the computer of the study, so the posts that the staff of a Disaster Risk Reduction and Management Office (DRRMO) analyze are not sent to an outside service. The interface, built with React, runs in a web browser and shows the posts, filters, summaries, and forms that the staff use. The server, built with FastAPI in Python, receives the requests from the interface, runs the final model with PyTorch to analyze new posts, and prepares the summaries and reports. The requests that the server accepts, such as a request to analyze a post, are described in an API specification that FastAPI generates in the standard OpenAPI format, and the specification is kept in the GitHub repository with the code. The database, PostgreSQL, stores the posts, their predicted and corrected labels, and their status.
+The prototype has three parts, shown in the last phase of @fig-system-architecture, all of which run on the computer of the study, so the posts that the responder views are not sent to an outside service. The interface, built with React, runs in a web browser, where the responder views the labeled posts and filters them by category or entity type. The server, built with FastAPI in Python, has two roles. Before the prototype is used, the researcher starts the retrieval of new posts, in which the server requests the posts that match the search keywords from the X API, replaces their usernames, phone numbers, email addresses, and links with placeholders, as in the dataset, and labels each post with the final model. While the prototype is used, the server receives the requests from the interface and returns the matching posts from the database. The requests that the server accepts, such as a request for the posts of selected categories, are described in an API specification that FastAPI generates in the standard OpenAPI format, and the specification is kept in the GitHub repository with the code. The database, PostgreSQL, stores the posts and the labels that the final model assigned to them.
+
+![System Architecture of the Benchmarking System and the Prototype Web Application](figures/fig-3-1-system-architecture.pdf){#fig-system-architecture}
 
 ### Use Cases
 
-@fig-use-cases shows the actors of the prototype web application and their use cases. DRRMO staff are the main actor, and X is a secondary actor that supplies posts when the staff collect them directly. The researcher loads the trained model into the prototype and collects the labels that the staff correct. @tbl-usecases groups the use cases into five categories and describes each one and its result.
+@fig-use-cases shows the actors of the prototype web application and their use cases. Before the prototype is used, the researcher retrieves new posts from X, and the prototype labels them with the final model and stores them with their humanitarian categories and entities. The responder then views and filters these labeled posts. The X API is a secondary actor, an outside system that takes part in retrieving the posts but does not start any use case. The prototype is designed for responders, but it is not deployed or tested with them (Section 3.9). @tbl-usecases groups the use cases into three categories and describes each one.
 
 ![Use Case Diagram of the Prototype Web Application](figures/fig-3-2-use-cases.pdf){#fig-use-cases}
 
-| Use Case Category | Use Case | Description | Result |
-|:----------------|:----------------|:------------------------------|:--------------------|
-| Data input | Import posts | Loads a file of collected posts, or collects new posts from X using keywords and a date range set by the staff | The posts are stored in the database, ready to be analyzed |
-| Classification and extraction | Analyze posts | Assigns one humanitarian category to each post and marks its entities with the trained multi-task model | Each post has a stored category and stored entity spans |
-| Classification and extraction | View analyzed posts | Shows each post with its category and its entities highlighted | The staff see each post with its category and its entities highlighted |
-| Classification and extraction | Correct a label | Lets the staff fix a wrong category or entity span | The corrected category or entity span replaces the predicted one and is saved as a correction |
-| Monitoring | Filter posts | Shows only the posts of selected categories (such as requests or urgent needs), entity types, or dates | Only the posts that match the selected filters are shown |
-| Monitoring | Mark post status | Marks a post as reviewed, forwarded to a response team, or not actionable | The new status of the post is saved |
-| Reporting | View summary | Shows the number of posts per category and per location over time | The counts of posts per category and per location are shown over time |
-| Reporting | Export report | Saves the filtered posts and summary counts as a file for situation reports | A CSV file of the filtered posts and summary counts is saved |
-| Model management | Load trained model | Loads the final model into the prototype | The prototype uses the loaded model for every new analysis |
-| Model management | Export corrected labels | Saves the labels corrected by the staff as a file that can be used to train future models | A JSON Lines file of the corrected posts is saved in the same format as the dataset |
+| Use Case Category | Use Case | Use Case Description |
+|:----------------|:----------------|:----------------------------------------------|
+| Post Retrieval | Retrieve posts from X | Allow the researcher to start the retrieval of new posts that match the search keywords from X, which the prototype then labels with the final model and stores so that responders can view them (e.g., posts that contain *bagyo* or *baha*). |
+| Post Viewing | Open the prototype | Allow responders to open the prototype in a web browser, which shows the list of posts that the final model has already labeled. |
+| Post Viewing | View the labeled posts | Allow responders to see the list of all posts in the prototype, each with its text, its humanitarian category, and its highlighted entities. |
+| Post Viewing | View the category of a post | Allow responders to see the humanitarian category that the final model assigned to a post (e.g., requests or urgent needs). |
+| Post Viewing | View the entities of a post | Allow responders to see the entities that the final model marked in a post, each highlighted in the text with its entity type (e.g., "Brgy. Tumana, Marikina" highlighted as a location). |
+| Post Filtering | Filter posts by category | Allow responders to select one or more of the ten humanitarian categories so that the list shows only the posts assigned those categories (e.g., only requests or urgent needs). |
+| Post Filtering | Filter posts by entity type | Allow responders to select one or more of the ten entity types so that the list shows only the posts containing at least one entity of those types (e.g., only posts that name a location). |
+| Post Filtering | Combine filters | Allow responders to select categories and entity types at the same time so that the list shows only the posts that match both (e.g., requests or urgent needs that name a location). |
+| Post Filtering | Clear filters | Allow responders to remove all selected categories and entity types so that the list shows every post again. |
 
-: Use Case Specifications {#tbl-usecases tbl-colwidths="[17,20,38,25]"}
+: Use Case Specifications {#tbl-usecases tbl-colwidths="[20,22,58]"}
+
+In the prototype, the model only suggests the category and the entities of each post, and the responder decides which posts to act on, so an error of the model does not become a final decision.
 
 ### Materials and Equipment
 
@@ -153,7 +154,7 @@ The prototype has three parts, all of which run on the computer of the study, so
 
 : Software of the Study {#tbl-software tbl-colwidths="[50,50]"}
 
-Note. Each version is the lowest version with which the code of the study is run. The exact versions are fixed in a file kept in the GitHub repository of the study.
+Note. Each version is the lowest version with which the code of the study is run. The exact versions are fixed in a file kept in the GitHub repository of the study, as described below.
 
 | Hardware | Specification |
 |:----------------------------|:-------------|
@@ -171,36 +172,30 @@ The laptop in @tbl-hardware is the only machine used for training and measuremen
 
 Testing checks that the software of the study works as designed. The benchmarking system is tested so that its scores and measurements are computed correctly, and the prototype is tested so that each use case works.
 
-Testing moves from the smallest parts of the software to the whole system. Each part of the benchmarking code is tested first, then the whole benchmarking system, then the trained models, and finally the prototype. All tests run on the laptop in @tbl-hardware. The usability of the prototype, its use by DRRMO staff, and its performance on other computers are not tested. The benchmarking code is tested automatically with pytest, so that every test can be run again after any change to the code, and the prototype is tested by hand with written test cases. @tbl-tests summarizes what each test covers and when each test passes.
+Testing moves from the smallest parts of the software to the whole system. Each part of the benchmarking code is tested first, then the whole benchmarking system, and finally the prototype. All tests run on the laptop in @tbl-hardware. The usability of the prototype and its performance on other computers are not tested, and the prototype is not tested with actual responders. Its use cases are instead tested by the researchers through functional testing. The benchmarking code is tested automatically with pytest, so that every test can be run again after any change to the code, and the prototype is tested by hand with written test cases. @tbl-tests summarizes what each test checks, how it is run, and when it passes.
 
-| Test | Item tested | Method | Pass criterion |
-|:----------------|:--------------------|:--------------------|:--------------------|
-| *Benchmarking system* | | | |
-| Unit testing | Each part of the benchmarking code | Automated tests on hand-worked examples | Output matches the hand-worked result |
-| Integration testing | Benchmarking system with all 15 models | Automated run on a small part of the data | Every model finishes and writes its result file |
-| Performance testing | Best runs of the final and single-task models | Batches of 1, 16, and 32 posts | N/A |
-| *Prototype* | | | |
-| Functional testing | Each of the 10 use cases | Written test cases | Actual result matches the expected result in every test case |
+| Test | What It Checks | How It Is Run | Pass Criterion |
+|:----------------|:------------------------|:--------------------|:----------------|
+| Unit testing (benchmarking code) | Each part of the code gives the correct output, from the sampling and filtering of the posts to the scores, the training cost, the statistical tests, and the 13 optimizers | Automated pytest tests on small examples worked out by hand (Appendix D) | Every output matches its hand-worked result |
+| Integration testing (benchmarking system) | The parts of the code work together, from training to the result file of each run | Automated run of all 15 models on a small part of the data | Every model finishes and writes its result file |
+| Functional testing (prototype) | Each of the 9 use cases works, and the prototype labels posts in the same way as the final model | Written test cases run by hand, with a stand-in for the X API (Appendix E) | The actual result matches the expected result in every test case |
 
-: Test Summary {#tbl-tests tbl-colwidths="[20,28,26,26]"}
+: Test Summary {#tbl-tests tbl-colwidths="[18,32,28,22]"}
 
-Note. The results of the performance testing are only described, so no pass criterion is set.
+Before the tuning runs start, each part of the benchmarking code goes through unit testing, in which the part is run with pytest on small examples whose correct output is worked out by hand. The unit tests cover every step that produces the dataset or a result, from the sampling and filtering of the posts to the scores, the training cost, the statistical tests, and the 13 multi-task optimizers, and Appendix D lists each test. Once every part passes, integration testing runs the whole benchmarking system for all 15 models on a small part of the data, from training to the result file of each run. This test passes when every model finishes and writes its result file. When any unit or integration test fails, the code is fixed and all the tests are run again, and the tuning runs start only after every test passes.
 
-Before the tuning runs start, each part of the benchmarking code goes through unit testing, in which the part is run with pytest on small examples whose correct output is worked out by hand (Appendix E). The unit tests cover the placement of the NER label of each word on its first token, the scoring code, the 13 multi-task optimizers, the dataset split, and the order in which the training posts are shown. For example, one test checks that PCGrad leaves two task gradients unchanged when they do not conflict [@yu2020pcgrad], and another checks that Nash-MTL changes its task weights during training [@navon2022bargaining], as their original papers describe. Once every part passes, integration testing runs the whole benchmarking system for all 15 models on a small part of the data, from training to the result file of each run, which contains the settings, scores, and measurements of the run. This test passes when every model finishes and writes its result file. When any unit or integration test fails, the code is fixed and all the tests are run again, and the tuning runs start only after every test passes.
+Once the prototype is built, functional testing checks each of the 9 use cases in @tbl-usecases with at least one test case, and Appendix E lists each test case with its input, expected result, and actual result. A use case passes when the actual result matches the expected result in every test case. When a test case fails, the prototype is fixed and every test case of that use case is run again.
 
-After the main runs, the final model and each single-task model go through performance testing, which measures how fast they label posts under different loads, since the prototype may receive one post at a time or a whole file of posts. Each model is tested with its main run that has the highest validation score, which for the final model is its prototype run. Each of these runs labels the test posts in batches of 1, 16, and 32 posts. A batch of 1 represents a single post, and the batches of 16 and 32 are larger than the batch size of 8 used in training. For each batch size, the processing time, which is the mean time taken to label one post, and the peak GPU memory are recorded. The processing time of the single-task models is the sum for the two models, since both must label each post. These results are only described.
+@tbl-roles lists the role of each member of the research group, including who tests the software.
 
-Once the prototype is built, functional testing checks each of the 10 use cases in @tbl-usecases with at least one test case. Each test case states an input, the expected result, and the actual result (Appendix F). A use case passes when the actual result matches the expected result in every test case. When a test case fails, the prototype is fixed and every test case of that use case is run again.
-
-@tbl-roles assigns each part of the study, including testing, to a member of the research group.
-
-| Part of the study | Member | Responsibilities |
+| Role | Member | Responsibilities |
 |:--------------------|:--------------------|:------------------------------|
-| Data collection | \[To be assigned\] | Collection of posts through the X API |
-| Cleaning | \[To be assigned\] | Removal of exact and near-duplicate posts and stratified sampling |
-| Annotation | \[To be assigned\] | Annotation guidelines, batches, and agreement between the annotators |
-| Benchmark code | \[To be assigned\] | Training and scoring code, the optimizers, and the unit and integration tests |
-| Prototyping | \[To be assigned\] | The prototype web application and its use cases |
-| Testing | \[To be assigned\] | Performance testing and functional testing |
+| Project Manager | Kyle Uri Gabriel Lu | Plans the schedule, coordinates the group, and works with the adviser and the adjudicator |
+| Data Lead | Prinz Edward Ducyogen | Collects the posts, writes the annotation guidelines, and runs GLiNER for the entity spans |
+| Annotators | Carlo Miguel Geronimo and Isaiah Raphael Almuena | Assign a humanitarian category to every post in the practice batches and the sample |
+| Machine Learning Developers | Kyle Uri Gabriel Lu and Prinz Edward Ducyogen | Build and train the models and analyze the results |
+| Prototype Developer | Prinz Edward Ducyogen | Builds the prototype web application |
+| Quality Assurance | Yngwie Sebastian Patricio | Tests the benchmarking code and the prototype |
+| Technical Writers | Kyle Uri Gabriel Lu and Prinz Edward Ducyogen | Write the manuscript and release the code, post IDs, and final model |
 
 : Researcher Roles {#tbl-roles tbl-colwidths="[25,25,50]"}

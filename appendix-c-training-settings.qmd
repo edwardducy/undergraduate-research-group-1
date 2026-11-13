@@ -42,3 +42,7 @@
 | Nash-MTL | LibMTL | All trained parameters of the encoder |
 
 : Setup of Each Multi-Task Optimizer {#tbl-optimizer-setup tbl-colwidths="[28,27,45]"}
+
+```{=typst}
+#set page(flipped: true)
+```
