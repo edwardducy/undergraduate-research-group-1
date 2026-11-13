@@ -21,6 +21,8 @@ book:
     - references.qmd
   appendices:
     - appendix-a-keywords.qmd
+    - appendix-b-annotation.qmd
+    - appendix-c-training-settings.qmd
 
 format:
   typst:

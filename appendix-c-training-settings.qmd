@@ -1,0 +1,44 @@
+# Training Settings {#sec-appendix-training}
+
+| Setting | Value |
+|:--------------|:----------------------|
+| Training library | LibMTL, with its default settings where none is listed here |
+| Update method | Adam |
+| Weight decay | 1 × 10^−5^ |
+| Learning rates tried | 1, 3, 5, and 8 × 10^−5^ |
+| Learning rate during a run | Held constant |
+| Limit on gradient size | None, except a maximum of 1.0 for Nash-MTL |
+| Epochs | 10, without early stopping |
+| Version of the model kept from a run | The epoch with the highest validation score |
+| Validation score | Mean of the two F1-scores, or the F1-score of a single-task model |
+| Batch size | 8 |
+| Number format | 32-bit numbers |
+| Maximum length of a post | 128 tokens, with longer posts cut off |
+| Trained layers | All except the embedding layer of the encoder |
+| Task weights tried for linear scalarization | 0.1 to 0.9 in steps of 0.1 for humanitarian classification, and one minus that value for NER |
+| Random seed of the tuning runs | 0 |
+| Random seeds of the main runs and the learning curve | 1 to 5 |
+| Classification head | Joins the output for the first token with the mean output over all tokens |
+| NER head | Assigns each word one of 21 BIO labels through its first token |
+| Loss of each task | Cross-entropy |
+| GradNorm α and CAGrad c | 1.5 and 0.4 |
+
+: Training Settings of All Models {#tbl-training-settings tbl-colwidths="[35,65]"}
+
+| Optimizer | Implementation | Where the Task Gradients Are Taken |
+|:------------------|:--------------|:------------------------------|
+| Equal weighting | LibMTL | Not used |
+| Linear scalarization | Written for this study | Not used. The task weights are tuned |
+| Random loss weighting | LibMTL | Not used |
+| Uncertainty weighting | LibMTL | Not used |
+| DWA | LibMTL | Not used |
+| GradNorm | LibMTL, changed so that the encoder is also trained in the first epoch | Output of the encoder |
+| MGDA | LibMTL | Output of the encoder |
+| GradDrop | LibMTL | Output of the encoder |
+| IMTL | LibMTL | Output of the encoder |
+| PCGrad | LibMTL | All trained parameters of the encoder |
+| GradVac | LibMTL | All trained parameters of the encoder |
+| CAGrad | LibMTL | All trained parameters of the encoder |
+| Nash-MTL | LibMTL | All trained parameters of the encoder |
+
+: Setup of Each Multi-Task Optimizer {#tbl-optimizer-setup tbl-colwidths="[28,27,45]"}

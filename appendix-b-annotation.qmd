@@ -1,0 +1,57 @@
+# Annotators and Annotation Guidelines {#sec-appendix-annotation}
+
+| Role | Qualification | Task |
+|:---------|:------------------|:------------------|
+| Annotators (2) | Members of the research group who are fluent in Tagalog and English | Annotate the humanitarian category of every post and settle disagreements with each other by discussion |
+| Adjudicator (1) | Person from outside the research group who works or does research in disaster management or crisis informatics | Decides the disagreements that remain after discussion and signs off on each batch |
+
+: Qualifications and Tasks of the Annotators and the Adjudicator {#tbl-annotators tbl-colwidths="[18,41,41]"}
+
+| Rule | Description |
+|:-----|:----------------------------------------|
+| One category | Each post is given exactly one humanitarian category, even when it fits more than one |
+| Unrelated posts | A post that is unrelated to disasters, such as one that only mentions a disaster word, is kept and annotated as Not humanitarian |
+| Requests | Requests or urgent needs covers posts that ask for rescue, supplies, or immediate help, and the urgency of a request is not rated |
+| Batch log | A log is kept for each batch with its kappa, its date, whether a review was held, and the categories discussed, and the adjudicator signs it |
+
+: Annotation Rules {#tbl-annotation-rules tbl-colwidths="[22,78]"}
+
+| Humanitarian Category | Definition | Constructed Example |
+|:--------------|:----------------------|:----------------------|
+| Caution and advice | Warnings issued or lifted, and guidance and tips related to the disaster | Signal No. 3 na sa Quezon dahil kay Bagyong Henry. Stay indoors and charge your phones habang may kuryente pa. |
+| Displaced people and evacuations | People who have relocated because of the disaster, even for a short time, including evacuations | Nag-evacuate na kami kagabi sa covered court ng barangay, almost 200 families na ang nandito dahil sa baha. |
+| Infrastructure and utility damage | Damage to infrastructure such as buildings, houses, roads, bridges, power lines, communication poles, or vehicles | Bumagsak yung poste sa kanto namin, so wala pa ring power and signal since last night dahil sa bagyo. |
+| Injured or dead people | People injured or killed by the disaster | Sad news, dalawa ang confirmed dead sa landslide sa Benguet dahil sa bagyo, tatlo pa ang injured. |
+| Missing or found people | People missing or found because of the disaster | Still missing ang tito ko after the flood sa Marikina. Please message me kung may info kayo. |
+| Not humanitarian | No information related to humanitarian aid | Grabe ang baha ng assignments this week, parang bagyo ang deadlines namin. |
+| Other relevant information | Information useful for humanitarian aid that fits none of the other categories | As of 5 PM, passable pa ang NLEX pero mabagal ang traffic dahil sa baha sa ilang lanes. |
+| Requests or urgent needs | Urgent needs for rescue, immediate help, or supplies such as food, water, clothing, money, medical supplies, or blood | Need po namin ng rescue dito sa Brgy. Tumana, hanggang second floor na ang baha at may kasama kaming senior. |
+| Rescue, volunteering, or donation effort | Rescue, volunteering, or donation efforts, such as people being moved to safe places, people receiving medical aid or food, people in shelters, and donations of money or services | Our org is accepting donations para sa mga nasalanta ng bagyo. Drop-off ng relief goods sa gym until Sunday. |
+| Sympathy and support | Prayers, thoughts, and emotional support | Praying for everyone sa Bicol na tinamaan ng bagyo. Ingat kayong lahat, stay strong. |
+
+: Humanitarian Categories and Their Definitions {#tbl-categories tbl-colwidths="[22,39,39]"}
+
+| Entity Type | Description | Constructed Example |
+|:--------------|:--------------------------|:------------------|
+| LOCATION | Geographical references | Marikina |
+| DISASTER_TYPE | Named hazard or event type | Bagyong Henry |
+| CASUALTY | Expressions of injury or death | dalawa ang confirmed dead |
+| DISPLACED | Counts of evacuated or displaced people | almost 200 families |
+| REQUEST | Expressed need for aid | Need po namin ng rescue |
+| RESOURCE | Available aid supplies | relief goods |
+| RESCUE | Active emergency operations | rescue team |
+| ORGANIZATION | Named responding organizations | Philippine Red Cross |
+| PERSON | Named individuals | Mayor Santos |
+| NUMBER | Standalone numerical values | Signal No. 3 |
+
+: Entity Types and Their Descriptions {#tbl-entity-types tbl-colwidths="[25,45,30]"}
+
+| Setting | Value |
+|:------------------|:----------------------------------------|
+| Model | gliner_multi-v2.1 |
+| Confidence threshold | 0.5, the default |
+| Labels | The ten entity types, given as plain words such as location and disaster type |
+| Input | The posts after the placeholders are applied |
+| Spans that cover a placeholder | Discarded |
+
+: Settings of the Automatic Entity Annotation {#tbl-gliner-settings tbl-colwidths="[35,65]"}

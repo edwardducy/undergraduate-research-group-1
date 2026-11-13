@@ -80,3 +80,14 @@
 
 : Posts Matching the Keywords by Collection Window {#tbl-frame-counts tbl-colwidths="[35,40,25]"}
 
+
+| Step | Action |
+|:-----|:----------------------------------------|
+| 1 | The share of the day is taken from the daily counts of matching posts |
+| 2 | A time within the day is drawn at random, with a fixed random seed |
+| 3 | The posts just before that time are requested from the X API in the smallest batch that it allows |
+| 4 | The batch is filtered by the inclusion and exclusion criteria, and every eligible post not yet kept is kept |
+| 5 | Steps 2 to 4 are repeated until the share is filled |
+| 6 | When the day has no more eligible posts, the rest of its share is divided among the other days, and a day with more matching posts receives more of it |
+
+: Steps of Collecting the Posts of Each Day {#tbl-collection-steps tbl-colwidths="[12,88]"}
