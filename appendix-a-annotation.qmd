@@ -50,7 +50,7 @@
 |:------------------|:----------------------------------------|
 | Model | gliner_multi-v2.1 |
 | Confidence threshold | 0.5, the default |
-| Labels | The ten entity types, given as plain words such as location and disaster type |
+| Labels | The 10 entity types, given as plain words such as location and disaster type |
 | Input | The posts after the placeholders are applied, so that usernames are not marked as entities and GLiNER reads the same text as the models |
 | Spans that cover a placeholder | Discarded |
 
