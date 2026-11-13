@@ -31,6 +31,8 @@
 
 : Humanitarian Categories and Their Definitions {#tbl-categories tbl-colwidths="[22,39,39]"}
 
+Note. The eleventh label of HumAID [@alam2021humaid], which is for posts that an annotator cannot judge, is omitted, as in HUMAID-NER [@ali2026humaidner].
+
 | Entity Type | Description | Constructed Example |
 |:--------------|:--------------------------|:------------------|
 | LOCATION | Geographical references | Marikina |
@@ -51,7 +53,7 @@
 | Model | gliner_multi-v2.1 |
 | Confidence threshold | 0.5, the default |
 | Labels | The ten entity types, given as plain words such as location and disaster type |
-| Input | The posts after the placeholders are applied |
+| Input | The posts after the placeholders are applied, so that usernames are not marked as entities and GLiNER reads the same text as the models |
 | Spans that cover a placeholder | Discarded |
 
 : Settings of the Automatic Entity Annotation {#tbl-gliner-settings tbl-colwidths="[35,65]"}

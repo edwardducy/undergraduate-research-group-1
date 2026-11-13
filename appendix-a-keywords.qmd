@@ -48,6 +48,15 @@
 
 : Posts Containing the Local Name of Each Tropical Cyclone {#tbl-storm-names tbl-colwidths="[30,45,25]"}
 
+| Step | Action |
+|:-----|:----------------------------------------|
+| 1 | Links, usernames, and non-ASCII characters are removed from each post, so that posts differing only in these elements are treated as identical |
+| 2 | Each post is represented by the counts of its words and word pairs |
+| 3 | The cosine similarity between the counts of two posts is computed, which measures how much wording the two posts share |
+| 4 | When the similarity exceeds 0.75, only one of the two posts is kept |
+
+: Steps of Identifying Duplicate Posts {#tbl-duplicate-steps tbl-colwidths="[12,88]"}
+
 +--------------------------+-------------------------+---------+
 | Collection Window (2026) | Tropical Cyclones       | Posts   |
 +:=========================+:========================+========:+
@@ -79,6 +88,8 @@
 +----------------------------------------------------+---------+
 
 : Posts Matching the Keywords by Collection Window {#tbl-frame-counts tbl-colwidths="[35,40,25]"}
+
+Note. Overlapping collection windows are merged, so that each post is counted only once.
 
 
 | Step | Action |
