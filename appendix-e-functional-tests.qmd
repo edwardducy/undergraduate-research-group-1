@@ -14,7 +14,7 @@
 | Test ID | Use Case | Step | Expected Result | Actual Result | Status |
 |:------|:--------------|:----------------------|:----------------------|:--------|:-----|
 | FT-01 | Post stream | Start the stream with P1 to P6 and an empty database | Six posts stored, each with one category and its entities. P1, P2, and P5 have coordinates |  |  |
-| FT-02 | Post stream | Start the stream with 20 posts of the test set and an empty database | Each post has the same category and entities as in the evaluation of the final model |  |  |
+| FT-02 | Post stream | Start the stream with 20 posts of the test set and an empty database | Each post has the same category and entities as in the evaluation of the final multi-task model |  |  |
 | FT-03 | View posts on a map | Open the prototype | Points for P1 at Barangay Tumana, P2 at Quezon, and P5 at Marikina. No point for P3 and P4 |  |  |
 | FT-04 | View posts on a map | Look for P6, whose location matches two places | No point on the map. Its row in the table is marked as having an unmatched location |  |  |
 | FT-05 | View posts in a table | Open the table | Six rows, each with the text, category, and entities in @tbl-functional-test-posts |  |  |
