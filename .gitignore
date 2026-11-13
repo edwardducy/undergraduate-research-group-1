@@ -15,3 +15,7 @@ service_account.json
 figures/*.pdf
 
 /data/
+drafts/section-3.9-test-plan-draft.md
+drafts/appendix-d3-optimizer-unit-tests.md
+.gitignore
+_quarto.yml

@@ -24,7 +24,8 @@ book:
     - appendix-b-keywords.qmd
     - appendix-c-training-settings.qmd
     - appendix-d-unit-tests.qmd
-    - appendix-e-functional-tests.qmd
+    - appendix-e-integration-tests.qmd
+    - appendix-f-functional-tests.qmd
 
 format:
   typst:
