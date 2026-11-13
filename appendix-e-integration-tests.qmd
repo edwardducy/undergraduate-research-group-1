@@ -1,0 +1,25 @@
+# Integration Tests {#sec-appendix-integration-tests}
+
+| Test ID | What Is Checked | Input | Expected Result | Actual Result | Status |
+|:------|:--------------|:----------------------|:----------------------|:--------|:-----|
+| IT-01 | Post collection to post cleaning | X API responses saved during the collection of the practice batches, used instead of new requests, which cost US\$0.005 for each post | Every kept post has an ID, a text, and a date. The number of posts received minus the number excluded equals the number kept. Every excluded post has a recorded reason |  |  |
+| IT-02 | Post cleaning to post annotation, GLiNER | Cleaned posts of the practice batches | GLiNER reads the text with placeholders. The start and end of every span lie inside the text of its post, and the text between them equals the span. No span covers a placeholder |  |  |
+| IT-03 | Post annotation to the dataset | doccano export and GLiNER spans of the practice batches | Every post has exactly one category and its list of spans. No post ID is left without a match. The text of every post in the export equals its cleaned text |  |  |
+| IT-04 | Dataset to model training and evaluation, the split into three sets | Dataset of the practice batches | No post appears in two sets. The three sets together equal the dataset. A category with too few posts for all three sets is kept only in the training set. A second run gives the same split |  |  |
+| IT-05 | Dataset to model training and evaluation, the tokens and their labels | Training set from IT-04 | For every span within the first 128 tokens of a post, the tokens labeled B- and I- decode back to the text of the span |  |  |
+| IT-06 | Model training and evaluation to the trained models | All 15 models trained for one epoch with seed 0, including one batch padded to 128 tokens | Every model is stored with its result file. Every F1-score lies between 0 and 1. Every training time is above 0. Every peak memory is above 0 and below 8,192 MiB |  |  |
+| IT-07 | Trained models to the final multi-task model | Result files of all 15 models trained for a few steps with seeds 1 to 5 | Exactly one of the 13 optimizers is selected, and it has the highest mean relative change in the result files. The run of the final multi-task model with the highest validation score is the one passed to the server |  |  |
+
+: Integration Tests of the Benchmarking System {#tbl-integration-tests-benchmarking tbl-colwidths="[8,24,28,23,9,8]"}
+
+| Test ID | What Is Checked | Input | Expected Result | Actual Result | Status |
+|:------|:--------------|:----------------------|:----------------------|:--------|:-----|
+| IT-08 | Dataset to the post stream | Test set from IT-04 | The stream replays every post of the test set exactly once. No post of the training set or the validation set is replayed |  |  |
+| IT-09 | Post stream to the server | P1 sent by the stream to the server | The server returns one category and the entities of P1. P1 is stored once |  |  |
+| IT-10 | Final multi-task model to the server | P1 to P6 labeled through the server and by the final multi-task model directly | The same category and the same entities for every post |  |  |
+| IT-11 | Place list to the server | Fixed labels of P1, P3, and P6 in @tbl-functional-test-posts | P1 receives the coordinates of Barangay Tumana. P3, which has no LOCATION entity, receives no coordinates. P6, whose location matches two places, receives no coordinates and is marked as having an unmatched location |  |  |
+| IT-12 | Server to the database | Fixed labels of P1 to P6, with an empty test database | Six rows, each with its text, category, and entities. P1, P2, and P5 have coordinates. P3, P4, and P6 have none. P6 is marked as having an unmatched location |  |  |
+| IT-13 | Server to the web interface | The posts stored in IT-12. A request for all posts, then a request for Requests or urgent needs | The first request returns six posts, each with its time, text, category, entities, and coordinates or none. The second returns P1 and P6 |  |  |
+| IT-14 | Whole prototype without an internet connection | P1 to P6 streamed with the laptop disconnected from the internet | The map and the table show the posts. No request is sent to any host outside the laptop |  |  |
+
+: Integration Tests of the Prototype {#tbl-integration-tests-prototype tbl-colwidths="[8,24,28,23,9,8]"}
