@@ -15,8 +15,6 @@
 
 : Humanitarian Categories and Their Definitions {#tbl-categories tbl-colwidths="[22,39,39]"}
 
-Note. The eleventh label of HumAID [@alam2021humaid], which is for posts that an annotator cannot judge, is omitted, as in HUMAID-NER [@ali2026humaidner].
-
 | Entity Type | Description | Constructed Example |
 |:--------------|:--------------------------|:------------------|
 | LOCATION | Geographical references | Marikina |

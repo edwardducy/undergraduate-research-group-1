@@ -152,8 +152,6 @@ In the prototype, the model only suggests the category and the entities of each 
 
 : Software of the Study {#tbl-software tbl-colwidths="[50,50]"}
 
-Note. Each version is the lowest version with which the code of the study is run. The exact versions are fixed in a file kept in the GitHub repository of the study, as described below.
-
 | Hardware | Specification |
 |:----------------------------|:-------------|
 | Laptop | Acer Predator Helios Neo 16 (PHN16-71) |
