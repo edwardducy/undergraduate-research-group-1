@@ -144,7 +144,7 @@ Future researchers can extend this work through the public release of the final 
 
 **Named entity recognition (NER):** The task of finding the words or phrases in a text that name specific details and assigning each an entity type. In this study, the posts are annotated with the 10 entity types of HUMAID-NER, such as locations and requests [@ali2026humaidner].
 
-**Negative transfer:** A drop in performance on a task when it is trained together with another task, compared with training it alone [@royer2023scalarization]. In this study, it is a lower F1-score of a candidate multi-task model on a task than that of the single-task model for that task, and a higher F1-score is positive transfer.
+**Negative transfer:** A drop in performance on a task when it is trained together with another task, compared with training it alone [@royer2023scalarization]. In this study, it is a lower F1-score of a candidate multi-task model on a task than that of the single-task model for that task, and a higher F1-score is positive transfer. Both are measured as the relative change in F1-score.
 
 **Peak memory:** The largest amount of GPU memory allocated during one training run.
 
