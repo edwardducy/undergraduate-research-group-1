@@ -20,8 +20,8 @@ book:
     - 03-methodology.qmd
     - references.qmd
   appendices:
-    - appendix-a-keywords.qmd
-    - appendix-b-annotation.qmd
+    - appendix-a-annotation.qmd
+    - appendix-b-keywords.qmd
     - appendix-c-training-settings.qmd
     - appendix-d-unit-tests.qmd
     - appendix-e-functional-tests.qmd
