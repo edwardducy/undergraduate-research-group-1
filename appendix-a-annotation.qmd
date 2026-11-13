@@ -1,21 +1,5 @@
 # Annotators and Annotation Guidelines {#sec-appendix-annotation}
 
-| Role | Qualification | Task |
-|:---------|:------------------|:------------------|
-| Annotators (2) | Members of the research group who are fluent in Tagalog and English | Annotate the humanitarian category of every post and settle disagreements with each other by discussion |
-| Adjudicator (1) | Person from outside the research group who works or does research in disaster management or crisis informatics | Decides the disagreements that remain after discussion and signs off on each batch |
-
-: Qualifications and Tasks of the Annotators and the Adjudicator {#tbl-annotators tbl-colwidths="[18,41,41]"}
-
-| Rule | Description |
-|:-----|:----------------------------------------|
-| One category | Each post is given exactly one humanitarian category, even when it fits more than one |
-| Unrelated posts | A post that is unrelated to disasters, such as one that only mentions a disaster word, is kept and annotated as Not humanitarian |
-| Requests | Requests or urgent needs covers posts that ask for rescue, supplies, or immediate help, and the urgency of a request is not rated |
-| Batch log | A log is kept for each batch with its kappa, its date, whether a review was held, and the categories discussed, and the adjudicator signs it |
-
-: Annotation Rules {#tbl-annotation-rules tbl-colwidths="[22,78]"}
-
 | Humanitarian Category | Definition | Constructed Example |
 |:--------------|:----------------------|:----------------------|
 | Caution and advice | Warnings issued or lifted, and guidance and tips related to the disaster | Signal No. 3 na sa Quezon dahil kay Bagyong Henry. Stay indoors and charge your phones habang may kuryente pa. |
@@ -47,6 +31,22 @@ Note. The eleventh label of HumAID [@alam2021humaid], which is for posts that an
 | NUMBER | Standalone numerical values | Signal No. 3 |
 
 : Entity Types and Their Descriptions {#tbl-entity-types tbl-colwidths="[25,45,30]"}
+
+| Role | Qualification | Task |
+|:---------|:------------------|:------------------|
+| Annotators (2) | Members of the research group who are fluent in Tagalog and English | Annotate the humanitarian category of every post and settle disagreements with each other by discussion |
+| Adjudicator (1) | Person from outside the research group who works or does research in disaster management or crisis informatics | Decides the disagreements that remain after discussion and signs off on each batch |
+
+: Qualifications and Tasks of the Annotators and the Adjudicator {#tbl-annotators tbl-colwidths="[18,41,41]"}
+
+| Rule | Description |
+|:-----|:----------------------------------------|
+| One category | Each post is given exactly one humanitarian category, even when it fits more than one |
+| Unrelated posts | A post that is unrelated to disasters, such as one that only mentions a disaster word, is kept and annotated as Not humanitarian |
+| Requests | Requests or urgent needs covers posts that ask for rescue, supplies, or immediate help, and the urgency of a request is not rated |
+| Batch log | A log is kept for each batch with its kappa, its date, whether a review was held, and the categories discussed, and the adjudicator signs it |
+
+: Annotation Rules {#tbl-annotation-rules tbl-colwidths="[22,78]"}
 
 | Setting | Value |
 |:------------------|:----------------------------------------|
