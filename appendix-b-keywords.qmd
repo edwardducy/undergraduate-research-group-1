@@ -89,8 +89,6 @@
 
 : Posts Matching the Keywords by Collection Window {#tbl-frame-counts tbl-colwidths="[35,40,25]"}
 
-Note. Overlapping collection windows are merged, so that each post is counted only once.
-
 
 | Step | Action |
 |:-----|:----------------------------------------|
