@@ -3,4 +3,7 @@
 #show: ceu-format.with(
   title: [$title$],
   authors: ($for(by-author)$"$it.name.literal$", $endfor$),
+$if(abstract)$
+  abstract: [$abstract$],
+$endif$
 )

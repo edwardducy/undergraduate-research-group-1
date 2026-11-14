@@ -5,6 +5,27 @@ project:
 bibliography: bibliography.bib
 csl: apa.csl
 
+abstract: >-
+  During tropical cyclones, Filipinos post calls for help and damage reports on
+  social media, often in Taglish, a mix of Tagalog and English, in such numbers
+  that responders cannot easily find the useful ones. Humanitarian classification
+  identifies the type of report in each post, and named entity recognition (NER)
+  finds details such as locations and requests for aid. One model for both tasks
+  needs less memory and predicts faster than two models, but it may perform worse
+  on a task than a model trained on that task alone, a problem called negative
+  transfer. Studies disagree on whether training methods called multi-task
+  optimizers reduce it better than equal task weights, and none reviewed here
+  tested them on Taglish. Following the Design Science Research Methodology, this
+  study builds a dataset of about 2,500 Taglish posts on X about the tropical
+  cyclones of January to November 2026, annotated for both tasks, and trains all
+  models on the pretrained encoder SEA-LION-ModernBERT-300M using one laptop.
+  Thirteen multi-task models, each with a different optimizer, are compared in
+  negative transfer and training cost, and the selected model is then compared
+  with two single-task models in F1-score, training time, and peak memory. The
+  study contributes an annotated Taglish dataset, the final multi-task model, and
+  evidence on whether multi-task optimizers help when one task labels whole posts
+  and the other labels single words.
+
 book:
   title: "Benchmarking Multi-Task Optimizers for Humanitarian Classification and Named Entity Recognition of Taglish Typhoon Tweets"
   author:
