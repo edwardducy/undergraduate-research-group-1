@@ -6,9 +6,20 @@
 #let double = 2 * single
 #let line-gap = double - 1em
 
-#let front-matter() = {
-  set par(first-line-indent: 0in, justify: false)
+#let front-matter(abstract: none) = {
   let title(t) = block(width: 100%, below: line-gap, align(center, strong(t)))
+
+  // The abstract is the first roman-numbered page (i), so the table of
+  // contents and the lists after it start at ii.
+  [#title[ABSTRACT]<abstract-page>]
+  // APA sets the abstract as one block paragraph without a first-line indent.
+  if abstract != none {
+    set par(first-line-indent: 0in)
+    abstract
+  }
+  pagebreak()
+
+  set par(first-line-indent: 0in, justify: false)
   let entry(indent, body, loc) = {
     let page-number = numbering(loc.page-numbering(), ..counter(page).at(loc))
     par(first-line-indent: (amount: indent, all: true), hanging-indent: indent)[
@@ -32,6 +43,7 @@
 
   title[TABLE OF CONTENTS]
   context {
+    entry(0in, [ABSTRACT], query(<abstract-page>).first().location())
     let chapters-started = false
     for h in query(heading).filter(h => h.body != [] and h.level <= 3 and not (h.level == 1 and h.numbering == none and appendix-state.at(h.location()) != none)) {
       let loc = h.location()
@@ -61,7 +73,7 @@
   float-list("quarto-float-fig", "Figure")
 }
 
-#let ceu-format(title: none, authors: (), body) = {
+#let ceu-format(title: none, authors: (), abstract: none, body) = {
   set document(title: title, author: authors)
 
   set page(
@@ -153,7 +165,7 @@
 
   {
     set page(numbering: "i")
-    front-matter()
+    front-matter(abstract: abstract)
   }
   set page(numbering: "1")
   counter(page).update(1)
